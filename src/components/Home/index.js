@@ -1,13 +1,20 @@
 import React from 'react'
-import { HomeContainer } from './styles.js'
+import { FeedContainer, HomeContainer, SidebarContainer } from './styles.js'
 import PostList from '../PostList'
 import Categories from '../Categories'
+import CreatePost from '../CreatePost/index.js'
 
 const Home = () => {
   return (
     <HomeContainer>
-      <PostList />
-      <Categories />
+      <FeedContainer>
+        <CreatePost />
+        <PostList />
+      </FeedContainer>
+
+      <SidebarContainer>
+        <Categories />
+      </SidebarContainer>
     </HomeContainer>
   )
 }

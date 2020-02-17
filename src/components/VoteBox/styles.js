@@ -1,7 +1,7 @@
 import styled from '@xstyled/styled-components'
 
 export const Container = styled.div`
-  width: 35rpx;
+  width: 45rpx;
   padding: 12rpx;
   height: 100%;
   border-right: 1px solid #ebedf0;

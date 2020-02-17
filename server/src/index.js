@@ -7,19 +7,19 @@ const typeDefs = `
   }
 
   type Post {
-    id: ID
-    title: String
-    url: String
-    comments: Int
-    category: String
-    author: String
-    votes: Int
+    id: ID!
+    title: String!
+    url: String!
+    comments: Int!
+    category: String!
+    author: String!
+    votes: Int!
   }
 `
 let posts = [
   {
     id: '1',
-    title: 'check this out',
+    title: 'First Post!',
     url: 'www.google.ca',
     comments: 3,
     category: '/a/music',
@@ -28,29 +28,29 @@ let posts = [
   },
   {
     id: '2',
-    title: 'first one',
-    url: 'www.google.ca',
+    title: 'Second Post!',
+    url: 'www.reddit.com',
     comments: 3,
     category: '/a/music',
-    author: 'cburn343',
-    votes: 34
+    author: 'tom34',
+    votes: 1
   },
   {
     id: '3',
-    title: 'first one',
-    url: 'www.google.ca',
+    title: 'The very Third Post!@#@',
+    url: 'yahoo.ca',
     comments: 3,
     category: '/a/music',
     author: 'cburn343',
-    votes: 34
+    votes: 12
   },
   {
     id: '4',
-    title: 'first one',
+    title: '4th post!DF',
     url: 'www.google.ca',
     comments: 3,
-    category: '/a/fag',
-    author: 'abb34',
+    category: '/a/fagddd',
+    author: 'abb34dfdf',
     votes: 312
   }
 ]

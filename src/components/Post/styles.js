@@ -1,10 +1,13 @@
 import styled from '@xstyled/styled-components'
 
 export const PostContainer = styled.div`
+  margin-top: 20rpx;
   border: 1px solid #ebedf0;
   border-radius: 5rpx;
-  margin: 10rpx;
+  /* margin: 10rpx; */
   display: flex;
+  background: #ffffff;
+  width: 100%;
 `
 
 export const VoteBoxContainer = styled.div``

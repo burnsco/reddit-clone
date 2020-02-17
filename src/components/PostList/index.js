@@ -6,13 +6,14 @@ import gql from 'graphql-tag'
 
 const POSTS_QUERY = gql`
   {
-    posts {
-      links {
-        id
-        createdAt
-        url
-        title
-      }
+    feed {
+      id
+      title
+      url
+      comments
+      category
+      author
+      votes
     }
   }
 `
@@ -25,7 +26,7 @@ function PostList() {
 
   return (
     <PostListContainer>
-      {data.posts.map(post => (
+      {data.feed.map(post => (
         <Post key={post.id} post={post} />
       ))}
     </PostListContainer>
