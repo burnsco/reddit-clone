@@ -1,10 +1,11 @@
 import React from 'react'
+import { CategoriesContainer } from './styles.js'
 
 const Categories = () => {
   return (
-    <div>
+    <CategoriesContainer>
       <p>categories</p>
-    </div>
+    </CategoriesContainer>
   )
 }
 

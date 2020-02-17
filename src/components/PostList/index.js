@@ -1,10 +1,11 @@
 import React from 'react'
+import { PostListContainer } from './styles'
 
 const PostList = () => {
   return (
-    <div>
+    <PostListContainer>
       <p>Post List</p>
-    </div>
+    </PostListContainer>
   )
 }
 

@@ -6,7 +6,7 @@ export const HeaderContainer = styled.header`
   top: 0;
   margin-bottom: 40rpx;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-bottom: 1rpx solid #ebedf0;
+  border-bottom: 1px solid #ebedf0;
   height: 48rpx;
   background-color: #ffffff;
 
@@ -15,8 +15,9 @@ export const HeaderContainer = styled.header`
     height: 40rpx;
   }
 `
-export const Wrapper = styled.div`
-  width: 97%;
+export const HeaderNav = styled.nav`
+  padding: 0 17rpx;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;

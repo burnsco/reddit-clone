@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from '@reach/router'
-import { HeaderContainer, Wrapper } from './styles'
+import { HeaderContainer, HeaderNav } from './styles'
 
 const Header = () => {
   return (
     <HeaderContainer>
-      <Wrapper>
+      <HeaderNav>
         <Link to="/">
           <h1>Reddit</h1>
         </Link>
@@ -15,7 +15,7 @@ const Header = () => {
         <Link to="/login">
           <h4>Login</h4>
         </Link>
-      </Wrapper>
+      </HeaderNav>
     </HeaderContainer>
   )
 }
