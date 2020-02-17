@@ -1,11 +1,21 @@
 import React from 'react'
-import { PostContainer } from './styles.js'
+import {
+  PostContainer,
+  VoteBoxContainer,
+  PostDetailsContainer
+} from './styles.js'
+import VoteBox from '../VoteBox/index.js'
 
-const Post = ({ post: { description, url } }) => {
+const Post = ({ post: { title, url } }) => {
   return (
     <PostContainer>
-      <p>Description: {description} </p>
-      <p>Url: {url}</p>
+      <VoteBoxContainer>
+        <VoteBox />
+      </VoteBoxContainer>
+      <PostDetailsContainer>
+        <p>{title} </p>
+        <p>{url}</p>
+      </PostDetailsContainer>
     </PostContainer>
   )
 }

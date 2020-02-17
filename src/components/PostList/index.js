@@ -11,7 +11,7 @@ const POSTS_QUERY = gql`
         id
         createdAt
         url
-        description
+        title
       }
     }
   }
@@ -21,18 +21,25 @@ const PostList = () => {
   const linksToRender = [
     {
       id: '1',
-      description: 'Prisma turns your database into a GraphQL API 😎',
-      url: 'https://www.prismagraphql.com'
+      title: 'Prisma turns your database into a GraphQL API 😎',
+      url: 'https://www.prismagraphql.com',
+      comments: 5,
+      category: '/a/programming',
+      author: 'cburns',
+      votes: 5
     },
     {
       id: '2',
-      description: 'The best GraphQL client',
-      url: 'https://www.apollographql.com/docs/react/'
+      title: 'The best GraphQL client',
+      url: 'https://www.apollographql.com/docs/react/',
+      comments: 0,
+      category: '/a/music',
+      author: 'frankc',
+      votes: 10
     }
   ]
   return (
     <PostListContainer>
-      <p>Post List</p>
       <Query query={POSTS_QUERY}>
         {() => linksToRender.map(post => <Post key={post.id} post={post} />)}
       </Query>
