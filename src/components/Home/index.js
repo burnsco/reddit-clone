@@ -1,11 +1,14 @@
 import React from 'react'
+import { HomeContainer } from './styles.js'
+import PostList from '../PostList'
+import Categories from '../Categories'
 
 const Home = () => {
   return (
-    <div>
-      <p>post list</p>
-      <p>categories</p>
-    </div>
+    <HomeContainer>
+      <PostList />
+      <Categories />
+    </HomeContainer>
   )
 }
 

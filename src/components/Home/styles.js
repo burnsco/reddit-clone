@@ -1,5 +1,5 @@
-import styled from 'styled-components'
+import styled from '@xstyled/styled-components'
 
-const HomeContainer = styled.section`
-  max-width: ;
+export const HomeContainer = styled.section`
+  display: flex;
 `

@@ -8,6 +8,10 @@ html {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   min-height: 100%;
   padding-bottom: 48px;
