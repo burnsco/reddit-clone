@@ -8,4 +8,6 @@ export const PostContainer = styled.div`
 `
 
 export const VoteBoxContainer = styled.div``
-export const PostDetailsContainer = styled.div``
+export const PostDetailsContainer = styled.div`
+  padding: 10rpx;
+`

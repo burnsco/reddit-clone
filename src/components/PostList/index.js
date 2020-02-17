@@ -1,7 +1,7 @@
 import React from 'react'
 import { PostListContainer } from './styles'
 import Post from '../Post'
-import { Query } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const POSTS_QUERY = gql`
@@ -17,32 +17,17 @@ const POSTS_QUERY = gql`
   }
 `
 
-const PostList = () => {
-  const linksToRender = [
-    {
-      id: '1',
-      title: 'Prisma turns your database into a GraphQL API 😎',
-      url: 'https://www.prismagraphql.com',
-      comments: 5,
-      category: '/a/programming',
-      author: 'cburns',
-      votes: 5
-    },
-    {
-      id: '2',
-      title: 'The best GraphQL client',
-      url: 'https://www.apollographql.com/docs/react/',
-      comments: 0,
-      category: '/a/music',
-      author: 'frankc',
-      votes: 10
-    }
-  ]
+function PostList() {
+  const { loading, error, data } = useQuery(POSTS_QUERY)
+
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error!</div>
+
   return (
     <PostListContainer>
-      <Query query={POSTS_QUERY}>
-        {() => linksToRender.map(post => <Post key={post.id} post={post} />)}
-      </Query>
+      {data.posts.map(post => (
+        <Post key={post.id} post={post} />
+      ))}
     </PostListContainer>
   )
 }

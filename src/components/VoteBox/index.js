@@ -1,11 +1,11 @@
 import React from 'react'
 import { Container, Upvote, Downvote, Votes } from './styles'
 
-const VoteBox = () => {
+const VoteBox = ({ votes }) => {
   return (
     <Container>
       <Upvote />
-      <Votes> 5 </Votes>
+      <Votes>{votes} </Votes>
       <Downvote />
     </Container>
   )
