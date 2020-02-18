@@ -8,6 +8,9 @@ export const PostContainer = styled.div`
   display: flex;
   background: #ffffff;
   width: 100%;
+  &:hover {
+    border: 1px solid #6b6969;
+  }
 `
 
 export const VoteBoxContainer = styled.div``

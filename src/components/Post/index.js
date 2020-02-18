@@ -13,7 +13,9 @@ const Post = ({ post: { title, url, comments, category, author, votes } }) => {
         <VoteBox votes={votes} />
       </VoteBoxContainer>
       <PostDetailsContainer>
-        <p>{title} </p>
+        <p>
+          <strong>{title} </strong>
+        </p>
         <p>{url}</p>
         <p>
           {comments} comments--{category}--{author}--3M ago

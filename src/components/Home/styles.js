@@ -10,15 +10,13 @@ export const HomeContainer = styled.div`
 export const FeedContainer = styled.section`
   margin: 1rem;
   width: 100%;
-  display: flex;
-  flex-direction: column;
 `
 
 export const SidebarContainer = styled.aside`
-  width: 30%;
+  width: 180rpx;
+  height: 500rpx;
   margin: 1rem;
   background: #ffffff;
-  display: flex;
   @media (max-width: 768px) {
     display: none;
   }

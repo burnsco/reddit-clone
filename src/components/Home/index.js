@@ -2,14 +2,16 @@ import React from 'react'
 import { FeedContainer, HomeContainer, SidebarContainer } from './styles.js'
 import PostList from '../PostList'
 import Categories from '../Categories'
-import CreatePost from '../CreatePost/index.js'
+import CreatePostInput from '../CreatePost/input/index.js'
+import CreatePostPage from '../CreatePost/page/index.js'
 
 const Home = () => {
+  let showPostList = true
   return (
     <HomeContainer>
       <FeedContainer>
-        <CreatePost />
-        <PostList />
+        <CreatePostInput />
+        {showPostList ? <PostList /> : <CreatePostPage />}
       </FeedContainer>
 
       <SidebarContainer>

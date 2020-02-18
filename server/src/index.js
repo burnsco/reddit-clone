@@ -22,7 +22,7 @@ let posts = [
     title: 'First Post!',
     url: 'www.google.ca',
     comments: 3,
-    category: '/a/music',
+    category: '/r/music',
     author: 'cburn343',
     votes: 34
   },
@@ -31,7 +31,7 @@ let posts = [
     title: 'Second Post!',
     url: 'www.reddit.com',
     comments: 3,
-    category: '/a/music',
+    category: '/r/television',
     author: 'tom34',
     votes: 1
   },
@@ -40,7 +40,7 @@ let posts = [
     title: 'The very Third Post!@#@',
     url: 'yahoo.ca',
     comments: 3,
-    category: '/a/music',
+    category: '/r/webdev',
     author: 'cburn343',
     votes: 12
   },
@@ -49,7 +49,7 @@ let posts = [
     title: '4th post!DF',
     url: 'www.google.ca',
     comments: 3,
-    category: '/a/fagddd',
+    category: '/r/react',
     author: 'abb34dfdf',
     votes: 312
   }
