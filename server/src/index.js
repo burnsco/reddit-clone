@@ -1,11 +1,13 @@
-const { GraphQLServer } = require('graphql-yoga')
+import { ApolloServer } from 'apollo-server'
+import { typeDefs } from './schema'
+
 const posts = [
   {
     id: '1',
     title: 'First Post!',
     url: 'www.google.ca',
     comments: 3,
-    category: '/r/music',
+    category: 'music',
     author: 'cburn343',
     votes: 34
   },
@@ -14,7 +16,7 @@ const posts = [
     title: 'Second Post!',
     url: 'www.reddit.com',
     comments: 3,
-    category: '/r/television',
+    category: 'music',
     author: 'tom34',
     votes: 1
   },
@@ -23,7 +25,7 @@ const posts = [
     title: 'The very Third Post!@#@',
     url: 'yahoo.ca',
     comments: 3,
-    category: '/r/webdev',
+    category: 'webdev',
     author: 'cburn343',
     votes: 12
   },
@@ -32,7 +34,7 @@ const posts = [
     title: '4th post!DF',
     url: 'www.google.ca',
     comments: 3,
-    category: '/r/react',
+    category: 'react',
     author: 'abb34dfdf',
     votes: 312
   }
@@ -42,8 +44,13 @@ let idCount = posts.length
 
 const resolvers = {
   Query: {
-    info: () => `This is the API of a Reddit Clone`,
-    feed: () => posts
+    feed: (parent, args, context, info) => {
+      if (args.category) {
+        return posts.filter(p => p.category !== args.category)
+      } else {
+        return posts
+      }
+    }
   },
   Mutation: {
     post: (parent, args) => {
@@ -54,9 +61,11 @@ const resolvers = {
   }
 }
 
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
+const server = new ApolloServer({
+  typeDefs,
   resolvers
 })
 
-server.start(() => console.log(`Server is running on http://localhost:4000`))
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+})

@@ -2,30 +2,18 @@ import React from 'react'
 import { PostListContainer } from './styles'
 import Post from '../Post'
 import { useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
+import { CreatePostInput } from '../CreatePost/input/styles'
+import { POSTS_QUERY } from './query'
 
-const POSTS_QUERY = gql`
-  {
-    feed {
-      id
-      title
-      url
-      comments
-      category
-      author
-      votes
-    }
-  }
-`
-
-function PostList() {
+function PostList({ category }) {
   const { loading, error, data } = useQuery(POSTS_QUERY)
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error!</div>
-  console.log(error)
+
   return (
     <PostListContainer>
+      <CreatePostInput />
       {data.feed.map(post => (
         <Post key={post.id} post={post} />
       ))}

@@ -8,15 +8,16 @@
     "prisma": "prisma"
   },
   "dependencies": {
+    "apollo-server": "^2.6.0-rc.0",
     "bcryptjs": "^2.4.3",
-    "graphql-yoga": "^1.18.3",
-    "jsonwebtoken": "^8.5.1",
-    "prisma-client-lib": "^1.34.10"
+    "graphql": "^14.6.0",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "nodemon": "^2.0.2",
-    "prisma": "^1.34.10"
+    "prisma": "^1.34.10",
+    "prisma-client-lib": "^1.34.10"
   }
 }

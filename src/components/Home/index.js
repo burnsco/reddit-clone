@@ -1,18 +1,17 @@
 import React from 'react'
 import { FeedContainer, HomeContainer, SidebarContainer } from './styles.js'
+import { Router } from '@reach/router'
 import PostList from '../PostList'
 import Categories from '../Categories'
 import CreatePostInput from '../CreatePost/input/index.js'
-import CreatePostPage from '../CreatePost/page/index.js'
 
-const Home = () => {
-  let showPostList = true
+// PostList (all) get all posts
+// PostList via (category) get only the categories you want
+
+const Home = ({ children }) => {
   return (
     <HomeContainer>
-      <FeedContainer>
-        <CreatePostInput />
-        {showPostList ? <PostList /> : <CreatePostPage />}
-      </FeedContainer>
+      <FeedContainer>{children}</FeedContainer>
 
       <SidebarContainer>
         <Categories />
