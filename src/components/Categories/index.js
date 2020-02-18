@@ -19,7 +19,7 @@ const Categories = () => {
     <CategoriesContainer>
       <ContainerTitle>Subreddits</ContainerTitle>
       {categories.map(category => (
-        <CategoryTitles>{category.title}</CategoryTitles>
+        <CategoryTitles key={category.id}>{category.title}</CategoryTitles>
       ))}
     </CategoriesContainer>
   )
