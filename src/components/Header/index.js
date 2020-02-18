@@ -10,7 +10,9 @@ const Header = () => {
         <Link to="/" style={{ display: 'flex' }}>
           <img src={Logo} height="100" width="130" alt="logo" />
         </Link>
-
+        <Link to="/submit">
+          <h5>Create</h5>
+        </Link>
         <Link to="/signup">
           <h5>Signup</h5>
         </Link>

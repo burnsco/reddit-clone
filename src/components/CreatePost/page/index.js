@@ -1,10 +1,11 @@
 import React from 'react'
 import { CreatePostPageContainer } from './styles'
+import { CreatePostInput } from '../input/styles'
 
 const CreatePostPage = () => {
   return (
     <CreatePostPageContainer>
-      <h3>info................</h3>
+      <CreatePostInput />
     </CreatePostPageContainer>
   )
 }
