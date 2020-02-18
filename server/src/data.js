@@ -1,4 +1,4 @@
-export default [
+const getPosts = () => [
   {
     id: '1',
     title: 'First Post!',
@@ -36,3 +36,5 @@ export default [
     votes: 312
   }
 ]
+
+exports.getPosts = getPosts
