@@ -4,16 +4,13 @@ import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignUpContainer, WelcomePage } from './styles'
 
 class SignUp extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    }
+  state = {
+    displayName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
   }
+
   handleChange = e => {
     const { name, value } = e.target
     this.setState({ [name]: value })
@@ -21,7 +18,7 @@ class SignUp extends React.Component {
   handleSubmit = async event => {
     event.preventDefault()
 
-    const { displayName, email, password, confirmPassword } = this.state
+    const { password, confirmPassword } = this.state
 
     if (password !== confirmPassword) {
       alert('passwords dont match')

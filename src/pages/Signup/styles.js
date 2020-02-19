@@ -26,6 +26,15 @@ export const SignInContainer = styled.div`
   flex-direction: column;
 `
 
+export const SignInHeading = styled.h2`
+  justify-self: center;
+`
+
+export const ErrorsContainer = styled.h5`
+  padding: 20rpx;
+  color: red;
+`
+
 export const SignInTitle = styled.h2`
   margin: 10px 0;
 `
