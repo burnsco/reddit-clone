@@ -1,7 +1,7 @@
 import React from 'react'
 import { PostListContainer } from './styles'
-import { CreatePostInput } from '../CreatePost/input/styles'
 import { useQuery } from '@apollo/react-hooks'
+import { CreatePostInput } from '../../pages/CreatePost/input/styles.js'
 import { GET_POSTS_BY_CATEGORY } from './query'
 import Spinner from '../shared/FallBackSpinner'
 import Post from '../Post'

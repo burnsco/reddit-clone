@@ -44,9 +44,9 @@ let idCount = posts.length
 
 const resolvers = {
   Query: {
-    feed: (parent, args, context, info) => {
+    feed: (parent, args) => {
       if (args.category) {
-        return posts.map(p => p.category === args.category)
+        return posts.filter(p => p.category === args.category)
       } else {
         return posts
       }
@@ -54,7 +54,13 @@ const resolvers = {
   },
   Mutation: {
     post: (parent, args) => {
-      const post = { id: `post-${idCount++}`, title: args.title, url: args.url }
+      const post = {
+        id: `post-${idCount++}`,
+        title: args.title,
+        url: args.url,
+        category: args.category,
+        author: args.author
+      }
       posts.push(post)
       return post
     }

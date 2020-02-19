@@ -6,9 +6,13 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    post(url: String!, title: String!): Post!
+    post(
+      url: String!
+      title: String!
+      category: String!
+      author: String!
+    ): Post!
   }
-
   type Post {
     id: ID
     created: String
