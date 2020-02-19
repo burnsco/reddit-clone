@@ -1,6 +1,7 @@
 {
   "name": "reddit-clone",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
