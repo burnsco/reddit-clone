@@ -6,7 +6,8 @@ import Home from '../components/Home'
 import Login from '../pages/Login'
 import Signup from '../pages/Signup'
 import CreatePost from '../components/CreatePost/page'
-import PostList from '../components/PostList'
+import CategoryPosts from '../components/PostList/CategoryPosts'
+import AllPosts from '../components/PostList/AllPosts'
 
 const App = () => {
   return (
@@ -14,8 +15,8 @@ const App = () => {
       <Header />
       <Router>
         <Home path="/">
-          <PostList path="r/:category" />
-          <PostList path="/" />
+          <CategoryPosts path="r/:category" />
+          <AllPosts path="/" />
           <CreatePost path="submit" />
           <Login path="login" />
           <Signup path="signup" />

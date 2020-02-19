@@ -1,11 +1,11 @@
 import React from 'react'
 
-import {SpinnerContainer, SpinnerOverlay} from './styles.js'
+import { SpinnerContainer, SpinnerOverlay } from './styles.js'
 
-const FallBackSpinner = () => (
+const Spinner = () => (
   <SpinnerOverlay>
     <SpinnerContainer />
   </SpinnerOverlay>
 )
 
-export default FallBackSpinner
+export default Spinner

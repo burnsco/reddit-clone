@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost'
 
-export const POSTS_QUERY = gql`
+const GET_ALL_POSTS = gql`
   {
     feed {
       id
@@ -13,3 +13,19 @@ export const POSTS_QUERY = gql`
     }
   }
 `
+
+const GET_POSTS_BY_CATEGORY = gql`
+  query getPostsByCategory($category: String!) {
+    feed(category: $category) {
+      id
+      title
+      url
+      comments
+      category
+      author
+      votes
+    }
+  }
+`
+
+export { GET_ALL_POSTS, GET_POSTS_BY_CATEGORY }

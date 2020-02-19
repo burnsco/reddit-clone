@@ -46,7 +46,7 @@ const resolvers = {
   Query: {
     feed: (parent, args, context, info) => {
       if (args.category) {
-        return posts.filter(p => p.category !== args.category)
+        return posts.map(p => p.category === args.category)
       } else {
         return posts
       }
