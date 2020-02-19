@@ -37,10 +37,10 @@ function CreatePostPage() {
     try {
       event.preventDefault()
       await post()
-      navigate('/')
     } catch (error) {
       console.log(error)
     }
+    navigate('../', { replace: true })
   }
 
   const handleChange = event => {

@@ -2,7 +2,7 @@ import { gql } from 'apollo-server'
 
 export const typeDefs = gql`
   type Query {
-    feed(category: String): [Post]
+    feed(category: String!): [Post!]!
   }
 
   type Mutation {
@@ -13,16 +13,17 @@ export const typeDefs = gql`
       author: String!
     ): Post!
   }
+
   type Post {
     id: ID
     created: String
     type: String
-    author: String
-    title: String
-    url: String
+    author: String!
+    title: String!
+    url: String!
     views: Int
     comments: Int
-    category: String
+    category: String!
     votes: Int
   }
 

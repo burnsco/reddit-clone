@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { CustomButton } from '../../components/shared/CustomButton'
-import FormInput from '../../components/shared/FormInput'
+import CustomInput from '../../components/shared/CustomInput'
 import {
   ButtonsBarContainer,
   SignUpContainer,
@@ -25,34 +25,45 @@ export default function SignUp() {
         <SignInHeading>Sign up with your email and password</SignInHeading>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormInput
+          <CustomInput
             label="Display Name"
             type="text"
-            ref={register({ required: true })}
-            name="displayName"
+            name="username"
+            ref={register({
+              validate: value => value !== 'admin' || 'Nice try!'
+            })}
           />
-          <FormInput
+          {errors.username && errors.username.message}
+          />
+          <CustomInput
             label="Email"
             type="email"
-            ref={register({ required: true })}
             name="email"
+            ref={register({
+              required: 'Required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: 'invalid email address'
+              }
+            })}
           />
-          <FormInput
+          {errors.email && errors.email.message}
+          />
+          <CustomInput
             label="Password"
             type="password"
             ref={register({ required: true })}
             name="password"
           />
-          <FormInput
+          <CustomInput
             label="Confirm Password"
             type="password"
             ref={register({ required: true })}
             name="confirmPassword"
           />
           <ErrorsContainer>
-            {errors.exmapleRequired && <span>This field is required</span>}
+            {errors && <span>This field is required</span>}
           </ErrorsContainer>
-
           <ButtonsBarContainer>
             <CustomButton type="submit"> SIGN UP </CustomButton>
           </ButtonsBarContainer>

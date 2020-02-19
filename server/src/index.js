@@ -52,6 +52,7 @@ const resolvers = {
       }
     }
   },
+
   Mutation: {
     post: (parent, args) => {
       const post = {
