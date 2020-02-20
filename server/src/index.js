@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server'
+import { PubSub } from 'apollo-server'
 import { typeDefs } from './schema'
 
 const posts = [
@@ -78,9 +79,11 @@ const resolvers = {
   }
 }
 
+const pubsub = new PubSub()
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: { pubsub }
 })
 
 server.listen().then(({ url }) => {

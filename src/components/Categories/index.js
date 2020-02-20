@@ -7,7 +7,7 @@ import {
 import Spinner from '../../components/shared/FallBackSpinner'
 import { navigate } from '@reach/router'
 import { useQuery } from 'react-apollo'
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 const GET_CATEGORIES = gql`
   {
