@@ -1,5 +1,4 @@
 import styled from '@xstyled/styled-components'
-import { Link } from '@reach/router'
 import { CustomButton } from '../shared/CustomButton'
 
 export const HeaderContainer = styled.header`

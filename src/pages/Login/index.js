@@ -26,7 +26,7 @@ const SignIn = () => {
     <WelcomePage>
       <SignInContainer>
         <h1>Welcome back</h1>
-        <span>Sign in with your email and password</span>
+        <span>Login with your email and password</span>
 
         <form onSubmit={handleSubmit}>
           <FormInput

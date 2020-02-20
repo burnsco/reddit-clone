@@ -14,11 +14,16 @@ const Header = () => (
     <HeaderNavWrapper>
       <HeaderLogo>
         <Link to="/" style={{ display: 'flex' }}>
-          <img src={Logo} height="100" width="130" alt="logo" />
+          <img src={Logo} height="35" width="100" alt="logo" />
         </Link>
       </HeaderLogo>
 
       <HeaderLinks>
+        <HeaderLink style={{ background: '#f5222d', border: 'none' }}>
+          <Link to="/submit" style={{ color: 'white' }}>
+            <h5>Create</h5>
+          </Link>
+        </HeaderLink>
         <HeaderLink>
           <Link to="/login" style={{ color: '#33a0ff' }}>
             <h5>Login</h5>
@@ -31,9 +36,15 @@ const Header = () => (
           </Link>
         </HeaderLink>
 
-        <HeaderLink>
-          <Link to="/profile">
+        <HeaderLink style={{ border: 1 + 'px solid orange' }}>
+          <Link to="/profile" style={{ color: 'black' }}>
             <h5>Profile</h5>
+          </Link>
+        </HeaderLink>
+
+        <HeaderLink style={{ background: '#333333' }}>
+          <Link to="/profile" style={{ color: 'white' }}>
+            <h5>Dark Mode</h5>
           </Link>
         </HeaderLink>
       </HeaderLinks>
