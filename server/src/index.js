@@ -39,6 +39,12 @@ const posts = [
     votes: 312
   }
 ]
+const categories = [
+  { id: 1, title: 'music', subreddit: '/r/music' },
+  { id: 2, title: 'webdev', subreddit: '/r/webdev' },
+  { id: 3, title: 'react', subreddit: '/r/react' },
+  { id: 4, title: 'all', subreddit: '/' }
+]
 
 let idCount = posts.length
 
@@ -47,10 +53,14 @@ const resolvers = {
     feed: (parent, args) => {
       if (args.category) {
         return posts.filter(p => p.category === args.category)
+      }
+      if (args.category === 'all') {
+        return posts
       } else {
         return posts
       }
-    }
+    },
+    categories: () => categories
   },
 
   Mutation: {

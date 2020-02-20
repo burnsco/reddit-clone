@@ -1,5 +1,4 @@
 import styled from '@xstyled/styled-components'
-import { Link } from '@reach/router'
 
 export const CategoriesContainer = styled.aside`
   width: 100%;

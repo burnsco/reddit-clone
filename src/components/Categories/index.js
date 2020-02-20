@@ -4,27 +4,40 @@ import {
   CategoryTitles,
   ContainerTitle
 } from './styles.js'
+import Spinner from '../../components/shared/FallBackSpinner'
 import { navigate } from '@reach/router'
+import { useQuery } from 'react-apollo'
+import { gql } from 'apollo-boost'
 
-let categories = [
-  { id: 1, title: 'music', subreddit: '/r/music' },
-  { id: 2, title: 'webdev', subreddit: '/r/webdev' },
-  { id: 3, title: 'react', subreddit: '/r/react' },
-  { id: 4, title: 'all', subreddit: '/' }
-]
+const GET_CATEGORIES = gql`
+  {
+    categories {
+      id
+      title
+      subreddit
+    }
+  }
+`
 
-const Categories = () => (
-  <CategoriesContainer>
-    <ContainerTitle>Subreddits</ContainerTitle>
-    {categories.map(category => (
-      <CategoryTitles
-        onClick={() => navigate(`${category.subreddit}`)}
-        key={category.id}
-      >
-        r/{category.title}
-      </CategoryTitles>
-    ))}
-  </CategoriesContainer>
-)
+function Categories() {
+  const { loading, error, data } = useQuery(GET_CATEGORIES)
+
+  if (loading) return <Spinner />
+  if (error) return <h1>Error!</h1>
+
+  return (
+    <CategoriesContainer>
+      <ContainerTitle>Subreddits</ContainerTitle>
+      {data.categories.map(category => (
+        <CategoryTitles
+          onClick={() => navigate(`${category.subreddit}`)}
+          key={category.id}
+        >
+          r/{category.title}
+        </CategoryTitles>
+      ))}
+    </CategoriesContainer>
+  )
+}
 
 export default Categories
