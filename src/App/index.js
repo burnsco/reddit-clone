@@ -13,12 +13,12 @@ const App = () => (
   <AppContainer>
     <Header />
     <Router>
+      <CreatePostPage path="submit" />
+      <Login path="login" />
+      <Signup path="signup" />
       <Home path="/">
         <CategoryPosts path="r/:category" />
         <AllPosts path="/" />
-        <CreatePostPage path="submit" />
-        <Login path="login" />
-        <Signup path="signup" />
       </Home>
     </Router>
   </AppContainer>

@@ -7,8 +7,7 @@ export const CreatePostContainer = styled.div`
 `
 
 export const CreatePostInput = styled.input`
-  padding: 20rpx;
-  height: 50rpx;
+  height: 45rpx;
   border-radius: 10rpx;
   border: 1px solid #ebedf0;
   width: 100%;
