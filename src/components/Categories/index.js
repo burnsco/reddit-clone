@@ -6,7 +6,7 @@ import {
 } from './styles.js'
 import Spinner from '../../components/shared/FallBackSpinner'
 import { navigate } from '@reach/router'
-import { useQuery } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const GET_CATEGORIES = gql`

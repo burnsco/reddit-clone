@@ -1,17 +1,9 @@
 import { gql } from 'apollo-server'
 
 export const typeDefs = gql`
-  type Chat {
-    id: ID!
-    content: String!
-    from: String!
-    createdAt: String!
-  }
   type Query {
-    posts: [Post]
     feed(category: String): [Post!]!
     categories: [Category!]!
-    chats: [Chat]
   }
 
   type Category {
@@ -20,28 +12,12 @@ export const typeDefs = gql`
     subreddit: String!
   }
 
-  type Mutation {
-    addPost(url: String, title: String, category: String, author: String): Post
-    post(
-      url: String!
-      title: String!
-      category: String!
-      author: String!
-    ): Post!
-  }
-
-  type Subscription {
-    postAdded: Post
-  }
-
   type Post {
     id: ID
-    created: String
-    type: String
-    author: String!
+    published: Boolean
+    author: User!
     title: String!
     url: String!
-    views: Int
     comments: Int
     category: String!
     votes: Int
@@ -52,7 +28,6 @@ export const typeDefs = gql`
     body: String
     author: String
     created: String
-    comments: Comment
     votes: Int
   }
 
@@ -60,5 +35,14 @@ export const typeDefs = gql`
     id: ID
     email: String
     username: String
+  }
+
+  type Mutation {
+    post(
+      url: String!
+      title: String!
+      category: String!
+      author: String!
+    ): Post!
   }
 `

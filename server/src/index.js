@@ -1,53 +1,7 @@
 import { ApolloServer } from 'apollo-server'
-import { PubSub } from 'apollo-server'
 import { typeDefs } from './schema'
-
-const posts = [
-  {
-    id: '1',
-    title: 'First Post!',
-    url: 'www.google.ca',
-    comments: 3,
-    category: 'music',
-    author: 'cburn343',
-    votes: 34
-  },
-  {
-    id: '2',
-    title: 'Second Post!',
-    url: 'www.reddit.com',
-    comments: 3,
-    category: 'music',
-    author: 'tom34',
-    votes: 1
-  },
-  {
-    id: '3',
-    title: 'The very Third Post!@#@',
-    url: 'yahoo.ca',
-    comments: 3,
-    category: 'webdev',
-    author: 'cburn343',
-    votes: 12
-  },
-  {
-    id: '4',
-    title: '4th post!DF',
-    url: 'www.google.ca',
-    comments: 3,
-    category: 'react',
-    author: 'abb34dfdf',
-    votes: 312
-  }
-]
-const categories = [
-  { id: 1, title: 'music', subreddit: '/r/music' },
-  { id: 2, title: 'webdev', subreddit: '/r/webdev' },
-  { id: 3, title: 'react', subreddit: '/r/react' },
-  { id: 4, title: 'all', subreddit: '/' }
-]
-
-let idCount = posts.length
+import { posts, categories } from './data'
+import uuidv1 from 'uuid/v1'
 
 const resolvers = {
   Query: {
@@ -67,7 +21,7 @@ const resolvers = {
   Mutation: {
     post: (parent, args) => {
       const post = {
-        id: `post-${idCount++}`,
+        id: `post-${uuidv1()}`,
         title: args.title,
         url: args.url,
         category: args.category,
@@ -79,11 +33,9 @@ const resolvers = {
   }
 }
 
-const pubsub = new PubSub()
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
-  context: { pubsub }
+  resolvers
 })
 
 server.listen().then(({ url }) => {
