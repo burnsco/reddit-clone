@@ -30,6 +30,7 @@ export const typeDefs = gql`
     url: String!
     comments: [Comment!]!
     category: String!
+    votes: Int!
   }
 
   type Comment {

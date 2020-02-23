@@ -30,7 +30,8 @@ export const posts = [
     url: 'www.google.ca',
     category: 'webdev',
     author: 'cburns86',
-    published: true
+    published: true,
+    votes: 5
   },
   {
     id: '11',
@@ -38,7 +39,8 @@ export const posts = [
     url: 'www.reactjs.com',
     category: 'react',
     author: 'tomJohn39',
-    published: true
+    published: true,
+    votes: 23
   },
   {
     id: '12',
@@ -46,7 +48,8 @@ export const posts = [
     url: 'www.youtube.com',
     category: 'music',
     author: 'sussieeeZ',
-    published: true
+    published: true,
+    votes: 12
   }
 ]
 
