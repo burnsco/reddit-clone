@@ -16,36 +16,81 @@ export const users = [
   }
 ]
 
+export const categories = [
+  { id: 1, title: 'music', subreddit: '/r/music' },
+  { id: 2, title: 'webdev', subreddit: '/r/webdev' },
+  { id: 3, title: 'react', subreddit: '/r/react' },
+  { id: 4, title: 'all', subreddit: '/' }
+]
+
 export const posts = [
   {
     id: '10',
     title: 'First Post!',
     url: 'www.google.ca',
     category: 'webdev',
-    author: '3',
+    author: 'cburns86',
     published: true
   },
   {
-    id: '10',
+    id: '11',
     title: 'Second Post!!',
     url: 'www.reactjs.com',
     category: 'react',
-    author: '2',
+    author: 'tomJohn39',
     published: true
   },
   {
-    id: '10',
-    title: 'First Post!',
+    id: '12',
+    title: 'Third Post!!',
     url: 'www.youtube.com',
     category: 'music',
-    author: '1',
+    author: 'sussieeeZ',
     published: true
   }
 ]
 
-export const categories = [
-  { id: 1, title: 'music', subreddit: '/r/music' },
-  { id: 2, title: 'webdev', subreddit: '/r/webdev' },
-  { id: 3, title: 'react', subreddit: '/r/react' },
-  { id: 4, title: 'all', subreddit: '/' }
+export const comments = [
+  {
+    id: '20',
+    body: 'hey i went to the store and bought chips',
+    author: 'cburns86',
+    postID: '11'
+  },
+  {
+    id: '21',
+    body: 'nobody knows and nobody goes!',
+    author: 'cburns86',
+    postID: '11'
+  },
+  {
+    id: '22',
+    body: 'and i have to fart but nobody can know!',
+    author: 'cburns86',
+    postID: '11'
+  },
+  {
+    id: '23',
+    body: 'things and stuff and other beings are there',
+    author: 'tomJohn39',
+    postID: '10'
+  },
+  {
+    id: '24',
+    body: 'art fart do part a lart cart',
+    author: 'tomJohn39',
+    postID: '10'
+  },
+  {
+    id: '25',
+    body: 'comment and more comment and more stuff',
+    author: 'sussieeeZ',
+    postID: '10'
+  },
+  {
+    id: '26',
+    body: 'blah blah this is a comment',
+    author: 'sussieeeZ',
+    postID: '12'
+  }
 ]
