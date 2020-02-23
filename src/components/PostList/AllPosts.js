@@ -15,7 +15,7 @@ function AllPosts({ category }) {
   return (
     <PostListContainer>
       <CreatePostInput />
-      {data.feed.map(post => (
+      {data.posts.map(post => (
         <Post key={post.id} post={post} />
       ))}
     </PostListContainer>

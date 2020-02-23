@@ -6,7 +6,15 @@ import {
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
 
-const Post = ({ post: { title, url, comments, category, author, votes } }) => (
+const Post = ({
+  post: {
+    title,
+    url,
+    category,
+    author: { username },
+    votes
+  }
+}) => (
   <PostContainer>
     <VoteBoxContainer>
       <VoteBox votes={votes} />
@@ -17,7 +25,7 @@ const Post = ({ post: { title, url, comments, category, author, votes } }) => (
       </p>
       <p>{url}</p>
       <p>
-        {comments} comments--{category}--{author}--3M ago
+        {5} comments--{category}--{username}--3M ago
       </p>
     </PostDetailsContainer>
   </PostContainer>

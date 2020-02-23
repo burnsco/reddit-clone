@@ -2,13 +2,14 @@ import gql from 'graphql-tag'
 
 const GET_ALL_POSTS = gql`
   {
-    feed {
+    posts {
       id
       title
       url
-      comments
       category
-      author
+      author {
+        username
+      }
       votes
     }
   }

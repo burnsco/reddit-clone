@@ -11,20 +11,26 @@ const resolvers = {
   },
 
   Post: {
-    author(parent, args) {
-      users.find(user => user.username === parent.author)
+    author: (parent, args) => {
+      return users.find(user => user.username === parent.author)
     },
-    comments(parent, args) {
-      comments.filter(c => c.postID === parent.id)
+    comments: (parent, args) => {
+      return comments.filter(c => {
+        return c.postID === parent.id
+      })
     }
   },
 
   User: {
-    posts(parent, args) {
-      posts.filter(p => p.author === parent.username)
+    posts: (parent, args) => {
+      return posts.filter(p => {
+        return p.author === parent.username
+      })
     },
-    comments(parent, args) {
-      comments.filter(c => c.author === parent.username)
+    comments: (parent, args) => {
+      return comments.filter(c => {
+        return c.author === parent.username
+      })
     }
   }
 }
