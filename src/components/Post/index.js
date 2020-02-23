@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from '@reach/router'
 import {
   PostContainer,
   VoteBoxContainer,
@@ -8,6 +9,7 @@ import VoteBox from '../VoteBox/index.js'
 
 const Post = ({
   post: {
+    id,
     title,
     url,
     category,
@@ -25,7 +27,8 @@ const Post = ({
       </p>
       <p>{url}</p>
       <p>
-        {5} comments--{category}--{username}--3M ago
+        <Link to={`/r/${category}/${id}/comments`}>{5} comments</Link>
+        --{category}--{username}--3M ago
       </p>
     </PostDetailsContainer>
   </PostContainer>
