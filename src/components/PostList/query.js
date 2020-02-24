@@ -17,14 +17,21 @@ const GET_ALL_POSTS = gql`
 
 const GET_POSTS_BY_CATEGORY = gql`
   query getPostsByCategory($category: String!) {
-    feed(category: $category) {
+    posts(category: $category) {
       id
+      type
       title
-      url
-      comments
       category
-      author
-      votes
+      author {
+        username
+      }
+      comments {
+        id
+        body
+        postID
+        author
+      }
+      url
     }
   }
 `

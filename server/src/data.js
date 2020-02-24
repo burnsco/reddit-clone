@@ -53,6 +53,26 @@ export const posts = [
     author: 'sussieeeZ',
     published: true,
     votes: 12
+  },
+  {
+    id: '13',
+    type: 'link',
+    title: '4th Post',
+    url: 'www.youtube.com',
+    category: 'music',
+    author: 'sussieeeZ',
+    published: true,
+    votes: 12
+  },
+  {
+    id: '14',
+    type: 'link',
+    title: 'Third Post!!',
+    url: 'www.youtube.com',
+    category: 'react',
+    author: 'cburns86',
+    published: true,
+    votes: 12
   }
 ]
 
@@ -73,7 +93,7 @@ export const comments = [
     id: '22',
     body: 'and i have to fart but nobody can know!',
     author: 'cburns86',
-    postID: '11'
+    postID: '12'
   },
   {
     id: '23',
@@ -91,12 +111,12 @@ export const comments = [
     id: '25',
     body: 'comment and more comment and more stuff',
     author: 'sussieeeZ',
-    postID: '10'
+    postID: '13'
   },
   {
     id: '26',
     body: 'blah blah this is a comment',
     author: 'sussieeeZ',
-    postID: '12'
+    postID: '14'
   }
 ]

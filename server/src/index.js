@@ -2,13 +2,23 @@ import { ApolloServer } from 'apollo-server'
 import { typeDefs } from './schema'
 import { posts, categories, users, comments } from './data'
 
+// FIXME refactor the resolvers so I don't have to make so many
+
 const resolvers = {
   Query: {
     user: (parent, args) => users.find(user => user.id === args.userID),
     users: () => users,
     categories: () => categories,
-    posts: () => posts,
     post: (parent, args) => posts.find(post => post.id === args.postID),
+    posts: (parent, args) => {
+      if (!args.category) {
+        return posts
+      } else {
+        return posts.filter(p => {
+          return p.category === args.category
+        })
+      }
+    },
     comments: () => comments
   },
 

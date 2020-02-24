@@ -1,7 +1,6 @@
 import React from 'react'
 import { PostListContainer } from './styles'
 import { useQuery } from '@apollo/react-hooks'
-import { CreatePostInput } from '../../pages/CreatePost/input/styles.js'
 import { GET_POSTS_BY_CATEGORY } from './query'
 import Spinner from '../shared/FallBackSpinner'
 import Post from '../Post'
@@ -17,8 +16,7 @@ function CategoryPosts({ category }) {
 
   return (
     <PostListContainer>
-      <CreatePostInput />
-      {data.feed.map(post => (
+      {data.posts.map(post => (
         <Post key={post.id} post={post} />
       ))}
     </PostListContainer>
