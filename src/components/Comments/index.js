@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import Spinner from '../shared/FallBackSpinner'
 import { PostListContainer } from '../PostList/styles'
-import { CommentsContainer } from './styles'
+import { CommentsContainer, InputCommentBox } from './styles'
 import { GET_POST_AND_COMMENTS } from './query'
 import Post from '../Post'
 
@@ -25,11 +25,15 @@ function Comments({ postID }) {
     <PostListContainer>
       <Post post={post} />
       <br />
-      <textarea
+      <InputCommentBox
+        style={{ background: 'white' }}
+        contentEditable='true'
+        role='textbox'
+        spellCheck='true'
         placeholder='Comment box with submission'
-        cols='30'
-        rows='5'
-      ></textarea>
+        height='300'
+        width='300'
+      ></InputCommentBox>
 
       {/* TODO refactor this obviously */}
 
