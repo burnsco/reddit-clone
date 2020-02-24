@@ -3,7 +3,7 @@ import { typeDefs } from './schema'
 import { posts, categories, users, comments } from './data'
 
 // FIXME refactor the resolvers so I don't have to make so many
-
+// TODO  make a function that sums the comments for given postID
 const resolvers = {
   Query: {
     user: (parent, args) => users.find(user => user.id === args.userID),

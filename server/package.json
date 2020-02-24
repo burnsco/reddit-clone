@@ -2,9 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon src/index.js --exec babel-node",
+    "start": "nodemon src/server.js --exec babel-node",
     "prisma": "prisma"
   },
   "dependencies": {

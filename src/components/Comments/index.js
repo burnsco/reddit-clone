@@ -19,6 +19,7 @@ function Comments({ postID }) {
   if (error) return <h1>Error!</h1>
 
   const { post } = data
+  console.log(post.comments)
   return (
     <PostListContainer>
       <Post post={post} />

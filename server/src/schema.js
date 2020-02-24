@@ -27,14 +27,14 @@ export const typeDefs = gql`
   type Post {
     id: ID!
     type: String!
-    published: Boolean!
+    published: Boolean
     author: User!
     title: String!
     body: String
     url: String!
-    comments: [Comment!]!
+    comments: [Comment]
     category: String!
-    votes: Int!
+    votes: Int
   }
 
   type Comment {

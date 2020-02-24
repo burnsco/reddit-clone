@@ -32,6 +32,11 @@ export const HeaderLink = styled.div`
   margin: 5rpx;
   border: 1px solid #33a0ff;
   border-radius: 5rpx;
+  &:hover {
+    -webkit-box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
+    -moz-box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
+    box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
+  }
 `
 export const HeaderLinks = styled.div`
   display: flex;
