@@ -13,6 +13,7 @@ const Post = ({
     title,
     url,
     category,
+    comments,
     author: { username },
     votes
   }
@@ -27,7 +28,9 @@ const Post = ({
       </p>
       <p>{url}</p>
       <p>
-        <Link to={`/r/${category}/${id}/comments`}>{5} comments</Link>
+        <Link to={`/r/${category}/${id}/comments`}>
+          {comments.length} {comments.length > 1 ? 'comments' : 'comment'}
+        </Link>
         --{category}--{username}--3M ago
       </p>
     </PostDetailsContainer>
