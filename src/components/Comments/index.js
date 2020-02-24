@@ -1,9 +1,10 @@
-import React from "react"
-import { useQuery } from "@apollo/react-hooks"
-import Spinner from "../shared/FallBackSpinner"
-import { PostListContainer } from "../PostList/styles"
-import { GET_POST_AND_COMMENTS } from "./query"
-import Post from "../Post"
+import React from 'react'
+import { useQuery } from '@apollo/react-hooks'
+import Spinner from '../shared/FallBackSpinner'
+import { PostListContainer } from '../PostList/styles'
+import { CommentsContainer } from './styles'
+import { GET_POST_AND_COMMENTS } from './query'
+import Post from '../Post'
 
 // Visit this via /r/${category}/comments/${postID}
 // then push the post into the post container
@@ -17,13 +18,16 @@ function Comments({ postID }) {
   if (loading) return <Spinner />
   if (error) return <h1>Error!</h1>
 
+  const { post } = data
   return (
     <PostListContainer>
-      {data.posts.map(post => (
-        <>
-          <Post key={post.id} post={post} />
-          <Comments key={post.comments.id} comments={post.comments} />
-        </>
+      <Post post={post} />
+      <hr />
+      {post.comments.map(comment => (
+        <CommentsContainer key={comment.id}>
+          <p>{comment.author}</p>
+          <p>{comment.body}</p>
+        </CommentsContainer>
       ))}
     </PostListContainer>
   )
