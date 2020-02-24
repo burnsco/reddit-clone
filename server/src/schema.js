@@ -2,10 +2,11 @@ import { gql } from 'apollo-server'
 
 export const typeDefs = gql`
   type Query {
+    user(userID: String!): User!
     users: [User!]!
     categories: [Category!]!
-    posts: [Post!]!
     post(postID: String!): Post!
+    posts: [Post!]!
     comments: [Comment!]!
   }
 

@@ -15,15 +15,15 @@ const App = () => (
   <AppContainer>
     <Header />
     <Router>
-      <Profile path="profile/:username" />
-      <Profile path="profile" />
-      <CreatePostPage path="submit" />
-      <Login path="login" />
-      <Signup path="signup" />
-      <Home path="/">
-        <CategoryPosts path="r/:category" />
-        <Comments path="r/:category/:postID/comments" />
-        <AllPosts path="/" />
+      <Profile path='profile/:userID' />
+      <Profile path='profile' />
+      <CreatePostPage path='submit' />
+      <Login path='login' />
+      <Signup path='signup' />
+      <Home path='/'>
+        <CategoryPosts path='r/:category' />
+        <Comments path='r/:category/:postID/comments' />
+        <AllPosts path='/' />
       </Home>
     </Router>
   </AppContainer>

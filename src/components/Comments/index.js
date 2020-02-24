@@ -22,7 +22,12 @@ function Comments({ postID }) {
   return (
     <PostListContainer>
       <Post post={post} />
-      <hr />
+      <br />
+      <textarea
+        placeholder='Comment box with submission'
+        cols='30'
+        rows='5'
+      ></textarea>
       {post.comments.map(comment => (
         <CommentsContainer key={comment.id}>
           <p>{comment.author}</p>

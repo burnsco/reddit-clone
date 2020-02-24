@@ -3,10 +3,10 @@ import styled from '@xstyled/styled-components'
 export const PostContainer = styled.div`
   margin-top: 20rpx;
   border: 1px solid #ebedf0;
+  background: #ffffff;
   border-radius: 5rpx;
   /* margin: 10rpx; */
   display: flex;
-  background: #ffffff;
   width: 100%;
   &:hover {
     border: 1px solid #6b6969;

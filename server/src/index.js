@@ -4,6 +4,7 @@ import { posts, categories, users, comments } from './data'
 
 const resolvers = {
   Query: {
+    user: (parent, args) => users.find(user => user.id === args.userID),
     users: () => users,
     categories: () => categories,
     posts: () => posts,
