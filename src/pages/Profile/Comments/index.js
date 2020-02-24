@@ -7,16 +7,12 @@ export const CommentsContainer = styled.div`
   margin-top: 10rpx;
 `
 
-const ProfileCommentsList = ({ user }) => {
+const ProfileCommentsList = ({ comment }) => {
   return (
-    <div>
-      {user.comments.map(comment => (
-        <CommentsContainer key={comment.id}>
-          <p>{comment.author}</p>
-          <p>{comment.body}</p>
-        </CommentsContainer>
-      ))}
-    </div>
+    <CommentsContainer>
+      <p>{comment.author}</p>
+      <p>{comment.body}</p>
+    </CommentsContainer>
   )
 }
 

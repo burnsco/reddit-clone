@@ -22,7 +22,6 @@ export const ProfileSortingItems = styled.div``
 export const ProfileFeedContainer = styled.div`
   display: flex;
   padding: 15rpx;
-  min-height: 600rpx;
 `
 
 export const CommentsContainer = styled.div`

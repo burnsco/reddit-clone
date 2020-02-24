@@ -14,7 +14,6 @@ function AllPosts({ category }) {
 
   return (
     <PostListContainer>
-      <CreatePostInput />
       {data.posts.map(post => (
         <Post key={post.id} post={post} />
       ))}

@@ -15,8 +15,11 @@ const App = () => (
   <AppContainer>
     <Header />
     <Router>
-      <Profile path='profile/:userID' />
-      <Profile path='profile' />
+      <Profile path='profile/:userID'>
+        <AllPosts path='profile/:userID/posts' />
+        <Comments path='profile/:userID/comments' />
+        <AllPosts path='/' />
+      </Profile>
       <CreatePostPage path='submit' />
       <Login path='login' />
       <Signup path='signup' />
