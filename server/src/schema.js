@@ -5,6 +5,7 @@ export const typeDefs = gql`
     users: [User!]!
     categories: [Category!]!
     posts: [Post!]!
+    post(postID: String!): Post!
     comments: [Comment!]!
   }
 
@@ -24,9 +25,11 @@ export const typeDefs = gql`
 
   type Post {
     id: ID!
+    type: String!
     published: Boolean!
     author: User!
     title: String!
+    body: String
     url: String!
     comments: [Comment!]!
     category: String!

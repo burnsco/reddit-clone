@@ -26,6 +26,7 @@ export const categories = [
 export const posts = [
   {
     id: '10',
+    type: 'link',
     title: 'First Post!',
     url: 'www.google.ca',
     category: 'webdev',
@@ -36,6 +37,7 @@ export const posts = [
   {
     id: '11',
     title: 'Second Post!!',
+    type: 'media',
     url: 'www.reactjs.com',
     category: 'react',
     author: 'tomJohn39',
@@ -44,6 +46,7 @@ export const posts = [
   },
   {
     id: '12',
+    type: 'link',
     title: 'Third Post!!',
     url: 'www.youtube.com',
     category: 'music',

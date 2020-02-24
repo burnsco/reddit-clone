@@ -7,6 +7,7 @@ const resolvers = {
     users: () => users,
     categories: () => categories,
     posts: () => posts,
+    post: (parent, args) => posts.find(post => post.id === args.postID),
     comments: () => comments
   },
 

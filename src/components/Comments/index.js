@@ -1,9 +1,9 @@
-import React from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import Spinner from '../shared/FallBackSpinner'
-import { PostListContainer } from '../PostList/styles'
-import { GET_POST_AND_COMMENTS } from './query'
-import Post from '../Post'
+import React from "react"
+import { useQuery } from "@apollo/react-hooks"
+import Spinner from "../shared/FallBackSpinner"
+import { PostListContainer } from "../PostList/styles"
+import { GET_POST_AND_COMMENTS } from "./query"
+import Post from "../Post"
 
 // Visit this via /r/${category}/comments/${postID}
 // then push the post into the post container
