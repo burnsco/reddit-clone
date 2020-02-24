@@ -14,7 +14,9 @@ export const GET_POST_AND_COMMENTS = gql`
       comments {
         id
         body
-        author
+        author {
+          username
+        }
       }
     }
   }

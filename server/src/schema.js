@@ -41,6 +41,6 @@ export const typeDefs = gql`
     id: ID!
     postID: String!
     body: String!
-    author: String!
+    author: User!
   }
 `

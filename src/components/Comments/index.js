@@ -20,6 +20,7 @@ function Comments({ postID }) {
 
   const { post } = data
   console.log(post.comments)
+  console.log(post)
   return (
     <PostListContainer>
       <Post post={post} />
@@ -29,9 +30,14 @@ function Comments({ postID }) {
         cols='30'
         rows='5'
       ></textarea>
+
+      {/* TODO refactor this obviously */}
+
       {post.comments.map(comment => (
         <CommentsContainer key={comment.id}>
-          <p>{comment.author}</p>
+          <p>
+            <strong>{comment.author.username}</strong>
+          </p>
           <p>{comment.body}</p>
         </CommentsContainer>
       ))}
