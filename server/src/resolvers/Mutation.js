@@ -12,6 +12,25 @@ const Mutation = {
     db.users.push(user)
     return user
   },
+
+  updateUser: (parent, { id, data }, { db }, info) => {
+    const user = db.users.find(u => u.id === id)
+    if (!user) {
+      throw new Error('User not Found!')
+    }
+    if (typeof data.email === 'string') {
+      const emailTaken = db.users.some(u => u.email === data.email)
+      if (emailTaken) {
+        throw new Error('Email already in use!')
+      }
+      user.email = data.email
+    }
+    if (typeof data.username === 'string') {
+      user.username = data.username
+    }
+    return user
+  },
+
   deleteUser: (_, { id }, { db }) => {
     const userIndex = db.users.findIndex(u => u.id === id)
     if (userIndex === -1) {
@@ -20,7 +39,7 @@ const Mutation = {
     const deletedUser = db.users.splice(userIndex, 1)
     return deletedUser[0]
   },
-  createPost: (_, { ...args }, { db }) => {
+  createPost: (_, args, { db }) => {
     const post = {
       id: uuidv4(),
       type: 'link',

@@ -12,11 +12,17 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(data: CreateUserInput): User!
-    deleteUser(id: ID!): User
+    updateUser(id: ID!, data: UpdateUserInput!): User!
+    deleteUser(id: ID!): User!
     createPost(data: CreatePostInput): Post!
-    deletePost(id: ID!): Post
+    deletePost(id: ID!): Post!
     createComment(data: CreateCommentInput): Comment!
-    deleteComment(id: ID!): Comment
+    deleteComment(id: ID!): Comment!
+  }
+
+  input UpdateUserInput {
+    username: String
+    email: String
   }
 
   input CreateUserInput {
