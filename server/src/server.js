@@ -27,7 +27,6 @@ const resolvers = {
       users.push(user)
       return user
     },
-
     deleteUser: (_, { id }) => {
       const userIndex = users.findIndex(user => user.id === id)
       if (userIndex === -1) {
@@ -37,7 +36,6 @@ const resolvers = {
       const deletedUser = users.splice(userIndex, 1)
       return deletedUser[0]
     },
-
     createPost: (_, { data: { category, author, title, url } }) => {
       const post = {
         id: uuidv4(),
@@ -52,7 +50,6 @@ const resolvers = {
       posts.push(post)
       return post
     },
-
     deletePost: (_, { id }) => {
       const postIndex = posts.findIndex(post => post.id === id)
       if (postIndex === -1) {
@@ -62,7 +59,6 @@ const resolvers = {
       const deletedPost = posts.splice(postIndex, 1)
       return deletedPost[0]
     },
-
     createComment: (_, { data: { postID, body, author } }) => {
       const comment = {
         id: uuidv4(),
@@ -73,7 +69,6 @@ const resolvers = {
       comments.push(comment)
       return comment
     },
-
     deleteComment: (_, { id }) => {
       const commentIndex = comments.findIndex(c => c.id === id)
       if (commentIndex === -1) {
@@ -97,8 +92,7 @@ const resolvers = {
       comments.filter(c => c.author === parent.username)
   },
   Comment: {
-    author: (parent, args) =>
-      users.find(user => user.username === parent.author)
+    author: (parent, args) => users.find(u => u.username === parent.author)
   }
 }
 
