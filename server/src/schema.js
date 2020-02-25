@@ -52,15 +52,15 @@ export const typeDefs = gql`
   }
 
   type Post {
-    id: ID
-    type: String
+    id: ID!
+    type: String!
     published: Boolean
-    author: User
-    title: String
+    author: User!
+    title: String!
     body: String
-    url: String
+    url: String!
     comments: [Comment]
-    category: String
+    category: String!
     votes: Int
   }
 

@@ -14,7 +14,7 @@ const resolvers = {
     comments: (_, __, { db }) => db.comments
   },
   Mutation: {
-    createUser: (_, args, { db }) => {
+    createUser: (_, { ...args }, { db }) => {
       if (db.users.some(u => u.email === args.email)) {
         throw new Error('Email taken.')
       }
@@ -33,7 +33,7 @@ const resolvers = {
       const deletedUser = db.users.splice(userIndex, 1)
       return deletedUser[0]
     },
-    createPost: (_, args, { db }) => {
+    createPost: (_, { ...args }, { db }) => {
       const post = {
         id: uuidv4(),
         type: 'link',
@@ -52,7 +52,7 @@ const resolvers = {
       const deletedPost = db.posts.splice(postIndex, 1)
       return deletedPost[0]
     },
-    createComment: (_, args, { db }) => {
+    createComment: (_, { ...args }, { db }) => {
       const comment = {
         id: uuidv4(),
         ...args.data
@@ -70,8 +70,9 @@ const resolvers = {
     }
   },
   Post: {
-    author: ({ author }, { db }) => db.users.find(u => u.username === author),
-    comments: ({ id }, { db }) => db.comments.filter(c => c.postID === id)
+    author: ({ author }, _, { db }) =>
+      db.users.find(u => u.username === author),
+    comments: ({ id }, _, { db }) => db.comments.filter(c => c.postID === id)
   },
   User: {
     posts: ({ username }, { db }) =>
