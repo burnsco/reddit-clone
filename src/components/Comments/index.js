@@ -19,8 +19,7 @@ function Comments({ postID }) {
   if (error) return <h1>Error!</h1>
 
   const { post } = data
-  console.log(post.comments)
-  console.log(post)
+
   return (
     <PostListContainer>
       <Post post={post} />
@@ -37,6 +36,7 @@ function Comments({ postID }) {
       <InputCommentFooter>
         <button>Submit</button>
       </InputCommentFooter>
+
       {/* TODO refactor this obviously */}
 
       {post.comments.map(comment => (

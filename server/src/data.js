@@ -20,7 +20,8 @@ export const categories = [
   { id: 1, title: 'music', subreddit: '/r/music' },
   { id: 2, title: 'webdev', subreddit: '/r/webdev' },
   { id: 3, title: 'react', subreddit: '/r/react' },
-  { id: 4, title: 'all', subreddit: '/' }
+  { id: 4, title: 'funny', subreddit: '/r/funny' },
+  { id: 5, title: 'all', subreddit: '/' }
 ]
 
 export const posts = [
@@ -67,7 +68,7 @@ export const posts = [
   {
     id: '14',
     type: 'link',
-    title: 'Third Post!!',
+    title: '5th  Post!! asdfsdafsdf',
     url: 'www.youtube.com',
     category: 'react',
     author: 'cburns86',

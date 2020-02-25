@@ -14,7 +14,7 @@ const SUBMIT_POST = gql`
     $category: String!
     $author: String!
   ) {
-    post(title: $title, url: $url, category: $category, author: $author) {
+    createPost(title: $title, url: $url, category: $category, author: $author) {
       title
       url
       category
@@ -70,39 +70,39 @@ function CreatePostPage() {
       <SignInContainer>
         <form onSubmit={handleSubmit}>
           <FormInput
-            name="title"
-            type="text"
+            name='title'
+            type='text'
             handleChange={handleChange}
             value={title}
-            label="Title"
+            label='Title'
             required
           />
           <FormInput
-            name="url"
-            type="text"
+            name='url'
+            type='text'
             handleChange={handleChange}
             value={url}
-            label="Url"
+            label='Url'
             required
           />
           <FormInput
-            name="category"
-            type="text"
+            name='category'
+            type='text'
             value={category}
             handleChange={handleChange}
-            label="Category"
+            label='Category'
             required
           />
           <FormInput
-            name="author"
-            type="text"
+            name='author'
+            type='text'
             value={author}
             handleChange={handleChange}
-            label="Username"
+            label='Username'
             required
           />
           <ButtonsBarContainer>
-            <CustomButton type="submit" style={{ width: 100 + '%' }}>
+            <CustomButton type='submit' style={{ width: 100 + '%' }}>
               {' '}
               Submit Post{' '}
             </CustomButton>

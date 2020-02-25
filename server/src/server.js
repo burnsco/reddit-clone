@@ -4,24 +4,17 @@ import { posts, categories, users, comments } from './data'
 
 // FIXME refactor the resolvers so I don't have to make so many
 // TODO  make a function that sums the comments for given postID
+
 const resolvers = {
   Query: {
     user: (parent, args) => users.find(user => user.id === args.userID),
     users: () => users,
     categories: () => categories,
     post: (parent, args) => posts.find(post => post.id === args.postID),
-    posts: (parent, args) => {
-      if (!args.category) {
-        return posts
-      } else {
-        return posts.filter(p => {
-          return p.category === args.category
-        })
-      }
-    },
+    posts: (parent, args) =>
+      !args.category ? posts : posts.filter(p => p.category === args.category),
     comments: () => comments
   },
-
   Post: {
     author: (parent, args) => {
       return users.find(user => user.username === parent.author)

@@ -37,6 +37,7 @@ const GET_POSTS_BY_CATEGORY = gql`
         }
       }
       url
+      votes
     }
   }
 `
