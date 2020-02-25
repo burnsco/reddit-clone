@@ -53,6 +53,13 @@ const resolvers = {
       return post
     },
 
+    deletePost: (_, { id }) => {
+      const postIndex = posts.findIndex(post => post.id === id)
+
+      const deletedPost = posts.splice(postIndex, 1)
+      return deletedPost[0]
+    },
+
     createComment: (_, { data: { postID, body, author } }) => {
       const comment = {
         id: uuidv4(),
