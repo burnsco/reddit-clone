@@ -55,6 +55,9 @@ const resolvers = {
 
     deletePost: (_, { id }) => {
       const postIndex = posts.findIndex(post => post.id === id)
+      if (postIndex === -1) {
+        throw new Error('post does not exist!')
+      }
 
       const deletedPost = posts.splice(postIndex, 1)
       return deletedPost[0]
@@ -69,6 +72,16 @@ const resolvers = {
       }
       comments.push(comment)
       return comment
+    },
+
+    deleteComment: (_, { id }) => {
+      const commentIndex = comments.findIndex(c => c.id === id)
+      if (commentIndex === -1) {
+        throw new Error('comment does not exist!')
+      }
+
+      const deletedComment = comments.splice(commentIndex, 1)
+      return deletedComment[0]
     }
   },
 

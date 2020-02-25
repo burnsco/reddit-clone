@@ -16,6 +16,7 @@ export const typeDefs = gql`
     createPost(data: CreatePostInput): Post!
     deletePost(id: ID!): Post
     createComment(data: CreateCommentInput): Comment!
+    deleteComment(id: ID!): Comment
   }
 
   input CreateUserInput {
@@ -38,8 +39,8 @@ export const typeDefs = gql`
 
   type User {
     id: ID!
-    email: String!
-    username: String!
+    email: String
+    username: String
     posts: [Post!]!
     comments: [Comment!]!
   }
