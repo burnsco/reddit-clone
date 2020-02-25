@@ -15,7 +15,7 @@ const resolvers = {
   },
 
   Mutation: {
-    createUser: (parent, { data: { username, email } }) => {
+    createUser: (_, { data: { username, email } }) => {
       if (users.some(user => user.email === email)) {
         throw new Error('Email taken.')
       }
@@ -28,7 +28,7 @@ const resolvers = {
       return user
     },
 
-    createPost: (parent, { category, author, title, url }) => {
+    createPost: (_, { data: { category, author, title, url } }) => {
       const post = {
         id: uuidv4(),
         type: 'link',
@@ -43,7 +43,7 @@ const resolvers = {
       return post
     },
 
-    createComment: (parent, { postID, body, author }) => {
+    createComment: (_, { data: { postID, body, author } }) => {
       const comment = {
         id: uuidv4(),
         postID,
