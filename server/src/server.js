@@ -28,6 +28,16 @@ const resolvers = {
       return user
     },
 
+    deleteUser: (_, { id }) => {
+      const userIndex = users.findIndex(user => user.id === id)
+      if (userIndex === -1) {
+        throw new Error('User not found')
+      }
+
+      const deletedUser = users.splice(userIndex, 1)
+      return deletedUser[0]
+    },
+
     createPost: (_, { data: { category, author, title, url } }) => {
       const post = {
         id: uuidv4(),

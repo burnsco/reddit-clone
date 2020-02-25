@@ -12,6 +12,7 @@ export const typeDefs = gql`
 
   type Mutation {
     createUser(data: CreateUserInput): User!
+    deleteUser(id: ID!): User!
     createPost(data: CreatePostInput): Post!
     createComment(data: CreateCommentInput): Comment!
   }
@@ -52,7 +53,7 @@ export const typeDefs = gql`
     id: ID!
     type: String!
     published: Boolean
-    author: User!
+    author: User
     title: String!
     body: String
     url: String!
