@@ -5,12 +5,12 @@ import { v4 as uuidv4 } from 'uuid'
 
 const resolvers = {
   Query: {
-    user: (parent, args) => users.find(user => user.id === args.userID),
+    user: (_, { userID }) => users.find(u => u.id === userID),
     users: () => users,
     categories: () => categories,
-    post: (parent, args) => posts.find(post => post.id === args.postID),
-    posts: (parent, args) =>
-      !args.category ? posts : posts.filter(p => p.category === args.category),
+    post: (_, { postID }) => posts.find(p => p.id === postID),
+    posts: (_, { category }) =>
+      !category ? posts : posts.filter(p => p.category === category),
     comments: () => comments
   },
 
@@ -81,18 +81,16 @@ const resolvers = {
   },
 
   Post: {
-    author: (parent, args) =>
-      users.find(user => user.username === parent.author),
-    comments: (parent, args) => comments.filter(c => c.postID === parent.id)
+    author: ({ author }, _) => users.find(user => user.username === author),
+    comments: ({ id }, _) => comments.filter(c => c.postID === id)
   },
 
   User: {
-    posts: (parent, args) => posts.filter(p => p.author === parent.username),
-    comments: (parent, args) =>
-      comments.filter(c => c.author === parent.username)
+    posts: ({ username }, _) => posts.filter(p => p.author === username),
+    comments: ({ username }, _) => comments.filter(c => c.author === username)
   },
   Comment: {
-    author: (parent, args) => users.find(u => u.username === parent.author)
+    author: ({ author }, _) => users.find(u => u.username === author)
   }
 }
 
