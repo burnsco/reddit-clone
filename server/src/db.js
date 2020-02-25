@@ -1,4 +1,4 @@
-export const users = [
+const users = [
   {
     id: '1',
     username: 'cburns86',
@@ -16,7 +16,7 @@ export const users = [
   }
 ]
 
-export const categories = [
+const categories = [
   { id: 1, title: 'music', subreddit: '/r/music' },
   { id: 2, title: 'webdev', subreddit: '/r/webdev' },
   { id: 3, title: 'react', subreddit: '/r/react' },
@@ -24,7 +24,7 @@ export const categories = [
   { id: 5, title: 'all', subreddit: '/' }
 ]
 
-export const posts = [
+const posts = [
   {
     id: '10',
     type: 'link',
@@ -77,7 +77,7 @@ export const posts = [
   }
 ]
 
-export const comments = [
+const comments = [
   {
     id: '20',
     body: 'hey i went to the store and bought chips',
@@ -121,3 +121,12 @@ export const comments = [
     postID: '14'
   }
 ]
+
+const db = {
+  users,
+  categories,
+  posts,
+  comments
+}
+
+export { db as default }
