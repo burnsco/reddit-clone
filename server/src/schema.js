@@ -11,7 +11,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(email: String!, username: String!): User!
+    createUser(data: CreateUserInput): User!
     createPost(
       title: String!
       category: String!
@@ -19,6 +19,11 @@ export const typeDefs = gql`
       url: String!
     ): Post!
     createComment(body: String!, author: String!, postID: ID!): Comment!
+  }
+
+  input CreateUserInput {
+    username: String!
+    email: String!
   }
 
   type User {
