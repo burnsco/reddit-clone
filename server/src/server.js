@@ -28,27 +28,22 @@ const resolvers = {
       return user
     },
 
-    createPost: (parent, { category, author, title, url }) => {
+    createPost: (parent, { ...postArgs }) => {
       const post = {
         id: uuidv4(),
         type: 'link',
         published: true,
         votes: Math.floor(Math.random() * Math.floor(100)),
-        category,
-        author,
-        title,
-        url
+        ...postArgs
       }
       posts.push(post)
       return post
     },
 
-    createComment: (parent, { postID, body, author }) => {
+    createComment: (parent, { ...commentArgs }) => {
       const comment = {
         id: uuidv4(),
-        postID,
-        body,
-        author
+        ...commentArgs
       }
       comments.push(comment)
       return comment
@@ -60,7 +55,6 @@ const resolvers = {
       users.find(user => user.username === parent.author),
     comments: (parent, args) => comments.filter(c => c.postID === parent.id)
   },
-
   User: {
     posts: (parent, args) => posts.filter(p => p.author === parent.username),
     comments: (parent, args) =>
