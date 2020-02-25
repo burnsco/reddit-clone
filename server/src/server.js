@@ -14,81 +14,73 @@ const resolvers = {
     comments: (_, __, { db }) => db.comments
   },
   Mutation: {
-    createUser: (_, { data: { username, email } }) => {
-      if (db.users.some(u => u.email === email)) {
+    createUser: (_, args, { db }) => {
+      if (db.users.some(u => u.email === args.email)) {
         throw new Error('Email taken.')
       }
       const user = {
         id: uuidv4(),
-        email,
-        username
+        ...args.data
       }
       db.users.push(user)
       return user
     },
-    deleteUser: (_, { id }) => {
+    deleteUser: (_, { id }, { db }) => {
       const userIndex = db.users.findIndex(u => u.id === id)
       if (userIndex === -1) {
         throw new Error('User not found')
       }
-
       const deletedUser = db.users.splice(userIndex, 1)
       return deletedUser[0]
     },
-    createPost: (_, { data: { category, author, title, url } }) => {
+    createPost: (_, args, { db }) => {
       const post = {
         id: uuidv4(),
         type: 'link',
         published: true,
         votes: Math.floor(Math.random() * Math.floor(100)),
-        category,
-        author,
-        title,
-        url
+        ...args.data
       }
       db.posts.push(post)
       return post
     },
-    deletePost: (_, { id }) => {
+    deletePost: (_, { id }, { db }) => {
       const postIndex = db.posts.findIndex(p => p.id === id)
       if (postIndex === -1) {
         throw new Error('post does not exist!')
       }
-
       const deletedPost = db.posts.splice(postIndex, 1)
       return deletedPost[0]
     },
-    createComment: (_, { data: { postID, body, author } }) => {
+    createComment: (_, args, { db }) => {
       const comment = {
         id: uuidv4(),
-        postID,
-        body,
-        author
+        ...args.data
       }
       db.comments.push(comment)
       return comment
     },
-    deleteComment: (_, { id }) => {
+    deleteComment: (_, { id }, { db }) => {
       const commentIndex = db.comments.findIndex(c => c.id === id)
       if (commentIndex === -1) {
         throw new Error('comment does not exist!')
       }
-
       const deletedComment = db.comments.splice(commentIndex, 1)
       return deletedComment[0]
     }
   },
   Post: {
-    author: ({ author }, _) => db.users.find(u => u.username === author),
-    comments: ({ id }, _) => db.comments.filter(c => c.postID === id)
+    author: ({ author }, { db }) => db.users.find(u => u.username === author),
+    comments: ({ id }, { db }) => db.comments.filter(c => c.postID === id)
   },
   User: {
-    posts: ({ username }, _) => db.posts.filter(p => p.author === username),
-    comments: ({ username }, _) =>
+    posts: ({ username }, { db }) =>
+      db.posts.filter(p => p.author === username),
+    comments: ({ username }, { db }) =>
       db.comments.filter(c => c.author === username)
   },
   Comment: {
-    author: ({ author }, _) => db.users.find(u => u.username === author)
+    author: ({ author }, { db }) => db.users.find(u => u.username === author)
   }
 }
 
