@@ -3,9 +3,6 @@ import { typeDefs } from './schema'
 import { posts, categories, users, comments } from './data'
 import { v4 as uuidv4 } from 'uuid'
 
-// FIXME refactor the resolvers so I don't have to make so many
-// TODO  make a function that sums the comments for given postID
-
 const resolvers = {
   Query: {
     user: (parent, args) => users.find(user => user.id === args.userID),
@@ -16,10 +13,10 @@ const resolvers = {
       !args.category ? posts : posts.filter(p => p.category === args.category),
     comments: () => comments
   },
+
   Mutation: {
     createUser: (parent, { username, email }) => {
-      const emailTaken = users.some(user => user.email === email)
-      if (emailTaken) {
+      if (users.some(user => user.email === email)) {
         throw new Error('Email taken.')
       }
       const user = {
@@ -45,12 +42,13 @@ const resolvers = {
       posts.push(post)
       return post
     },
-    createComment: (parent, args) => {
+
+    createComment: (parent, { postID, body, author }) => {
       const comment = {
         id: uuidv4(),
-        postID: args.postID,
-        body: args.body,
-        author: args.author
+        postID,
+        body,
+        author
       }
       comments.push(comment)
       return comment
@@ -80,5 +78,5 @@ const server = new ApolloServer({
 })
 
 server.listen().then(({ url }) => {
-  console.log(`🚀💣🧨 Server ready at ${url}`)
+  console.log(`🧨  Server ready at ${url} `)
 })
