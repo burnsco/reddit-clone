@@ -75,13 +75,13 @@ const resolvers = {
     comments: ({ id }, _, { db }) => db.comments.filter(c => c.postID === id)
   },
   User: {
-    posts: ({ username }, { db }) =>
+    posts: ({ username }, _, { db }) =>
       db.posts.filter(p => p.author === username),
-    comments: ({ username }, { db }) =>
+    comments: ({ username }, _, { db }) =>
       db.comments.filter(c => c.author === username)
   },
   Comment: {
-    author: ({ author }, { db }) => db.users.find(u => u.username === author)
+    author: ({ author }, _, { db }) => db.users.find(u => u.username === author)
   }
 }
 
