@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server'
 
-export const typeDefs = gql`
+const typeDefs = gql`
   type Query {
     user(userID: String!): User!
     users: [User!]!
@@ -71,3 +71,5 @@ export const typeDefs = gql`
     author: User!
   }
 `
+
+export { typeDefs as default }
