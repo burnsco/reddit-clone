@@ -2,13 +2,13 @@ import React from 'react'
 import { useQuery } from '@apollo/react-hooks'
 import Spinner from '../shared/FallBackSpinner'
 import { PostListContainer } from '../PostList/styles'
-import { CommentsContainer, InputCommentBox } from './styles'
+import {
+  CommentsContainer,
+  InputCommentBox,
+  InputCommentFooter
+} from './styles'
 import { GET_POST_AND_COMMENTS } from './query'
 import Post from '../Post'
-
-// Visit this via /r/${category}/comments/${postID}
-// then push the post into the post container
-// then push the comments in a list beneath the post
 
 function Comments({ postID }) {
   const { loading, error, data } = useQuery(GET_POST_AND_COMMENTS, {
@@ -34,7 +34,9 @@ function Comments({ postID }) {
         height='300'
         width='300'
       ></InputCommentBox>
-
+      <InputCommentFooter>
+        <button>Submit</button>
+      </InputCommentFooter>
       {/* TODO refactor this obviously */}
 
       {post.comments.map(comment => (

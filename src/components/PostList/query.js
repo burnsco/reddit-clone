@@ -32,7 +32,9 @@ const GET_POSTS_BY_CATEGORY = gql`
         id
         body
         postID
-        author
+        author {
+          username
+        }
       }
       url
     }
