@@ -10,6 +10,7 @@ import CategoryPosts from '../components/PostList/CategoryPosts'
 import AllPosts from '../components/PostList/AllPosts'
 import CreatePostPage from '../pages/CreatePost'
 import Comments from '../components/Comments'
+import ViewPostPage from '../pages/ViewPost'
 
 const App = () => (
   <AppContainer>

@@ -1,12 +1,10 @@
 import React from 'react'
 import Post from '../../../components/Post'
 
-const PostPage = props => {
-  return (
-    <>
-      <Post post={props.post} />
-    </>
-  )
+function PostPage({ result }) {
+  console.log(result)
+
+  return <div>post page</div>
 }
 
 export default PostPage

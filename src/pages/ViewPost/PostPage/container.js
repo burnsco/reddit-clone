@@ -18,7 +18,7 @@ const POST_QUERY = gql`
   }
 `
 
-function PostPageWithData({ postID }) {
+function PostPageWithData(postID) {
   const result = useQuery(POST_QUERY, { variables: { postID: postID } })
   return <PostPage {...result} />
 }
