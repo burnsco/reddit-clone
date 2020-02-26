@@ -9,6 +9,7 @@ const typeDefs = gql`
     posts(category: String): [Post!]!
     comments: [Comment!]!
   }
+
   type Mutation {
     createUser(data: CreateUserInput!): User!
     createPost(data: CreatePostInput!): Post!
@@ -20,33 +21,45 @@ const typeDefs = gql`
     deletePost(id: ID!): Post!
     deleteComment(id: ID!): Comment!
   }
+
+  type Subscription {
+    count: Int!
+    postAdded: Post
+  }
+
   input UpdateCommentInput {
     body: String
   }
+
   input UpdatePostInput {
     title: String
     category: String
     url: String
   }
+
   input UpdateUserInput {
     username: String
     email: String
   }
+
   input CreateUserInput {
     username: String!
     email: String!
   }
+
   input CreatePostInput {
     title: String!
     category: String!
     author: String!
     url: String!
   }
+
   input CreateCommentInput {
     body: String!
     author: String!
     postID: ID!
   }
+
   type User {
     id: ID!
     email: String
@@ -54,11 +67,13 @@ const typeDefs = gql`
     posts: [Post!]!
     comments: [Comment!]!
   }
+
   type Category {
     id: ID!
     title: String!
     subreddit: String!
   }
+
   type Post {
     id: ID!
     type: String!
@@ -71,6 +86,7 @@ const typeDefs = gql`
     category: String!
     votes: Int
   }
+
   type Comment {
     id: ID!
     postID: String!
