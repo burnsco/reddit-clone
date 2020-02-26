@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { CommentsContainer } from '../../../components/Comments/styles'
 
-const CommentsPage = () => {
+function CommentsPage(props) {
+  useEffect(() => {
+    props.subscribeToNewComments()
+  }, [props])
+  const [comments] = props.post
+
   return (
-    <div>
-      <p>comments page</p>
-    </div>
+    <>
+      {comments.map(comment => (
+        <CommentsContainer key={comment.id}>
+          <p>
+            <strong>{comment.author.username}</strong>
+          </p>
+          <p>{comment.body}</p>
+        </CommentsContainer>
+      ))}
+    </>
   )
 }
 

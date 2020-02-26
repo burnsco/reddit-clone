@@ -1,13 +1,12 @@
-import React from "react"
+import React from 'react'
 import {
   CategoriesContainer,
   CategoryTitles,
   ContainerTitle
-} from "./styles.js"
-import Spinner from "../../components/shared/FallBackSpinner"
-import { navigate } from "@reach/router"
-import { useQuery } from "@apollo/react-hooks"
-import gql from "graphql-tag"
+} from './styles.js'
+import Spinner from '../../components/shared/FallBackSpinner'
+import { navigate } from '@reach/router'
+import { useQuery, gql } from '@apollo/client'
 
 const GET_CATEGORIES = gql`
   {

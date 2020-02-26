@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import Spinner from '../shared/FallBackSpinner'
 import { PostListContainer } from '../PostList/styles'
 import {

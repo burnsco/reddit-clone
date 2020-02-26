@@ -1,10 +1,11 @@
 import React from 'react'
+import Post from '../../../components/Post'
 
-const PostPage = () => {
+const PostPage = props => {
   return (
-    <div>
-      <p>post page</p>
-    </div>
+    <>
+      <Post post={props.post} />
+    </>
   )
 }
 

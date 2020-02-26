@@ -1,6 +1,6 @@
 import React from 'react'
 import { PostListContainer } from './styles'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/client'
 import { GET_ALL_POSTS } from './query'
 import Spinner from '../shared/FallBackSpinner'
 import Post from '../Post'
