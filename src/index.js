@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
+import { WebSocketLink } from 'apollo-link-ws'
 import { onError } from 'apollo-link-error'
 import { ApolloLink } from 'apollo-link'
 import { ApolloProvider } from '@apollo/react-hooks'
@@ -25,6 +26,12 @@ const client = new ApolloClient({
     new HttpLink({
       uri: 'http://localhost:4000',
       credentials: 'same-origin'
+    }),
+    new WebSocketLink({
+      uri: `ws://localhost:5000/`,
+      options: {
+        reconnect: true
+      }
     })
   ]),
   cache: new InMemoryCache()

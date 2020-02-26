@@ -10,6 +10,10 @@ import {
 import { GET_POST_AND_COMMENTS } from './query'
 import Post from '../Post'
 
+// separate comments and POST into separate components
+// make a data container for each ==>  THEN
+// make a container that has all the above in it
+
 function Comments({ postID }) {
   const { loading, error, data } = useQuery(GET_POST_AND_COMMENTS, {
     variables: { postID: postID }

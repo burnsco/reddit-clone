@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { POST_CREATED } from '../constants'
+import { POST_CREATED, COMMENT_CREATED } from '../constants'
 
 const Mutation = {
   createUser: (_, args, { db }) => {
@@ -15,6 +15,7 @@ const Mutation = {
   },
 
   // FIXME refactor this at some point, looks messy!
+
   updateUser: (parent, { id, data }, { db }, info) => {
     const user = db.users.find(u => u.id === id)
     if (!user) {
@@ -49,6 +50,7 @@ const Mutation = {
     const deletedUser = db.users.splice(userIndex, 1)
     return deletedUser[0]
   },
+
   createPost: (_, args, { db, pubsub }) => {
     const post = {
       id: uuidv4(),
@@ -58,7 +60,7 @@ const Mutation = {
       ...args.data
     }
 
-    pubsub.publish(POST_CREATED, { postCreated: args })
+    pubsub.publish(POST_CREATED, { postCreated: post })
 
     db.posts.push(post)
 
@@ -98,14 +100,14 @@ const Mutation = {
     return deletedPost[0]
   },
 
-  createComment: (_, args, { db }) => {
+  createComment: (_, args, { db, pubsub }, info) => {
     const comment = {
       id: uuidv4(),
       ...args.data
     }
 
+    pubsub.publish(COMMENT_CREATED, { commentCreated: comment })
     db.comments.push(comment)
-
     return comment
   },
 

@@ -24,14 +24,7 @@ const typeDefs = gql`
 
   type Subscription {
     postCreated: Post
-    postUpdated: Post
-    postDeleted: Post
-    commentCreated: Comment
-    commentUpdated: Comment
-    commentDeleted: Comment
-    userCreated: User
-    userUpdated: User
-    userDeleted: User
+    commentCreated(postID: ID!): Comment
   }
 
   input UpdateCommentInput {
