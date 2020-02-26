@@ -23,8 +23,8 @@ const typeDefs = gql`
   }
 
   type Subscription {
-    postCreated: Post
-    commentCreated(postID: ID!): Comment
+    post: PostSubscriptionPayload!
+    comment(postID: ID!): Comment
   }
 
   input UpdateCommentInput {
@@ -93,6 +93,9 @@ const typeDefs = gql`
     body: String!
     author: User!
   }
+  type PostSubscriptionPayload {
+    mutation: String!
+    data: Post!
+  }
 `
-
 export { typeDefs as default }

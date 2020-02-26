@@ -1,13 +1,13 @@
-import { POST_CREATED, COMMENT_CREATED } from '../constants'
+import { POST, COMMENT } from '../constants'
 import { withFilter } from 'apollo-server'
 
 const Subscription = {
-  postCreated: {
-    subscribe: (_, __, { pubsub }) => pubsub.asyncIterator([POST_CREATED])
+  post: {
+    subscribe: (_, __, { pubsub }) => pubsub.asyncIterator([POST])
   },
-  commentCreated: {
+  comment: {
     subscribe: withFilter(
-      (_, __, { pubsub }) => pubsub.asyncIterator([COMMENT_CREATED]),
+      (_, __, { pubsub }) => pubsub.asyncIterator([COMMENT]),
       (payload, variables) => {
         return payload.commentCreated.postID === variables.postID
       }

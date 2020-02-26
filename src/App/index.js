@@ -16,18 +16,18 @@ const App = () => (
   <AppContainer>
     <Header />
     <Router>
-      <Profile path='profile/:userID'>
-        <AllPosts path='profile/:userID/posts' />
-        <Comments path='profile/:userID/comments' />
-        <AllPosts path='/' />
+      <Profile path="profile/:userID">
+        <AllPosts path="profile/:userID/posts" />
+        <Comments path="profile/:userID/comments" />
+        <AllPosts path="/" />
       </Profile>
-      <CreatePostPage path='submit' />
-      <Login path='login' />
-      <Signup path='signup' />
-      <Home path='/'>
-        <CategoryPosts path='r/:category' />
-        <Comments path='r/:category/:postID/comments' />
-        <AllPosts path='/' />
+      <CreatePostPage path="submit" />
+      <Login path="login" />
+      <Signup path="signup" />
+      <Home path="/">
+        <CategoryPosts path="r/:category" />
+        <Comments path="r/:category/:postID/comments" />
+        <AllPosts path="/" />
       </Home>
     </Router>
   </AppContainer>

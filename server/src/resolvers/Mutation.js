@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { POST_CREATED, COMMENT_CREATED } from '../constants'
+import { COMMENT_CREATED, POST } from '../constants'
 
 const Mutation = {
   createUser: (_, args, { db }) => {
@@ -49,10 +49,13 @@ const Mutation = {
 
   deleteUser: (_, { id }, { db }) => {
     const userIndex = db.users.findIndex(u => u.id === id)
+
     if (userIndex === -1) {
       throw new Error('User not found')
     }
+
     const deletedUser = db.users.splice(userIndex, 1)
+
     return deletedUser[0]
   },
 
@@ -65,14 +68,18 @@ const Mutation = {
       ...args.data
     }
 
-    pubsub.publish(POST_CREATED, { postCreated: post })
+    pubsub.publish(POST, {
+      post: {
+        mutation: 'CREATED',
+        data: post
+      }
+    })
 
     db.posts.push(post)
-
     return post
   },
 
-  updatePost: (_, { id, data }, { db }) => {
+  updatePost: (_, { id, data }, { db, pubsub }) => {
     const post = db.posts.find(p => p.id === id)
 
     if (!post) {
@@ -89,20 +96,32 @@ const Mutation = {
     if (typeof data.url === 'string') {
       post.url = data.url
     }
-
+    pubsub.publish(POST, {
+      post: {
+        mutation: 'UPDATED',
+        data: post
+      }
+    })
     return post
   },
 
-  deletePost: (_, { id }, { db }) => {
+  deletePost: (_, { id }, { db, pubsub }) => {
     const postIndex = db.posts.findIndex(p => p.id === id)
 
     if (postIndex === -1) {
       throw new Error('post does not exist!')
     }
 
-    const deletedPost = db.posts.splice(postIndex, 1)
+    const [post] = db.posts.splice(postIndex, 1)
 
-    return deletedPost[0]
+    pubsub.publish(POST, {
+      post: {
+        mutation: 'DELETED',
+        data: post
+      }
+    })
+
+    return post
   },
 
   createComment: (_, args, { db, pubsub }, info) => {
