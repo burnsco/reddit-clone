@@ -6,7 +6,7 @@ const typeDefs = gql`
     users: [User!]!
     categories: [Category!]!
     post(postID: String!): Post!
-    posts(category: String): [Post!]!
+    posts(category: String!): [Post!]!
     comments: [Comment!]!
   }
 

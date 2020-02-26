@@ -29,7 +29,7 @@ const COMMENTS_SUBSCRIPTION = gql`
   }
 `
 
-function CommentsPageWithData(postID) {
+const CommentsPageWithData = postID => {
   const { subscribeToMore, ...result } = useQuery(COMMENTS_QUERY, {
     variables: { postID: postID }
   })

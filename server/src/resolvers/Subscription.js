@@ -7,9 +7,9 @@ const Subscription = {
   },
   commentCreated: {
     subscribe: withFilter(
-      (parent, args, { pubsub }) => pubsub.asyncIterator([COMMENT_CREATED]),
-      (data, variables) => {
-        return data.commentCreated.postID === variables.postID
+      (_, __, { pubsub }) => pubsub.asyncIterator([COMMENT_CREATED]),
+      (payload, variables) => {
+        return payload.commentCreated.postID === variables.postID
       }
     )
   }

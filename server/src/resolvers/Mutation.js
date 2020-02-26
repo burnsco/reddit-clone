@@ -18,27 +18,32 @@ const Mutation = {
 
   updateUser: (parent, { id, data }, { db }, info) => {
     const user = db.users.find(u => u.id === id)
+
     if (!user) {
       throw new Error('User not Found!')
     }
+
     if (typeof data.email === 'string') {
       const emailTaken = db.users.some(u => u.email === data.email)
+
       if (user.username === data.username) {
         throw new Error('You are already using that username!')
       }
+
       if (user.email === data.email) {
         throw new Error('You already are using that e-mail!')
       }
+
       if (emailTaken) {
         throw new Error('Email already in use!')
       }
+
       user.email = data.email
     }
 
     if (typeof data.username === 'string') {
       user.username = data.username
     }
-
     return user
   },
 
