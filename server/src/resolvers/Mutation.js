@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
+import { POST_CREATED } from '../constants'
 
 const Mutation = {
   createUser: (_, args, { db }) => {
@@ -48,7 +49,7 @@ const Mutation = {
     const deletedUser = db.users.splice(userIndex, 1)
     return deletedUser[0]
   },
-  createPost: (_, args, { db }) => {
+  createPost: (_, args, { db, pubsub }) => {
     const post = {
       id: uuidv4(),
       type: 'link',
@@ -56,59 +57,80 @@ const Mutation = {
       votes: Math.floor(Math.random() * Math.floor(100)),
       ...args.data
     }
+
+    pubsub.publish(POST_CREATED, { postCreated: args })
+
     db.posts.push(post)
+
     return post
   },
 
   updatePost: (_, { id, data }, { db }) => {
     const post = db.posts.find(p => p.id === id)
+
     if (!post) {
       throw new Error('Post not found!')
     }
     if (typeof data.title === 'string') {
       post.title = data.title
     }
+
     if (typeof data.category === 'string') {
       post.category = data.category
     }
+
     if (typeof data.url === 'string') {
       post.url = data.url
     }
+
     return post
   },
 
   deletePost: (_, { id }, { db }) => {
     const postIndex = db.posts.findIndex(p => p.id === id)
+
     if (postIndex === -1) {
       throw new Error('post does not exist!')
     }
+
     const deletedPost = db.posts.splice(postIndex, 1)
+
     return deletedPost[0]
   },
+
   createComment: (_, args, { db }) => {
     const comment = {
       id: uuidv4(),
       ...args.data
     }
+
     db.comments.push(comment)
+
     return comment
   },
+
   updateComment: (_, { id, args }, { db }) => {
     const comment = db.comments.find(c => c.id === id)
+
     if (!comment) {
       throw new Error('Comment not found!')
     }
+
     if (typeof args.comment === 'string') {
       comment.body = args.body
     }
+
     return comment
   },
   deleteComment: (_, { id }, { db }) => {
     const commentIndex = db.comments.findIndex(c => c.id === id)
+
     if (commentIndex === -1) {
       throw new Error('comment does not exist!')
     }
+
     const deletedComment = db.comments.splice(commentIndex, 1)
+
     return deletedComment[0]
   }
 }

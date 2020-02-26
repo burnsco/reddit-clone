@@ -23,8 +23,15 @@ const typeDefs = gql`
   }
 
   type Subscription {
-    count: Int!
-    postAdded: Post
+    postCreated: Post
+    postUpdated: Post
+    postDeleted: Post
+    commentCreated: Comment
+    commentUpdated: Comment
+    commentDeleted: Comment
+    userCreated: User
+    userUpdated: User
+    userDeleted: User
   }
 
   input UpdateCommentInput {
