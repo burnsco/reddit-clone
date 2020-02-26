@@ -10,14 +10,18 @@ const typeDefs = gql`
     comments: [Comment!]!
   }
   type Mutation {
-    createUser(data: CreateUserInput): User!
-    updateUser(id: ID!, data: UpdateUserInput): User!
+    createUser(data: CreateUserInput!): User!
+    createPost(data: CreatePostInput!): Post!
+    createComment(data: CreateCommentInput!): Comment!
+    updateUser(id: ID!, data: UpdateUserInput!): User!
+    updatePost(id: ID!, data: UpdatePostInput!): Post!
+    updateComment(id: ID!, data: UpdateCommentInput!): Comment!
     deleteUser(id: ID!): User!
-    createPost(data: CreatePostInput): Post!
-    updatePost(id: ID!, data: UpdatePostInput): Post!
     deletePost(id: ID!): Post!
-    createComment(data: CreateCommentInput): Comment!
     deleteComment(id: ID!): Comment!
+  }
+  input UpdateCommentInput {
+    body: String
   }
   input UpdatePostInput {
     title: String
