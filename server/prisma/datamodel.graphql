@@ -1,19 +1,35 @@
 type User {
   id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  role: Role! @default(value: USER)
   username: String!
   email: String! @unique
   posts: [Post!]!
+  comments: [Comment]
 }
 type Post {
   id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   title: String!
+  published: Boolean! @default(value: false)
   body: String!
   url: String!
   author: User!
-  comments: [Comment]
+  comments: [Comment!]!
 }
 type Comment {
   id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  published: Boolean! @default(value: false)
   body: String!
   author: User!
+  post: Post!
+}
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
 }
