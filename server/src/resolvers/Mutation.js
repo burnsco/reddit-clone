@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { COMMENT_CREATED, POST } from '../constants'
+import { POST } from '../constants'
 
 const Mutation = {
   createUser: (_, args, { db }) => {
@@ -13,8 +13,6 @@ const Mutation = {
     db.users.push(user)
     return user
   },
-
-  // FIXME refactor this at some point, looks messy!
 
   updateUser: (parent, { id, data }, { db }, info) => {
     const user = db.users.find(u => u.id === id)
@@ -96,12 +94,14 @@ const Mutation = {
     if (typeof data.url === 'string') {
       post.url = data.url
     }
+
     pubsub.publish(POST, {
       post: {
         mutation: 'UPDATED',
         data: post
       }
     })
+
     return post
   },
 
@@ -130,14 +130,19 @@ const Mutation = {
       ...args.data
     }
 
-    pubsub.publish(COMMENT_CREATED, { commentCreated: comment })
+    pubsub.publish('COMMENT', {
+      comment: {
+        type: 'CREATED',
+        data: comment
+      }
+    })
     db.comments.push(comment)
+
     return comment
   },
 
-  updateComment: (_, { id, args }, { db }) => {
+  updateComment: (_, { id, args }, { db, pubsub }) => {
     const comment = db.comments.find(c => c.id === id)
-
     if (!comment) {
       throw new Error('Comment not found!')
     }
@@ -146,18 +151,30 @@ const Mutation = {
       comment.body = args.body
     }
 
+    pubsub.publish('COMMENT', {
+      comment: {
+        type: 'UPDATED',
+        data: comment
+      }
+    })
+
     return comment
   },
-  deleteComment: (_, { id }, { db }) => {
+  deleteComment: (_, { id }, { db, pubsub }) => {
     const commentIndex = db.comments.findIndex(c => c.id === id)
-
     if (commentIndex === -1) {
       throw new Error('comment does not exist!')
     }
 
-    const deletedComment = db.comments.splice(commentIndex, 1)
+    const [comment] = db.comments.splice(commentIndex, 1)
+    pubsub.publish('COMMENT', {
+      comment: {
+        type: 'CREATED',
+        data: comment
+      }
+    })
 
-    return deletedComment[0]
+    return comment
   }
 }
 
