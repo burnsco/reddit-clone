@@ -2,15 +2,18 @@ import { v4 as uuidv4 } from 'uuid'
 import { POST } from '../constants'
 
 const Mutation = {
-  createUser: (_, args, { db }) => {
-    if (db.users.some(u => u.email === args.email)) {
+  createUser: (_, { data }, { db }) => {
+    if (db.users.some(u => u.email === data.email)) {
       throw new Error('Email taken.')
     }
+
     const user = {
       id: uuidv4(),
-      ...args.data
+      ...data
     }
+
     db.users.push(user)
+
     return user
   },
 
@@ -52,18 +55,23 @@ const Mutation = {
       throw new Error('User not found')
     }
 
-    const deletedUser = db.users.splice(userIndex, 1)
+    const [user] = db.users.splice(userIndex, 1)
 
-    return deletedUser[0]
+    return user
   },
 
-  createPost: (_, args, { db, pubsub }) => {
+  createPost: (_, { data }, { db, pubsub }) => {
+    const userIndex = db.users.findIndex(u => u.username === data.author)
+    if (userIndex === -1) {
+      throw new Error('User not found')
+    }
+
     const post = {
       id: uuidv4(),
       type: 'link',
       published: true,
       votes: Math.floor(Math.random() * Math.floor(100)),
-      ...args.data
+      ...data
     }
 
     pubsub.publish(POST, {
@@ -124,15 +132,24 @@ const Mutation = {
     return post
   },
 
-  createComment: (_, args, { db, pubsub }, info) => {
+  createComment: (_, { data }, { db, pubsub }, info) => {
+    const userExists = db.users.some(u => u.username === data.author)
+    const postExists = db.posts.some(p => p.id === data.postID)
+    if (!userExists) {
+      throw new Error('user does not exist!')
+    }
+    if (!postExists) {
+      throw new Error('post does not exist!')
+    }
+
     const comment = {
       id: uuidv4(),
-      ...args.data
+      ...data
     }
 
     pubsub.publish('COMMENT', {
       comment: {
-        type: 'CREATED',
+        mutation: 'CREATED',
         data: comment
       }
     })
@@ -153,7 +170,7 @@ const Mutation = {
 
     pubsub.publish('COMMENT', {
       comment: {
-        type: 'UPDATED',
+        mutation: 'UPDATED',
         data: comment
       }
     })
@@ -167,9 +184,10 @@ const Mutation = {
     }
 
     const [comment] = db.comments.splice(commentIndex, 1)
+
     pubsub.publish('COMMENT', {
       comment: {
-        type: 'CREATED',
+        mutation: 'DELETED',
         data: comment
       }
     })
