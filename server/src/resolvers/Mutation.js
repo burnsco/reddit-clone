@@ -2,20 +2,11 @@ import { v4 as uuidv4 } from 'uuid'
 import { POST } from '../constants'
 
 const Mutation = {
-  createUser: (_, { data }, { db }) => {
-    if (db.users.some(u => u.email === data.email)) {
-      throw new Error('Email taken.')
-    }
-
-    const user = {
-      id: uuidv4(),
-      ...data
-    }
-
-    db.users.push(user)
-
-    return user
-  },
+  createUser: (parent, args, ctx) =>
+    ctx.prisma.createUser({
+      username: args.username,
+      email: args.email
+    }),
 
   updateUser: (parent, { id, data }, { db }, info) => {
     const user = db.users.find(u => u.id === id)

@@ -3,26 +3,27 @@ type User {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   role: Role! @default(value: USER)
-  username: String!
   email: String! @unique
+  username: String!
+  friends: [User!]!
   posts: [Post!]!
-  comments: [Comment]
+  comments: [Comment!]!
 }
 type Category {
   id: ID! @id
   title: String!
-  url: String!
+  posts: [Post!]!
 }
 type Post {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   title: String!
-  published: Boolean! @default(value: false)
+  type: PostType! @default(value: POST)
   body: String!
-  category: Category! 
+  categories: [Category!]! @relation(link: TABLE) 
   url: String!
-  author: User!
+  author: User! @relation(link: INLINE)
   votes: Int! @default(value: 0)
   comments: [Comment!]!
 }
@@ -30,11 +31,15 @@ type Comment {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  published: Boolean! @default(value: false)
   body: String!
   author: User!
   post: Post!
   votes: Int! @default(value: 0)
+}
+enum PostType {
+  LINK
+  MEDIA
+  POST
 }
 enum Role {
   USER

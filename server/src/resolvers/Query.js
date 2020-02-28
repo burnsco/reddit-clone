@@ -1,16 +1,27 @@
 const Query = {
-  users: (_, __, { db }) => db.users,
+  categories: (parent, args, ctx) => ctx.prisma.categories(),
+  users: (parent, args, ctx) => ctx.prisma.users(),
+  posts: (parent, args, ctx) => ctx.prisma.posts(),
+  comments: (parent, args, ctx) => ctx.prisma.comments(),
 
-  user: (_, { userID }, { db }) => db.users.find(u => u.id === userID),
+  user: (parent, args, ctx) => ctx.prisma.user({ id: args.userID }),
+  post: (parent, args, ctx) => ctx.prisma.post({ id: args.postID }),
 
-  categories: (_, __, { db }) => db.categories,
+  commentsForPost: (parent, args, ctx) =>
+    ctx.prisma.post({ id: args.postID }).comments(),
 
-  posts: (_, { category }, { db }) =>
-    !category ? db.posts : db.posts.filter(p => p.category === category),
-
-  post: (_, { postID }, { db }) => db.posts.find(p => p.id === postID),
-
-  comments: (_, __, { db }) => db.comments
+  postsByUser: (parent, args, ctx) =>
+    ctx.prisma
+      .user({
+        id: args.userID
+      })
+      .posts(),
+  commentsByUser: (parent, args, ctx) =>
+    ctx.prisma
+      .user({
+        id: args.userID
+      })
+      .comments()
 }
 
 export { Query as default }

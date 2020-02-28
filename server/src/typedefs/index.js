@@ -2,16 +2,22 @@ import { gql } from 'apollo-server'
 
 const typeDefs = gql`
   type Query {
-    user(userID: String!): User!
-    users: [User!]!
     categories: [Category!]!
-    post(postID: String!): Post!
-    posts(category: String!): [Post!]!
+    users: [User!]!
+    posts: [Post!]!
     comments: [Comment!]!
+
+    user(userID: ID!): User!
+    post(postID: ID!): Post!
+
+    commentsForPost(postID: ID!): [Comment!]!
+
+    postsByUser(userID: ID!): Post!
+    commentsByUser(userID: ID!): Comment!
   }
 
   type Mutation {
-    createUser(data: CreateUserInput!): User!
+    createUser(data: CreateUserInput): User
     createPost(data: CreatePostInput!): Post!
     createComment(data: CreateCommentInput!): Comment!
     updateUser(id: ID!, data: UpdateUserInput!): User!
@@ -62,36 +68,34 @@ const typeDefs = gql`
 
   type User {
     id: ID!
-    email: String
-    role: RoleType
-    username: String
+    role: Role
+    email: String!
+    username: String!
+    friends: [User!]!
     posts: [Post!]!
     comments: [Comment!]!
   }
-
   type Category {
     id: ID!
     title: String!
-    subreddit: String!
+    posts: [Post!]!
   }
-
   type Post {
     id: ID!
     type: String!
-    published: Boolean
     author: User!
     title: String!
     body: String
     url: String!
     comments: [Comment]
-    category: String!
-    votes: Int
+    categories: [Category!]!
+    votes: Int!
   }
   type Comment {
     id: ID!
-    postID: String!
     body: String!
     author: User!
+    post: Post!
   }
 
   enum MutationType {
@@ -99,7 +103,7 @@ const typeDefs = gql`
     UPDATED
     DELETED
   }
-  enum RoleType {
+  enum Role {
     ADMIN
     USER
     MODERATOR

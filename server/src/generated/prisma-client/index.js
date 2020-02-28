@@ -21,6 +21,10 @@ var models = [
     embedded: false
   },
   {
+    name: "PostType",
+    embedded: false
+  },
+  {
     name: "Role",
     embedded: false
   }
