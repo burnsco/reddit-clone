@@ -5,12 +5,15 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon src/server.js --exec babel-node",
-    "prisma": "prisma"
+    "prisma": "prisma",
+    "deploy": "concurrently \"prisma deploy\" \"graphql get-schema -p prisma\"",
+    "get-schema": "graphql get-schema -p prisma"
   },
   "dependencies": {
     "apollo-server": "^2.6.0-rc.0",
     "bcryptjs": "^2.4.3",
     "graphql": "^14.6.0",
+    "graphql-cli": "3.0.14",
     "jsonwebtoken": "^8.5.1",
     "prisma-binding": "^2.3.16",
     "uuid": "^3.4.0"

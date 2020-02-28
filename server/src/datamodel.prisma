@@ -8,6 +8,11 @@ type User {
   posts: [Post!]!
   comments: [Comment]
 }
+type Category {
+  id: ID! @id
+  title: String!
+  url: String!
+}
 type Post {
   id: ID! @id
   createdAt: DateTime! @createdAt
@@ -15,8 +20,10 @@ type Post {
   title: String!
   published: Boolean! @default(value: false)
   body: String!
+  category: Category! 
   url: String!
   author: User!
+  votes: Int! @default(value: 0)
   comments: [Comment!]!
 }
 type Comment {
@@ -27,6 +34,7 @@ type Comment {
   body: String!
   author: User!
   post: Post!
+  votes: Int! @default(value: 0)
 }
 enum Role {
   USER
