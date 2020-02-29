@@ -36,7 +36,6 @@ const Mutation = {
         id: args.id
       }
     }),
-
   deleteUser: async (root, { email }, { db }) =>
     await db.deleteUser({ email: email }),
   deletePost: async (root, { id }, { db }) => await db.deletePost({ id: id }),
