@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs')
 
 const Mutation = {
   createUser: async (root, { data }, { db }) => {
-    // create encrypted (hashed) version of the password for storage
     const password = await bcrypt.hashSync(data.password, 8)
 
     const user = await db.createUser({
@@ -12,33 +11,31 @@ const Mutation = {
       email: data.email
     })
 
-    // create a jsonwebtoken (encrypted) for the user, using the hashed
-    // password as a password
-    const token = await jwt.sign({ userID: data.id }, data.password)
-
     return {
       code: '200',
       success: true,
       message: 'User was Created',
-      user,
-      token
+      user
     }
   },
-  // create user ==> bcrypt the password and store it ==> send back token
 
   loginUser: async (root, { data }, { db }) => {
-    // retreive stored user from database
     const user = await db.user({ email: data.email })
-    // check if the hashed password matches the password the user sent
+
     const hashed = bcrypt.compareSync(data.password, user.password)
-    if (!hashed) {
+
+    if (!hashed || !user) {
       return {
         code: '401',
         success: false,
         message: 'Bad Credentials'
       }
     }
-    const token = await jwt.sign({ userID: data.id }, data.password)
+
+    const token = jwt.sign({ userID: user.id }, 'asdfasdfsdf', {
+      expiresIn: '30min'
+    })
+
     return {
       code: '200',
       success: true,

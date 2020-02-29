@@ -32,7 +32,6 @@ const typeDefs = gql`
   input LoginUserInput {
     email: String!
     password: String!
-    token: String!
   }
   type LoginUserMutationResponse implements MutationResponse {
     code: String!
@@ -46,7 +45,6 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     user: User
-    token: String
   }
   type PostSubscriptionPayload {
     mutation: MutationType!

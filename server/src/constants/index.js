@@ -1,3 +1,15 @@
+export const BadCredentials = {
+  code: '401',
+  success: false,
+  message: 'Bad Credentials'
+}
+
+export const LoginSuccess = {
+  code: '200',
+  success: true,
+  message: 'Login was a success'
+}
+
 export const POST = 'POST'
 export const POST_CREATED = 'POST_CREATED'
 export const POST_UPDATED = 'POST_UPDATED'
