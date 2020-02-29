@@ -1,7 +1,6 @@
 import { BadCredentials } from '../constants'
-
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
+import { jwt } from 'jsonwebtoken'
+import { bcrypt } from 'bcryptjs'
 
 const Mutation = {
   createUser: async (root, { data }, { db }) => {
@@ -41,8 +40,10 @@ const Mutation = {
     }
   },
 
-  createPost: async (root, { data }, { db }) =>
-    await db.createPost({ ...data }),
+  createPost: async (root, { data, req }, { db }) => {
+    await db.createPost({ ...data })
+  },
+
   createComment: async (root, { data }, { db }) =>
     await db.createComment({ ...data }),
 

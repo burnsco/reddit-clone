@@ -1,9 +1,10 @@
-import { prisma as db } from '../generated/prisma-client'
+// import { prisma as db } from '../generated/prisma-client'
 
-function context() {
-  return {
-    db
-  }
-}
+// function context(req) {
+//   return {
+//     db,
+//     req
+//   }
+// }
 
-export { context as default }
+// export { context as default }

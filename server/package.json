@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/server.js --exec babel-node",
     "prisma": "prisma",
-    "deploy": "concurrently \"prisma deploy\" \"graphql get-schema -p prisma\""
+    "deploy": "prisma deploy"
   },
   "dependencies": {
     "apollo-server": "^2.6.0-rc.0",

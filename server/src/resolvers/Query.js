@@ -1,22 +1,29 @@
 const Query = {
-  categories: (parent, args, { db }) => db.categories(),
-  users: (parent, args, { db }) => db.users(),
-  posts: (parent, args, { db }) => db.posts(),
-  comments: (parent, args, { db }) => db.comments(),
+  currentUser: (parent, args, { user, db }) => {
+    if (!user) {
+      throw new Error('Not Authenticated')
+    }
+    return db.user({ id: user.id })
+  },
+  categories: (root, args, { db }) => db.categories(),
+  users: (root, args, { db }) => db.users(),
+  posts: (root, args, { db }) => db.posts(),
+  comments: (root, args, { db }) => db.comments(),
 
-  user: (parent, args, { db }) => db.user({ id: args.userID }),
-  post: (parent, args, { db }) => db.post({ id: args.postID }),
+  user: (root, args, { db }) => db.user({ id: args.userID }),
+  post: (root, args, { db }) => db.post({ id: args.postID }),
 
-  commentsForPost: (parent, args, { db }) =>
+  commentsForPost: (root, args, { db }) =>
     db.post({ id: args.postID }).comments(),
 
-  postsByUser: (parent, args, { db }) =>
+  postsByUser: (root, args, { db }) =>
     db
       .user({
         id: args.userID
       })
       .posts(),
-  commentsByUser: (parent, args, { db }) =>
+
+  commentsByUser: (root, args, { db }) =>
     db
       .user({
         id: args.userID
