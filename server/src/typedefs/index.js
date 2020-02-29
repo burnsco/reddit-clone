@@ -19,6 +19,7 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(data: CreateUserInput!): CreateUserMutationResponse!
+    loginUser(data: LoginUserInput!): LoginUserMutationResponse!
     createPost(data: CreatePostInput!): Post!
     createComment(data: CreateCommentInput!): Comment!
     updateUser(id: ID!, data: UpdateUserInput!): User!
@@ -28,11 +29,33 @@ const typeDefs = gql`
     deletePost(id: ID!): Post!
     deleteComment(id: ID!): Comment!
   }
+  input LoginUserInput {
+    email: String!
+    password: String!
+    token: String!
+  }
+  type LoginUserMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    token: String
+    user: User
+  }
   type CreateUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!
     user: User
+    token: String
+  }
+  type PostSubscriptionPayload {
+    mutation: MutationType!
+    node: Post
+  }
+
+  type CommentSubscriptionPayload {
+    mutation: MutationType!
+    node: Comment
   }
 
   interface MutationResponse {
@@ -43,7 +66,7 @@ const typeDefs = gql`
 
   type Subscription {
     post: PostSubscriptionPayload!
-    comment: CommentSubscriptionPayload!
+    comment(postID: ID!): CommentSubscriptionPayload!
   }
 
   input UpdateCommentInput {
@@ -62,8 +85,9 @@ const typeDefs = gql`
   }
 
   input CreateUserInput {
-    username: String
-    email: String
+    username: String!
+    email: String!
+    password: String!
   }
 
   input CreatePostInput {
@@ -97,11 +121,11 @@ const typeDefs = gql`
     type: String!
     author: User!
     title: String!
-    body: String!
+    body: String
     url: String!
     comments: [Comment!]!
     category: [Category!]!
-    votes: Int
+    votes: Int!
   }
   type Comment {
     id: ID!
@@ -119,18 +143,6 @@ const typeDefs = gql`
     ADMIN
     USER
     MODERATOR
-  }
-
-  # FOR POST SUBSCRIPTIONS (CREATE, UPDATE, DELETE)
-  type PostSubscriptionPayload {
-    mutation: MutationType!
-    data: Post!
-  }
-
-  # FOR COMMENT SUBSCRIPTIONS (CREATE, UPDATE, DELETE)
-  type CommentSubscriptionPayload {
-    mutation: MutationType!
-    data: Comment!
   }
 `
 export { typeDefs as default }
