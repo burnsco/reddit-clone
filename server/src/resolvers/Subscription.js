@@ -3,15 +3,20 @@ import { withFilter } from 'apollo-server'
 
 const Subscription = {
   post: {
-    subscribe: (_, __, { pubsub }) => pubsub.asyncIterator([POST])
+    subscribe: async (root, args, { db }) =>
+      await db.$subscribe
+        .post({
+          mutation_in: ['CREATED']
+        })
+        .node()
   },
   comment: {
-    subscribe: withFilter(
-      (_, __, { pubsub }) => pubsub.asyncIterator([COMMENT]),
-      (payload, variables) => {
-        return payload.comment.data.postID === variables.postID
-      }
-    )
+    subscribe: async (root, args, { db }) =>
+      await db.$subscribe
+        .comment({
+          mutation_in: ['CREATED']
+        })
+        .node()
   }
 }
 

@@ -18,7 +18,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(data: CreateUserInput!): User
+    createUser(data: CreateUserInput!): CreateUserMutationResponse!
     createPost(data: CreatePostInput!): Post!
     createComment(data: CreateCommentInput!): Comment!
     updateUser(id: ID!, data: UpdateUserInput!): User!
@@ -28,10 +28,22 @@ const typeDefs = gql`
     deletePost(id: ID!): Post!
     deleteComment(id: ID!): Comment!
   }
+  type CreateUserMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    user: User
+  }
+
+  interface MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+  }
 
   type Subscription {
     post: PostSubscriptionPayload!
-    comment(postID: ID!): CommentSubscriptionPayload!
+    comment: CommentSubscriptionPayload!
   }
 
   input UpdateCommentInput {
@@ -71,6 +83,7 @@ const typeDefs = gql`
     email: String
     username: String
     password: String
+    likedPosts: [ID!]!
     posts: [Post!]!
     comments: [Comment!]!
   }

@@ -557,6 +557,8 @@ type Post {
   body: String!
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
   url: String!
+  score: Int!
+  view: Int!
   author: User!
   votes: Int!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
@@ -575,6 +577,8 @@ input PostCreateInput {
   body: String!
   categories: CategoryCreateManyWithoutPostsInput
   url: String!
+  score: Int
+  view: Int
   author: UserCreateOneWithoutPostsInput!
   votes: Int
   comments: CommentCreateManyWithoutPostInput
@@ -602,6 +606,8 @@ input PostCreateWithoutAuthorInput {
   body: String!
   categories: CategoryCreateManyWithoutPostsInput
   url: String!
+  score: Int
+  view: Int
   votes: Int
   comments: CommentCreateManyWithoutPostInput
 }
@@ -612,6 +618,8 @@ input PostCreateWithoutCategoriesInput {
   type: PostType
   body: String!
   url: String!
+  score: Int
+  view: Int
   author: UserCreateOneWithoutPostsInput!
   votes: Int
   comments: CommentCreateManyWithoutPostInput
@@ -624,6 +632,8 @@ input PostCreateWithoutCommentsInput {
   body: String!
   categories: CategoryCreateManyWithoutPostsInput
   url: String!
+  score: Int
+  view: Int
   author: UserCreateOneWithoutPostsInput!
   votes: Int
 }
@@ -648,6 +658,10 @@ enum PostOrderByInput {
   body_DESC
   url_ASC
   url_DESC
+  score_ASC
+  score_DESC
+  view_ASC
+  view_DESC
   votes_ASC
   votes_DESC
 }
@@ -660,6 +674,8 @@ type PostPreviousValues {
   type: PostType!
   body: String!
   url: String!
+  score: Int!
+  view: Int!
   votes: Int!
 }
 
@@ -740,6 +756,22 @@ input PostScalarWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
+  score: Int
+  score_not: Int
+  score_in: [Int!]
+  score_not_in: [Int!]
+  score_lt: Int
+  score_lte: Int
+  score_gt: Int
+  score_gte: Int
+  view: Int
+  view_not: Int
+  view_in: [Int!]
+  view_not_in: [Int!]
+  view_lt: Int
+  view_lte: Int
+  view_gt: Int
+  view_gte: Int
   votes: Int
   votes_not: Int
   votes_in: [Int!]
@@ -783,6 +815,8 @@ input PostUpdateInput {
   body: String
   categories: CategoryUpdateManyWithoutPostsInput
   url: String
+  score: Int
+  view: Int
   author: UserUpdateOneRequiredWithoutPostsInput
   votes: Int
   comments: CommentUpdateManyWithoutPostInput
@@ -793,6 +827,8 @@ input PostUpdateManyDataInput {
   type: PostType
   body: String
   url: String
+  score: Int
+  view: Int
   votes: Int
 }
 
@@ -801,6 +837,8 @@ input PostUpdateManyMutationInput {
   type: PostType
   body: String
   url: String
+  score: Int
+  view: Int
   votes: Int
 }
 
@@ -846,6 +884,8 @@ input PostUpdateWithoutAuthorDataInput {
   body: String
   categories: CategoryUpdateManyWithoutPostsInput
   url: String
+  score: Int
+  view: Int
   votes: Int
   comments: CommentUpdateManyWithoutPostInput
 }
@@ -855,6 +895,8 @@ input PostUpdateWithoutCategoriesDataInput {
   type: PostType
   body: String
   url: String
+  score: Int
+  view: Int
   author: UserUpdateOneRequiredWithoutPostsInput
   votes: Int
   comments: CommentUpdateManyWithoutPostInput
@@ -866,6 +908,8 @@ input PostUpdateWithoutCommentsDataInput {
   body: String
   categories: CategoryUpdateManyWithoutPostsInput
   url: String
+  score: Int
+  view: Int
   author: UserUpdateOneRequiredWithoutPostsInput
   votes: Int
 }
@@ -977,6 +1021,22 @@ input PostWhereInput {
   url_not_starts_with: String
   url_ends_with: String
   url_not_ends_with: String
+  score: Int
+  score_not: Int
+  score_in: [Int!]
+  score_not_in: [Int!]
+  score_lt: Int
+  score_lte: Int
+  score_gt: Int
+  score_gte: Int
+  view: Int
+  view_not: Int
+  view_in: [Int!]
+  view_not_in: [Int!]
+  view_lt: Int
+  view_lte: Int
+  view_gt: Int
+  view_gte: Int
   author: UserWhereInput
   votes: Int
   votes_not: Int

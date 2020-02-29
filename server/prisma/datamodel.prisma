@@ -25,6 +25,8 @@ type Post {
   body: String!
   categories: [Category!]! @relation(link: TABLE) 
   url: String!
+  score: Int! @default(value: 0)
+  view: Int! @default(value: 0)
   author: User! @relation(link: INLINE)
   votes: Int! @default(value: 0)
   comments: [Comment!]! @relation(name: "CommentsOnPost", onDelete: CASCADE)

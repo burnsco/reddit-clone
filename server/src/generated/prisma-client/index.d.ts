@@ -237,6 +237,10 @@ export type PostOrderByInput =
   | "body_DESC"
   | "url_ASC"
   | "url_DESC"
+  | "score_ASC"
+  | "score_DESC"
+  | "view_ASC"
+  | "view_DESC"
   | "votes_ASC"
   | "votes_DESC";
 
@@ -360,6 +364,22 @@ export interface PostWhereInput {
   url_not_starts_with?: Maybe<String>;
   url_ends_with?: Maybe<String>;
   url_not_ends_with?: Maybe<String>;
+  score?: Maybe<Int>;
+  score_not?: Maybe<Int>;
+  score_in?: Maybe<Int[] | Int>;
+  score_not_in?: Maybe<Int[] | Int>;
+  score_lt?: Maybe<Int>;
+  score_lte?: Maybe<Int>;
+  score_gt?: Maybe<Int>;
+  score_gte?: Maybe<Int>;
+  view?: Maybe<Int>;
+  view_not?: Maybe<Int>;
+  view_in?: Maybe<Int[] | Int>;
+  view_not_in?: Maybe<Int[] | Int>;
+  view_lt?: Maybe<Int>;
+  view_lte?: Maybe<Int>;
+  view_gt?: Maybe<Int>;
+  view_gte?: Maybe<Int>;
   author?: Maybe<UserWhereInput>;
   votes?: Maybe<Int>;
   votes_not?: Maybe<Int>;
@@ -594,6 +614,8 @@ export interface PostCreateWithoutCategoriesInput {
   type?: Maybe<PostType>;
   body: String;
   url: String;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   author: UserCreateOneWithoutPostsInput;
   votes?: Maybe<Int>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
@@ -639,6 +661,8 @@ export interface PostCreateWithoutCommentsInput {
   body: String;
   categories?: Maybe<CategoryCreateManyWithoutPostsInput>;
   url: String;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   author: UserCreateOneWithoutPostsInput;
   votes?: Maybe<Int>;
 }
@@ -695,6 +719,8 @@ export interface PostCreateWithoutAuthorInput {
   body: String;
   categories?: Maybe<CategoryCreateManyWithoutPostsInput>;
   url: String;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   votes?: Maybe<Int>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
@@ -736,6 +762,8 @@ export interface PostUpdateWithoutCategoriesDataInput {
   type?: Maybe<PostType>;
   body?: Maybe<String>;
   url?: Maybe<String>;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
   votes?: Maybe<Int>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
@@ -803,6 +831,8 @@ export interface PostUpdateWithoutCommentsDataInput {
   body?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
   url?: Maybe<String>;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
   votes?: Maybe<Int>;
 }
@@ -1052,6 +1082,8 @@ export interface PostUpdateWithoutAuthorDataInput {
   body?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
   url?: Maybe<String>;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   votes?: Maybe<Int>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
@@ -1139,6 +1171,22 @@ export interface PostScalarWhereInput {
   url_not_starts_with?: Maybe<String>;
   url_ends_with?: Maybe<String>;
   url_not_ends_with?: Maybe<String>;
+  score?: Maybe<Int>;
+  score_not?: Maybe<Int>;
+  score_in?: Maybe<Int[] | Int>;
+  score_not_in?: Maybe<Int[] | Int>;
+  score_lt?: Maybe<Int>;
+  score_lte?: Maybe<Int>;
+  score_gt?: Maybe<Int>;
+  score_gte?: Maybe<Int>;
+  view?: Maybe<Int>;
+  view_not?: Maybe<Int>;
+  view_in?: Maybe<Int[] | Int>;
+  view_not_in?: Maybe<Int[] | Int>;
+  view_lt?: Maybe<Int>;
+  view_lte?: Maybe<Int>;
+  view_gt?: Maybe<Int>;
+  view_gte?: Maybe<Int>;
   votes?: Maybe<Int>;
   votes_not?: Maybe<Int>;
   votes_in?: Maybe<Int[] | Int>;
@@ -1162,6 +1210,8 @@ export interface PostUpdateManyDataInput {
   type?: Maybe<PostType>;
   body?: Maybe<String>;
   url?: Maybe<String>;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   votes?: Maybe<Int>;
 }
 
@@ -1213,6 +1263,8 @@ export interface PostCreateInput {
   body: String;
   categories?: Maybe<CategoryCreateManyWithoutPostsInput>;
   url: String;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   author: UserCreateOneWithoutPostsInput;
   votes?: Maybe<Int>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
@@ -1224,6 +1276,8 @@ export interface PostUpdateInput {
   body?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
   url?: Maybe<String>;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
   votes?: Maybe<Int>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
@@ -1234,6 +1288,8 @@ export interface PostUpdateManyMutationInput {
   type?: Maybe<PostType>;
   body?: Maybe<String>;
   url?: Maybe<String>;
+  score?: Maybe<Int>;
+  view?: Maybe<Int>;
   votes?: Maybe<Int>;
 }
 
@@ -1374,6 +1430,8 @@ export interface Post {
   type: PostType;
   body: String;
   url: String;
+  score: Int;
+  view: Int;
   votes: Int;
 }
 
@@ -1394,6 +1452,8 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
     last?: Int;
   }) => T;
   url: () => Promise<String>;
+  score: () => Promise<Int>;
+  view: () => Promise<Int>;
   author: <T = UserPromise>() => T;
   votes: () => Promise<Int>;
   comments: <T = FragmentableArray<Comment>>(args?: {
@@ -1426,6 +1486,8 @@ export interface PostSubscription
     last?: Int;
   }) => T;
   url: () => Promise<AsyncIterator<String>>;
+  score: () => Promise<AsyncIterator<Int>>;
+  view: () => Promise<AsyncIterator<Int>>;
   author: <T = UserSubscription>() => T;
   votes: () => Promise<AsyncIterator<Int>>;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
@@ -1458,6 +1520,8 @@ export interface PostNullablePromise
     last?: Int;
   }) => T;
   url: () => Promise<String>;
+  score: () => Promise<Int>;
+  view: () => Promise<Int>;
   author: <T = UserPromise>() => T;
   votes: () => Promise<Int>;
   comments: <T = FragmentableArray<Comment>>(args?: {
@@ -1998,6 +2062,8 @@ export interface PostPreviousValues {
   type: PostType;
   body: String;
   url: String;
+  score: Int;
+  view: Int;
   votes: Int;
 }
 
@@ -2011,6 +2077,8 @@ export interface PostPreviousValuesPromise
   type: () => Promise<PostType>;
   body: () => Promise<String>;
   url: () => Promise<String>;
+  score: () => Promise<Int>;
+  view: () => Promise<Int>;
   votes: () => Promise<Int>;
 }
 
@@ -2024,6 +2092,8 @@ export interface PostPreviousValuesSubscription
   type: () => Promise<AsyncIterator<PostType>>;
   body: () => Promise<AsyncIterator<String>>;
   url: () => Promise<AsyncIterator<String>>;
+  score: () => Promise<AsyncIterator<Int>>;
+  view: () => Promise<AsyncIterator<Int>>;
   votes: () => Promise<AsyncIterator<Int>>;
 }
 
