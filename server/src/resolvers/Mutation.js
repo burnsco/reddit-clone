@@ -1,10 +1,11 @@
+import { BadCredentials } from '../constants'
+
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 const Mutation = {
   createUser: async (root, { data }, { db }) => {
-    const password = await bcrypt.hashSync(data.password, 8)
-
+    const password = bcrypt.hashSync(data.password, 8)
     const user = await db.createUser({
       password,
       username: data.username,
@@ -21,18 +22,13 @@ const Mutation = {
 
   loginUser: async (root, { data }, { db }) => {
     const user = await db.user({ email: data.email })
-
-    const hashed = bcrypt.compareSync(data.password, user.password)
+    const hashed = await bcrypt.compareSync(data.password, user.password)
 
     if (!hashed || !user) {
-      return {
-        code: '401',
-        success: false,
-        message: 'Bad Credentials'
-      }
+      return BadCredentials
     }
 
-    const token = jwt.sign({ userID: user.id }, 'asdfasdfsdf', {
+    const token = await jwt.sign({ userID: user.id }, 'asdfasdfsdf', {
       expiresIn: '30min'
     })
 
