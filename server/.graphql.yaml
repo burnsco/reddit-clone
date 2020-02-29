@@ -1,0 +1,8 @@
+schema: './schema/*.graphql'
+extensions:
+  graphql-codegen:
+    generates:
+      ./src/types.ts:
+        plugins:
+          - javascript
+          - javascript-resolvers

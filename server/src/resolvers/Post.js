@@ -1,6 +1,16 @@
 const Post = {
-  author: ({ author }, _, { db }) => db.users.find(u => u.username === author),
-  comments: ({ id }, _, { db }) => db.comments.filter(c => c.postID === id)
+  author: (root, args, { db }) =>
+    db
+      .post({
+        id: root.id
+      })
+      .author(),
+  comments: (root, args, { db }) =>
+    db
+      .post({
+        id: root.id
+      })
+      .author()
 }
 
 export { Post as default }

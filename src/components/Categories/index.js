@@ -13,7 +13,6 @@ const GET_CATEGORIES = gql`
     categories {
       id
       title
-      subreddit
     }
   }
 `
@@ -29,7 +28,7 @@ function Categories() {
       <ContainerTitle>Subreddits</ContainerTitle>
       {data.categories.map(category => (
         <CategoryTitles
-          onClick={() => navigate(`${category.subreddit}`)}
+          onClick={() => navigate(`/r/${category.title}`)}
           key={category.id}
         >
           r/{category.title}

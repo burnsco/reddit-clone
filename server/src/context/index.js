@@ -1,10 +1,10 @@
 import { PubSub } from 'apollo-server'
-import { prisma } from '../generated/prisma-client'
+import { prisma as db } from '../generated/prisma-client'
 
 const pubsub = new PubSub()
 
 const context = {
-  prisma,
+  db,
   pubsub
 }
 

@@ -5,7 +5,6 @@ type User {
   role: Role! @default(value: USER)
   email: String! @unique
   username: String!
-  friends: [User!]!
   posts: [Post!]!
   comments: [Comment!]!
 }

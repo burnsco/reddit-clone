@@ -28,10 +28,10 @@ const Post = ({
       </p>
       <p>{url}</p>
       <p>
-        <Link to={`/r/${category}/${id}/comments`}>
+        {/* <Link to={`/r/${category}/${id}/comments`}>
           {comments.length} {comments.length > 1 ? 'comments' : 'comment'}
-        </Link>
-        --{category}--{username}--3M ago
+        </Link> */}
+        --/r/music--{username}--3M ago
       </p>
     </PostDetailsContainer>
   </PostContainer>

@@ -6,7 +6,6 @@ const GET_ALL_POSTS = gql`
       id
       title
       url
-      category
       comments {
         id
       }

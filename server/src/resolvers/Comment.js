@@ -1,5 +1,10 @@
 const Comment = {
-  author: ({ author }, _, { db }) => db.users.find(u => u.username === author)
+  author: (root, args, { db }) =>
+    db
+      .comment({
+        id: root.id
+      })
+      .author()
 }
 
 export { Comment as default }

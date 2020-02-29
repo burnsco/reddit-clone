@@ -1,23 +1,23 @@
 const Query = {
-  categories: (parent, args, ctx) => ctx.prisma.categories(),
-  users: (parent, args, ctx) => ctx.prisma.users(),
-  posts: (parent, args, ctx) => ctx.prisma.posts(),
-  comments: (parent, args, ctx) => ctx.prisma.comments(),
+  categories: (parent, args, { db }) => db.categories(),
+  users: (parent, args, { db }) => db.users(),
+  posts: (parent, args, { db }) => db.posts(),
+  comments: (parent, args, { db }) => db.comments(),
 
-  user: (parent, args, ctx) => ctx.prisma.user({ id: args.userID }),
-  post: (parent, args, ctx) => ctx.prisma.post({ id: args.postID }),
+  user: (parent, args, { db }) => db.user({ id: args.userID }),
+  post: (parent, args, { db }) => db.post({ id: args.postID }),
 
-  commentsForPost: (parent, args, ctx) =>
-    ctx.prisma.post({ id: args.postID }).comments(),
+  commentsForPost: (parent, args, { db }) =>
+    db.post({ id: args.postID }).comments(),
 
-  postsByUser: (parent, args, ctx) =>
-    ctx.prisma
+  postsByUser: (parent, args, { db }) =>
+    db
       .user({
         id: args.userID
       })
       .posts(),
-  commentsByUser: (parent, args, ctx) =>
-    ctx.prisma
+  commentsByUser: (parent, args, { db }) =>
+    db
       .user({
         id: args.userID
       })

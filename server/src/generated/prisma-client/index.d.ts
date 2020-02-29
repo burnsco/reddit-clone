@@ -246,6 +246,18 @@ export type CategoryOrderByInput =
   | "title_ASC"
   | "title_DESC";
 
+export type CommentOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "body_ASC"
+  | "body_DESC"
+  | "votes_ASC"
+  | "votes_DESC";
+
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -259,18 +271,6 @@ export type UserOrderByInput =
   | "email_DESC"
   | "username_ASC"
   | "username_DESC";
-
-export type CommentOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
-  | "body_ASC"
-  | "body_DESC"
-  | "votes_ASC"
-  | "votes_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -475,9 +475,6 @@ export interface UserWhereInput {
   username_not_starts_with?: Maybe<String>;
   username_ends_with?: Maybe<String>;
   username_not_ends_with?: Maybe<String>;
-  friends_every?: Maybe<UserWhereInput>;
-  friends_some?: Maybe<UserWhereInput>;
-  friends_none?: Maybe<UserWhereInput>;
   posts_every?: Maybe<PostWhereInput>;
   posts_some?: Maybe<PostWhereInput>;
   posts_none?: Maybe<PostWhereInput>;
@@ -596,39 +593,37 @@ export interface UserCreateWithoutPostsInput {
   role?: Maybe<Role>;
   email: String;
   username: String;
-  friends?: Maybe<UserCreateManyInput>;
   comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
 }
 
-export interface UserCreateManyInput {
-  create?: Maybe<UserCreateInput[] | UserCreateInput>;
-  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
+export interface CommentCreateManyWithoutAuthorInput {
+  create?: Maybe<
+    CommentCreateWithoutAuthorInput[] | CommentCreateWithoutAuthorInput
+  >;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
 }
 
-export interface UserCreateInput {
+export interface CommentCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
-  role?: Maybe<Role>;
-  email: String;
-  username: String;
-  friends?: Maybe<UserCreateManyInput>;
-  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
-  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  body: String;
+  post: PostCreateOneWithoutCommentsInput;
+  votes?: Maybe<Int>;
 }
 
-export interface PostCreateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+export interface PostCreateOneWithoutCommentsInput {
+  create?: Maybe<PostCreateWithoutCommentsInput>;
+  connect?: Maybe<PostWhereUniqueInput>;
 }
 
-export interface PostCreateWithoutAuthorInput {
+export interface PostCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
   title: String;
   type?: Maybe<PostType>;
   body: String;
   categories?: Maybe<CategoryCreateManyWithoutPostsInput>;
   url: String;
+  author: UserCreateOneWithoutPostsInput;
   votes?: Maybe<Int>;
-  comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
 export interface CategoryCreateManyWithoutPostsInput {
@@ -667,38 +662,23 @@ export interface UserCreateWithoutCommentsInput {
   role?: Maybe<Role>;
   email: String;
   username: String;
-  friends?: Maybe<UserCreateManyInput>;
   posts?: Maybe<PostCreateManyWithoutAuthorInput>;
 }
 
-export interface CommentCreateManyWithoutAuthorInput {
-  create?: Maybe<
-    CommentCreateWithoutAuthorInput[] | CommentCreateWithoutAuthorInput
-  >;
-  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+export interface PostCreateManyWithoutAuthorInput {
+  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
+  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
 }
 
-export interface CommentCreateWithoutAuthorInput {
-  id?: Maybe<ID_Input>;
-  body: String;
-  post: PostCreateOneWithoutCommentsInput;
-  votes?: Maybe<Int>;
-}
-
-export interface PostCreateOneWithoutCommentsInput {
-  create?: Maybe<PostCreateWithoutCommentsInput>;
-  connect?: Maybe<PostWhereUniqueInput>;
-}
-
-export interface PostCreateWithoutCommentsInput {
+export interface PostCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
   title: String;
   type?: Maybe<PostType>;
   body: String;
   categories?: Maybe<CategoryCreateManyWithoutPostsInput>;
   url: String;
-  author: UserCreateOneWithoutPostsInput;
   votes?: Maybe<Int>;
+  comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
 export interface CategoryUpdateInput {
@@ -754,77 +734,58 @@ export interface UserUpdateWithoutPostsDataInput {
   role?: Maybe<Role>;
   email?: Maybe<String>;
   username?: Maybe<String>;
-  friends?: Maybe<UserUpdateManyInput>;
   comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
 }
 
-export interface UserUpdateManyInput {
-  create?: Maybe<UserCreateInput[] | UserCreateInput>;
+export interface CommentUpdateManyWithoutAuthorInput {
+  create?: Maybe<
+    CommentCreateWithoutAuthorInput[] | CommentCreateWithoutAuthorInput
+  >;
+  delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
   update?: Maybe<
-    | UserUpdateWithWhereUniqueNestedInput[]
-    | UserUpdateWithWhereUniqueNestedInput
+    | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
+    | CommentUpdateWithWhereUniqueWithoutAuthorInput
   >;
   upsert?: Maybe<
-    | UserUpsertWithWhereUniqueNestedInput[]
-    | UserUpsertWithWhereUniqueNestedInput
+    | CommentUpsertWithWhereUniqueWithoutAuthorInput[]
+    | CommentUpsertWithWhereUniqueWithoutAuthorInput
   >;
-  delete?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-  connect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-  set?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-  disconnect?: Maybe<UserWhereUniqueInput[] | UserWhereUniqueInput>;
-  deleteMany?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
+  deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
   updateMany?: Maybe<
-    UserUpdateManyWithWhereNestedInput[] | UserUpdateManyWithWhereNestedInput
+    | CommentUpdateManyWithWhereNestedInput[]
+    | CommentUpdateManyWithWhereNestedInput
   >;
 }
 
-export interface UserUpdateWithWhereUniqueNestedInput {
-  where: UserWhereUniqueInput;
-  data: UserUpdateDataInput;
+export interface CommentUpdateWithWhereUniqueWithoutAuthorInput {
+  where: CommentWhereUniqueInput;
+  data: CommentUpdateWithoutAuthorDataInput;
 }
 
-export interface UserUpdateDataInput {
-  role?: Maybe<Role>;
-  email?: Maybe<String>;
-  username?: Maybe<String>;
-  friends?: Maybe<UserUpdateManyInput>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
-  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+export interface CommentUpdateWithoutAuthorDataInput {
+  body?: Maybe<String>;
+  post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
+  votes?: Maybe<Int>;
 }
 
-export interface PostUpdateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  delete?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  set?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  disconnect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  update?: Maybe<
-    | PostUpdateWithWhereUniqueWithoutAuthorInput[]
-    | PostUpdateWithWhereUniqueWithoutAuthorInput
-  >;
-  upsert?: Maybe<
-    | PostUpsertWithWhereUniqueWithoutAuthorInput[]
-    | PostUpsertWithWhereUniqueWithoutAuthorInput
-  >;
-  deleteMany?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  updateMany?: Maybe<
-    PostUpdateManyWithWhereNestedInput[] | PostUpdateManyWithWhereNestedInput
-  >;
+export interface PostUpdateOneRequiredWithoutCommentsInput {
+  create?: Maybe<PostCreateWithoutCommentsInput>;
+  update?: Maybe<PostUpdateWithoutCommentsDataInput>;
+  upsert?: Maybe<PostUpsertWithoutCommentsInput>;
+  connect?: Maybe<PostWhereUniqueInput>;
 }
 
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  data: PostUpdateWithoutAuthorDataInput;
-}
-
-export interface PostUpdateWithoutAuthorDataInput {
+export interface PostUpdateWithoutCommentsDataInput {
   title?: Maybe<String>;
   type?: Maybe<PostType>;
   body?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
   url?: Maybe<String>;
+  author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
   votes?: Maybe<Int>;
-  comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
 
 export interface CategoryUpdateManyWithoutPostsInput {
@@ -908,64 +869,15 @@ export interface CategoryUpdateManyDataInput {
   title?: Maybe<String>;
 }
 
-export interface CommentUpdateManyWithoutPostInput {
-  create?: Maybe<
-    CommentCreateWithoutPostInput[] | CommentCreateWithoutPostInput
-  >;
-  delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  update?: Maybe<
-    | CommentUpdateWithWhereUniqueWithoutPostInput[]
-    | CommentUpdateWithWhereUniqueWithoutPostInput
-  >;
-  upsert?: Maybe<
-    | CommentUpsertWithWhereUniqueWithoutPostInput[]
-    | CommentUpsertWithWhereUniqueWithoutPostInput
-  >;
-  deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
-  updateMany?: Maybe<
-    | CommentUpdateManyWithWhereNestedInput[]
-    | CommentUpdateManyWithWhereNestedInput
-  >;
+export interface PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput;
+  create: PostCreateWithoutCommentsInput;
 }
 
-export interface CommentUpdateWithWhereUniqueWithoutPostInput {
+export interface CommentUpsertWithWhereUniqueWithoutAuthorInput {
   where: CommentWhereUniqueInput;
-  data: CommentUpdateWithoutPostDataInput;
-}
-
-export interface CommentUpdateWithoutPostDataInput {
-  body?: Maybe<String>;
-  author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
-  votes?: Maybe<Int>;
-}
-
-export interface UserUpdateOneRequiredWithoutCommentsInput {
-  create?: Maybe<UserCreateWithoutCommentsInput>;
-  update?: Maybe<UserUpdateWithoutCommentsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutCommentsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserUpdateWithoutCommentsDataInput {
-  role?: Maybe<Role>;
-  email?: Maybe<String>;
-  username?: Maybe<String>;
-  friends?: Maybe<UserUpdateManyInput>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
-}
-
-export interface UserUpsertWithoutCommentsInput {
-  update: UserUpdateWithoutCommentsDataInput;
-  create: UserCreateWithoutCommentsInput;
-}
-
-export interface CommentUpsertWithWhereUniqueWithoutPostInput {
-  where: CommentWhereUniqueInput;
-  update: CommentUpdateWithoutPostDataInput;
-  create: CommentCreateWithoutPostInput;
+  update: CommentUpdateWithoutAuthorDataInput;
+  create: CommentCreateWithoutAuthorInput;
 }
 
 export interface CommentScalarWhereInput {
@@ -1034,6 +946,94 @@ export interface CommentUpdateManyWithWhereNestedInput {
 export interface CommentUpdateManyDataInput {
   body?: Maybe<String>;
   votes?: Maybe<Int>;
+}
+
+export interface UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput;
+  create: UserCreateWithoutPostsInput;
+}
+
+export interface CommentUpdateManyWithoutPostInput {
+  create?: Maybe<
+    CommentCreateWithoutPostInput[] | CommentCreateWithoutPostInput
+  >;
+  delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  update?: Maybe<
+    | CommentUpdateWithWhereUniqueWithoutPostInput[]
+    | CommentUpdateWithWhereUniqueWithoutPostInput
+  >;
+  upsert?: Maybe<
+    | CommentUpsertWithWhereUniqueWithoutPostInput[]
+    | CommentUpsertWithWhereUniqueWithoutPostInput
+  >;
+  deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+  updateMany?: Maybe<
+    | CommentUpdateManyWithWhereNestedInput[]
+    | CommentUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface CommentUpdateWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput;
+  data: CommentUpdateWithoutPostDataInput;
+}
+
+export interface CommentUpdateWithoutPostDataInput {
+  body?: Maybe<String>;
+  author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
+  votes?: Maybe<Int>;
+}
+
+export interface UserUpdateOneRequiredWithoutCommentsInput {
+  create?: Maybe<UserCreateWithoutCommentsInput>;
+  update?: Maybe<UserUpdateWithoutCommentsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCommentsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutCommentsDataInput {
+  role?: Maybe<Role>;
+  email?: Maybe<String>;
+  username?: Maybe<String>;
+  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
+}
+
+export interface PostUpdateManyWithoutAuthorInput {
+  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
+  delete?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+  set?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+  disconnect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+  update?: Maybe<
+    | PostUpdateWithWhereUniqueWithoutAuthorInput[]
+    | PostUpdateWithWhereUniqueWithoutAuthorInput
+  >;
+  upsert?: Maybe<
+    | PostUpsertWithWhereUniqueWithoutAuthorInput[]
+    | PostUpsertWithWhereUniqueWithoutAuthorInput
+  >;
+  deleteMany?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+  updateMany?: Maybe<
+    PostUpdateManyWithWhereNestedInput[] | PostUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
+  where: PostWhereUniqueInput;
+  data: PostUpdateWithoutAuthorDataInput;
+}
+
+export interface PostUpdateWithoutAuthorDataInput {
+  title?: Maybe<String>;
+  type?: Maybe<PostType>;
+  body?: Maybe<String>;
+  categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
+  url?: Maybe<String>;
+  votes?: Maybe<Int>;
+  comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
 
 export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
@@ -1145,156 +1145,15 @@ export interface PostUpdateManyDataInput {
   votes?: Maybe<Int>;
 }
 
-export interface CommentUpdateManyWithoutAuthorInput {
-  create?: Maybe<
-    CommentCreateWithoutAuthorInput[] | CommentCreateWithoutAuthorInput
-  >;
-  delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  update?: Maybe<
-    | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
-    | CommentUpdateWithWhereUniqueWithoutAuthorInput
-  >;
-  upsert?: Maybe<
-    | CommentUpsertWithWhereUniqueWithoutAuthorInput[]
-    | CommentUpsertWithWhereUniqueWithoutAuthorInput
-  >;
-  deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
-  updateMany?: Maybe<
-    | CommentUpdateManyWithWhereNestedInput[]
-    | CommentUpdateManyWithWhereNestedInput
-  >;
+export interface UserUpsertWithoutCommentsInput {
+  update: UserUpdateWithoutCommentsDataInput;
+  create: UserCreateWithoutCommentsInput;
 }
 
-export interface CommentUpdateWithWhereUniqueWithoutAuthorInput {
+export interface CommentUpsertWithWhereUniqueWithoutPostInput {
   where: CommentWhereUniqueInput;
-  data: CommentUpdateWithoutAuthorDataInput;
-}
-
-export interface CommentUpdateWithoutAuthorDataInput {
-  body?: Maybe<String>;
-  post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
-  votes?: Maybe<Int>;
-}
-
-export interface PostUpdateOneRequiredWithoutCommentsInput {
-  create?: Maybe<PostCreateWithoutCommentsInput>;
-  update?: Maybe<PostUpdateWithoutCommentsDataInput>;
-  upsert?: Maybe<PostUpsertWithoutCommentsInput>;
-  connect?: Maybe<PostWhereUniqueInput>;
-}
-
-export interface PostUpdateWithoutCommentsDataInput {
-  title?: Maybe<String>;
-  type?: Maybe<PostType>;
-  body?: Maybe<String>;
-  categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
-  url?: Maybe<String>;
-  author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-  votes?: Maybe<Int>;
-}
-
-export interface PostUpsertWithoutCommentsInput {
-  update: PostUpdateWithoutCommentsDataInput;
-  create: PostCreateWithoutCommentsInput;
-}
-
-export interface CommentUpsertWithWhereUniqueWithoutAuthorInput {
-  where: CommentWhereUniqueInput;
-  update: CommentUpdateWithoutAuthorDataInput;
-  create: CommentCreateWithoutAuthorInput;
-}
-
-export interface UserUpsertWithWhereUniqueNestedInput {
-  where: UserWhereUniqueInput;
-  update: UserUpdateDataInput;
-  create: UserCreateInput;
-}
-
-export interface UserScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  role?: Maybe<Role>;
-  role_not?: Maybe<Role>;
-  role_in?: Maybe<Role[] | Role>;
-  role_not_in?: Maybe<Role[] | Role>;
-  email?: Maybe<String>;
-  email_not?: Maybe<String>;
-  email_in?: Maybe<String[] | String>;
-  email_not_in?: Maybe<String[] | String>;
-  email_lt?: Maybe<String>;
-  email_lte?: Maybe<String>;
-  email_gt?: Maybe<String>;
-  email_gte?: Maybe<String>;
-  email_contains?: Maybe<String>;
-  email_not_contains?: Maybe<String>;
-  email_starts_with?: Maybe<String>;
-  email_not_starts_with?: Maybe<String>;
-  email_ends_with?: Maybe<String>;
-  email_not_ends_with?: Maybe<String>;
-  username?: Maybe<String>;
-  username_not?: Maybe<String>;
-  username_in?: Maybe<String[] | String>;
-  username_not_in?: Maybe<String[] | String>;
-  username_lt?: Maybe<String>;
-  username_lte?: Maybe<String>;
-  username_gt?: Maybe<String>;
-  username_gte?: Maybe<String>;
-  username_contains?: Maybe<String>;
-  username_not_contains?: Maybe<String>;
-  username_starts_with?: Maybe<String>;
-  username_not_starts_with?: Maybe<String>;
-  username_ends_with?: Maybe<String>;
-  username_not_ends_with?: Maybe<String>;
-  AND?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
-  OR?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
-  NOT?: Maybe<UserScalarWhereInput[] | UserScalarWhereInput>;
-}
-
-export interface UserUpdateManyWithWhereNestedInput {
-  where: UserScalarWhereInput;
-  data: UserUpdateManyDataInput;
-}
-
-export interface UserUpdateManyDataInput {
-  role?: Maybe<Role>;
-  email?: Maybe<String>;
-  username?: Maybe<String>;
-}
-
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
+  update: CommentUpdateWithoutPostDataInput;
+  create: CommentCreateWithoutPostInput;
 }
 
 export interface PostUpsertWithWhereUniqueWithoutCategoriesInput {
@@ -1358,11 +1217,19 @@ export interface PostUpdateManyMutationInput {
   votes?: Maybe<Int>;
 }
 
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  role?: Maybe<Role>;
+  email: String;
+  username: String;
+  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
+}
+
 export interface UserUpdateInput {
   role?: Maybe<Role>;
   email?: Maybe<String>;
   username?: Maybe<String>;
-  friends?: Maybe<UserUpdateManyInput>;
   posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
   comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
 }
@@ -1597,15 +1464,6 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   role: () => Promise<Role>;
   email: () => Promise<String>;
   username: () => Promise<String>;
-  friends: <T = FragmentableArray<User>>(args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
   posts: <T = FragmentableArray<Post>>(args?: {
     where?: PostWhereInput;
     orderBy?: PostOrderByInput;
@@ -1635,15 +1493,6 @@ export interface UserSubscription
   role: () => Promise<AsyncIterator<Role>>;
   email: () => Promise<AsyncIterator<String>>;
   username: () => Promise<AsyncIterator<String>>;
-  friends: <T = Promise<AsyncIterator<UserSubscription>>>(args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
   posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
     where?: PostWhereInput;
     orderBy?: PostOrderByInput;
@@ -1673,15 +1522,6 @@ export interface UserNullablePromise
   role: () => Promise<Role>;
   email: () => Promise<String>;
   username: () => Promise<String>;
-  friends: <T = FragmentableArray<User>>(args?: {
-    where?: UserWhereInput;
-    orderBy?: UserOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
   posts: <T = FragmentableArray<Post>>(args?: {
     where?: PostWhereInput;
     orderBy?: PostOrderByInput;

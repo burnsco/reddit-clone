@@ -1034,7 +1034,6 @@ type User {
   role: Role!
   email: String!
   username: String!
-  friends(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
@@ -1050,14 +1049,8 @@ input UserCreateInput {
   role: Role
   email: String!
   username: String!
-  friends: UserCreateManyInput
   posts: PostCreateManyWithoutAuthorInput
   comments: CommentCreateManyWithoutAuthorInput
-}
-
-input UserCreateManyInput {
-  create: [UserCreateInput!]
-  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateOneWithoutCommentsInput {
@@ -1075,7 +1068,6 @@ input UserCreateWithoutCommentsInput {
   role: Role
   email: String!
   username: String!
-  friends: UserCreateManyInput
   posts: PostCreateManyWithoutAuthorInput
 }
 
@@ -1084,7 +1076,6 @@ input UserCreateWithoutPostsInput {
   role: Role
   email: String!
   username: String!
-  friends: UserCreateManyInput
   comments: CommentCreateManyWithoutAuthorInput
 }
 
@@ -1117,74 +1108,6 @@ type UserPreviousValues {
   username: String!
 }
 
-input UserScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  role: Role
-  role_not: Role
-  role_in: [Role!]
-  role_not_in: [Role!]
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
-  username: String
-  username_not: String
-  username_in: [String!]
-  username_not_in: [String!]
-  username_lt: String
-  username_lte: String
-  username_gt: String
-  username_gte: String
-  username_contains: String
-  username_not_contains: String
-  username_starts_with: String
-  username_not_starts_with: String
-  username_ends_with: String
-  username_not_ends_with: String
-  AND: [UserScalarWhereInput!]
-  OR: [UserScalarWhereInput!]
-  NOT: [UserScalarWhereInput!]
-}
-
 type UserSubscriptionPayload {
   mutation: MutationType!
   node: User
@@ -1203,51 +1126,18 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
-input UserUpdateDataInput {
-  role: Role
-  email: String
-  username: String
-  friends: UserUpdateManyInput
-  posts: PostUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
-}
-
 input UserUpdateInput {
   role: Role
   email: String
   username: String
-  friends: UserUpdateManyInput
   posts: PostUpdateManyWithoutAuthorInput
   comments: CommentUpdateManyWithoutAuthorInput
-}
-
-input UserUpdateManyDataInput {
-  role: Role
-  email: String
-  username: String
-}
-
-input UserUpdateManyInput {
-  create: [UserCreateInput!]
-  update: [UserUpdateWithWhereUniqueNestedInput!]
-  upsert: [UserUpsertWithWhereUniqueNestedInput!]
-  delete: [UserWhereUniqueInput!]
-  connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
-  disconnect: [UserWhereUniqueInput!]
-  deleteMany: [UserScalarWhereInput!]
-  updateMany: [UserUpdateManyWithWhereNestedInput!]
 }
 
 input UserUpdateManyMutationInput {
   role: Role
   email: String
   username: String
-}
-
-input UserUpdateManyWithWhereNestedInput {
-  where: UserScalarWhereInput!
-  data: UserUpdateManyDataInput!
 }
 
 input UserUpdateOneRequiredWithoutCommentsInput {
@@ -1268,7 +1158,6 @@ input UserUpdateWithoutCommentsDataInput {
   role: Role
   email: String
   username: String
-  friends: UserUpdateManyInput
   posts: PostUpdateManyWithoutAuthorInput
 }
 
@@ -1276,13 +1165,7 @@ input UserUpdateWithoutPostsDataInput {
   role: Role
   email: String
   username: String
-  friends: UserUpdateManyInput
   comments: CommentUpdateManyWithoutAuthorInput
-}
-
-input UserUpdateWithWhereUniqueNestedInput {
-  where: UserWhereUniqueInput!
-  data: UserUpdateDataInput!
 }
 
 input UserUpsertWithoutCommentsInput {
@@ -1293,12 +1176,6 @@ input UserUpsertWithoutCommentsInput {
 input UserUpsertWithoutPostsInput {
   update: UserUpdateWithoutPostsDataInput!
   create: UserCreateWithoutPostsInput!
-}
-
-input UserUpsertWithWhereUniqueNestedInput {
-  where: UserWhereUniqueInput!
-  update: UserUpdateDataInput!
-  create: UserCreateInput!
 }
 
 input UserWhereInput {
@@ -1364,9 +1241,6 @@ input UserWhereInput {
   username_not_starts_with: String
   username_ends_with: String
   username_not_ends_with: String
-  friends_every: UserWhereInput
-  friends_some: UserWhereInput
-  friends_none: UserWhereInput
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput

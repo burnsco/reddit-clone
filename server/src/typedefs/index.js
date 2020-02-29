@@ -2,6 +2,7 @@ import { gql } from 'apollo-server'
 
 const typeDefs = gql`
   type Query {
+    currentUser: User!
     categories: [Category!]!
     users: [User!]!
     posts: [Post!]!
@@ -17,7 +18,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(data: CreateUserInput): User
+    createUser(data: CreateUserInput!): User
     createPost(data: CreatePostInput!): Post!
     createComment(data: CreateCommentInput!): Comment!
     updateUser(id: ID!, data: UpdateUserInput!): User!
@@ -49,13 +50,12 @@ const typeDefs = gql`
   }
 
   input CreateUserInput {
-    username: String!
-    email: String!
+    username: String
+    email: String
   }
 
   input CreatePostInput {
     title: String!
-    category: String!
     author: String!
     url: String!
   }
@@ -68,10 +68,9 @@ const typeDefs = gql`
 
   type User {
     id: ID!
-    role: Role
-    email: String!
-    username: String!
-    friends: [User!]!
+    email: String
+    username: String
+    password: String
     posts: [Post!]!
     comments: [Comment!]!
   }
@@ -85,11 +84,11 @@ const typeDefs = gql`
     type: String!
     author: User!
     title: String!
-    body: String
+    body: String!
     url: String!
-    comments: [Comment]
-    categories: [Category!]!
-    votes: Int!
+    comments: [Comment!]!
+    category: [Category!]!
+    votes: Int
   }
   type Comment {
     id: ID!

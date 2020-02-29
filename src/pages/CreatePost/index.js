@@ -3,7 +3,7 @@ import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { useMutation } from '@apollo/client'
-import { gql } from 'apollo-boost'
+import { gql } from '@apollo/client'
 import Spinner from '../../components/shared/FallBackSpinner'
 import { navigate } from '@reach/router'
 
