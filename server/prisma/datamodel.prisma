@@ -4,15 +4,18 @@ type User {
   updatedAt: DateTime! @updatedAt
   role: Role! @default(value: USER)
   email: String! @unique
+  password: String!
   username: String!
   posts: [Post!]!
   comments: [Comment!]!
 }
+
 type Category {
   id: ID! @id
   title: String!
   posts: [Post!]!
 }
+
 type Post {
   id: ID! @id
   createdAt: DateTime! @createdAt
@@ -24,22 +27,24 @@ type Post {
   url: String!
   author: User! @relation(link: INLINE)
   votes: Int! @default(value: 0)
-  comments: [Comment!]!
+  comments: [Comment!]! @relation(name: "CommentsOnPost", onDelete: CASCADE)
 }
 type Comment {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   body: String!
-  author: User!
-  post: Post!
+  author: User! 
+  post: Post! @relation(name: "CommentsOnPost")
   votes: Int! @default(value: 0)
 }
+
 enum PostType {
   LINK
   MEDIA
   POST
 }
+
 enum Role {
   USER
   ADMIN
