@@ -2,14 +2,22 @@ import { ApolloServer } from 'apollo-server'
 import typeDefs from './typedefs/index'
 import resolvers from './resolvers/root'
 import { prisma as db } from './generated/prisma-client'
-import authenticate from './auth/authenticate'
-import { getUser as user } from './auth/getUser'
+import getUser from './utils/getUser'
+require('dotenv').config()
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ ...req, db, user }),
-  middlewares: [authenticate]
+  context: ({ req }) => {
+    const tokenWithBearer = req.headers.authorization || ''
+    const token = tokenWithBearer.split(' ')[1]
+    const user = getUser(token)
+
+    return {
+      user,
+      db
+    }
+  }
 })
 
 server.listen().then(({ url, subscriptionsUrl }) => {

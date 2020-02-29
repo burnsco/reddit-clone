@@ -1,6 +1,7 @@
 import { BadCredentials } from '../constants'
 import { jwt } from 'jsonwebtoken'
 import { bcrypt } from 'bcryptjs'
+import generateToken from '../utils/generateToken'
 
 const Mutation = {
   createUser: async (root, { data }, { db }) => {
@@ -11,11 +12,13 @@ const Mutation = {
       email: data.email
     })
 
+    const token = generateToken(user)
     return {
       code: '200',
       success: true,
       message: 'User was Created',
-      user
+      user,
+      token
     }
   },
 

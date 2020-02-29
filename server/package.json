@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon src/server.js --exec babel-node",
+    "start-env": "nodemon -r dotenv/config src/server.js --exec babel-node",
     "prisma": "prisma",
     "deploy": "prisma deploy"
   },
@@ -13,6 +14,8 @@
     "bcryptjs": "^2.4.3",
     "graphql": "^14.6.0",
     "graphql-cli": "3.0.14",
+    "graphql-middleware": "^4.0.2",
+    "graphql-shield": "^7.0.14",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
