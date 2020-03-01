@@ -18,7 +18,7 @@ const schema = applyMiddleware(
 
 const server = new ApolloServer({
   schema,
-  context: async ({ ...req }) => {
+  context: async ({ req }) => {
     const tokenWithBearer = req.headers.authorization || ''
     const token = tokenWithBearer.split(' ')[1]
     const user = await getUser(token)
