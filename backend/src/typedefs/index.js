@@ -29,10 +29,12 @@ const typeDefs = gql`
     deletePost(id: ID!): Post!
     deleteComment(id: ID!): Comment!
   }
+
   input LoginUserInput {
     email: String!
     password: String!
   }
+
   type LoginUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -40,6 +42,7 @@ const typeDefs = gql`
     token: String
     user: User
   }
+
   type CreateUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -47,6 +50,7 @@ const typeDefs = gql`
     user: User
     token: String
   }
+
   type PostSubscriptionPayload {
     mutation: MutationType!
     node: Post
@@ -93,6 +97,7 @@ const typeDefs = gql`
     title: String!
     author: String!
     url: String!
+    body: String
   }
 
   input CreateCommentInput {
@@ -110,11 +115,13 @@ const typeDefs = gql`
     posts: [Post!]!
     comments: [Comment!]!
   }
+
   type Category {
     id: ID!
     title: String!
     posts: [Post!]!
   }
+
   type Post {
     id: ID!
     type: String!
@@ -126,6 +133,7 @@ const typeDefs = gql`
     category: [Category!]!
     votes: Int!
   }
+
   type Comment {
     id: ID!
     body: String!
@@ -138,6 +146,7 @@ const typeDefs = gql`
     UPDATED
     DELETED
   }
+
   enum Role {
     ADMIN
     USER

@@ -1,6 +1,7 @@
 import { BadCredentials } from '../constants'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import { getUserID } from '../utils'
 
 const Mutation = {
   createUser: async (root, { data }, { db }) => {
@@ -12,7 +13,7 @@ const Mutation = {
       email: data.email
     })
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
       expiresIn: '30min'
     })
 
@@ -33,7 +34,7 @@ const Mutation = {
       return BadCredentials
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
       expiresIn: '30min'
     })
 
@@ -46,12 +47,26 @@ const Mutation = {
     }
   },
 
-  createPost: async (root, { data, req }, { db }) => {
-    await db.createPost({ ...data })
+  createPost: async (root, { data }, { db, req }) => {
+    let auth = req.req.headers.authorization
+    let user = getUserID(auth)
+
+    let post = await db.createPost({
+      title: data.title,
+      url: data.url,
+      body: data.body,
+      author: {
+        connect: {
+          id: user.userId
+        }
+      }
+    })
+    return post
   },
 
-  createComment: async (root, { data }, { db }) =>
-    await db.createComment({ ...data }),
+  createComment: async (root, { data }, { req, db }) => {
+    console.log(req)
+  },
 
   updateUser: async (root, args, { db }) =>
     await db.updateUser({
@@ -62,6 +77,7 @@ const Mutation = {
         id: args.id
       }
     }),
+
   updatePost: async (root, args, { db }) =>
     await db.updatePost({
       data: {
@@ -71,6 +87,7 @@ const Mutation = {
         id: args.id
       }
     }),
+
   updateComment: async (root, args, { db }) =>
     await db.updateComment({
       data: {
@@ -80,9 +97,12 @@ const Mutation = {
         id: args.id
       }
     }),
+
   deleteUser: async (root, { email }, { db }) =>
     await db.deleteUser({ email: email }),
+
   deletePost: async (root, { id }, { db }) => await db.deletePost({ id: id }),
+
   deleteComment: async (root, { id }, { db }) =>
     await db.deleteComment({ id: id })
 }

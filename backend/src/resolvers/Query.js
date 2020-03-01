@@ -1,19 +1,9 @@
-import decodedToken from '../utils/authenticateUser'
-
 const Query = {
-  currentUser: (parent, args, { user, db }) => {
-    if (!user) {
-      throw new Error('Not Authenticated')
-    }
-    return db.user({ id: user.id })
-  },
+  currentUser: (parent, args, context) => {},
 
   categories: (root, args, { db }) => db.categories(),
 
-  users: (root, args, { db, req }) => {
-    const decoded = decodedToken(req)
-    return db.users()
-  },
+  users: (root, args, { db }) => db.users(),
 
   posts: (root, args, { db }) => db.posts(),
 
