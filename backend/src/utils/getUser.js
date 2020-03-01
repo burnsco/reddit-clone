@@ -7,8 +7,8 @@ const getUser = ({ token }) => {
       return jwt.verify(token, process.env.JWT_SECRET)
     }
     return null
-  } catch (err) {
-    console.log(err)
+  } catch (ex) {
+    new AuthenticationError(`${ex}`)
   }
 }
 

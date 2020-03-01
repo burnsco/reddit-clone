@@ -12,14 +12,13 @@ const schema = applyMiddleware(
   makeExecutableSchema({
     typeDefs,
     resolvers
-  }),
-  permissions
+  })
 )
 
 const server = new ApolloServer({
   schema,
-  context: ({ req }) => ({
-    ...req,
+  context: req => ({
+    req,
     db
   })
 })

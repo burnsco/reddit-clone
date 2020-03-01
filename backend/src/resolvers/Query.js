@@ -1,3 +1,5 @@
+import decodedToken from '../utils/authenticateUser'
+
 const Query = {
   currentUser: (parent, args, { user, db }) => {
     if (!user) {
@@ -5,12 +7,20 @@ const Query = {
     }
     return db.user({ id: user.id })
   },
+
   categories: (root, args, { db }) => db.categories(),
-  users: (root, args, { db }) => db.users(),
+
+  users: (root, args, { db, req }) => {
+    const decoded = decodedToken(req)
+    return db.users()
+  },
+
   posts: (root, args, { db }) => db.posts(),
+
   comments: (root, args, { db }) => db.comments(),
 
   user: (root, args, { db }) => db.user({ id: args.userID }),
+
   post: (root, args, { db }) => db.post({ id: args.postID }),
 
   commentsForPost: (root, args, { db }) =>

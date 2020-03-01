@@ -1,18 +1,21 @@
 import { BadCredentials } from '../constants'
-import { jwt } from 'jsonwebtoken'
-import { bcrypt } from 'bcryptjs'
-import generateToken from '../utils/generateToken'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 
 const Mutation = {
-  createUser: async (root, { data }, { db }, info) => {
+  createUser: async (root, { data }, { db }) => {
     const password = bcrypt.hashSync(data.password, 8)
+
     const user = await db.createUser({
       password,
       username: data.username,
       email: data.email
     })
 
-    const token = generateToken(user)
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: '30min'
+    })
+
     return {
       code: '200',
       success: true,
@@ -22,7 +25,7 @@ const Mutation = {
     }
   },
 
-  loginUser: async (root, { data }, { db }, info) => {
+  loginUser: async (root, { data }, { db }) => {
     const user = await db.user({ email: data.email })
     const hashed = await bcrypt.compare(data.password, user.password)
 

@@ -8,11 +8,29 @@ const isAuthenticated = rule({ cache: 'contextual' })(
 
 const permissions = shield({
   Query: {
-    '*': allow
+    currentUser: allow,
+    categories: allow,
+    users: allow,
+    posts: allow,
+    comments: allow,
+    user: allow,
+    post: allow,
+    commentsForPost: allow,
+    postsByUser: allow,
+    commentsByUser: allow
   },
 
   Mutation: {
-    '*': allow
+    createUser: allow,
+    loginUser: allow,
+    createPost: allow,
+    createComment: allow,
+    updateUser: allow,
+    updatePost: allow,
+    updateComment: allow,
+    deleteUser: allow,
+    deletePost: allow,
+    deleteComment: allow
   }
 })
 
