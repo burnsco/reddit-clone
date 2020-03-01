@@ -1,5 +1,8 @@
 const Query = {
-  currentUser: (root, args, context) => {},
+  currentUser: async (root, args, { db, user }) => {
+    let currentUser = await db.user({ id: user.userId })
+    return currentUser
+  },
 
   categories: (root, args, { db }) => db.categories(),
 

@@ -7,12 +7,9 @@ const typeDefs = gql`
     users: [User!]!
     posts: [Post!]!
     comments: [Comment!]!
-
     user(userID: ID!): User!
     post(postID: ID!): Post!
-
     commentsForPost(postID: ID!): [Comment!]!
-
     postsByUser(userID: ID!): Post!
     commentsByUser(userID: ID!): Comment!
   }

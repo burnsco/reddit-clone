@@ -2,6 +2,7 @@ import { ApolloServer } from 'apollo-server'
 import { makeExecutableSchema } from 'graphql-tools'
 import typeDefs from './typedefs/index'
 import resolvers from './resolvers/root'
+import { getUser } from './utils'
 import permissions from './permissions'
 import { prisma as db } from './generated/prisma-client'
 import { applyMiddleware } from 'graphql-middleware'
@@ -18,7 +19,8 @@ const schema = applyMiddleware(
 const server = new ApolloServer({
   schema,
   context: req => ({
-    req,
+    ...req,
+    user: getUser(req),
     db
   })
 })

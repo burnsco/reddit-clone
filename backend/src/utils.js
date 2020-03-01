@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
+import { AuthenticationError } from 'apollo-server'
 
-export const getUserID = ({ req }) => {
+export const getUser = req => {
   let authorization = req.req.headers.authorization
 
   if (authorization) {
