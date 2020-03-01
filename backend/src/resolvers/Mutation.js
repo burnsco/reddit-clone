@@ -4,6 +4,11 @@ import bcrypt from 'bcryptjs'
 import { getUserID } from '../utils'
 
 const Mutation = {
+  createCategory: async (root, { data }, { db }) =>
+    db.createCategory({
+      ...data
+    }),
+
   createUser: async (root, { data }, { db }) => {
     const password = bcrypt.hashSync(data.password, 8)
 

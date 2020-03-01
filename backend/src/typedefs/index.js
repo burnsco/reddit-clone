@@ -17,6 +17,7 @@ const typeDefs = gql`
   type Mutation {
     createUser(data: CreateUserInput!): CreateUserMutationResponse!
     loginUser(data: LoginUserInput!): LoginUserMutationResponse!
+    createCategory(data: CreateCategoryInput!): Category!
     createPost(data: CreatePostInput!): Post!
     createComment(data: CreateCommentInput!): Comment!
     updateUser(id: ID!, data: UpdateUserInput!): User!
@@ -25,6 +26,10 @@ const typeDefs = gql`
     deleteUser(id: ID!): User!
     deletePost(id: ID!): Post!
     deleteComment(id: ID!): Comment!
+  }
+
+  input CreateCategoryInput {
+    title: String!
   }
 
   input LoginUserInput {

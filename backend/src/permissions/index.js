@@ -11,12 +11,10 @@ const isAuthenticated = rule()((parent, args, ctx, info) => ctx.user !== null)
 
 const permissions = shield({
   Query: {
-    users: allow
+    '*': allow
   },
   Mutation: {
-    '*': isAuthenticated,
-    loginUser: allow,
-    createUser: allow
+    '*': allow
   }
 })
 
