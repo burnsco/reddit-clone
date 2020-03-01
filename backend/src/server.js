@@ -18,7 +18,10 @@ const schema = applyMiddleware(
 
 const server = new ApolloServer({
   schema,
-  context: async ({ req, res, db }) => ({ req, res, db })
+  context: ({ req }) => ({
+    ...req,
+    db
+  })
 })
 
 server.listen().then(({ url, subscriptionsUrl }) => {
