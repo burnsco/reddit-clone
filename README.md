@@ -1,3 +1,3 @@
 ### Reddit Clone
 
-## Using React, Graphql, Styled Components and more!
+## Using React, GraphQL, Styled Components and more!
