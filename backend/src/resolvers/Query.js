@@ -1,5 +1,5 @@
 const Query = {
-  currentUser: (parent, args, context) => {},
+  currentUser: (root, args, context) => {},
 
   categories: (root, args, { db }) => db.categories(),
 

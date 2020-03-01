@@ -14,7 +14,7 @@ const Mutation = {
     })
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '30min'
+      expiresIn: '7d'
     })
 
     return {
@@ -35,7 +35,7 @@ const Mutation = {
     }
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '30min'
+      expiresIn: '7d'
     })
 
     return {
@@ -47,11 +47,10 @@ const Mutation = {
     }
   },
 
-  createPost: async (root, { data }, { db, req }) => {
-    let auth = req.req.headers.authorization
-    let user = getUserID(auth)
+  createPost: async (root, { data }, { db, ...req }) => {
+    const user = getUserID(req)
 
-    let post = await db.createPost({
+    const post = await db.createPost({
       title: data.title,
       url: data.url,
       body: data.body,
@@ -65,10 +64,10 @@ const Mutation = {
   },
 
   createComment: async (root, { data }, { req, db }) => {
-    console.log(req)
+    const user = getUserID(req)
   },
 
-  updateUser: async (root, args, { db }) =>
+  updateUser: async (root, args, { db, req }) =>
     await db.updateUser({
       data: {
         role: 'ADMIN'
