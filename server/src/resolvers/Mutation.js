@@ -4,7 +4,7 @@ import { bcrypt } from 'bcryptjs'
 import generateToken from '../utils/generateToken'
 
 const Mutation = {
-  createUser: async (root, { data }, { db }) => {
+  createUser: async (root, { data }, { db }, info) => {
     const password = bcrypt.hashSync(data.password, 8)
     const user = await db.createUser({
       password,
@@ -22,15 +22,15 @@ const Mutation = {
     }
   },
 
-  loginUser: async (root, { data }, { db }) => {
+  loginUser: async (root, { data }, { db }, info) => {
     const user = await db.user({ email: data.email })
-    const hashed = await bcrypt.compareSync(data.password, user.password)
+    const hashed = await bcrypt.compare(data.password, user.password)
 
     if (!hashed || !user) {
       return BadCredentials
     }
 
-    const token = await jwt.sign({ userID: user.id }, 'asdfasdfsdf', {
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: '30min'
     })
 
