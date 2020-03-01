@@ -1,3 +1,5 @@
-### Reddit Clone
+### Reddit Clone Frontend
 
 # TODO
+
+- [ ] Lots
