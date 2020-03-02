@@ -1,148 +1,153 @@
-type Query {
-  currentUser: User!
-  categories: [Category!]!
-  users: [User!]!
-  posts: [Post!]!
-  comments: [Comment!]!
-  user(userID: ID!): User!
-  post(postID: ID!): Post!
-  commentsForPost(postID: ID!): [Comment!]!
-  postsByUser(userID: ID!): Post!
-  commentsByUser(userID: ID!): Comment!
-}
+  type Query {
+    currentUser: User!
+    categories: [Category!]!
+    users: [User!]!
+    posts: [Post!]!
+    comments: [Comment!]!
+    user(userId: ID!): User!
+    post(postId: ID!): Post!
+    commentsForPost(postID: ID!): [Comment!]!
+    postsByUser(userID: ID!): Post!
+    commentsByUser(userID: ID!): Comment!
+  }
 
-type Mutation {
-  createUser(data: CreateUserInput!): CreateUserMutationResponse!
-  loginUser(data: LoginUserInput!): LoginUserMutationResponse!
-  createPost(data: CreatePostInput!): Post!
-  createComment(data: CreateCommentInput!): Comment!
-  updateUser(id: ID!, data: UpdateUserInput!): User!
-  updatePost(id: ID!, data: UpdatePostInput!): Post!
-  updateComment(id: ID!, data: UpdateCommentInput!): Comment!
-  deleteUser(id: ID!): User!
-  deletePost(id: ID!): Post!
-  deleteComment(id: ID!): Comment!
-}
+  type Mutation {
+    createUser(data: CreateUserInput!): CreateUserMutationResponse!
+    loginUser(data: LoginUserInput!): LoginUserMutationResponse!
+    createCategory(data: CreateCategoryInput!): Category!
 
-input LoginUserInput {
-  email: String!
-  password: String!
-}
+    createPost(data: CreatePostInput!): Post!
 
-type LoginUserMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  token: String
-  user: User
-}
+    createComment(data: CreateCommentInput!): Comment!
+    updateUser(id: ID!, data: UpdateUserInput!): User!
+    updatePost(id: ID!, data: UpdatePostInput!): Post!
+    updateComment(id: ID!, data: UpdateCommentInput!): Comment!
+    deleteUser(id: ID!): User!
+    deletePost(id: ID!): Post!
+    deleteComment(id: ID!): Comment!
+  }
 
-type CreateUserMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  user: User
-  token: String
-}
+  input CreateCategoryInput {
+    title: String!
+  }
 
-type PostSubscriptionPayload {
-  mutation: MutationType!
-  node: Post
-}
+  input LoginUserInput {
+    email: String!
+    password: String!
+  }
 
-type CommentSubscriptionPayload {
-  mutation: MutationType!
-  node: Comment
-}
+  type LoginUserMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    token: String
+    user: User
+  }
 
-interface MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-}
+  type CreateUserMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    user: User
+    token: String
+  }
 
-type Subscription {
-  post: PostSubscriptionPayload!
-  comment(postID: ID!): CommentSubscriptionPayload!
-}
+  type PostSubscriptionPayload {
+    mutation: MutationType!
+    node: Post
+  }
 
-input UpdateCommentInput {
-  body: String
-}
+  type CommentSubscriptionPayload {
+    mutation: MutationType!
+    node: Comment
+  }
 
-input UpdatePostInput {
-  title: String
-  category: String
-  url: String
-}
+  interface MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+  }
 
-input UpdateUserInput {
-  username: String
-  email: String
-}
+  type Subscription {
+    post: PostSubscriptionPayload!
+    comment(postID: ID!): CommentSubscriptionPayload!
+  }
 
-input CreateUserInput {
-  username: String!
-  email: String!
-  password: String!
-}
+  input UpdateCommentInput {
+    body: String
+  }
 
-input CreatePostInput {
-  title: String!
-  author: String!
-  url: String!
-  body: String
-}
+  input UpdatePostInput {
+    title: String
+    category: String
+    url: String
+  }
 
-input CreateCommentInput {
-  body: String!
-  author: String!
-  postID: ID!
-}
+  input UpdateUserInput {
+    username: String
+    email: String
+  }
 
-type User {
-  id: ID!
-  email: String
-  username: String
-  password: String
-  likedPosts: [ID!]!
-  posts: [Post!]!
-  comments: [Comment!]!
-}
+  input CreateUserInput {
+    username: String!
+    email: String!
+    password: String!
+  }
 
-type Category {
-  id: ID!
-  title: String!
-  posts: [Post!]!
-}
+  type Post {
+    id: ID!
+    author: User
+    title: String!
+    url: String!
+    comments: [Comment!]!
+    category: [Category!]!
+  }
 
-type Post {
-  id: ID!
-  type: String!
-  author: User!
-  title: String!
-  body: String
-  url: String!
-  comments: [Comment!]!
-  category: [Category!]!
-  votes: Int!
-}
+  input CreatePostInput {
+    author: ID!
+    title: String!
+    url: String!
+  }
 
-type Comment {
-  id: ID!
-  body: String!
-  author: User!
-  post: Post!
-}
+  input CreateCommentInput {
+    body: String!
+    author: String!
+    postID: ID!
+  }
 
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
+  type User {
+    id: ID!
+    email: String
+    username: String
+    password: String
+    likedPosts: [ID!]!
+    posts: [Post!]!
+    comments: [Comment!]!
+  }
 
-enum Role {
-  ADMIN
-  USER
-  MODERATOR
-}
+  type Category {
+    id: ID!
+    title: String!
+    posts: [Post!]!
+  }
+
+  type Comment {
+    id: ID!
+    body: String!
+    author: User!
+    post: Post!
+  }
+
+  enum MutationType {
+    CREATED
+    UPDATED
+    DELETED
+  }
+
+  enum Role {
+    ADMIN
+    USER
+    MODERATOR
+  }
+`
+

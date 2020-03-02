@@ -52,19 +52,23 @@ const Mutation = {
     }
   },
 
-  createPost: async (root, { data }, { db, ...req }) => {
-    const user = getUserID(req)
+  createPost: (root, { data }, { db, user }, info) => {
+    if (!user) {
+      throw new Error('you have no user credentials')
+    }
 
-    const post = await db.createPost({
-      title: data.title,
-      url: data.url,
-      body: data.body,
-      author: {
-        connect: {
-          id: user.userId
+    const post = db.createPost({
+      data: {
+        title: data.title,
+        url: data.url,
+        author: {
+          connect: {
+            id: data.author
+          }
         }
       }
     })
+    console.log(post)
     return post
   },
 

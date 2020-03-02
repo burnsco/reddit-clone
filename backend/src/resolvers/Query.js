@@ -1,7 +1,7 @@
 const Query = {
   currentUser: async (root, args, { db, user }) => {
-    let currentUser = await db.user({ id: user.userId })
-    return currentUser
+    const requested = await db.user({ id: user.userId })
+    return requested
   },
 
   categories: (root, args, { db }) => db.categories(),
@@ -12,9 +12,9 @@ const Query = {
 
   comments: (root, args, { db }) => db.comments(),
 
-  user: (root, args, { db }) => db.user({ id: args.userID }),
+  user: (root, args, { db }) => db.user({ id: args.userId }),
 
-  post: (root, args, { db }) => db.post({ id: args.postID }),
+  post: (root, args, { db }) => db.post({ id: args.postId }),
 
   commentsForPost: (root, args, { db }) =>
     db.post({ id: args.postID }).comments(),

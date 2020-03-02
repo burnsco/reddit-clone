@@ -7,8 +7,8 @@ const typeDefs = gql`
     users: [User!]!
     posts: [Post!]!
     comments: [Comment!]!
-    user(userID: ID!): User!
-    post(postID: ID!): Post!
+    user(userId: ID!): User!
+    post(postId: ID!): Post!
     commentsForPost(postID: ID!): [Comment!]!
     postsByUser(userID: ID!): Post!
     commentsByUser(userID: ID!): Comment!
@@ -18,7 +18,9 @@ const typeDefs = gql`
     createUser(data: CreateUserInput!): CreateUserMutationResponse!
     loginUser(data: LoginUserInput!): LoginUserMutationResponse!
     createCategory(data: CreateCategoryInput!): Category!
+
     createPost(data: CreatePostInput!): Post!
+
     createComment(data: CreateCommentInput!): Comment!
     updateUser(id: ID!, data: UpdateUserInput!): User!
     updatePost(id: ID!, data: UpdatePostInput!): Post!
@@ -95,11 +97,19 @@ const typeDefs = gql`
     password: String!
   }
 
-  input CreatePostInput {
+  type Post {
+    id: ID!
+    author: User
     title: String!
-    author: String!
     url: String!
-    body: String
+    comments: [Comment!]!
+    category: [Category!]!
+  }
+
+  input CreatePostInput {
+    author: ID!
+    title: String!
+    url: String!
   }
 
   input CreateCommentInput {
@@ -122,18 +132,6 @@ const typeDefs = gql`
     id: ID!
     title: String!
     posts: [Post!]!
-  }
-
-  type Post {
-    id: ID!
-    type: String!
-    author: User!
-    title: String!
-    body: String
-    url: String!
-    comments: [Comment!]!
-    category: [Category!]!
-    votes: Int!
   }
 
   type Comment {

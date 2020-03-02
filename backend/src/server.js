@@ -12,8 +12,7 @@ const schema = applyMiddleware(
   makeExecutableSchema({
     typeDefs,
     resolvers
-  }),
-  permissions
+  })
 )
 
 const server = new ApolloServer({

@@ -1,16 +1,41 @@
 import React, { useState } from 'react'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
+import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
+import Spinner from '../../components/shared/FallBackSpinner'
 
-const SignIn = () => {
+const LOGIN_USER = gql`
+  mutation LOGIN_USER($email: String!, $password: String!) {
+    loginUser(data: { email: $email, password: $password }) {
+      message
+      code
+      success
+      token
+      user {
+        id
+        username
+        email
+        __typename
+      }
+      __typename
+    }
+  }
+`
+
+function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [loginUser, { loading, error, data }] = useMutation(LOGIN_USER, {
+    variables: { email: email, password: password }
+  })
+
   const handleSubmit = async event => {
     event.preventDefault()
-    setEmail('')
-    setPassword('')
+
+    const login = await loginUser()
+    return login
   }
 
   const handleChange = event => {
@@ -30,23 +55,23 @@ const SignIn = () => {
 
         <form onSubmit={handleSubmit}>
           <FormInput
-            name="email"
-            type="email"
+            name='email'
+            type='email'
             handleChange={handleChange}
             value={email}
-            label="email"
+            label='email'
             required
           />
           <FormInput
-            name="password"
-            type="password"
+            name='password'
+            type='password'
             value={password}
             handleChange={handleChange}
-            label="password"
+            label='password'
             required
           />
           <ButtonsBarContainer>
-            <CustomButton type="submit" style={{ width: 100 + '%' }}>
+            <CustomButton type='submit' style={{ width: 100 + '%' }}>
               {' '}
               Sign in with email{' '}
             </CustomButton>
@@ -59,4 +84,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default Login

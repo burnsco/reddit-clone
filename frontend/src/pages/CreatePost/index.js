@@ -29,14 +29,16 @@ function CreatePostPage() {
   const [category, setCategory] = useState('')
   const [author, setAuthor] = useState('')
 
-  const [post, { loading, error }] = useMutation(SUBMIT_POST, {
+  const [createPost, { loading, error }] = useMutation(SUBMIT_POST, {
     variables: { title: title, url: url, category: category, author: author }
   })
 
   const handleSubmit = async event => {
+    if (loading) return <Spinner />
+
     try {
       event.preventDefault()
-      await post()
+      await createPost()
     } catch (error) {
       console.log(error)
     }

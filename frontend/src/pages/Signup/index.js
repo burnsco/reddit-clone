@@ -1,88 +1,116 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
-import { ButtonsBarContainer, SignUpContainer, WelcomePage } from './styles'
+import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
+import { gql, useMutation } from '@apollo/client'
+import Spinner from '../../components/shared/FallBackSpinner'
 
-class SignUp extends React.Component {
-  state = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+const SUBMIT_DATA_SIGN_UP = gql`
+  mutation SubmitDataAndSignUp(
+    $username: String!
+    $password: String!
+    $email: String!
+  ) {
+    createUser(
+      data: { email: $email, username: $username, password: $password }
+    ) {
+      message
+      code
+      success
+      token
+      user {
+        id
+        username
+        email
+        __typename
+      }
+      __typename
+    }
   }
+`
 
-  handleChange = e => {
-    const { name, value } = e.target
-    this.setState({ [name]: value })
-  }
-  handleSubmit = async event => {
+const SignUp = () => {
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [createUser, { loading, error }] = useMutation(SUBMIT_DATA_SIGN_UP, {
+    variables: { username: username, password: password, email: email }
+  })
+
+  const handleSubmit = async event => {
     event.preventDefault()
 
-    const { password, confirmPassword } = this.state
+    if (loading) return <Spinner />
+    if (error) return <div>error</div>
 
-    if (password !== confirmPassword) {
-      alert('passwords dont match')
-      return
+    try {
+      const user = await createUser()
+      return user
+    } catch (error) {
+      console.log(error)
     }
 
-    this.setState({
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    })
+    setEmail('')
+    setPassword('')
   }
 
-  render() {
-    const { displayName, email, password, confirmPassword } = this.state
+  const handleChange = event => {
+    const { value, name } = event.target
 
-    return (
-      <WelcomePage>
-        <SignUpContainer>
-          <h1>Sign Up</h1>
-          <span>with your email and password</span>
-
-          <form onSubmit={this.handleSubmit}>
-            <FormInput
-              label="Display Name"
-              type="text"
-              name="displayName"
-              onChange={this.handleChange}
-              value={displayName}
-              required
-            />
-            <FormInput
-              label="Email"
-              type="email"
-              onChange={this.handleChange}
-              name="email"
-              value={email}
-              required
-            />
-            <FormInput
-              label="Password"
-              type="password"
-              onChange={this.handleChange}
-              name="password"
-              value={password}
-              required
-            />
-            <FormInput
-              label="Confirm Password"
-              type="password"
-              onChange={this.handleChange}
-              name="confirmPassword"
-              value={confirmPassword}
-              required
-            />
-            <ButtonsBarContainer>
-              <CustomButton type="submit"> SIGN UP </CustomButton>
-            </ButtonsBarContainer>
-          </form>
-        </SignUpContainer>
-      </WelcomePage>
-    )
+    if (name === 'email') {
+      setEmail(value)
+    }
+    if (name === 'username') {
+      setUsername(value)
+    }
+    if (name === 'password') {
+      setPassword(value)
+    }
   }
+
+  return (
+    <WelcomePage>
+      <SignInContainer>
+        <h1>Register here</h1>
+        <span>with your email and password</span>
+
+        <form onSubmit={handleSubmit}>
+          <FormInput
+            name='email'
+            type='email'
+            handleChange={handleChange}
+            value={email}
+            label='email'
+            required
+          />
+          <FormInput
+            name='username'
+            type='text'
+            handleChange={handleChange}
+            value={username}
+            label='username'
+            required
+          />
+          <FormInput
+            name='password'
+            type='password'
+            value={password}
+            handleChange={handleChange}
+            label='password'
+            required
+          />
+          <ButtonsBarContainer>
+            <CustomButton type='submit' style={{ width: 100 + '%' }}>
+              {' '}
+              Sign in with email{' '}
+            </CustomButton>
+          </ButtonsBarContainer>
+        </form>
+        <br />
+        <CustomButton isGoogleSignIn>Sign in with Google</CustomButton>
+      </SignInContainer>
+    </WelcomePage>
+  )
 }
 
 export default SignUp
