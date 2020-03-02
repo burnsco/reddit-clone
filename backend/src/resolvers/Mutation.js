@@ -1,4 +1,4 @@
-import { BadCredentials } from '../constants'
+import { BadCredentials, NoAuthorization } from '../constants'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { getUserID } from '../utils'
@@ -54,7 +54,7 @@ const Mutation = {
 
   createPost: async (root, { data }, { db, user }, info) => {
     if (!user) {
-      throw new Error('you have no user credentials')
+      return NoAuthorization
     }
 
     const post = await db.createPost({
@@ -62,7 +62,7 @@ const Mutation = {
       url: data.url,
       author: {
         connect: {
-          id: user.id
+          id: user.userId
         }
       }
     })

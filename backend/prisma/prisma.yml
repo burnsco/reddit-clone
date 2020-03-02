@@ -1,6 +1,5 @@
 datamodel: datamodel.prisma
 endpoint: http://localhost:4466
-secret: thisisSuperSecretPass
 
 generate:
   - generator: javascript-client

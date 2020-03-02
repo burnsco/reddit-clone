@@ -20,7 +20,7 @@ type Post {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   title: String!
-  category: [Category!]! @relation(link: TABLE) 
+  categories: [Category!]! @relation(link: TABLE) 
   url: String!
   author: User! @relation(link: INLINE)
   comments: [Comment!]! @relation(name: "CommentsOnPost", onDelete: CASCADE)

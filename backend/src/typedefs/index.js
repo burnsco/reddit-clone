@@ -27,19 +27,21 @@ const typeDefs = gql`
     deletePost(id: ID!): DeletePostMutationResponse!
     deleteComment(id: ID!): DeleteCommentMutationResponse!
   }
+
   type Post {
     id: ID!
-    author: User
+    author: User!
     title: String!
     url: String!
     comments: [Comment!]!
-    category: [Category!]!
+    categories: [Category!]!
   }
+
   type User {
     id: ID!
-    email: String
-    username: String
-    password: String
+    email: String!
+    username: String!
+    password: String!
     posts: [Post!]!
     comments: [Comment!]!
   }
@@ -53,12 +55,14 @@ const typeDefs = gql`
   type Comment {
     id: ID!
     body: String!
-    author: User
+    author: User!
     post: Post
   }
+
   input CreatePostInput {
     title: String!
     url: String!
+    category: ID!
   }
 
   input CreateCommentInput {
@@ -74,6 +78,7 @@ const typeDefs = gql`
     email: String!
     password: String!
   }
+
   input UpdateCommentInput {
     body: String
   }
@@ -94,6 +99,7 @@ const typeDefs = gql`
     email: String!
     password: String!
   }
+
   type LoginUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -109,6 +115,7 @@ const typeDefs = gql`
     user: User
     token: String
   }
+
   type DeleteCommentMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -116,6 +123,7 @@ const typeDefs = gql`
     comment: Comment
     user: User
   }
+
   type DeletePostMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -123,12 +131,14 @@ const typeDefs = gql`
     post: Post
     user: User
   }
+
   type DeleteUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!
     user: User
   }
+
   type UpdateCommentMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -136,6 +146,7 @@ const typeDefs = gql`
     comment: Comment
     user: User
   }
+
   type UpdatePostMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -143,12 +154,14 @@ const typeDefs = gql`
     post: Post
     user: User
   }
+
   type UpdateUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!
     user: User
   }
+
   type CreateCommentMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -156,12 +169,14 @@ const typeDefs = gql`
     comment: Comment
     user: User
   }
+
   type CreateCategoryMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!
     category: Category
   }
+
   type CreatePostMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -169,6 +184,7 @@ const typeDefs = gql`
     user: User
     post: Post
   }
+
   interface MutationResponse {
     code: String!
     success: Boolean!
