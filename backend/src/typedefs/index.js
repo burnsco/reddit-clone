@@ -2,30 +2,16 @@ import { gql } from 'apollo-server'
 
 const typeDefs = gql`
   type Query {
-    currentUser: User
-    categories: [Category!]!
+    currentUser: User!
+    category: [Category!]!
     users: [User!]!
     comments: [Comment!]!
-    user(userId: ID!): User!
-    post(postId: ID!): Post!
-
-    posts(
-      query: String
-      first: Int
-      skip: Int
-      orderBy: String
-      after: String
-    ): [Post!]!
-
-    commentsForPost(
-      postID: ID!
-      first: Int
-      skip: Int
-      after: String
-    ): [Comment!]!
-
-    postsByUser(userID: ID!, first: Int, skip: Int, after: String): Post!
-    commentsByUser(userID: ID!, first: Int, skip: Int, after: String): Comment!
+    user(userID: ID!): User!
+    post(postID: ID!): Post!
+    posts: [Post!]!
+    commentsByPost(postID: ID!): [Comment!]!
+    postsByUser(userID: ID!): Post!
+    commentsByUser(userID: ID!): Comment!
   }
 
   type Mutation {

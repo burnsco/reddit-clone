@@ -2,13 +2,14 @@ const Post = {
   author: (root, args, { db }) =>
     db
       .post({
-        id: root.postId
+        id: root.postID
       })
       .author(),
+
   comments: (root, args, { db }) =>
     db
       .post({
-        id: root.postId
+        id: root.postID
       })
       .author()
 }

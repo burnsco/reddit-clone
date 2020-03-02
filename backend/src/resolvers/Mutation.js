@@ -4,10 +4,19 @@ import bcrypt from 'bcryptjs'
 import { getUserID } from '../utils'
 
 const Mutation = {
-  createCategory: async (root, { data }, { db }) =>
+  createCategory: async (root, { data }, { db }) => {
+    let category = { ...data }
     db.createCategory({
       ...data
-    }),
+    })
+
+    return {
+      code: '200',
+      success: true,
+      message: 'Category was Created!',
+      category
+    }
+  },
 
   createUser: async (root, { data }, { db }) => {
     const password = bcrypt.hashSync(data.password, 8)
@@ -18,9 +27,13 @@ const Mutation = {
       email: data.email
     })
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '7d'
-    })
+    const token = jwt.sign(
+      { userID: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '7d'
+      }
+    )
 
     return {
       code: '200',
@@ -39,9 +52,13 @@ const Mutation = {
       return BadCredentials
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '7d'
-    })
+    const token = jwt.sign(
+      { userID: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '7d'
+      }
+    )
 
     return {
       code: '200',
@@ -67,7 +84,7 @@ const Mutation = {
       },
       author: {
         connect: {
-          id: user.userId
+          id: user.userID
         }
       }
     })
@@ -86,7 +103,7 @@ const Mutation = {
         ...args
       },
       where: {
-        id: args.postId
+        id: args.postID
       }
     })
   },
@@ -97,7 +114,7 @@ const Mutation = {
         role: 'ADMIN'
       },
       where: {
-        id: args.id
+        id: args.userID
       }
     }),
 
@@ -107,7 +124,7 @@ const Mutation = {
         title: args.title
       },
       where: {
-        id: args.id
+        id: args.postID
       }
     }),
 
@@ -117,17 +134,18 @@ const Mutation = {
         title: args.title
       },
       where: {
-        id: args.id
+        id: args.commentID
       }
     }),
 
-  deleteUser: async (root, { email }, { db }) =>
-    await db.deleteUser({ email: email }),
+  deleteUser: async (root, { data }, { db }) =>
+    await db.deleteUser({ email: data.email }),
 
-  deletePost: async (root, { id }, { db }) => await db.deletePost({ id: id }),
+  deletePost: async (root, { data }, { db }) =>
+    await db.deletePost({ id: data.postID }),
 
-  deleteComment: async (root, { id }, { db }) =>
-    await db.deleteComment({ id: id })
+  deleteComment: async (root, { data }, { db }) =>
+    await db.deleteComment({ id: data.commentID })
 }
 
 export { Mutation as default }

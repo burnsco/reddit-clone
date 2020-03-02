@@ -10,10 +10,10 @@ const resolvers = {
   MutationResponse,
   Query,
   Mutation,
-  Subscription,
   User,
   Post,
-  Comment
+  Comment,
+  Subscription
 }
 
 export { resolvers as default }
