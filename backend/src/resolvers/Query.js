@@ -3,15 +3,16 @@ const Query = {
     const requested = await db.user({ id: user.userId })
     return requested
   },
-
-  categories: (root, args, { db }) => db.categories(),
-
+  user: (root, args, { db }) => db.user({ id: args.userId }),
   users: (root, args, { db }) => db.users(),
+  categories: (root, args, { db }) => db.categories(),
+  post: (root, args, { db }) => db.post({ id: args.postId }),
 
   posts: (root, args, { db }) => {
     let opArgs = {
       first: args.first,
-      skip: args.skip
+      skip: args.skip,
+      after: args.after
     }
 
     if (args.query) {
@@ -33,7 +34,8 @@ const Query = {
   comments: (root, args, { db }) => {
     let opArgs = {
       first: args.first,
-      skip: args.skip
+      skip: args.skip,
+      after: args.after
     }
 
     if (args.query) {
@@ -51,10 +53,6 @@ const Query = {
 
     return db.comments(opArgs)
   },
-
-  user: (root, args, { db }) => db.user({ id: args.userId }),
-
-  post: (root, args, { db }) => db.post({ id: args.postId }),
 
   commentsForPost: (root, args, { db }) =>
     db.post({ id: args.postID }).comments(),
