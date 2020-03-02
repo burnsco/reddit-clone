@@ -8,7 +8,24 @@ const Query = {
 
   users: (root, args, { db }) => db.users(),
 
-  posts: (root, args, { db }) => db.posts(),
+  posts: (root, args, { db }) => {
+    const opArgs = {
+      first: args.first,
+      skip: args.skip
+    }
+
+    if (args.query) {
+      opArgs.where = {
+        OR: [
+          {
+            title_contains: args.query
+          }
+        ]
+      }
+    }
+
+    return db.posts(opArgs)
+  },
 
   comments: (root, args, { db }) => db.comments(),
 

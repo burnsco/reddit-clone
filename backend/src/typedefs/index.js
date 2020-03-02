@@ -5,13 +5,13 @@ const typeDefs = gql`
     currentUser: User!
     categories: [Category!]!
     users: [User!]!
-    posts: [Post!]!
+    posts(query: String, first: Int, skip: Int): [Post!]!
     comments: [Comment!]!
     user(userId: ID!): User!
     post(postId: ID!): Post!
-    commentsForPost(postID: ID!): [Comment!]!
-    postsByUser(userID: ID!): Post!
-    commentsByUser(userID: ID!): Comment!
+    commentsForPost(postID: ID!, first: Int, skip: Int): [Comment!]!
+    postsByUser(userID: ID!, first: Int, skip: Int): Post!
+    commentsByUser(userID: ID!, first: Int, skip: Int): Comment!
   }
 
   type Mutation {

@@ -4,8 +4,7 @@
   "license": "MIT",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon src/server.js --exec babel-node",
-    "start-env": "nodemon -r dotenv/config src/server.js --exec babel-node",
+    "start": "nodemon -r dotenv/config src/server.js --exec babel-node",
     "prisma": "prisma",
     "deploy": "prisma deploy"
   },

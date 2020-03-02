@@ -1,10 +1,6 @@
-datamodel: datamodel.prisma
+datamodel: datamodel.graphql
 endpoint: http://localhost:4466
 
 generate:
   - generator: javascript-client
     output: ../src/generated/prisma-client/
-# Executes a Node.js script to seed the database with
-# initial data.
-# seed:
-#   run: node data/seed.js
