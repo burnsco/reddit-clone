@@ -2,9 +2,13 @@ import { gql } from 'apollo-server'
 
 const typeDefs = gql`
   type Query {
-    currentUser: User!
+    currentUser: User
     categories: [Category!]!
     users: [User!]!
+    comments: [Comment!]!
+    user(userId: ID!): User!
+    post(postId: ID!): Post!
+
     posts(
       query: String
       first: Int
@@ -12,17 +16,16 @@ const typeDefs = gql`
       orderBy: String
       after: String
     ): [Post!]!
+
     commentsForPost(
       postID: ID!
       first: Int
       skip: Int
       after: String
     ): [Comment!]!
+
     postsByUser(userID: ID!, first: Int, skip: Int, after: String): Post!
     commentsByUser(userID: ID!, first: Int, skip: Int, after: String): Comment!
-    comments: [Comment!]!
-    user(userId: ID!): User!
-    post(postId: ID!): Post!
   }
 
   type Mutation {
@@ -38,18 +41,30 @@ const typeDefs = gql`
     deletePost(id: ID!): DeletePostMutationResponse!
     deleteComment(id: ID!): DeleteCommentMutationResponse!
   }
+  type Category {
+    id: ID!
+    updatedAt: String!
+    createdAt: String!
+    title: String!
+    author: User
+    posts: [Post!]!
+  }
 
   type Post {
     id: ID!
+    updatedAt: String!
+    createdAt: String!
     author: User!
     title: String!
     url: String!
     comments: [Comment!]!
-    categories: [Category!]!
+    category: Category
   }
 
   type User {
     id: ID!
+    updatedAt: String!
+    createdAt: String!
     email: String!
     username: String!
     password: String!
@@ -57,29 +72,24 @@ const typeDefs = gql`
     comments: [Comment!]!
   }
 
-  type Category {
-    id: ID!
-    title: String!
-    posts: [Post!]!
-  }
-
   type Comment {
     id: ID!
+    updatedAt: String!
+    createdAt: String!
     body: String!
     author: User!
     post: Post
   }
 
   input CreatePostInput {
+    categoryID: ID
     title: String!
     url: String!
-    category: ID!
   }
 
   input CreateCommentInput {
-    body: String!
-    author: String!
     postID: ID!
+    body: String!
   }
   input CreateCategoryInput {
     title: String!
@@ -96,11 +106,11 @@ const typeDefs = gql`
 
   input UpdatePostInput {
     title: String
-    category: String
     url: String
   }
 
   input UpdateUserInput {
+    password: String
     username: String
     email: String
   }

@@ -7,7 +7,6 @@ const Query = {
   users: (root, args, { db }) => db.users(),
   categories: (root, args, { db }) => db.categories(),
   post: (root, args, { db }) => db.post({ id: args.postId }),
-
   posts: (root, args, { db }) => {
     let opArgs = {
       first: args.first,
@@ -24,6 +23,7 @@ const Query = {
         ]
       }
     }
+
     if (args.orderBy) {
       opArgs.orderBy = args.orderBy
     }
@@ -47,10 +47,10 @@ const Query = {
         ]
       }
     }
+
     if (args.orderBy) {
       opArgs.orderBy = args.orderBy
     }
-
     return db.comments(opArgs)
   },
 

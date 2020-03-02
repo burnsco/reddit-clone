@@ -1,15 +1,29 @@
 
-type Query {
-    currentUser: User!
+  type Query {
+    currentUser: User
     categories: [Category!]!
     users: [User!]!
-    posts: [Post!]!
     comments: [Comment!]!
     user(userId: ID!): User!
     post(postId: ID!): Post!
-    commentsForPost(postID: ID!): [Comment!]!
-    postsByUser(userID: ID!): Post!
-    commentsByUser(userID: ID!): Comment!
+
+    posts(
+      query: String
+      first: Int
+      skip: Int
+      orderBy: String
+      after: String
+    ): [Post!]!
+
+    commentsForPost(
+      postID: ID!
+      first: Int
+      skip: Int
+      after: String
+    ): [Comment!]!
+
+    postsByUser(userID: ID!, first: Int, skip: Int, after: String): Post!
+    commentsByUser(userID: ID!, first: Int, skip: Int, after: String): Comment!
   }
 
   type Mutation {
@@ -25,38 +39,49 @@ type Query {
     deletePost(id: ID!): DeletePostMutationResponse!
     deleteComment(id: ID!): DeleteCommentMutationResponse!
   }
+  type Category {
+    id: ID!
+    updatedAt: String!
+    createdAt: String!
+    title: String!
+    posts: [Post!]!
+  }
+
   type Post {
     id: ID!
-    author: User
+    updatedAt: String!
+    createdAt: String!
+    author: User!
     title: String!
     url: String!
     comments: [Comment!]!
-    category: [Category!]!
-  }
-  type User {
-    id: ID!
-    email: String
-    username: String
-    password: String
-    posts: [Post!]!
-    comments: [Comment!]!
+    category: Category
   }
 
-  type Category {
+  type User {
     id: ID!
-    title: String!
+    updatedAt: String!
+    createdAt: String!
+    email: String!
+    username: String!
+    password: String!
     posts: [Post!]!
+    comments: [Comment!]!
   }
 
   type Comment {
     id: ID!
+    updatedAt: String!
+    createdAt: String!
     body: String!
-    author: User
+    author: User!
     post: Post
   }
+
   input CreatePostInput {
     title: String!
     url: String!
+    category: ID!
   }
 
   input CreateCommentInput {
@@ -72,6 +97,7 @@ type Query {
     email: String!
     password: String!
   }
+
   input UpdateCommentInput {
     body: String
   }
@@ -92,6 +118,7 @@ type Query {
     email: String!
     password: String!
   }
+
   type LoginUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -107,6 +134,7 @@ type Query {
     user: User
     token: String
   }
+
   type DeleteCommentMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -114,6 +142,7 @@ type Query {
     comment: Comment
     user: User
   }
+
   type DeletePostMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -121,12 +150,14 @@ type Query {
     post: Post
     user: User
   }
+
   type DeleteUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!
     user: User
   }
+
   type UpdateCommentMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -134,6 +165,7 @@ type Query {
     comment: Comment
     user: User
   }
+
   type UpdatePostMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -141,12 +173,14 @@ type Query {
     post: Post
     user: User
   }
+
   type UpdateUserMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!
     user: User
   }
+
   type CreateCommentMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -154,12 +188,14 @@ type Query {
     comment: Comment
     user: User
   }
+
   type CreateCategoryMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
     message: String!
     category: Category
   }
+
   type CreatePostMutationResponse implements MutationResponse {
     code: String!
     success: Boolean!
@@ -167,6 +203,7 @@ type Query {
     user: User
     post: Post
   }
+
   interface MutationResponse {
     code: String!
     success: Boolean!

@@ -60,6 +60,11 @@ const Mutation = {
     const post = await db.createPost({
       title: data.title,
       url: data.url,
+      category: {
+        connect: {
+          id: data.categoryID
+        }
+      },
       author: {
         connect: {
           id: user.userId
@@ -75,8 +80,15 @@ const Mutation = {
     }
   },
 
-  createComment: async (root, { data }, { req, db }) => {
-    const user = getUserID(req)
+  createComment: async (root, args, { user, db }) => {
+    db.createComment({
+      data: {
+        ...args
+      },
+      where: {
+        id: args.postId
+      }
+    })
   },
 
   updateUser: async (root, args, { db, req }) =>

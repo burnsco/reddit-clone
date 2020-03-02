@@ -2,7 +2,7 @@ const Comment = {
   author: (root, args, { db }) =>
     db
       .comment({
-        id: root.id
+        id: root.postId
       })
       .author()
 }

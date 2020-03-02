@@ -230,12 +230,6 @@ export type PostOrderByInput =
   | "url_ASC"
   | "url_DESC";
 
-export type CategoryOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "title_ASC"
-  | "title_DESC";
-
 export type CommentOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -245,6 +239,16 @@ export type CommentOrderByInput =
   | "updatedAt_DESC"
   | "body_ASC"
   | "body_DESC";
+
+export type CategoryOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "title_ASC"
+  | "title_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -264,6 +268,7 @@ export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type CategoryWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  title?: Maybe<String>;
 }>;
 
 export interface PostWhereInput {
@@ -311,9 +316,7 @@ export interface PostWhereInput {
   title_not_starts_with?: Maybe<String>;
   title_ends_with?: Maybe<String>;
   title_not_ends_with?: Maybe<String>;
-  category_every?: Maybe<CategoryWhereInput>;
-  category_some?: Maybe<CategoryWhereInput>;
-  category_none?: Maybe<CategoryWhereInput>;
+  category?: Maybe<CategoryWhereInput>;
   url?: Maybe<String>;
   url_not?: Maybe<String>;
   url_in?: Maybe<String[] | String>;
@@ -352,6 +355,22 @@ export interface CategoryWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   title?: Maybe<String>;
   title_not?: Maybe<String>;
   title_in?: Maybe<String[] | String>;
@@ -521,6 +540,7 @@ export type PostWhereUniqueInput = AtLeastOne<{
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
+  username?: Maybe<String>;
 }>;
 
 export interface CategoryCreateInput {
@@ -578,16 +598,14 @@ export interface PostCreateOneWithoutCommentsInput {
 export interface PostCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
   title: String;
-  category?: Maybe<CategoryCreateManyWithoutPostsInput>;
+  category: CategoryCreateOneWithoutPostsInput;
   url: String;
   author: UserCreateOneWithoutPostsInput;
 }
 
-export interface CategoryCreateManyWithoutPostsInput {
-  create?: Maybe<
-    CategoryCreateWithoutPostsInput[] | CategoryCreateWithoutPostsInput
-  >;
-  connect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+export interface CategoryCreateOneWithoutPostsInput {
+  create?: Maybe<CategoryCreateWithoutPostsInput>;
+  connect?: Maybe<CategoryWhereUniqueInput>;
 }
 
 export interface CategoryCreateWithoutPostsInput {
@@ -629,7 +647,7 @@ export interface PostCreateManyWithoutAuthorInput {
 export interface PostCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
   title: String;
-  category?: Maybe<CategoryCreateManyWithoutPostsInput>;
+  category: CategoryCreateOneWithoutPostsInput;
   url: String;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
@@ -729,90 +747,25 @@ export interface PostUpdateOneRequiredWithoutCommentsInput {
 
 export interface PostUpdateWithoutCommentsDataInput {
   title?: Maybe<String>;
-  category?: Maybe<CategoryUpdateManyWithoutPostsInput>;
+  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   url?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
 }
 
-export interface CategoryUpdateManyWithoutPostsInput {
-  create?: Maybe<
-    CategoryCreateWithoutPostsInput[] | CategoryCreateWithoutPostsInput
-  >;
-  delete?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
-  connect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
-  set?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
-  disconnect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
-  update?: Maybe<
-    | CategoryUpdateWithWhereUniqueWithoutPostsInput[]
-    | CategoryUpdateWithWhereUniqueWithoutPostsInput
-  >;
-  upsert?: Maybe<
-    | CategoryUpsertWithWhereUniqueWithoutPostsInput[]
-    | CategoryUpsertWithWhereUniqueWithoutPostsInput
-  >;
-  deleteMany?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
-  updateMany?: Maybe<
-    | CategoryUpdateManyWithWhereNestedInput[]
-    | CategoryUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface CategoryUpdateWithWhereUniqueWithoutPostsInput {
-  where: CategoryWhereUniqueInput;
-  data: CategoryUpdateWithoutPostsDataInput;
+export interface CategoryUpdateOneRequiredWithoutPostsInput {
+  create?: Maybe<CategoryCreateWithoutPostsInput>;
+  update?: Maybe<CategoryUpdateWithoutPostsDataInput>;
+  upsert?: Maybe<CategoryUpsertWithoutPostsInput>;
+  connect?: Maybe<CategoryWhereUniqueInput>;
 }
 
 export interface CategoryUpdateWithoutPostsDataInput {
   title?: Maybe<String>;
 }
 
-export interface CategoryUpsertWithWhereUniqueWithoutPostsInput {
-  where: CategoryWhereUniqueInput;
+export interface CategoryUpsertWithoutPostsInput {
   update: CategoryUpdateWithoutPostsDataInput;
   create: CategoryCreateWithoutPostsInput;
-}
-
-export interface CategoryScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  AND?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
-  OR?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
-  NOT?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
-}
-
-export interface CategoryUpdateManyWithWhereNestedInput {
-  where: CategoryScalarWhereInput;
-  data: CategoryUpdateManyDataInput;
-}
-
-export interface CategoryUpdateManyDataInput {
-  title?: Maybe<String>;
 }
 
 export interface PostUpsertWithoutCommentsInput {
@@ -964,7 +917,7 @@ export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
 
 export interface PostUpdateWithoutAuthorDataInput {
   title?: Maybe<String>;
-  category?: Maybe<CategoryUpdateManyWithoutPostsInput>;
+  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   url?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
@@ -1090,7 +1043,7 @@ export interface CommentUpdateManyMutationInput {
 export interface PostCreateInput {
   id?: Maybe<ID_Input>;
   title: String;
-  category?: Maybe<CategoryCreateManyWithoutPostsInput>;
+  category: CategoryCreateOneWithoutPostsInput;
   url: String;
   author: UserCreateOneWithoutPostsInput;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
@@ -1098,7 +1051,7 @@ export interface PostCreateInput {
 
 export interface PostUpdateInput {
   title?: Maybe<String>;
-  category?: Maybe<CategoryUpdateManyWithoutPostsInput>;
+  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   url?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
@@ -1186,11 +1139,15 @@ export interface NodeNode {
 
 export interface Category {
   id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
   title: String;
 }
 
 export interface CategoryPromise extends Promise<Category>, Fragmentable {
   id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
   posts: <T = FragmentableArray<Post>>(args?: {
     where?: PostWhereInput;
@@ -1207,6 +1164,8 @@ export interface CategorySubscription
   extends Promise<AsyncIterator<Category>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   title: () => Promise<AsyncIterator<String>>;
   posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
     where?: PostWhereInput;
@@ -1223,6 +1182,8 @@ export interface CategoryNullablePromise
   extends Promise<Category | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
   posts: <T = FragmentableArray<Post>>(args?: {
     where?: PostWhereInput;
@@ -1248,15 +1209,7 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
-  category: <T = FragmentableArray<Category>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  category: <T = CategoryPromise>() => T;
   url: () => Promise<String>;
   author: <T = UserPromise>() => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
@@ -1277,15 +1230,7 @@ export interface PostSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   title: () => Promise<AsyncIterator<String>>;
-  category: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  category: <T = CategorySubscription>() => T;
   url: () => Promise<AsyncIterator<String>>;
   author: <T = UserSubscription>() => T;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
@@ -1306,15 +1251,7 @@ export interface PostNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
-  category: <T = FragmentableArray<Category>>(args?: {
-    where?: CategoryWhereInput;
-    orderBy?: CategoryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  category: <T = CategoryPromise>() => T;
   url: () => Promise<String>;
   author: <T = UserPromise>() => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
@@ -1744,6 +1681,8 @@ export interface CategorySubscriptionPayloadSubscription
 
 export interface CategoryPreviousValues {
   id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
   title: String;
 }
 
@@ -1751,6 +1690,8 @@ export interface CategoryPreviousValuesPromise
   extends Promise<CategoryPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
 }
 
@@ -1758,6 +1699,8 @@ export interface CategoryPreviousValuesSubscription
   extends Promise<AsyncIterator<CategoryPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   title: () => Promise<AsyncIterator<String>>;
 }
 
