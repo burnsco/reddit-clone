@@ -218,10 +218,6 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type PostType = "LINK" | "MEDIA" | "POST";
-
-export type Role = "USER" | "ADMIN" | "MODERATOR";
-
 export type PostOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -231,18 +227,8 @@ export type PostOrderByInput =
   | "updatedAt_DESC"
   | "title_ASC"
   | "title_DESC"
-  | "type_ASC"
-  | "type_DESC"
-  | "body_ASC"
-  | "body_DESC"
   | "url_ASC"
-  | "url_DESC"
-  | "score_ASC"
-  | "score_DESC"
-  | "view_ASC"
-  | "view_DESC"
-  | "votes_ASC"
-  | "votes_DESC";
+  | "url_DESC";
 
 export type CategoryOrderByInput =
   | "id_ASC"
@@ -258,9 +244,7 @@ export type CommentOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "body_ASC"
-  | "body_DESC"
-  | "votes_ASC"
-  | "votes_DESC";
+  | "body_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -269,8 +253,6 @@ export type UserOrderByInput =
   | "createdAt_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
-  | "role_ASC"
-  | "role_DESC"
   | "email_ASC"
   | "email_DESC"
   | "password_ASC"
@@ -329,27 +311,9 @@ export interface PostWhereInput {
   title_not_starts_with?: Maybe<String>;
   title_ends_with?: Maybe<String>;
   title_not_ends_with?: Maybe<String>;
-  type?: Maybe<PostType>;
-  type_not?: Maybe<PostType>;
-  type_in?: Maybe<PostType[] | PostType>;
-  type_not_in?: Maybe<PostType[] | PostType>;
-  body?: Maybe<String>;
-  body_not?: Maybe<String>;
-  body_in?: Maybe<String[] | String>;
-  body_not_in?: Maybe<String[] | String>;
-  body_lt?: Maybe<String>;
-  body_lte?: Maybe<String>;
-  body_gt?: Maybe<String>;
-  body_gte?: Maybe<String>;
-  body_contains?: Maybe<String>;
-  body_not_contains?: Maybe<String>;
-  body_starts_with?: Maybe<String>;
-  body_not_starts_with?: Maybe<String>;
-  body_ends_with?: Maybe<String>;
-  body_not_ends_with?: Maybe<String>;
-  categories_every?: Maybe<CategoryWhereInput>;
-  categories_some?: Maybe<CategoryWhereInput>;
-  categories_none?: Maybe<CategoryWhereInput>;
+  category_every?: Maybe<CategoryWhereInput>;
+  category_some?: Maybe<CategoryWhereInput>;
+  category_none?: Maybe<CategoryWhereInput>;
   url?: Maybe<String>;
   url_not?: Maybe<String>;
   url_in?: Maybe<String[] | String>;
@@ -364,31 +328,7 @@ export interface PostWhereInput {
   url_not_starts_with?: Maybe<String>;
   url_ends_with?: Maybe<String>;
   url_not_ends_with?: Maybe<String>;
-  score?: Maybe<Int>;
-  score_not?: Maybe<Int>;
-  score_in?: Maybe<Int[] | Int>;
-  score_not_in?: Maybe<Int[] | Int>;
-  score_lt?: Maybe<Int>;
-  score_lte?: Maybe<Int>;
-  score_gt?: Maybe<Int>;
-  score_gte?: Maybe<Int>;
-  view?: Maybe<Int>;
-  view_not?: Maybe<Int>;
-  view_in?: Maybe<Int[] | Int>;
-  view_not_in?: Maybe<Int[] | Int>;
-  view_lt?: Maybe<Int>;
-  view_lte?: Maybe<Int>;
-  view_gt?: Maybe<Int>;
-  view_gte?: Maybe<Int>;
   author?: Maybe<UserWhereInput>;
-  votes?: Maybe<Int>;
-  votes_not?: Maybe<Int>;
-  votes_in?: Maybe<Int[] | Int>;
-  votes_not_in?: Maybe<Int[] | Int>;
-  votes_lt?: Maybe<Int>;
-  votes_lte?: Maybe<Int>;
-  votes_gt?: Maybe<Int>;
-  votes_gte?: Maybe<Int>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
@@ -465,10 +405,6 @@ export interface UserWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  role?: Maybe<Role>;
-  role_not?: Maybe<Role>;
-  role_in?: Maybe<Role[] | Role>;
-  role_not_in?: Maybe<Role[] | Role>;
   email?: Maybe<String>;
   email_not?: Maybe<String>;
   email_in?: Maybe<String[] | String>;
@@ -569,14 +505,6 @@ export interface CommentWhereInput {
   body_not_ends_with?: Maybe<String>;
   author?: Maybe<UserWhereInput>;
   post?: Maybe<PostWhereInput>;
-  votes?: Maybe<Int>;
-  votes_not?: Maybe<Int>;
-  votes_in?: Maybe<Int[] | Int>;
-  votes_not_in?: Maybe<Int[] | Int>;
-  votes_lt?: Maybe<Int>;
-  votes_lte?: Maybe<Int>;
-  votes_gt?: Maybe<Int>;
-  votes_gte?: Maybe<Int>;
   AND?: Maybe<CommentWhereInput[] | CommentWhereInput>;
   OR?: Maybe<CommentWhereInput[] | CommentWhereInput>;
   NOT?: Maybe<CommentWhereInput[] | CommentWhereInput>;
@@ -598,26 +526,21 @@ export type UserWhereUniqueInput = AtLeastOne<{
 export interface CategoryCreateInput {
   id?: Maybe<ID_Input>;
   title: String;
-  posts?: Maybe<PostCreateManyWithoutCategoriesInput>;
+  posts?: Maybe<PostCreateManyWithoutCategoryInput>;
 }
 
-export interface PostCreateManyWithoutCategoriesInput {
+export interface PostCreateManyWithoutCategoryInput {
   create?: Maybe<
-    PostCreateWithoutCategoriesInput[] | PostCreateWithoutCategoriesInput
+    PostCreateWithoutCategoryInput[] | PostCreateWithoutCategoryInput
   >;
   connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
 }
 
-export interface PostCreateWithoutCategoriesInput {
+export interface PostCreateWithoutCategoryInput {
   id?: Maybe<ID_Input>;
   title: String;
-  type?: Maybe<PostType>;
-  body: String;
   url: String;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
   author: UserCreateOneWithoutPostsInput;
-  votes?: Maybe<Int>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
@@ -628,7 +551,6 @@ export interface UserCreateOneWithoutPostsInput {
 
 export interface UserCreateWithoutPostsInput {
   id?: Maybe<ID_Input>;
-  role?: Maybe<Role>;
   email: String;
   password: String;
   username: String;
@@ -646,7 +568,6 @@ export interface CommentCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
   body: String;
   post: PostCreateOneWithoutCommentsInput;
-  votes?: Maybe<Int>;
 }
 
 export interface PostCreateOneWithoutCommentsInput {
@@ -657,14 +578,9 @@ export interface PostCreateOneWithoutCommentsInput {
 export interface PostCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
   title: String;
-  type?: Maybe<PostType>;
-  body: String;
-  categories?: Maybe<CategoryCreateManyWithoutPostsInput>;
+  category?: Maybe<CategoryCreateManyWithoutPostsInput>;
   url: String;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
   author: UserCreateOneWithoutPostsInput;
-  votes?: Maybe<Int>;
 }
 
 export interface CategoryCreateManyWithoutPostsInput {
@@ -690,7 +606,6 @@ export interface CommentCreateWithoutPostInput {
   id?: Maybe<ID_Input>;
   body: String;
   author: UserCreateOneWithoutCommentsInput;
-  votes?: Maybe<Int>;
 }
 
 export interface UserCreateOneWithoutCommentsInput {
@@ -700,7 +615,6 @@ export interface UserCreateOneWithoutCommentsInput {
 
 export interface UserCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
-  role?: Maybe<Role>;
   email: String;
   password: String;
   username: String;
@@ -715,36 +629,31 @@ export interface PostCreateManyWithoutAuthorInput {
 export interface PostCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
   title: String;
-  type?: Maybe<PostType>;
-  body: String;
-  categories?: Maybe<CategoryCreateManyWithoutPostsInput>;
+  category?: Maybe<CategoryCreateManyWithoutPostsInput>;
   url: String;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
-  votes?: Maybe<Int>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
 export interface CategoryUpdateInput {
   title?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutCategoriesInput>;
+  posts?: Maybe<PostUpdateManyWithoutCategoryInput>;
 }
 
-export interface PostUpdateManyWithoutCategoriesInput {
+export interface PostUpdateManyWithoutCategoryInput {
   create?: Maybe<
-    PostCreateWithoutCategoriesInput[] | PostCreateWithoutCategoriesInput
+    PostCreateWithoutCategoryInput[] | PostCreateWithoutCategoryInput
   >;
   delete?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
   connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
   set?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
   disconnect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
   update?: Maybe<
-    | PostUpdateWithWhereUniqueWithoutCategoriesInput[]
-    | PostUpdateWithWhereUniqueWithoutCategoriesInput
+    | PostUpdateWithWhereUniqueWithoutCategoryInput[]
+    | PostUpdateWithWhereUniqueWithoutCategoryInput
   >;
   upsert?: Maybe<
-    | PostUpsertWithWhereUniqueWithoutCategoriesInput[]
-    | PostUpsertWithWhereUniqueWithoutCategoriesInput
+    | PostUpsertWithWhereUniqueWithoutCategoryInput[]
+    | PostUpsertWithWhereUniqueWithoutCategoryInput
   >;
   deleteMany?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
   updateMany?: Maybe<
@@ -752,20 +661,15 @@ export interface PostUpdateManyWithoutCategoriesInput {
   >;
 }
 
-export interface PostUpdateWithWhereUniqueWithoutCategoriesInput {
+export interface PostUpdateWithWhereUniqueWithoutCategoryInput {
   where: PostWhereUniqueInput;
-  data: PostUpdateWithoutCategoriesDataInput;
+  data: PostUpdateWithoutCategoryDataInput;
 }
 
-export interface PostUpdateWithoutCategoriesDataInput {
+export interface PostUpdateWithoutCategoryDataInput {
   title?: Maybe<String>;
-  type?: Maybe<PostType>;
-  body?: Maybe<String>;
   url?: Maybe<String>;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-  votes?: Maybe<Int>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
 
@@ -777,7 +681,6 @@ export interface UserUpdateOneRequiredWithoutPostsInput {
 }
 
 export interface UserUpdateWithoutPostsDataInput {
-  role?: Maybe<Role>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   username?: Maybe<String>;
@@ -815,7 +718,6 @@ export interface CommentUpdateWithWhereUniqueWithoutAuthorInput {
 export interface CommentUpdateWithoutAuthorDataInput {
   body?: Maybe<String>;
   post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
-  votes?: Maybe<Int>;
 }
 
 export interface PostUpdateOneRequiredWithoutCommentsInput {
@@ -827,14 +729,9 @@ export interface PostUpdateOneRequiredWithoutCommentsInput {
 
 export interface PostUpdateWithoutCommentsDataInput {
   title?: Maybe<String>;
-  type?: Maybe<PostType>;
-  body?: Maybe<String>;
-  categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
+  category?: Maybe<CategoryUpdateManyWithoutPostsInput>;
   url?: Maybe<String>;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-  votes?: Maybe<Int>;
 }
 
 export interface CategoryUpdateManyWithoutPostsInput {
@@ -974,14 +871,6 @@ export interface CommentScalarWhereInput {
   body_not_starts_with?: Maybe<String>;
   body_ends_with?: Maybe<String>;
   body_not_ends_with?: Maybe<String>;
-  votes?: Maybe<Int>;
-  votes_not?: Maybe<Int>;
-  votes_in?: Maybe<Int[] | Int>;
-  votes_not_in?: Maybe<Int[] | Int>;
-  votes_lt?: Maybe<Int>;
-  votes_lte?: Maybe<Int>;
-  votes_gt?: Maybe<Int>;
-  votes_gte?: Maybe<Int>;
   AND?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
   OR?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
   NOT?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
@@ -994,7 +883,6 @@ export interface CommentUpdateManyWithWhereNestedInput {
 
 export interface CommentUpdateManyDataInput {
   body?: Maybe<String>;
-  votes?: Maybe<Int>;
 }
 
 export interface UserUpsertWithoutPostsInput {
@@ -1033,7 +921,6 @@ export interface CommentUpdateWithWhereUniqueWithoutPostInput {
 export interface CommentUpdateWithoutPostDataInput {
   body?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
-  votes?: Maybe<Int>;
 }
 
 export interface UserUpdateOneRequiredWithoutCommentsInput {
@@ -1044,7 +931,6 @@ export interface UserUpdateOneRequiredWithoutCommentsInput {
 }
 
 export interface UserUpdateWithoutCommentsDataInput {
-  role?: Maybe<Role>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   username?: Maybe<String>;
@@ -1078,13 +964,8 @@ export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
 
 export interface PostUpdateWithoutAuthorDataInput {
   title?: Maybe<String>;
-  type?: Maybe<PostType>;
-  body?: Maybe<String>;
-  categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
+  category?: Maybe<CategoryUpdateManyWithoutPostsInput>;
   url?: Maybe<String>;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
-  votes?: Maybe<Int>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
 
@@ -1139,24 +1020,6 @@ export interface PostScalarWhereInput {
   title_not_starts_with?: Maybe<String>;
   title_ends_with?: Maybe<String>;
   title_not_ends_with?: Maybe<String>;
-  type?: Maybe<PostType>;
-  type_not?: Maybe<PostType>;
-  type_in?: Maybe<PostType[] | PostType>;
-  type_not_in?: Maybe<PostType[] | PostType>;
-  body?: Maybe<String>;
-  body_not?: Maybe<String>;
-  body_in?: Maybe<String[] | String>;
-  body_not_in?: Maybe<String[] | String>;
-  body_lt?: Maybe<String>;
-  body_lte?: Maybe<String>;
-  body_gt?: Maybe<String>;
-  body_gte?: Maybe<String>;
-  body_contains?: Maybe<String>;
-  body_not_contains?: Maybe<String>;
-  body_starts_with?: Maybe<String>;
-  body_not_starts_with?: Maybe<String>;
-  body_ends_with?: Maybe<String>;
-  body_not_ends_with?: Maybe<String>;
   url?: Maybe<String>;
   url_not?: Maybe<String>;
   url_in?: Maybe<String[] | String>;
@@ -1171,30 +1034,6 @@ export interface PostScalarWhereInput {
   url_not_starts_with?: Maybe<String>;
   url_ends_with?: Maybe<String>;
   url_not_ends_with?: Maybe<String>;
-  score?: Maybe<Int>;
-  score_not?: Maybe<Int>;
-  score_in?: Maybe<Int[] | Int>;
-  score_not_in?: Maybe<Int[] | Int>;
-  score_lt?: Maybe<Int>;
-  score_lte?: Maybe<Int>;
-  score_gt?: Maybe<Int>;
-  score_gte?: Maybe<Int>;
-  view?: Maybe<Int>;
-  view_not?: Maybe<Int>;
-  view_in?: Maybe<Int[] | Int>;
-  view_not_in?: Maybe<Int[] | Int>;
-  view_lt?: Maybe<Int>;
-  view_lte?: Maybe<Int>;
-  view_gt?: Maybe<Int>;
-  view_gte?: Maybe<Int>;
-  votes?: Maybe<Int>;
-  votes_not?: Maybe<Int>;
-  votes_in?: Maybe<Int[] | Int>;
-  votes_not_in?: Maybe<Int[] | Int>;
-  votes_lt?: Maybe<Int>;
-  votes_lte?: Maybe<Int>;
-  votes_gt?: Maybe<Int>;
-  votes_gte?: Maybe<Int>;
   AND?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
   OR?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
   NOT?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
@@ -1207,12 +1046,7 @@ export interface PostUpdateManyWithWhereNestedInput {
 
 export interface PostUpdateManyDataInput {
   title?: Maybe<String>;
-  type?: Maybe<PostType>;
-  body?: Maybe<String>;
   url?: Maybe<String>;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
-  votes?: Maybe<Int>;
 }
 
 export interface UserUpsertWithoutCommentsInput {
@@ -1226,10 +1060,10 @@ export interface CommentUpsertWithWhereUniqueWithoutPostInput {
   create: CommentCreateWithoutPostInput;
 }
 
-export interface PostUpsertWithWhereUniqueWithoutCategoriesInput {
+export interface PostUpsertWithWhereUniqueWithoutCategoryInput {
   where: PostWhereUniqueInput;
-  update: PostUpdateWithoutCategoriesDataInput;
-  create: PostCreateWithoutCategoriesInput;
+  update: PostUpdateWithoutCategoryDataInput;
+  create: PostCreateWithoutCategoryInput;
 }
 
 export interface CategoryUpdateManyMutationInput {
@@ -1241,61 +1075,42 @@ export interface CommentCreateInput {
   body: String;
   author: UserCreateOneWithoutCommentsInput;
   post: PostCreateOneWithoutCommentsInput;
-  votes?: Maybe<Int>;
 }
 
 export interface CommentUpdateInput {
   body?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
   post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
-  votes?: Maybe<Int>;
 }
 
 export interface CommentUpdateManyMutationInput {
   body?: Maybe<String>;
-  votes?: Maybe<Int>;
 }
 
 export interface PostCreateInput {
   id?: Maybe<ID_Input>;
   title: String;
-  type?: Maybe<PostType>;
-  body: String;
-  categories?: Maybe<CategoryCreateManyWithoutPostsInput>;
+  category?: Maybe<CategoryCreateManyWithoutPostsInput>;
   url: String;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
   author: UserCreateOneWithoutPostsInput;
-  votes?: Maybe<Int>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
 export interface PostUpdateInput {
   title?: Maybe<String>;
-  type?: Maybe<PostType>;
-  body?: Maybe<String>;
-  categories?: Maybe<CategoryUpdateManyWithoutPostsInput>;
+  category?: Maybe<CategoryUpdateManyWithoutPostsInput>;
   url?: Maybe<String>;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-  votes?: Maybe<Int>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
 
 export interface PostUpdateManyMutationInput {
   title?: Maybe<String>;
-  type?: Maybe<PostType>;
-  body?: Maybe<String>;
   url?: Maybe<String>;
-  score?: Maybe<Int>;
-  view?: Maybe<Int>;
-  votes?: Maybe<Int>;
 }
 
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
-  role?: Maybe<Role>;
   email: String;
   password: String;
   username: String;
@@ -1304,7 +1119,6 @@ export interface UserCreateInput {
 }
 
 export interface UserUpdateInput {
-  role?: Maybe<Role>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   username?: Maybe<String>;
@@ -1313,7 +1127,6 @@ export interface UserUpdateInput {
 }
 
 export interface UserUpdateManyMutationInput {
-  role?: Maybe<Role>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   username?: Maybe<String>;
@@ -1427,12 +1240,7 @@ export interface Post {
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
   title: String;
-  type: PostType;
-  body: String;
   url: String;
-  score: Int;
-  view: Int;
-  votes: Int;
 }
 
 export interface PostPromise extends Promise<Post>, Fragmentable {
@@ -1440,9 +1248,7 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
-  type: () => Promise<PostType>;
-  body: () => Promise<String>;
-  categories: <T = FragmentableArray<Category>>(args?: {
+  category: <T = FragmentableArray<Category>>(args?: {
     where?: CategoryWhereInput;
     orderBy?: CategoryOrderByInput;
     skip?: Int;
@@ -1452,10 +1258,7 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
     last?: Int;
   }) => T;
   url: () => Promise<String>;
-  score: () => Promise<Int>;
-  view: () => Promise<Int>;
   author: <T = UserPromise>() => T;
-  votes: () => Promise<Int>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -1474,9 +1277,7 @@ export interface PostSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   title: () => Promise<AsyncIterator<String>>;
-  type: () => Promise<AsyncIterator<PostType>>;
-  body: () => Promise<AsyncIterator<String>>;
-  categories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
+  category: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
     where?: CategoryWhereInput;
     orderBy?: CategoryOrderByInput;
     skip?: Int;
@@ -1486,10 +1287,7 @@ export interface PostSubscription
     last?: Int;
   }) => T;
   url: () => Promise<AsyncIterator<String>>;
-  score: () => Promise<AsyncIterator<Int>>;
-  view: () => Promise<AsyncIterator<Int>>;
   author: <T = UserSubscription>() => T;
-  votes: () => Promise<AsyncIterator<Int>>;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -1508,9 +1306,7 @@ export interface PostNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
-  type: () => Promise<PostType>;
-  body: () => Promise<String>;
-  categories: <T = FragmentableArray<Category>>(args?: {
+  category: <T = FragmentableArray<Category>>(args?: {
     where?: CategoryWhereInput;
     orderBy?: CategoryOrderByInput;
     skip?: Int;
@@ -1520,10 +1316,7 @@ export interface PostNullablePromise
     last?: Int;
   }) => T;
   url: () => Promise<String>;
-  score: () => Promise<Int>;
-  view: () => Promise<Int>;
   author: <T = UserPromise>() => T;
-  votes: () => Promise<Int>;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -1539,7 +1332,6 @@ export interface User {
   id: ID_Output;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  role: Role;
   email: String;
   password: String;
   username: String;
@@ -1549,7 +1341,6 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  role: () => Promise<Role>;
   email: () => Promise<String>;
   password: () => Promise<String>;
   username: () => Promise<String>;
@@ -1579,7 +1370,6 @@ export interface UserSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  role: () => Promise<AsyncIterator<Role>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   username: () => Promise<AsyncIterator<String>>;
@@ -1609,7 +1399,6 @@ export interface UserNullablePromise
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  role: () => Promise<Role>;
   email: () => Promise<String>;
   password: () => Promise<String>;
   username: () => Promise<String>;
@@ -1638,7 +1427,6 @@ export interface Comment {
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
   body: String;
-  votes: Int;
 }
 
 export interface CommentPromise extends Promise<Comment>, Fragmentable {
@@ -1648,7 +1436,6 @@ export interface CommentPromise extends Promise<Comment>, Fragmentable {
   body: () => Promise<String>;
   author: <T = UserPromise>() => T;
   post: <T = PostPromise>() => T;
-  votes: () => Promise<Int>;
 }
 
 export interface CommentSubscription
@@ -1660,7 +1447,6 @@ export interface CommentSubscription
   body: () => Promise<AsyncIterator<String>>;
   author: <T = UserSubscription>() => T;
   post: <T = PostSubscription>() => T;
-  votes: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface CommentNullablePromise
@@ -1672,7 +1458,6 @@ export interface CommentNullablePromise
   body: () => Promise<String>;
   author: <T = UserPromise>() => T;
   post: <T = PostPromise>() => T;
-  votes: () => Promise<Int>;
 }
 
 export interface CategoryConnection {
@@ -2006,7 +1791,6 @@ export interface CommentPreviousValues {
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
   body: String;
-  votes: Int;
 }
 
 export interface CommentPreviousValuesPromise
@@ -2016,7 +1800,6 @@ export interface CommentPreviousValuesPromise
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   body: () => Promise<String>;
-  votes: () => Promise<Int>;
 }
 
 export interface CommentPreviousValuesSubscription
@@ -2026,7 +1809,6 @@ export interface CommentPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   body: () => Promise<AsyncIterator<String>>;
-  votes: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface PostSubscriptionPayload {
@@ -2059,12 +1841,7 @@ export interface PostPreviousValues {
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
   title: String;
-  type: PostType;
-  body: String;
   url: String;
-  score: Int;
-  view: Int;
-  votes: Int;
 }
 
 export interface PostPreviousValuesPromise
@@ -2074,12 +1851,7 @@ export interface PostPreviousValuesPromise
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
-  type: () => Promise<PostType>;
-  body: () => Promise<String>;
   url: () => Promise<String>;
-  score: () => Promise<Int>;
-  view: () => Promise<Int>;
-  votes: () => Promise<Int>;
 }
 
 export interface PostPreviousValuesSubscription
@@ -2089,12 +1861,7 @@ export interface PostPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   title: () => Promise<AsyncIterator<String>>;
-  type: () => Promise<AsyncIterator<PostType>>;
-  body: () => Promise<AsyncIterator<String>>;
   url: () => Promise<AsyncIterator<String>>;
-  score: () => Promise<AsyncIterator<Int>>;
-  view: () => Promise<AsyncIterator<Int>>;
-  votes: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -2126,7 +1893,6 @@ export interface UserPreviousValues {
   id: ID_Output;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  role: Role;
   email: String;
   password: String;
   username: String;
@@ -2138,7 +1904,6 @@ export interface UserPreviousValuesPromise
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  role: () => Promise<Role>;
   email: () => Promise<String>;
   password: () => Promise<String>;
   username: () => Promise<String>;
@@ -2150,7 +1915,6 @@ export interface UserPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  role: () => Promise<AsyncIterator<Role>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   username: () => Promise<AsyncIterator<String>>;
@@ -2208,14 +1972,6 @@ export const models: Model[] = [
   },
   {
     name: "Comment",
-    embedded: false
-  },
-  {
-    name: "PostType",
-    embedded: false
-  },
-  {
-    name: "Role",
     embedded: false
   }
 ];

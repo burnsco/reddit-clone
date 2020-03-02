@@ -11,7 +11,8 @@ require('dotenv').config()
 const schema = applyMiddleware(
   makeExecutableSchema({
     typeDefs,
-    resolvers
+    resolvers,
+    tracing: true
   })
 )
 

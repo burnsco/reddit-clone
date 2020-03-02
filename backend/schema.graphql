@@ -1,7 +1,5 @@
-import { gql } from 'apollo-server'
 
-const typeDefs = gql`
-  type Query {
+type Query {
     currentUser: User!
     categories: [Category!]!
     users: [User!]!
@@ -196,4 +194,4 @@ const typeDefs = gql`
     DELETED
   }
 `
-export { typeDefs as default }
+

@@ -2,7 +2,6 @@ type User {
   id: ID! @id
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  role: Role! @default(value: USER)
   email: String! @unique
   password: String!
   username: String!
@@ -21,14 +20,9 @@ type Post {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   title: String!
-  type: PostType! @default(value: POST)
-  body: String!
-  categories: [Category!]! @relation(link: TABLE) 
+  category: [Category!]! @relation(link: TABLE) 
   url: String!
-  score: Int! @default(value: 0)
-  view: Int! @default(value: 0)
   author: User! @relation(link: INLINE)
-  votes: Int! @default(value: 0)
   comments: [Comment!]! @relation(name: "CommentsOnPost", onDelete: CASCADE)
 }
 type Comment {
@@ -38,17 +32,5 @@ type Comment {
   body: String!
   author: User! 
   post: Post! @relation(name: "CommentsOnPost")
-  votes: Int! @default(value: 0)
 }
 
-enum PostType {
-  LINK
-  MEDIA
-  POST
-}
-
-enum Role {
-  USER
-  ADMIN
-  MODERATOR
-}

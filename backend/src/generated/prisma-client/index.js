@@ -19,14 +19,6 @@ var models = [
   {
     name: "Comment",
     embedded: false
-  },
-  {
-    name: "PostType",
-    embedded: false
-  },
-  {
-    name: "Role",
-    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
