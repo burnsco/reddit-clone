@@ -5,7 +5,7 @@ const typeDefs = gql`
     currentUser: User!
     categories: [Category!]!
     users: [User!]!
-    posts(query: String, first: Int, skip: Int): [Post!]!
+    posts(query: String, first: Int, skip: Int, orderBy: String): [Post!]!
     comments: [Comment!]!
     user(userId: ID!): User!
     post(postId: ID!): Post!

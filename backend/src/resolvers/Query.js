@@ -9,7 +9,7 @@ const Query = {
   users: (root, args, { db }) => db.users(),
 
   posts: (root, args, { db }) => {
-    const opArgs = {
+    let opArgs = {
       first: args.first,
       skip: args.skip
     }
@@ -23,11 +23,34 @@ const Query = {
         ]
       }
     }
+    if (args.orderBy) {
+      opArgs.orderBy = args.orderBy
+    }
 
     return db.posts(opArgs)
   },
 
-  comments: (root, args, { db }) => db.comments(),
+  comments: (root, args, { db }) => {
+    let opArgs = {
+      first: args.first,
+      skip: args.skip
+    }
+
+    if (args.query) {
+      opArgs.where = {
+        OR: [
+          {
+            title_contains: args.query
+          }
+        ]
+      }
+    }
+    if (args.orderBy) {
+      opArgs.orderBy = args.orderBy
+    }
+
+    return db.comments(opArgs)
+  },
 
   user: (root, args, { db }) => db.user({ id: args.userId }),
 
