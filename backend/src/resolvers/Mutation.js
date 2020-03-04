@@ -1,25 +1,35 @@
-import { BadCredentials, NoAuthorization } from '../constants'
+import {
+  BadCredentials,
+  NoAuthorization,
+  CategoryTitleTaken
+} from '../constants'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { getUserID } from '../utils'
 
 const Mutation = {
   createCategory: async (root, { data }, { db }) => {
-    let result = await db.mutation.createCategory({
+    const categoryExists = await db.exists.Category({ name: data.name })
+
+    if (categoryExists) {
+      return CategoryTitleTaken
+    }
+
+    let category = await db.mutation.createCategory({
       data: {
-        title: data.title
+        name: data.name
       }
     })
 
     return {
       code: '200',
       success: true,
-      message: `${data.title} subreddit Created!`,
-      result
+      message: `${data.name} subreddit Created!`,
+      category
     }
   },
 
-  createUser: async (root, { data }, { db }) => {
+  createUser: async (root, { data }, { db }, info) => {
     const emailExists = await db.exists.User({ email: data.email })
 
     if (emailExists) {
@@ -31,13 +41,16 @@ const Mutation = {
     }
 
     const password = bcrypt.hashSync(data.password, 8)
-    const user = await db.mutation.createUser({
-      data: {
-        password,
-        username: data.username,
-        email: data.email
-      }
-    })
+    const user = await db.mutation.createUser(
+      {
+        data: {
+          password,
+          username: data.username,
+          email: data.email
+        }
+      },
+      info
+    )
 
     const token = jwt.sign(
       { userID: user.id, email: user.email },
@@ -86,20 +99,23 @@ const Mutation = {
       return NoAuthorization
     }
 
-    const post = await db.mutation.createPost({
-      title: data.title,
-      url: data.url,
-      author: {
-        connect: {
-          id: user.userID
+    const post = await db.mutation.createPost(
+      {
+        title: data.title,
+        url: data.url,
+        author: {
+          connect: {
+            id: user.userID
+          }
+        },
+        category: {
+          connect: {
+            id: data.categoryID
+          }
         }
       },
-      category: {
-        connect: {
-          id: data.categoryID
-        }
-      }
-    })
+      info
+    )
 
     return {
       code: '200',
@@ -110,15 +126,18 @@ const Mutation = {
   },
 
   createComment: async (root, { data }, { user, db }, info) => {
-    const comment = await db.mutation.createComment({
-      data: {
-        body: data.body,
-        author: user.userID
+    const comment = await db.mutation.createComment(
+      {
+        data: {
+          body: data.body,
+          author: user.userID
+        },
+        where: {
+          id: data.postID
+        }
       },
-      where: {
-        id: data.postID
-      }
-    })
+      info
+    )
 
     return {
       code: '200',

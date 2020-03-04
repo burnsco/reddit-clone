@@ -44,7 +44,7 @@ const typeDefs = gql`
     updatedAt: String!
     createdAt: String!
     id: ID!
-    title: String!
+    name: String!
     posts: [Post!]!
   }
 
@@ -97,7 +97,7 @@ const typeDefs = gql`
   }
 
   input CreateCategoryInput {
-    title: String!
+    name: String!
   }
 
   input LoginUserInput {

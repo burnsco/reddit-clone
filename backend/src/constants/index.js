@@ -15,3 +15,9 @@ export const LoginSuccess = {
   success: true,
   message: 'Login was a success'
 }
+
+export const CategoryTitleTaken = {
+  code: '401',
+  success: false,
+  message: 'This subreddit already exists!'
+}

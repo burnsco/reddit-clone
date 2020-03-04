@@ -6,13 +6,9 @@ const GET_ALL_POSTS = gql`
       id
       title
       url
-      comments {
-        id
-      }
       author {
         username
       }
-      votes
     }
   }
 `

@@ -27,7 +27,7 @@ type Category {
   id: ID!
   updatedAt: DateTime!
   createdAt: DateTime!
-  title: String!
+  name: String!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
 }
 
@@ -39,7 +39,7 @@ type CategoryConnection {
 
 input CategoryCreateInput {
   id: ID
-  title: String!
+  name: String!
   posts: PostCreateManyWithoutCategoryInput
 }
 
@@ -50,7 +50,7 @@ input CategoryCreateOneWithoutPostsInput {
 
 input CategoryCreateWithoutPostsInput {
   id: ID
-  title: String!
+  name: String!
 }
 
 type CategoryEdge {
@@ -65,15 +65,15 @@ enum CategoryOrderByInput {
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
-  title_ASC
-  title_DESC
+  name_ASC
+  name_DESC
 }
 
 type CategoryPreviousValues {
   id: ID!
   updatedAt: DateTime!
   createdAt: DateTime!
-  title: String!
+  name: String!
 }
 
 type CategorySubscriptionPayload {
@@ -95,12 +95,12 @@ input CategorySubscriptionWhereInput {
 }
 
 input CategoryUpdateInput {
-  title: String
+  name: String
   posts: PostUpdateManyWithoutCategoryInput
 }
 
 input CategoryUpdateManyMutationInput {
-  title: String
+  name: String
 }
 
 input CategoryUpdateOneRequiredWithoutPostsInput {
@@ -111,7 +111,7 @@ input CategoryUpdateOneRequiredWithoutPostsInput {
 }
 
 input CategoryUpdateWithoutPostsDataInput {
-  title: String
+  name: String
 }
 
 input CategoryUpsertWithoutPostsInput {
@@ -150,20 +150,20 @@ input CategoryWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput
@@ -174,7 +174,7 @@ input CategoryWhereInput {
 
 input CategoryWhereUniqueInput {
   id: ID
-  title: String
+  name: String
 }
 
 type Comment {

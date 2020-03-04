@@ -12,15 +12,14 @@ const Post = ({
     id,
     title,
     url,
-    category,
+    category: { name },
     comments,
-    author: { username },
-    votes
+    author: { username }
   }
 }) => (
   <PostContainer>
     <VoteBoxContainer>
-      <VoteBox votes={votes} />
+      <VoteBox votes="4" />
     </VoteBoxContainer>
     <PostDetailsContainer>
       <p>
@@ -31,7 +30,7 @@ const Post = ({
         {/* <Link to={`/r/${category}/${id}/comments`}>
           {comments.length} {comments.length > 1 ? 'comments' : 'comment'}
         </Link> */}
-        --/r/music--{username}--3M ago
+        --/r/{name}--{username}--3M ago
       </p>
     </PostDetailsContainer>
   </PostContainer>
