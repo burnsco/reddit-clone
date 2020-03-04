@@ -75,7 +75,7 @@ const typeDefs = gql`
     updatedAt: String!
     createdAt: String!
     body: String!
-    post: Post
+    post: Post!
     author: User!
   }
   input UpdatePostInput {

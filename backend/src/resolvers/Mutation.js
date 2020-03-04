@@ -122,18 +122,21 @@ const Mutation = {
   },
 
   createComment: async (root, { data }, { user, db }, info) => {
-    const comment = await db.mutation.createComment(
-      {
-        data: {
-          body: data.body,
-          author: user.userID
+    const comment = await db.mutation.createComment({
+      data: {
+        body: data.body,
+        post: {
+          connect: {
+            id: data.postID
+          }
         },
-        where: {
-          id: data.postID
+        author: {
+          connect: {
+            id: user.userID
+          }
         }
-      },
-      info
-    )
+      }
+    })
 
     return {
       code: '200',
