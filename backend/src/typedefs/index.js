@@ -3,18 +3,12 @@ import { gql } from 'apollo-server'
 const typeDefs = gql`
   type Query {
     currentUser: User!
-
     categories: [Category!]!
-
     posts: [Post!]!
-
     comments: [Comment!]!
-
+    users(where: UserWhereInput): [User!]!
     post(postID: ID!): Post!
-
-    user(where: UserWhereUniqueInput): User!
-    users(query: String): [User!]!
-
+    user(userID: ID!): User!
     node(id: ID!): Node
   }
 
@@ -34,6 +28,12 @@ const typeDefs = gql`
 
   input UserWhereUniqueInput {
     id: ID
+  }
+
+  input UserWhereInput {
+    id: ID
+    username: String
+    email: String
   }
 
   interface Node {

@@ -1,23 +1,35 @@
 const Query = {
-  currentUser: async (root, args, { db }, info) => {
-    const requested = await db.user({ id: user.userID })
+  currentUser: async (root, args, { db, user }, info) => {
+    const requested = await db.query.user({
+      where: {
+        id: user.userID
+      }
+    })
     return requested
   },
 
-  user: (root, args, { db }, info) => db.user(),
+  user: (root, args, { db }, info) => db.query.user({ id: args.userID }),
 
   users: async (root, args, { db }, info) => {
-    const results = await db.users()
+    const opArgs = {}
+
+    if (args.query) {
+      opArgs.where = {
+        email_contains: args.query
+      }
+    }
+
+    const results = await db.query.users(opArgs, info)
     return results
   },
 
   categories: async (root, args, { db }, info) => {
-    const results = await db.categories()
+    const results = await db.query.categories(null, info)
     return results
   },
 
   posts: async (root, args, { db }, info) => {
-    const results = await db.posts()
+    const results = await db.query.posts(null, info)
     return results
   },
 

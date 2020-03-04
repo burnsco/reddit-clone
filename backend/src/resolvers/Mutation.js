@@ -5,14 +5,16 @@ import { getUserID } from '../utils'
 
 const Mutation = {
   createCategory: async (root, { data }, { db }) => {
-    let result = await db.createCategory({
-      title: data.title
+    let result = await db.mutation.createCategory({
+      data: {
+        title: data.title
+      }
     })
 
     return {
       code: '200',
       success: true,
-      message: `${data.title} Category Created!`,
+      message: `${data.title} subreddit Created!`,
       result
     }
   },
@@ -20,10 +22,12 @@ const Mutation = {
   createUser: async (root, { data }, { db }) => {
     const password = bcrypt.hashSync(data.password, 8)
 
-    const user = await db.createUser({
-      password,
-      username: data.username,
-      email: data.email
+    const user = await db.mutation.createUser({
+      data: {
+        password,
+        username: data.username,
+        email: data.email
+      }
     })
 
     const token = jwt.sign(
@@ -44,7 +48,7 @@ const Mutation = {
   },
 
   loginUser: async (root, { data }, { db }) => {
-    const user = await db.user({ email: data.email })
+    const user = await db.query.user({ email: data.email })
     const hashed = await bcrypt.compare(data.password, user.password)
 
     if (!hashed || !user) {
@@ -73,7 +77,7 @@ const Mutation = {
       return NoAuthorization
     }
 
-    const post = await db.createPost({
+    const post = await db.mutation.createPost({
       title: data.title,
       url: data.url,
       author: {
@@ -96,7 +100,7 @@ const Mutation = {
     }
   },
 
-  createComment: async (root, args, { user, db }) => {
+  createComment: async (root, args, { user, db }, info) => {
     db.createComment({
       data: {
         ...args
@@ -107,7 +111,7 @@ const Mutation = {
     })
   },
 
-  updateUser: async (root, args, { db, req }) =>
+  updateUser: async (root, args, { db, req }, info) =>
     await db.updateUser({
       data: {
         role: 'ADMIN'
@@ -117,7 +121,7 @@ const Mutation = {
       }
     }),
 
-  updatePost: async (root, args, { db }) =>
+  updatePost: async (root, args, { db }, info) =>
     await db.updatePost({
       data: {
         title: args.title
@@ -127,7 +131,7 @@ const Mutation = {
       }
     }),
 
-  updateComment: async (root, args, { db }) =>
+  updateComment: async (root, args, { db }, info) =>
     await db.updateComment({
       data: {
         title: args.title
@@ -137,13 +141,13 @@ const Mutation = {
       }
     }),
 
-  deleteUser: async (root, { data }, { db }) =>
+  deleteUser: async (root, { data }, { db }, info) =>
     await db.deleteUser({ email: data.email }),
 
-  deletePost: async (root, { data }, { db }) =>
+  deletePost: async (root, { data }, { db }, info) =>
     await db.deletePost({ id: data.postID }),
 
-  deleteComment: async (root, { data }, { db }) =>
+  deleteComment: async (root, { data }, { db }, info) =>
     await db.deleteComment({ id: data.commentID })
 }
 
