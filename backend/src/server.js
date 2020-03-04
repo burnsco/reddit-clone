@@ -3,7 +3,6 @@ import { makeExecutableSchema } from 'graphql-tools'
 import typeDefs from './typedefs/index'
 import resolvers from './resolvers/root'
 import { getUser } from './utils'
-import permissions from './permissions'
 import { prisma as db } from './generated/prisma-client'
 import { applyMiddleware } from 'graphql-middleware'
 require('dotenv').config()
@@ -11,8 +10,7 @@ require('dotenv').config()
 const schema = applyMiddleware(
   makeExecutableSchema({
     typeDefs,
-    resolvers,
-    tracing: true
+    resolvers
   })
 )
 

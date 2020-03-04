@@ -1,0 +1,38 @@
+type Category {
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  id: ID!
+  title: String!
+  posts: [Post!]!
+}
+
+type Post {
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  id: ID!
+  category: Category! @relation(type: TABLE)
+  title: String!
+  url: String!
+  author: User!
+  comments: [Comment!]!
+}
+
+type Comment {
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  id: ID!
+  body: String!
+  author: User!
+  post: Post
+}
+
+type User {
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  id: ID!
+  email: String! @unique
+  username: String! @unique
+  password: String!
+  posts: [Post!]!
+  comments: [Comment!]!
+}

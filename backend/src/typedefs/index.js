@@ -3,15 +3,12 @@ import { gql } from 'apollo-server'
 const typeDefs = gql`
   type Query {
     currentUser: User!
-    category: [Category!]!
+    categories: [Category!]!
     users: [User!]!
     comments: [Comment!]!
+    posts: [Post!]!
     user(userID: ID!): User!
     post(postID: ID!): Post!
-    posts: [Post!]!
-    commentsByPost(postID: ID!): [Comment!]!
-    postsByUser(userID: ID!): Post!
-    commentsByUser(userID: ID!): Comment!
   }
 
   type Mutation {
@@ -27,24 +24,24 @@ const typeDefs = gql`
     deletePost(id: ID!): DeletePostMutationResponse!
     deleteComment(id: ID!): DeleteCommentMutationResponse!
   }
+
   type Category {
-    id: ID!
     updatedAt: String!
     createdAt: String!
+    id: ID!
     title: String!
-    author: User
     posts: [Post!]!
   }
 
   type Post {
-    id: ID!
     updatedAt: String!
     createdAt: String!
-    author: User!
+    id: ID!
+    category: Category!
     title: String!
     url: String!
+    author: User!
     comments: [Comment!]!
-    category: Category
   }
 
   type User {
@@ -64,19 +61,17 @@ const typeDefs = gql`
     createdAt: String!
     body: String!
     author: User!
-    post: Post
   }
 
   input CreatePostInput {
-    categoryID: ID
     title: String!
     url: String!
   }
 
   input CreateCommentInput {
-    postID: ID!
     body: String!
   }
+
   input CreateCategoryInput {
     title: String!
   }
@@ -211,6 +206,12 @@ const typeDefs = gql`
   type Subscription {
     post: PostSubscriptionPayload!
     comment(postID: ID!): CommentSubscriptionPayload!
+  }
+
+  enum Role {
+    USER
+    ADMIN
+    MODERATOR
   }
 
   enum MutationType {
