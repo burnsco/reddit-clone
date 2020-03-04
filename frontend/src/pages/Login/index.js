@@ -12,13 +12,6 @@ const LOGIN_USER = gql`
       code
       success
       token
-      user {
-        id
-        username
-        email
-        __typename
-      }
-      __typename
     }
   }
 `
@@ -26,15 +19,17 @@ const LOGIN_USER = gql`
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
+  const [userData, setUserData] = useState(null)
   const [loginUser, { loading, error, data }] = useMutation(LOGIN_USER, {
     variables: { email: email, password: password }
   })
 
   const handleSubmit = async event => {
     event.preventDefault()
-
+    console.log(data)
     const login = await loginUser()
+    setUserData(data)
+    console.log(userData)
     return login
   }
 
@@ -55,23 +50,23 @@ function Login() {
 
         <form onSubmit={handleSubmit}>
           <FormInput
-            name='email'
-            type='email'
+            name="email"
+            type="email"
             handleChange={handleChange}
             value={email}
-            label='email'
+            label="email"
             required
           />
           <FormInput
-            name='password'
-            type='password'
+            name="password"
+            type="password"
             value={password}
             handleChange={handleChange}
-            label='password'
+            label="password"
             required
           />
           <ButtonsBarContainer>
-            <CustomButton type='submit' style={{ width: 100 + '%' }}>
+            <CustomButton type="submit" style={{ width: 100 + '%' }}>
               {' '}
               Sign in with email{' '}
             </CustomButton>

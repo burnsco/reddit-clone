@@ -66,21 +66,22 @@ const Mutation = {
     }
   },
 
-  loginUser: async (root, { data }, { db }) => {
-    const user = await db.query.user({ email: data.email })
-    const hashed = await bcrypt.compare(data.password, user.password)
+  loginUser: async (root, args, { db }, info) => {
+    const user = await db.query.user({
+      where: {
+        email: args.data.email
+      }
+    })
+    console.log(user)
+    const hashed = await bcrypt.compare(args.data.password, user.password)
 
     if (!hashed || !user) {
       return BadCredentials
     }
 
-    const token = jwt.sign(
-      { userID: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '7d'
-      }
-    )
+    const token = jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
+      expiresIn: '7d'
+    })
 
     return {
       code: '200',
@@ -122,6 +123,15 @@ const Mutation = {
   },
 
   createComment: async (root, { data }, { user, db }, info) => {
+    const postExists = db.exists.Post({ id: data.postID })
+    if (!postExists) {
+      return {
+        code: '401',
+        success: true,
+        message: 'Post does not exist!'
+      }
+    }
+
     const comment = await db.mutation.createComment({
       data: {
         body: data.body,
@@ -146,44 +156,59 @@ const Mutation = {
     }
   },
 
-  updateUser: async (root, args, { db, req }, info) =>
-    await db.updateUser({
+  updateUser: async (root, args, { db, req }, info) => {
+    const user = await db.mutation.updateUser({
       data: {
         role: 'ADMIN'
       },
       where: {
         id: args.userID
       }
-    }),
+    })
+    return user
+  },
 
-  updatePost: async (root, args, { db }, info) =>
-    await db.updatePost({
+  updatePost: async (root, args, { db }, info) => {
+    const postExists = db.exists.Post({ id: data.postID })
+    if (!postExists) {
+      return {
+        code: '401',
+        success: true,
+        message: 'Post does not exist!'
+      }
+    }
+
+    const post = await db.mutation.updatePost({
       data: {
         title: args.title
       },
       where: {
         id: args.postID
       }
-    }),
+    })
+    return post
+  },
 
-  updateComment: async (root, args, { db }, info) =>
-    await db.updateComment({
+  updateComment: async (root, args, { db }, info) => {
+    await db.mutation.updateComment({
       data: {
         title: args.title
       },
       where: {
         id: args.commentID
       }
-    }),
+    })
+    return comment
+  },
 
   deleteUser: async (root, { data }, { db }, info) =>
-    await db.deleteUser({ email: data.email }),
+    await db.mutation.deleteUser({ email: data.email }),
 
   deletePost: async (root, { data }, { db }, info) =>
-    await db.deletePost({ id: data.postID }),
+    await db.mutation.deletePost({ id: data.postID }),
 
   deleteComment: async (root, { data }, { db }, info) =>
-    await db.deleteComment({ id: data.commentID })
+    await db.mutation.deleteComment({ id: data.commentID })
 }
 
 export { Mutation as default }

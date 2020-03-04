@@ -6,7 +6,7 @@ const typeDefs = gql`
     categories: [Category!]!
     posts: [Post!]!
     comments: [Comment!]!
-    users(where: UserWhereInput): [User!]!
+    users(query: String): [User!]!
     post(postID: ID!): Post!
     user(userID: ID!): User!
     node(id: ID!): Node
@@ -24,16 +24,6 @@ const typeDefs = gql`
     deleteUser(id: ID!): DeleteUserMutationResponse!
     deletePost(id: ID!): DeletePostMutationResponse!
     deleteComment(id: ID!): DeleteCommentMutationResponse!
-  }
-
-  input UserWhereUniqueInput {
-    id: ID
-  }
-
-  input UserWhereInput {
-    id: ID
-    username: String
-    email: String
   }
 
   interface Node {
@@ -78,6 +68,7 @@ const typeDefs = gql`
     post: Post!
     author: User!
   }
+
   input UpdatePostInput {
     title: String
     url: String
