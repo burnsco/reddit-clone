@@ -21,10 +21,12 @@ const Mutation = {
   createUser: async (root, { data }, { db }) => {
     const password = bcrypt.hashSync(data.password, 8)
 
-    const user = await db.createUser({
-      password,
-      username: data.username,
-      email: data.email
+    const user = await db.user.create({
+      data: {
+        password,
+        username: data.username,
+        email: data.email
+      }
     })
 
     const token = jwt.sign(

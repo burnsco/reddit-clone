@@ -1,9 +1,9 @@
 import { ApolloServer } from 'apollo-server'
 import { makeExecutableSchema } from 'graphql-tools'
 import typeDefs from './typedefs/index'
+import db from './context'
 import resolvers from './resolvers/root'
 import { getUser } from './utils'
-import { prisma as db } from './generated/prisma-client'
 import { applyMiddleware } from 'graphql-middleware'
 require('dotenv').config()
 
@@ -22,8 +22,8 @@ const server = new ApolloServer({
     db
   })
 })
-
-server.listen().then(({ url, subscriptionsUrl }) => {
-  console.log(`Server ready at ${url}`)
-  console.log(`Subscriptions ready at ${subscriptionsUrl}`)
-})
+  .listen()
+  .then(({ url, subscriptionsUrl }) => {
+    console.log(`Server ready at ${url}`)
+    console.log(`Subscriptions ready at ${subscriptionsUrl}`)
+  })
