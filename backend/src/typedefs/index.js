@@ -17,7 +17,7 @@ const typeDefs = gql`
     loginUser(data: LoginUserInput!): LoginUserMutationResponse!
     createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
     createPost(data: CreatePostInput): CreatePostMutationResponse!
-    createComment(data: CreateCommentInput!): CreateCommentMutationResponse!
+    createComment(data: CreateCommentInput): CreateCommentMutationResponse!
     updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
     updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
     updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
@@ -92,6 +92,7 @@ const typeDefs = gql`
 
   input CreateCommentInput {
     postID: ID
+    author: ID
     body: String!
   }
 

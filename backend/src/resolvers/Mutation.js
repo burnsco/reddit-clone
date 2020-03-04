@@ -100,15 +100,23 @@ const Mutation = {
     }
   },
 
-  createComment: async (root, args, { user, db }, info) => {
-    db.createComment({
+  createComment: async (root, { data }, { user, db }, info) => {
+    const comment = await db.mutation.createComment({
       data: {
-        ...args
+        body: data.body,
+        author: user.userID
       },
       where: {
-        id: args.postID
+        id: data.postID
       }
     })
+
+    return {
+      code: '200',
+      success: true,
+      message: 'Comment Created Successfully!',
+      comment
+    }
   },
 
   updateUser: async (root, args, { db, req }, info) =>
