@@ -15,8 +15,7 @@
     "graphql": "^14.6.0",
     "graphql-middleware": "^4.0.2",
     "graphql-tools": "^4.0.7",
-    "jsonwebtoken": "^8.5.1",
-    "prisma-binding": "^2.3.16"
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

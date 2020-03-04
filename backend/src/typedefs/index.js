@@ -15,7 +15,7 @@ const typeDefs = gql`
     createUser(data: CreateUserInput!): CreateUserMutationResponse!
     loginUser(data: LoginUserInput!): LoginUserMutationResponse!
     createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
-    createPost(data: CreatePostInput!): CreatePostMutationResponse!
+    createPost(data: CreatePostInput): CreatePostMutationResponse!
     createComment(data: CreateCommentInput!): CreateCommentMutationResponse!
     updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
     updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
@@ -25,7 +25,11 @@ const typeDefs = gql`
     deleteComment(id: ID!): DeleteCommentMutationResponse!
   }
 
-  type Category {
+  interface Node {
+    id: ID!
+  }
+
+  type Category implements Node {
     updatedAt: String!
     createdAt: String!
     id: ID!
@@ -33,18 +37,18 @@ const typeDefs = gql`
     posts: [Post!]!
   }
 
-  type Post {
+  type Post implements Node {
     updatedAt: String!
     createdAt: String!
     id: ID!
-    category: Category!
+    category: ID
     title: String!
     url: String!
     author: User!
     comments: [Comment!]!
   }
 
-  type User {
+  type User implements Node {
     id: ID!
     updatedAt: String!
     createdAt: String!
@@ -55,7 +59,7 @@ const typeDefs = gql`
     comments: [Comment!]!
   }
 
-  type Comment {
+  type Comment implements Node {
     id: ID!
     updatedAt: String!
     createdAt: String!
@@ -64,6 +68,7 @@ const typeDefs = gql`
   }
 
   input CreatePostInput {
+    author: ID
     title: String!
     url: String!
   }

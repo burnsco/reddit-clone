@@ -5,11 +5,7 @@ const Query = {
   },
 
   user: (root, args, { db }) => db.user(),
-  users: (root, args, { db }) => {
-    db.query.users(null, '{ id username email }').then(data => {
-      console.log(data)
-    })
-  },
+  users: (root, args, { db }) => db.users(),
   categories: (root, args, { db }) => db.categories(),
   post: (root, args, { db }) => db.post(),
   posts: (root, args, { db }) => db.posts(),

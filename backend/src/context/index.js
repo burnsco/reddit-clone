@@ -1,4 +1,4 @@
-import { Prisma } from 'prisma-binding'
+import {prisma} 
 
 // bindings for the docker server (prisma) with generated types/etc
 

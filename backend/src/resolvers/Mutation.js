@@ -6,7 +6,7 @@ import { getUserID } from '../utils'
 const Mutation = {
   createCategory: async (root, { data }, { db }) => {
     let category = { ...data }
-    db.createCategory({
+    await db.createCategory({
       ...data
     })
 
@@ -21,12 +21,10 @@ const Mutation = {
   createUser: async (root, { data }, { db }) => {
     const password = bcrypt.hashSync(data.password, 8)
 
-    const user = await db.user.create({
-      data: {
-        password,
-        username: data.username,
-        email: data.email
-      }
+    const user = await db.createUser({
+      password,
+      username: data.username,
+      email: data.email
     })
 
     const token = jwt.sign(
@@ -79,11 +77,6 @@ const Mutation = {
     const post = await db.createPost({
       title: data.title,
       url: data.url,
-      category: {
-        connect: {
-          id: data.categoryID
-        }
-      },
       author: {
         connect: {
           id: user.userID
