@@ -41,16 +41,13 @@ const Mutation = {
     }
 
     const password = bcrypt.hashSync(data.password, 8)
-    const user = await db.mutation.createUser(
-      {
-        data: {
-          password,
-          username: data.username,
-          email: data.email
-        }
-      },
-      info
-    )
+    const user = await db.mutation.createUser({
+      data: {
+        password,
+        username: data.username,
+        email: data.email
+      }
+    })
 
     const token = jwt.sign(
       { userID: user.id, email: user.email },
@@ -99,23 +96,22 @@ const Mutation = {
       return NoAuthorization
     }
 
-    const post = await db.mutation.createPost(
-      {
+    const post = await db.mutation.createPost({
+      data: {
         title: data.title,
         url: data.url,
-        author: {
-          connect: {
-            id: user.userID
-          }
-        },
         category: {
           connect: {
             id: data.categoryID
           }
+        },
+        author: {
+          connect: {
+            id: user.userID
+          }
         }
-      },
-      info
-    )
+      }
+    })
 
     return {
       code: '200',

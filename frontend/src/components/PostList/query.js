@@ -9,6 +9,9 @@ const GET_ALL_POSTS = gql`
       author {
         username
       }
+      category {
+        name
+      }
     }
   }
 `
