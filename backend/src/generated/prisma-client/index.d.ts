@@ -268,6 +268,7 @@ export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type CategoryWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
+  title?: Maybe<String>;
 }>;
 
 export interface PostWhereInput {
@@ -465,12 +466,12 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
-  posts_every?: Maybe<PostWhereInput>;
-  posts_some?: Maybe<PostWhereInput>;
-  posts_none?: Maybe<PostWhereInput>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
+  posts_every?: Maybe<PostWhereInput>;
+  posts_some?: Maybe<PostWhereInput>;
+  posts_none?: Maybe<PostWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -521,6 +522,7 @@ export interface CommentWhereInput {
   body_not_starts_with?: Maybe<String>;
   body_ends_with?: Maybe<String>;
   body_not_ends_with?: Maybe<String>;
+  post?: Maybe<PostWhereInput>;
   author?: Maybe<UserWhereInput>;
   AND?: Maybe<CommentWhereInput[] | CommentWhereInput>;
   OR?: Maybe<CommentWhereInput[] | CommentWhereInput>;
@@ -537,7 +539,6 @@ export type PostWhereUniqueInput = AtLeastOne<{
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
-  email?: Maybe<String>;
   username?: Maybe<String>;
 }>;
 
@@ -559,7 +560,7 @@ export interface PostCreateWithoutCategoryInput {
   title: String;
   url: String;
   author: UserCreateOneWithoutPostsInput;
-  comments?: Maybe<CommentCreateManyInput>;
+  comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
 export interface UserCreateOneWithoutPostsInput {
@@ -585,14 +586,40 @@ export interface CommentCreateManyWithoutAuthorInput {
 export interface CommentCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
   body: String;
+  post: PostCreateOneWithoutCommentsInput;
 }
 
-export interface CommentCreateManyInput {
-  create?: Maybe<CommentCreateInput[] | CommentCreateInput>;
+export interface PostCreateOneWithoutCommentsInput {
+  create?: Maybe<PostCreateWithoutCommentsInput>;
+  connect?: Maybe<PostWhereUniqueInput>;
+}
+
+export interface PostCreateWithoutCommentsInput {
+  id?: Maybe<ID_Input>;
+  category: CategoryCreateOneWithoutPostsInput;
+  title: String;
+  url: String;
+  author: UserCreateOneWithoutPostsInput;
+}
+
+export interface CategoryCreateOneWithoutPostsInput {
+  create?: Maybe<CategoryCreateWithoutPostsInput>;
+  connect?: Maybe<CategoryWhereUniqueInput>;
+}
+
+export interface CategoryCreateWithoutPostsInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+}
+
+export interface CommentCreateManyWithoutPostInput {
+  create?: Maybe<
+    CommentCreateWithoutPostInput[] | CommentCreateWithoutPostInput
+  >;
   connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
 }
 
-export interface CommentCreateInput {
+export interface CommentCreateWithoutPostInput {
   id?: Maybe<ID_Input>;
   body: String;
   author: UserCreateOneWithoutCommentsInput;
@@ -621,17 +648,7 @@ export interface PostCreateWithoutAuthorInput {
   category: CategoryCreateOneWithoutPostsInput;
   title: String;
   url: String;
-  comments?: Maybe<CommentCreateManyInput>;
-}
-
-export interface CategoryCreateOneWithoutPostsInput {
-  create?: Maybe<CategoryCreateWithoutPostsInput>;
-  connect?: Maybe<CategoryWhereUniqueInput>;
-}
-
-export interface CategoryCreateWithoutPostsInput {
-  id?: Maybe<ID_Input>;
-  title: String;
+  comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
 export interface CategoryUpdateInput {
@@ -670,7 +687,7 @@ export interface PostUpdateWithoutCategoryDataInput {
   title?: Maybe<String>;
   url?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-  comments?: Maybe<CommentUpdateManyInput>;
+  comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
 
 export interface UserUpdateOneRequiredWithoutPostsInput {
@@ -717,6 +734,42 @@ export interface CommentUpdateWithWhereUniqueWithoutAuthorInput {
 
 export interface CommentUpdateWithoutAuthorDataInput {
   body?: Maybe<String>;
+  post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
+}
+
+export interface PostUpdateOneRequiredWithoutCommentsInput {
+  create?: Maybe<PostCreateWithoutCommentsInput>;
+  update?: Maybe<PostUpdateWithoutCommentsDataInput>;
+  upsert?: Maybe<PostUpsertWithoutCommentsInput>;
+  connect?: Maybe<PostWhereUniqueInput>;
+}
+
+export interface PostUpdateWithoutCommentsDataInput {
+  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
+  title?: Maybe<String>;
+  url?: Maybe<String>;
+  author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
+}
+
+export interface CategoryUpdateOneRequiredWithoutPostsInput {
+  create?: Maybe<CategoryCreateWithoutPostsInput>;
+  update?: Maybe<CategoryUpdateWithoutPostsDataInput>;
+  upsert?: Maybe<CategoryUpsertWithoutPostsInput>;
+  connect?: Maybe<CategoryWhereUniqueInput>;
+}
+
+export interface CategoryUpdateWithoutPostsDataInput {
+  title?: Maybe<String>;
+}
+
+export interface CategoryUpsertWithoutPostsInput {
+  update: CategoryUpdateWithoutPostsDataInput;
+  create: CategoryCreateWithoutPostsInput;
+}
+
+export interface PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput;
+  create: PostCreateWithoutCommentsInput;
 }
 
 export interface CommentUpsertWithWhereUniqueWithoutAuthorInput {
@@ -789,20 +842,22 @@ export interface UserUpsertWithoutPostsInput {
   create: UserCreateWithoutPostsInput;
 }
 
-export interface CommentUpdateManyInput {
-  create?: Maybe<CommentCreateInput[] | CommentCreateInput>;
-  update?: Maybe<
-    | CommentUpdateWithWhereUniqueNestedInput[]
-    | CommentUpdateWithWhereUniqueNestedInput
-  >;
-  upsert?: Maybe<
-    | CommentUpsertWithWhereUniqueNestedInput[]
-    | CommentUpsertWithWhereUniqueNestedInput
+export interface CommentUpdateManyWithoutPostInput {
+  create?: Maybe<
+    CommentCreateWithoutPostInput[] | CommentCreateWithoutPostInput
   >;
   delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
   connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
   set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
   disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  update?: Maybe<
+    | CommentUpdateWithWhereUniqueWithoutPostInput[]
+    | CommentUpdateWithWhereUniqueWithoutPostInput
+  >;
+  upsert?: Maybe<
+    | CommentUpsertWithWhereUniqueWithoutPostInput[]
+    | CommentUpsertWithWhereUniqueWithoutPostInput
+  >;
   deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
   updateMany?: Maybe<
     | CommentUpdateManyWithWhereNestedInput[]
@@ -810,12 +865,12 @@ export interface CommentUpdateManyInput {
   >;
 }
 
-export interface CommentUpdateWithWhereUniqueNestedInput {
+export interface CommentUpdateWithWhereUniqueWithoutPostInput {
   where: CommentWhereUniqueInput;
-  data: CommentUpdateDataInput;
+  data: CommentUpdateWithoutPostDataInput;
 }
 
-export interface CommentUpdateDataInput {
+export interface CommentUpdateWithoutPostDataInput {
   body?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
 }
@@ -863,23 +918,7 @@ export interface PostUpdateWithoutAuthorDataInput {
   category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   title?: Maybe<String>;
   url?: Maybe<String>;
-  comments?: Maybe<CommentUpdateManyInput>;
-}
-
-export interface CategoryUpdateOneRequiredWithoutPostsInput {
-  create?: Maybe<CategoryCreateWithoutPostsInput>;
-  update?: Maybe<CategoryUpdateWithoutPostsDataInput>;
-  upsert?: Maybe<CategoryUpsertWithoutPostsInput>;
-  connect?: Maybe<CategoryWhereUniqueInput>;
-}
-
-export interface CategoryUpdateWithoutPostsDataInput {
-  title?: Maybe<String>;
-}
-
-export interface CategoryUpsertWithoutPostsInput {
-  update: CategoryUpdateWithoutPostsDataInput;
-  create: CategoryCreateWithoutPostsInput;
+  comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
 
 export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
@@ -967,10 +1006,10 @@ export interface UserUpsertWithoutCommentsInput {
   create: UserCreateWithoutCommentsInput;
 }
 
-export interface CommentUpsertWithWhereUniqueNestedInput {
+export interface CommentUpsertWithWhereUniqueWithoutPostInput {
   where: CommentWhereUniqueInput;
-  update: CommentUpdateDataInput;
-  create: CommentCreateInput;
+  update: CommentUpdateWithoutPostDataInput;
+  create: CommentCreateWithoutPostInput;
 }
 
 export interface PostUpsertWithWhereUniqueWithoutCategoryInput {
@@ -983,8 +1022,16 @@ export interface CategoryUpdateManyMutationInput {
   title?: Maybe<String>;
 }
 
+export interface CommentCreateInput {
+  id?: Maybe<ID_Input>;
+  body: String;
+  post: PostCreateOneWithoutCommentsInput;
+  author: UserCreateOneWithoutCommentsInput;
+}
+
 export interface CommentUpdateInput {
   body?: Maybe<String>;
+  post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
   author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
 }
 
@@ -998,7 +1045,7 @@ export interface PostCreateInput {
   title: String;
   url: String;
   author: UserCreateOneWithoutPostsInput;
-  comments?: Maybe<CommentCreateManyInput>;
+  comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
 export interface PostUpdateInput {
@@ -1006,7 +1053,7 @@ export interface PostUpdateInput {
   title?: Maybe<String>;
   url?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-  comments?: Maybe<CommentUpdateManyInput>;
+  comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
 
 export interface PostUpdateManyMutationInput {
@@ -1019,16 +1066,16 @@ export interface UserCreateInput {
   email: String;
   username: String;
   password: String;
-  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
   comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
 }
 
 export interface UserUpdateInput {
   email?: Maybe<String>;
   username?: Maybe<String>;
   password?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
   comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -1233,18 +1280,18 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   email: () => Promise<String>;
   username: () => Promise<String>;
   password: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
-  comments: <T = FragmentableArray<Comment>>(args?: {
-    where?: CommentWhereInput;
-    orderBy?: CommentOrderByInput;
+  posts: <T = FragmentableArray<Post>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -1262,18 +1309,18 @@ export interface UserSubscription
   email: () => Promise<AsyncIterator<String>>;
   username: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
-  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
-  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
-    where?: CommentWhereInput;
-    orderBy?: CommentOrderByInput;
+  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -1291,18 +1338,18 @@ export interface UserNullablePromise
   email: () => Promise<String>;
   username: () => Promise<String>;
   password: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
-  comments: <T = FragmentableArray<Comment>>(args?: {
-    where?: CommentWhereInput;
-    orderBy?: CommentOrderByInput;
+  posts: <T = FragmentableArray<Post>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -1323,6 +1370,7 @@ export interface CommentPromise extends Promise<Comment>, Fragmentable {
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
   body: () => Promise<String>;
+  post: <T = PostPromise>() => T;
   author: <T = UserPromise>() => T;
 }
 
@@ -1333,6 +1381,7 @@ export interface CommentSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   body: () => Promise<AsyncIterator<String>>;
+  post: <T = PostSubscription>() => T;
   author: <T = UserSubscription>() => T;
 }
 
@@ -1343,6 +1392,7 @@ export interface CommentNullablePromise
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
   body: () => Promise<String>;
+  post: <T = PostPromise>() => T;
   author: <T = UserPromise>() => T;
 }
 
@@ -1819,6 +1869,11 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
+
+/*
 DateTime scalar input type, allowing Date
 */
 export type DateTimeInput = Date | string;
@@ -1827,11 +1882,6 @@ export type DateTimeInput = Date | string;
 DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.

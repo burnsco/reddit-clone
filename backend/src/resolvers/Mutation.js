@@ -5,16 +5,15 @@ import { getUserID } from '../utils'
 
 const Mutation = {
   createCategory: async (root, { data }, { db }) => {
-    let category = { ...data }
-    await db.createCategory({
-      ...data
+    let result = await db.createCategory({
+      title: data.title
     })
 
     return {
       code: '200',
       success: true,
-      message: 'Category was Created!',
-      category
+      message: `${data.title} Category Created!`,
+      result
     }
   },
 
@@ -80,6 +79,11 @@ const Mutation = {
       author: {
         connect: {
           id: user.userID
+        }
+      },
+      category: {
+        connect: {
+          id: data.categoryID
         }
       }
     })

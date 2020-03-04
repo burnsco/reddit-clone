@@ -2,6 +2,6 @@ endpoint: http://localhost:4466
 datamodel: datamodel.graphql
 generate:
   - generator: javascript-client
-    output: src/generated/prisma-client
+    output: ../src/generated/prisma-client
   - generator: graphql-schema
-    output: src/generated/prisma.graphql
+    output: ../src/generated/prisma.graphql

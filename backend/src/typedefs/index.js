@@ -3,12 +3,19 @@ import { gql } from 'apollo-server'
 const typeDefs = gql`
   type Query {
     currentUser: User!
+
     categories: [Category!]!
-    users: [User!]!
-    comments: [Comment!]!
+
     posts: [Post!]!
-    user(userID: ID!): User!
+
+    comments: [Comment!]!
+
     post(postID: ID!): Post!
+
+    user(where: UserWhereUniqueInput): User!
+    users(query: String): [User!]!
+
+    node(id: ID!): Node
   }
 
   type Mutation {
@@ -23,6 +30,10 @@ const typeDefs = gql`
     deleteUser(id: ID!): DeleteUserMutationResponse!
     deletePost(id: ID!): DeletePostMutationResponse!
     deleteComment(id: ID!): DeleteCommentMutationResponse!
+  }
+
+  input UserWhereUniqueInput {
+    id: ID
   }
 
   interface Node {
@@ -41,7 +52,7 @@ const typeDefs = gql`
     updatedAt: String!
     createdAt: String!
     id: ID!
-    category: ID
+    category: Category!
     title: String!
     url: String!
     author: User!
@@ -64,16 +75,23 @@ const typeDefs = gql`
     updatedAt: String!
     createdAt: String!
     body: String!
+    post: Post
     author: User!
+  }
+  input UpdatePostInput {
+    title: String
+    url: String
   }
 
   input CreatePostInput {
+    categoryID: ID
     author: ID
     title: String!
     url: String!
   }
 
   input CreateCommentInput {
+    postID: ID
     body: String!
   }
 
@@ -88,11 +106,6 @@ const typeDefs = gql`
 
   input UpdateCommentInput {
     body: String
-  }
-
-  input UpdatePostInput {
-    title: String
-    url: String
   }
 
   input UpdateUserInput {
