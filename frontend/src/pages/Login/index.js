@@ -5,12 +5,12 @@ import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import Spinner from '../../components/shared/FallBackSpinner'
 
-const LOGIN_USER = gql`
-  mutation LOGIN_USER($email: String!, $password: String!) {
-    loginUser(data: { email: $email, password: $password }) {
+const LOGIN_MUTATION = gql`
+  mutation LOGIN_MUTATION($email: String!, $password: String!) {
+    login(data: { email: $email, password: $password }) {
+      success
       message
       code
-      success
       token
     }
   }
@@ -19,18 +19,23 @@ const LOGIN_USER = gql`
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [userData, setUserData] = useState(null)
-  const [loginUser, { loading, error, data }] = useMutation(LOGIN_USER, {
+
+  const [loginUser, { loading, error, data }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password }
   })
 
   const handleSubmit = async event => {
-    event.preventDefault()
+    if (loading) return <Spinner />
+    if (error) {
+      console.log(error)
+    }
+    try {
+      event.preventDefault()
+      await loginUser()
+    } catch (error) {
+      console.log(error)
+    }
     console.log(data)
-    const login = await loginUser()
-    setUserData(data)
-    console.log(userData)
-    return login
   }
 
   const handleChange = event => {

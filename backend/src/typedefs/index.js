@@ -13,7 +13,7 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(data: CreateUserInput!): CreateUserMutationResponse!
-    login(data: LoginUserInput!): LoginUserMutationResponse!
+    loginUser(data: LoginUserInput!): LoginUserMutationResponse!
     createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
     createPost(data: CreatePostInput): CreatePostMutationResponse!
     createComment(data: CreateCommentInput): CreateCommentMutationResponse!

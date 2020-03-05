@@ -43,7 +43,8 @@ const Mutation = {
     const password = await bcrypt.hash(data.password, 8)
     const user = await db.mutation.createUser({
       data: {
-        ...data,
+        username: data.username,
+        email: data.email,
         password
       }
     })
@@ -61,21 +62,27 @@ const Mutation = {
     }
   },
 
-  async login(parent, { data }, { db }, info) {
+  async loginUser(parent, { data }, { db }, info) {
     const user = await db.query.user({
       where: {
         email: data.email
       }
     })
-
-    bcrypt.compare(data.password, user.password, (err, res) => {
-      if (!res) {
-        return BadCredentials
+    if (!user) {
+      return {
+        code: '401',
+        success: false,
+        message: 'User not found!'
       }
-      return
-    })
+    }
 
-    const token = jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
+    const isMatch = await bcrypt.compare(data.password, user.password)
+
+    if (!isMatch) {
+      return BadCredentials
+    }
+
+    const token = await jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
       expiresIn: '7d'
     })
 
