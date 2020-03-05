@@ -18,8 +18,11 @@ const typeDefs = gql`
     createPost(data: CreatePostInput): CreatePostMutationResponse!
     createComment(data: CreateCommentInput): CreateCommentMutationResponse!
     updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
-    updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
-    updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
+    updatePost(id: ID!, data: UpdatePostInput!): UpdatePostMutationResponse!
+    updateComment(
+      id: ID!
+      data: UpdateCommentInput!
+    ): UpdateCommentMutationResponse!
     deleteUser(id: ID!): DeleteUserMutationResponse!
     deletePost(id: ID!): DeletePostMutationResponse!
     deleteComment(id: ID!): DeleteCommentMutationResponse!

@@ -7,6 +7,7 @@ const Query = {
     })
     return requested
   },
+
   users(parent, args, { db }, info) {
     const opArgs = {}
 

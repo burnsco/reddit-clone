@@ -134,6 +134,13 @@ const Mutation = {
         message: 'Post does not exist!'
       }
     }
+    if (!user) {
+      return {
+        code: '401',
+        success: false,
+        message: 'You are not logged in'
+      }
+    }
 
     const comment = await db.mutation.createComment({
       data: {
@@ -159,16 +166,16 @@ const Mutation = {
     }
   },
 
-  async updateUser(root, args, { db, req }, info) {
-    const user = await db.mutation.updateUser({
+  async updateUser(root, args, { db, user }, info) {
+    const change = await db.mutation.updateUser({
       data: {
-        role: 'ADMIN'
+        username: args.username
       },
       where: {
-        id: args.userID
+        id: user.id
       }
     })
-    return user
+    return change
   },
 
   async updatePost(root, args, { db }, info) {
