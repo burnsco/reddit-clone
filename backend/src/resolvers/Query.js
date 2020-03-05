@@ -7,20 +7,20 @@ const Query = {
     })
     return requested
   },
-
-  user: (root, args, { db }, info) => db.query.user({ id: args.userID }),
-
-  users: async (root, args, { db }, info) => {
+  users(parent, args, { db }, info) {
     const opArgs = {}
 
     if (args.query) {
       opArgs.where = {
-        email_contains: args.query
+        OR: [
+          {
+            name_contains: args.query
+          }
+        ]
       }
     }
 
-    const results = await db.query.users(opArgs, info)
-    return results
+    return db.query.users(opArgs, info)
   },
 
   categories: async (root, args, { db }, info) => {

@@ -539,7 +539,7 @@ export type PostWhereUniqueInput = AtLeastOne<{
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
-  username?: Maybe<String>;
+  email?: Maybe<String>;
 }>;
 
 export interface CategoryCreateInput {

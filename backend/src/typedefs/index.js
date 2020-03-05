@@ -8,13 +8,12 @@ const typeDefs = gql`
     comments: [Comment!]!
     users(query: String): [User!]!
     post(postID: ID!): Post!
-    user(userID: ID!): User!
     node(id: ID!): Node
   }
 
   type Mutation {
     createUser(data: CreateUserInput!): CreateUserMutationResponse!
-    loginUser(data: LoginUserInput!): LoginUserMutationResponse!
+    login(data: LoginUserInput!): LoginUserMutationResponse!
     createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
     createPost(data: CreatePostInput): CreatePostMutationResponse!
     createComment(data: CreateCommentInput): CreateCommentMutationResponse!

@@ -1099,7 +1099,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
-  username: String
+  email: String
 }
 `
       }

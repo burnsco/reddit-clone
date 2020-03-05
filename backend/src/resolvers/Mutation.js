@@ -8,7 +8,7 @@ import bcrypt from 'bcryptjs'
 import { getUserID } from '../utils'
 
 const Mutation = {
-  createCategory: async (root, { data }, { db }) => {
+  async createCategory(root, { data }, { db }) {
     const categoryExists = await db.exists.Category({ name: data.name })
 
     if (categoryExists) {
@@ -29,8 +29,8 @@ const Mutation = {
     }
   },
 
-  createUser: async (root, { data }, { db }, info) => {
-    const emailExists = await db.exists.User({ email: data.email })
+  async createUser(root, { data }, { db }, info) {
+    const emailExists = await db.exists.User({ email: data.email }, info)
 
     if (emailExists) {
       return {
@@ -40,22 +40,17 @@ const Mutation = {
       }
     }
 
-    const password = bcrypt.hashSync(data.password, 8)
+    const password = await bcrypt.hash(data.password, 8)
     const user = await db.mutation.createUser({
       data: {
-        password,
-        username: data.username,
-        email: data.email
+        ...data,
+        password
       }
     })
 
-    const token = jwt.sign(
-      { userID: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '7d'
-      }
-    )
+    const token = jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
+      expiresIn: '7d'
+    })
 
     return {
       code: '200',
@@ -66,18 +61,19 @@ const Mutation = {
     }
   },
 
-  loginUser: async (root, args, { db }, info) => {
+  async login(parent, { data }, { db }, info) {
     const user = await db.query.user({
       where: {
-        email: args.data.email
+        email: data.email
       }
     })
-    console.log(user)
-    const hashed = await bcrypt.compare(args.data.password, user.password)
 
-    if (!hashed || !user) {
-      return BadCredentials
-    }
+    bcrypt.compare(data.password, user.password, (err, res) => {
+      if (!res) {
+        return BadCredentials
+      }
+      return
+    })
 
     const token = jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
       expiresIn: '7d'
@@ -92,7 +88,7 @@ const Mutation = {
     }
   },
 
-  createPost: async (root, { data }, { db, user }, info) => {
+  async createPost(root, { data }, { db, user }, info) {
     if (!user) {
       return NoAuthorization
     }
@@ -122,7 +118,7 @@ const Mutation = {
     }
   },
 
-  createComment: async (root, { data }, { user, db }, info) => {
+  async createComment(root, { data }, { user, db }, info) {
     const postExists = db.exists.Post({ id: data.postID })
     if (!postExists) {
       return {
@@ -156,7 +152,7 @@ const Mutation = {
     }
   },
 
-  updateUser: async (root, args, { db, req }, info) => {
+  async updateUser(root, args, { db, req }, info) {
     const user = await db.mutation.updateUser({
       data: {
         role: 'ADMIN'
@@ -168,7 +164,7 @@ const Mutation = {
     return user
   },
 
-  updatePost: async (root, args, { db }, info) => {
+  async updatePost(root, args, { db }, info) {
     const postExists = db.exists.Post({ id: data.postID })
     if (!postExists) {
       return {
@@ -189,7 +185,7 @@ const Mutation = {
     return post
   },
 
-  updateComment: async (root, args, { db }, info) => {
+  async updateComment(root, args, { db }, info) {
     await db.mutation.updateComment({
       data: {
         title: args.title
@@ -201,14 +197,20 @@ const Mutation = {
     return comment
   },
 
-  deleteUser: async (root, { data }, { db }, info) =>
-    await db.mutation.deleteUser({ email: data.email }),
+  async deleteUser(root, { data }, { db }, info) {
+    const result = await db.mutation.deleteUser({ email: data.email })
+    return result
+  },
 
-  deletePost: async (root, { data }, { db }, info) =>
-    await db.mutation.deletePost({ id: data.postID }),
+  async deletePost(root, { data }, { db }, info) {
+    const result = await db.mutation.deletePost({ id: data.postID })
+    return result
+  },
 
-  deleteComment: async (root, { data }, { db }, info) =>
-    await db.mutation.deleteComment({ id: data.commentID })
+  async deleteComment(root, { data }, { db }, info) {
+    const result = await db.mutation.deleteComment({ id: data.commentID })
+    return result
+  }
 }
 
 export { Mutation as default }
