@@ -12,7 +12,7 @@ import { GET_USER_PROFILE_DATA } from './query'
 import Post from '../../components/Post'
 import ProfileCommentsList from './Comments'
 
-function Profile({ userID, children }) {
+function ProfilePage({ userID, children }) {
   const { loading, error, data } = useQuery(GET_USER_PROFILE_DATA, {
     variables: { userID: userID }
   })
@@ -59,4 +59,4 @@ function Profile({ userID, children }) {
   )
 }
 
-export default Profile
+export default ProfilePage

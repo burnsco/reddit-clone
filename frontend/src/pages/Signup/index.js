@@ -29,7 +29,7 @@ const SUBMIT_DATA_SIGN_UP = gql`
   }
 `
 
-const SignUp = () => {
+const SignUpPage = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -76,31 +76,31 @@ const SignUp = () => {
 
         <form onSubmit={handleSubmit}>
           <FormInput
-            name='email'
-            type='email'
+            name="email"
+            type="email"
             handleChange={handleChange}
             value={email}
-            label='email'
+            label="email"
             required
           />
           <FormInput
-            name='username'
-            type='text'
+            name="username"
+            type="text"
             handleChange={handleChange}
             value={username}
-            label='username'
+            label="username"
             required
           />
           <FormInput
-            name='password'
-            type='password'
+            name="password"
+            type="password"
             value={password}
             handleChange={handleChange}
-            label='password'
+            label="password"
             required
           />
           <ButtonsBarContainer>
-            <CustomButton type='submit' style={{ width: 100 + '%' }}>
+            <CustomButton type="submit" style={{ width: 100 + '%' }}>
               {' '}
               Sign in with email{' '}
             </CustomButton>
@@ -113,4 +113,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignUpPage

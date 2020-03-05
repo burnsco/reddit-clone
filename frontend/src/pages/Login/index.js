@@ -12,6 +12,11 @@ const LOGIN_MUTATION = gql`
       message
       code
       token
+      user {
+        id
+        email
+        username
+      }
     }
   }
 `
@@ -32,8 +37,9 @@ function LoginPage() {
     try {
       event.preventDefault()
       const user = await loginUser()
+      const { message, token } = user.data.loginUser
       console.log(user.data.loginUser)
-      setResult(user.data.loginUser.message)
+      setResult(message)
       return user
     } catch (error) {
       console.log(error)
