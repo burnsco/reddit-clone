@@ -1,4 +1,4 @@
-import { ApolloServer } from 'apollo-server'
+import { ApolloServer, PubSub } from 'apollo-server'
 import { makeExecutableSchema } from 'graphql-tools'
 import typeDefs from './typedefs/index'
 import db from './context/index'
@@ -17,10 +17,13 @@ const schema = applyMiddleware(
   })
 )
 
+const pubsub = new PubSub()
+
 const server = new ApolloServer({
   schema,
   context: req => ({
     ...req,
+    pubsub,
     user: getUser(req),
     db
   })

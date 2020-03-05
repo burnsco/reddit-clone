@@ -7,7 +7,7 @@ import Spinner from '../../components/shared/FallBackSpinner'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
-    login(data: { email: $email, password: $password }) {
+    loginUser(data: { email: $email, password: $password }) {
       success
       message
       code
@@ -16,26 +16,28 @@ const LOGIN_MUTATION = gql`
   }
 `
 
-function Login() {
+function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [result, setResult] = useState('')
 
-  const [loginUser, { loading, error, data }] = useMutation(LOGIN_MUTATION, {
+  const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password }
   })
 
   const handleSubmit = async event => {
     if (loading) return <Spinner />
-    if (error) {
-      console.log(error)
-    }
+    if (error) return <div>error!</div>
+
     try {
       event.preventDefault()
-      await loginUser()
+      const user = await loginUser()
+      console.log(user.data.loginUser)
+      setResult(user.data.loginUser.message)
+      return user
     } catch (error) {
       console.log(error)
     }
-    console.log(data)
   }
 
   const handleChange = event => {
@@ -78,10 +80,10 @@ function Login() {
           </ButtonsBarContainer>
         </form>
         <br />
-        <CustomButton isGoogleSignIn>Sign in with Google</CustomButton>
+        <CustomButton isGoogleSignIn>{result}</CustomButton>
       </SignInContainer>
     </WelcomePage>
   )
 }
 
-export default Login
+export default LoginPage
