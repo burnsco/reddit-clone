@@ -10,7 +10,7 @@
     "deploy": "prisma deploy"
   },
   "dependencies": {
-    "apollo-server": "^2.6.0-rc.0",
+    "apollo-server-express": "^2.11.0",
     "bcryptjs": "^2.4.3",
     "graphql": "^14.6.0",
     "graphql-middleware": "^4.0.2",

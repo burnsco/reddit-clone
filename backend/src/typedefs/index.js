@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server'
+import {gql} from 'apollo-server-express';
 
 const typeDefs = gql`
   type Query {
@@ -231,5 +231,5 @@ const typeDefs = gql`
     UPDATED
     DELETED
   }
-`
-export { typeDefs as default }
+`;
+export {typeDefs as default};

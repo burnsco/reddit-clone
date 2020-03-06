@@ -1,11 +1,12 @@
-import { ApolloServer, PubSub } from 'apollo-server'
-import { makeExecutableSchema } from 'graphql-tools'
-import typeDefs from './typedefs/index'
-import db from './context/index'
-import resolvers from './resolvers/root'
-import { getUser } from './utils'
-import { applyMiddleware } from 'graphql-middleware'
-require('dotenv').config()
+import {ApolloServer, PubSub} from 'apollo-server-express';
+import express from 'express';
+import {makeExecutableSchema} from 'graphql-tools';
+import typeDefs from './typedefs/index';
+import db from './context/index';
+import resolvers from './resolvers/root';
+import {getUser} from './utils';
+import {applyMiddleware} from 'graphql-middleware';
+require('dotenv').config();
 
 const schema = applyMiddleware(
   makeExecutableSchema({
@@ -15,9 +16,9 @@ const schema = applyMiddleware(
       requireResolversForResolveType: false
     }
   })
-)
+);
 
-const pubsub = new PubSub()
+const pubsub = new PubSub();
 
 const server = new ApolloServer({
   schema,
@@ -27,9 +28,12 @@ const server = new ApolloServer({
     user: getUser(req),
     db
   })
-})
-  .listen()
-  .then(({ url, subscriptionsUrl }) => {
-    console.log(`Server ready at ${url}`)
-    console.log(`Subscriptions ready at ${subscriptionsUrl}`)
-  })
+});
+
+const app = express();
+
+server.applyMiddleware({app});
+
+app.listen({port: 4000}, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+);
