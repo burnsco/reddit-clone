@@ -1,3 +1,5 @@
+import { forwardTo } from 'prisma-binding'
+
 const Query = {
   currentUser: async (root, args, { db, user }, info) => {
     const requested = await db.query.user({
@@ -29,14 +31,16 @@ const Query = {
     return results
   },
 
-  posts: async (root, args, { db }, info) => {
+  posts: async (root, args, { db, user }, info) => {
+    console.log(user)
     const results = await db.query.posts(null, info)
     return results
   },
 
   post: (root, args, { db }, info) => db.post(),
 
-  comments: (root, args, { db }, info) => db.comments()
+  // can use the default generated methods if you don't need custom queries
+  comments: forwardTo('db')
 }
 
 export { Query as default }
