@@ -1,7 +1,0 @@
-// Category
-
-// Post
-
-// Comment
-
-// User

@@ -7,4 +7,6 @@ import './index.css'
 
 const rootElement = document.getElementById('root')
 
-render(<RedditApp />, rootElement)
+const App = () => <RedditApp />
+
+render(<App />, rootElement)

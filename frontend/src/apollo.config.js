@@ -14,8 +14,6 @@ import { getMainDefinition } from '@apollo/client/utilities'
 import App from './App'
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-  // add the authorization to the headers
-
   operation.setContext({
     headers: {
       authorization: localStorage.getItem('token') || null
