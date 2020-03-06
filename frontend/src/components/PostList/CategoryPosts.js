@@ -9,7 +9,7 @@ import Post from '../Post'
 
 function CategoryPosts({ category }) {
   const { loading, error, data } = useQuery(GET_POSTS_BY_CATEGORY, {
-    variables: { category: category }
+    variables: { query: category }
   })
   if (loading) return <Spinner />
   if (error) return <h1>Error!</h1>

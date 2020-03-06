@@ -17,25 +17,17 @@ const GET_ALL_POSTS = gql`
 `
 
 const GET_POSTS_BY_CATEGORY = gql`
-  query getPostsByCategory($category: String!) {
-    posts(category: $category) {
+  query getPostsByCategory($query: String!) {
+    posts(query: $query) {
       id
-      type
       title
-      category
+      url
       author {
         username
       }
-      comments {
-        id
-        body
-        postID
-        author {
-          username
-        }
+      category {
+        name
       }
-      url
-      votes
     }
   }
 `

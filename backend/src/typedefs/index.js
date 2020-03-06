@@ -1,10 +1,10 @@
-import {gql} from 'apollo-server-express';
+import { gql } from 'apollo-server-express'
 
 const typeDefs = gql`
   type Query {
     currentUser: User!
-    categories: [Category!]!
-    posts: [Post!]!
+    categories(query: String): [Category!]!
+    posts(query: String): [Post!]!
     comments: [Comment!]!
     users(query: String): [User!]!
     post(postID: ID!): Post!
@@ -231,5 +231,5 @@ const typeDefs = gql`
     UPDATED
     DELETED
   }
-`;
-export {typeDefs as default};
+`
+export { typeDefs as default }

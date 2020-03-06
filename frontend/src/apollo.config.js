@@ -1,19 +1,13 @@
 import React from 'react'
 import {
   ApolloClient,
-  ApolloLink,
   createHttpLink,
-  concat,
-  HttpLink,
-  split,
   InMemoryCache,
   ApolloProvider
 } from '@apollo/client'
-import { WebSocketLink } from '@apollo/link-ws'
-import { getMainDefinition } from '@apollo/client/utilities'
+import { setContext } from 'apollo-link-context'
 
 import App from './App'
-import { setContext } from 'apollo-link-context'
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
