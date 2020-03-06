@@ -10,20 +10,8 @@ const Query = {
     return requested
   },
 
-  users(parent, args, { db }, info) {
-    const opArgs = {}
-
-    if (args.query) {
-      opArgs.where = {
-        OR: [
-          {
-            name_contains: args.query
-          }
-        ]
-      }
-    }
-
-    return db.query.users(opArgs, info)
+  users(parent, args, { db, user }, info) {
+    return db.query.users(null, info)
   },
 
   // TODO make posts and comments paginated
@@ -50,6 +38,9 @@ const Query = {
           name: args.query
         }
       }
+    }
+    if (args.query === 'all') {
+      return db.query.posts(null, info)
     }
 
     const results = await db.query.posts(opArgs, info)
