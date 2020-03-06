@@ -47,7 +47,7 @@ function LoginPage() {
       console.log(`id = ${id}`)
       console.log(`email = ${email}`)
       console.log(`username = ${username}`)
-      setUser(user)
+      setUser(username)
       // check status code and redirect to main page
       localStorage.setItem('auth-token', token)
       setResult(message)
