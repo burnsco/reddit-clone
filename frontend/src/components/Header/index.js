@@ -51,16 +51,6 @@ const Header = () => {
               <pre>{JSON.stringify(user, null, 2)}</pre>
             </Link>
           </HeaderLink>
-          <HeaderLink style={{ background: '#33a0ff' }}>
-            <Link to='/signup' style={{ color: 'white' }}>
-              <h5>Chat</h5>
-            </Link>
-          </HeaderLink>
-          <HeaderLink style={{ border: 1 + 'px solid orange' }}>
-            <Link to='/profile' style={{ color: 'black' }}>
-              <h5>Messages</h5>
-            </Link>
-          </HeaderLink>
         </HeaderLinks>
       </HeaderNavWrapper>
     </HeaderContainer>

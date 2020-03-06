@@ -3,8 +3,8 @@ import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
-import Spinner from '../../components/shared/FallBackSpinner'
 import { UserContext } from '../../context/user-context'
+import Spinner from 'react-spinkit'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -26,6 +26,7 @@ function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [result, setResult] = useState('')
+  const [spinning, setSpinning] = useState(false)
   const { user, setUser } = useContext(UserContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
@@ -33,12 +34,12 @@ function LoginPage() {
   })
 
   const handleSubmit = async event => {
-    if (loading) return <Spinner />
+    if (loading) return <div>Loading</div>
     if (error) return <div>error!</div>
 
     try {
       event.preventDefault()
-
+      setSpinning(true)
       const result = await loginUser()
 
       const { message, token, user } = result.data.loginUser
@@ -73,28 +74,36 @@ function LoginPage() {
         <span>Login with your email and password</span>
 
         <form onSubmit={handleSubmit}>
-          <FormInput
-            name='email'
-            type='email'
-            handleChange={handleChange}
-            value={email}
-            label='email'
-            required
-          />
-          <FormInput
-            name='password'
-            type='password'
-            value={password}
-            handleChange={handleChange}
-            label='password'
-            required
-          />
-          <ButtonsBarContainer>
-            <CustomButton type='submit' style={{ width: 100 + '%' }}>
-              {' '}
-              Sign in with email{' '}
-            </CustomButton>
-          </ButtonsBarContainer>
+          <fieldset
+            disabled={loading}
+            aria-busy={loading}
+            style={{ borderStyle: 'none' }}
+          >
+            <FormInput
+              name='email'
+              type='email'
+              handleChange={handleChange}
+              value={email}
+              label='email'
+              required
+            />
+            <FormInput
+              name='password'
+              type='password'
+              value={password}
+              handleChange={handleChange}
+              label='password'
+              required
+            />
+            <ButtonsBarContainer>
+              {spinning ? <Spinner name='pacman' fadeIn='full' /> : null}
+
+              <CustomButton type='submit' style={{ width: 100 + '%' }}>
+                {' '}
+                {spinning ? 'Checking...' : 'Sign in with Email'}
+              </CustomButton>
+            </ButtonsBarContainer>
+          </fieldset>
         </form>
         <br />
         <CustomButton isGoogleSignIn>{result}</CustomButton>

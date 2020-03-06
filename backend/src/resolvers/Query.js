@@ -32,15 +32,16 @@ const Query = {
   posts: async (root, args, { db, user }, info) => {
     const opArgs = {}
 
+    if (args.query === 'all') {
+      return db.query.posts(null, info)
+    }
+
     if (args.query) {
       opArgs.where = {
         category: {
           name: args.query
         }
       }
-    }
-    if (args.query === 'all') {
-      return db.query.posts(null, info)
     }
 
     const results = await db.query.posts(opArgs, info)
