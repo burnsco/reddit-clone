@@ -1,7 +1,7 @@
 import React from 'react'
 import { keyframes } from '@emotion/core'
 import { FaSpinner } from 'react-icons/fa'
-import * as colors from '../../styles/colors'
+import * as colors from '../../../styles/colors'
 import styled from '@emotion/styled'
 
 const spin = keyframes({

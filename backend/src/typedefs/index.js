@@ -4,10 +4,11 @@ const typeDefs = gql`
   type Query {
     currentUser: User!
     categories(query: String): [Category!]!
-    posts(query: String): [Post!]!
-    comments: [Comment!]!
-    users(query: String): [User!]!
-    post(postID: ID!): Post!
+    posts(query: String, first: Int, skip: Int, after: String): [Post!]!
+    morePosts(query: String, first: Int, skip: Int, after: String): [Post!]!
+    comments(query: String, first: Int, skip: Int, after: String): [Comment!]!
+    users(query: String, first: Int, skip: Int, after: String): [User!]!
+    post(id: ID!): Post!
     node(id: ID!): Node
   }
 

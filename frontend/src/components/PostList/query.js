@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 const GET_ALL_POSTS = gql`
-  {
-    posts {
+  query getPaginatedPosts($first: Int, $skip: Int, $cursor: String) {
+    posts(first: $first, skip: $skip, after: $cursor) {
       id
       title
       url

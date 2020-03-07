@@ -30,7 +30,11 @@ const Query = {
   },
 
   posts: async (root, args, { db, user }, info) => {
-    const opArgs = {}
+    const opArgs = {
+      first: args.first,
+      skip: args.skip,
+      after: args.after
+    }
 
     if (args.query === 'all') {
       return db.query.posts(null, info)
@@ -50,8 +54,28 @@ const Query = {
 
   post: (root, args, { db }, info) => db.post(),
 
-  // can use the default generated methods if you don't need custom queries
-  comments: forwardTo('db')
+  comments: async (root, args, { db, user }, info) => {
+    const opArgs = {
+      first: args.first,
+      skip: args.skip,
+      after: args.after
+    }
+
+    if (args.query === 'all') {
+      return db.query.comments(null, info)
+    }
+
+    if (args.query) {
+      opArgs.where = {
+        category: {
+          name: args.query
+        }
+      }
+    }
+
+    const results = await db.query.comments(opArgs, info)
+    return results
+  }
 }
 
 export { Query as default }
