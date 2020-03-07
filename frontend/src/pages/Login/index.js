@@ -12,12 +12,8 @@ const LOGIN_MUTATION = gql`
       success
       message
       code
-      token
-      user {
-        id
-        email
-        username
-      }
+      accessToken
+      username
     }
   }
 `
@@ -26,7 +22,6 @@ function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [result, setResult] = useState('')
-  const [spinning, setSpinning] = useState(false)
   const { user, setUser } = useContext(UserContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
@@ -39,18 +34,14 @@ function LoginPage() {
 
     try {
       event.preventDefault()
-      setSpinning(true)
       const result = await loginUser()
 
-      const { message, token, user } = result.data.loginUser
-      const { id, email, username } = user
-      console.log(`token = ${token}`)
-      console.log(`id = ${id}`)
-      console.log(`email = ${email}`)
+      const { message, accessToken, username } = result.data.loginUser
+      console.log(`token = ${accessToken}`)
       console.log(`username = ${username}`)
       setUser(username)
       // check status code and redirect to main page
-      localStorage.setItem('token', token)
+      localStorage.setItem('token', accessToken)
       setResult(message)
       return result
     } catch (error) {
@@ -80,27 +71,25 @@ function LoginPage() {
             style={{ borderStyle: 'none' }}
           >
             <FormInput
-              name='email'
-              type='email'
+              name="email"
+              type="email"
               handleChange={handleChange}
               value={email}
-              label='email'
+              label="email"
               required
             />
             <FormInput
-              name='password'
-              type='password'
+              name="password"
+              type="password"
               value={password}
               handleChange={handleChange}
-              label='password'
+              label="password"
               required
             />
             <ButtonsBarContainer>
-              {spinning ? <Spinner name='pacman' fadeIn='full' /> : null}
-
-              <CustomButton type='submit' style={{ width: 100 + '%' }}>
+              <CustomButton type="submit" style={{ width: 100 + '%' }}>
                 {' '}
-                {spinning ? 'Checking...' : 'Sign in with Email'}
+                Sign in with Email
               </CustomButton>
             </ButtonsBarContainer>
           </fieldset>
