@@ -10,7 +10,7 @@ import Post from '../Post'
 
 function AllPosts() {
   const { data, loading, error } = useQuery(GET_ALL_POSTS, {
-    variables: { first: 3, skip: 0 }
+    variables: { first: 50, skip: 0 }
   })
 
   if (loading) return <Spinner />
