@@ -47,7 +47,7 @@ function LoginPage() {
         localStorage.setItem('user', username)
         setAccessToken(accessToken)
 
-        navigate('/')
+        navigate('/r/all')
       }
       return result
     } catch (error) {

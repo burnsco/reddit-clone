@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from '@reach/router'
 import {
   PostContainer,
   VoteBoxContainer,
@@ -28,9 +29,7 @@ const Post = ({
       </p>
       <p>{url}</p>
       <p>
-        {/* <Link to={`/r/${category}/${id}/comments`}>
-          {comments.length} {comments.length > 1 ? 'comments' : 'comment'}
-        </Link> */}
+        <Link to={`/r/${name}/${id}/comments`}>1 comments</Link>
         --/r/{name}--{username}--{timeDifferenceForDate(createdAt)}
       </p>
     </PostDetailsContainer>

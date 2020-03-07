@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 
 export const GET_POST_AND_COMMENTS = gql`
   query getPostsAndComments($postID: String!) {
@@ -6,11 +6,9 @@ export const GET_POST_AND_COMMENTS = gql`
       id
       title
       url
-      category
-      author {
-        username
+      category {
+        name
       }
-      votes
       comments {
         id
         body

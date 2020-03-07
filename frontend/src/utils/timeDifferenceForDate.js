@@ -6,7 +6,7 @@ function timeDifference(current, previous) {
   const milliSecondsPerYear = milliSecondsPerDay * 365
 
   const elapsed = current - previous
-  // FIXME make this so it shows second(s)/minute(s) etc
+
   if (elapsed < milliSecondsPerMinute / 3) {
     return 'just now'
   }
