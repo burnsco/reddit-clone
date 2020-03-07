@@ -5,7 +5,7 @@ import {
 } from '../constants'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import { getUserID } from '../utils'
+import { getUserID, createAccessToken, createRefreshToken } from '../utils'
 
 const Mutation = {
   async createCategory(root, { data }, { db }) {
@@ -82,21 +82,9 @@ const Mutation = {
       return BadCredentials
     }
 
-    const accessToken = await jwt.sign(
-      { userID: user.id },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '15m'
-      }
-    )
+    const accessToken = await createAccessToken(user)
 
-    res.cookie(
-      'artyu',
-      jwt.sign({ userID: user.id }, process.env.JWT_REFRESH, {
-        expiresIn: '7d'
-      }),
-      { httpOnly: true }
-    )
+    res.cookie('artyu', createRefreshToken(user), { httpOnly: true })
 
     const { username } = user
 

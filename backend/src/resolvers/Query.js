@@ -1,4 +1,5 @@
 import { forwardTo } from 'prisma-binding'
+import { getUser } from '../utils'
 
 const Query = {
   currentUser: async (root, args, { db, user }, info) => {
@@ -16,7 +17,10 @@ const Query = {
 
   // TODO make posts and comments paginated
 
-  categories: async (root, args, { db }, info) => {
+  categories: async (root, args, { db, user }, info) => {
+    if (!user.userID) {
+      throw new Error('you are not authorized')
+    }
     const opArgs = {}
 
     if (args.query) {
