@@ -13,7 +13,7 @@ import Comments from '../components/Comments'
 import { UserContext } from '../context/user-context'
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(localStorage.getItem('user'))
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
   return (
@@ -21,18 +21,18 @@ const App = () => {
       <UserContext.Provider value={providerValue}>
         <Header />
         <Router>
-          <Profile path='profile/:userID'>
-            <AllPosts path='profile/:userID/posts' />
-            <Comments path='profile/:userID/comments' />
-            <AllPosts path='/' />
+          <Profile path="profile/:userID">
+            <AllPosts path="profile/:userID/posts" />
+            <Comments path="profile/:userID/comments" />
+            <AllPosts path="/" />
           </Profile>
-          <CreatePostPage path='submit' />
-          <LoginPage path='login' />
-          <Signup path='signup' />
-          <Home path='/'>
-            <CategoryPosts path='r/:category' />
-            <Comments path='r/:category/:postID/comments' />
-            <AllPosts path='/' />
+          <CreatePostPage path="submit" />
+          <LoginPage path="login" />
+          <Signup path="signup" />
+          <Home path="/">
+            <CategoryPosts path="r/:category" />
+            <Comments path="r/:category/:postID/comments" />
+            <AllPosts path="/" />
           </Home>
         </Router>
       </UserContext.Provider>

@@ -5,7 +5,6 @@ import {
   InMemoryCache,
   ApolloProvider
 } from '@apollo/client'
-import { setContext } from 'apollo-link-context'
 
 import App from './App'
 

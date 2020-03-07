@@ -48,7 +48,8 @@ const SignUpPage = () => {
       setUser(username)
 
       localStorage.setItem('token', accessToken)
-      console.log(accessToken)
+      localStorage.setItem('user', username)
+
       setResult(message)
 
       return result
@@ -113,7 +114,9 @@ const SignUpPage = () => {
           </ButtonsBarContainer>
         </form>
         <br />
-        <CustomButton isGoogleSignIn>{result}</CustomButton>
+        <CustomButton isGoogleSignIn>
+          {result} ({user})
+        </CustomButton>
       </SignInContainer>
     </WelcomePage>
   )

@@ -4,7 +4,7 @@ import FormInput from '../../components/shared/FormInput'
 import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { UserContext } from '../../context/user-context'
-import { redirectTo } from '@reach/router'
+import { navigate } from '@reach/router'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -37,14 +37,17 @@ function LoginPage() {
     try {
       const result = await loginUser()
 
-      const { message, accessToken, username } = result.data.loginUser
+      const { message, accessToken, username, code } = result.data.loginUser
 
       setUser(username)
 
       localStorage.setItem('token', accessToken)
+      localStorage.setItem('user', username)
 
       setResult(message)
-
+      if (code === '200') {
+        navigate('/')
+      }
       return result
     } catch (error) {
       console.log(error)

@@ -1,3 +1,5 @@
 import { createContext } from 'react'
 
-export const UserContext = createContext(null)
+const user = localStorage.getItem('user')
+
+export const UserContext = createContext(user)
