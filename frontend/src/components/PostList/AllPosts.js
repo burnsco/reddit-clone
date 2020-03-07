@@ -9,7 +9,7 @@ import Post from '../Post'
 //  make it so the user can choose
 
 function AllPosts() {
-  const { data, loading, error, fetchMore } = useQuery(GET_ALL_POSTS, {
+  const { data, loading, error } = useQuery(GET_ALL_POSTS, {
     variables: { first: 3, skip: 0 }
   })
 

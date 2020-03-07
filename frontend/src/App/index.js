@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import Header from '../components/Header'
 import { Router } from '@reach/router'
 import { AppContainer } from './styles'
@@ -11,10 +11,27 @@ import AllPosts from '../components/PostList/AllPosts'
 import CreatePostPage from '../pages/CreatePost'
 import Comments from '../components/Comments'
 import { UserContext } from '../context/user-context'
+import { setAccessToken } from '../context/access-token'
+import MainSpinner from '../components/shared/FallBackSpinner'
 
 const App = () => {
   const [user, setUser] = useState(localStorage.getItem('user'))
+
+  const [loading, setLoading] = useState(true)
+
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
+
+  useEffect(() => {
+    fetch('http://localhost:4000/refresh_token', {
+      method: 'POST',
+      credentials: 'include'
+    }).then(async x => {
+      const { accessToken } = await x.json()
+      setAccessToken(accessToken)
+      setLoading(false)
+    })
+  }, [])
+  if (loading) return <MainSpinner />
 
   return (
     <AppContainer>

@@ -22,7 +22,7 @@ app.use(cookieParser())
 
 app.post('/refresh_token', async (req, res) => {
   const token = req.cookies.redt
-  console.log(token)
+
   if (!token) {
     return res.send({ ok: false, accessToken: '' })
   }

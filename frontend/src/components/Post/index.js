@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from '@reach/router'
 import {
   PostContainer,
   VoteBoxContainer,
@@ -21,7 +20,7 @@ const Post = ({
 }) => (
   <PostContainer>
     <VoteBoxContainer>
-      <VoteBox votes='4' />
+      <VoteBox votes="4" />
     </VoteBoxContainer>
     <PostDetailsContainer>
       <p>

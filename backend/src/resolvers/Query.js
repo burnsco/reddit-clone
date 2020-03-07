@@ -1,5 +1,6 @@
 import { forwardTo } from 'prisma-binding'
 import { getUser } from '../utils'
+import { AuthenticationError } from 'apollo-server-express'
 
 const Query = {
   currentUser: async (root, args, { db, user }, info) => {
@@ -31,6 +32,10 @@ const Query = {
   },
 
   posts: async (root, args, { db, user }, info) => {
+    console.log(user)
+    if (!user) {
+      throw new AuthenticationError('not logged in')
+    }
     const opArgs = {
       first: args.first,
       skip: args.skip,
