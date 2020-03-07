@@ -6,6 +6,7 @@ import {
   PostDetailsContainer
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
+import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
 
 const Post = ({
   post: {
@@ -14,12 +15,13 @@ const Post = ({
     url,
     category: { name },
     comments,
+    createdAt,
     author: { username }
   }
 }) => (
   <PostContainer>
     <VoteBoxContainer>
-      <VoteBox votes="4" />
+      <VoteBox votes='4' />
     </VoteBoxContainer>
     <PostDetailsContainer>
       <p>
@@ -30,7 +32,7 @@ const Post = ({
         {/* <Link to={`/r/${category}/${id}/comments`}>
           {comments.length} {comments.length > 1 ? 'comments' : 'comment'}
         </Link> */}
-        --/r/{name}--{username}--3M ago
+        --/r/{name}--{username}--{timeDifferenceForDate(createdAt)}
       </p>
     </PostDetailsContainer>
   </PostContainer>

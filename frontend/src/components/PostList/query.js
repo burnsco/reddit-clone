@@ -6,6 +6,7 @@ const GET_ALL_POSTS = gql`
       id
       title
       url
+      createdAt
       author {
         username
       }
