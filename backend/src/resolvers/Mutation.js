@@ -2,56 +2,56 @@ import {
   BadCredentials,
   NoAuthorization,
   CategoryTitleTaken
-} from '../constants';
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import {getUserID} from '../utils';
+} from '../constants'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
+import { getUserID } from '../utils'
 
 const Mutation = {
-  async createCategory(root, {data}, {db}) {
-    const categoryExists = await db.exists.Category({name: data.name});
+  async createCategory(root, { data }, { db }) {
+    const categoryExists = await db.exists.Category({ name: data.name })
 
     if (categoryExists) {
-      return CategoryTitleTaken;
+      return CategoryTitleTaken
     }
 
     let category = await db.mutation.createCategory({
       data: {
         name: data.name
       }
-    });
+    })
 
     return {
       code: '200',
       success: true,
       message: `${data.name} subreddit Created!`,
       category
-    };
+    }
   },
 
-  async createUser(root, {data}, {db}, info) {
-    const emailExists = await db.exists.User({email: data.email}, info);
+  async createUser(root, { data }, { db }, info) {
+    const emailExists = await db.exists.User({ email: data.email }, info)
 
     if (emailExists) {
       return {
         code: '401',
         success: false,
         message: 'Email is already in use!'
-      };
+      }
     }
 
-    const password = await bcrypt.hash(data.password, 8);
+    const password = await bcrypt.hash(data.password, 8)
     const user = await db.mutation.createUser({
       data: {
         username: data.username,
         email: data.email,
         password
       }
-    });
+    })
 
-    const token = jwt.sign({userID: user.id}, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
       expiresIn: '7d'
-    });
+    })
 
     return {
       code: '200',
@@ -59,45 +59,59 @@ const Mutation = {
       message: 'User was Created',
       user,
       token
-    };
+    }
   },
 
-  async loginUser(parent, {data}, {db}, info) {
+  async loginUser(parent, { data }, { db, res }, info) {
     const user = await db.query.user({
       where: {
         email: data.email
       }
-    });
+    })
     if (!user) {
       return {
         code: '401',
         success: false,
         message: 'User not found!'
-      };
+      }
     }
 
-    const isMatch = await bcrypt.compare(data.password, user.password);
+    const isValidUser = await bcrypt.compare(data.password, user.password)
 
-    if (!isMatch) {
-      return BadCredentials;
+    if (!isValidUser) {
+      return BadCredentials
     }
 
-    const token = await jwt.sign({userID: user.id}, process.env.JWT_SECRET, {
-      expiresIn: '7d'
-    });
+    const accessToken = await jwt.sign(
+      { userID: user.id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '15m'
+      }
+    )
+
+    res.cookie(
+      'artyu',
+      jwt.sign({ userID: user.id }, process.env.JWT_REFRESH, {
+        expiresIn: '7d'
+      }),
+      { httpOnly: true }
+    )
+
+    const { username } = user
 
     return {
       code: '200',
       success: true,
       message: 'Login Successful',
-      token,
-      user
-    };
+      accessToken,
+      username
+    }
   },
 
-  async createPost(root, {data}, {db, user}, info) {
+  async createPost(root, { data }, { db, user }, info) {
     if (!user) {
-      return NoAuthorization;
+      return NoAuthorization
     }
 
     const post = await db.mutation.createPost({
@@ -115,31 +129,31 @@ const Mutation = {
           }
         }
       }
-    });
+    })
 
     return {
       code: '200',
       success: true,
       message: 'Post Created Successfully',
       post
-    };
+    }
   },
 
-  async createComment(root, {data}, {user, db}, info) {
-    const postExists = db.exists.Post({id: data.postID});
+  async createComment(root, { data }, { user, db }, info) {
+    const postExists = db.exists.Post({ id: data.postID })
     if (!postExists) {
       return {
         code: '401',
         success: true,
         message: 'Post does not exist!'
-      };
+      }
     }
     if (!user) {
       return {
         code: '401',
         success: false,
         message: 'You are not logged in'
-      };
+      }
     }
 
     const comment = await db.mutation.createComment({
@@ -156,17 +170,17 @@ const Mutation = {
           }
         }
       }
-    });
+    })
 
     return {
       code: '200',
       success: true,
       message: 'Comment Created Successfully!',
       comment
-    };
+    }
   },
 
-  async updateUser(root, args, {db, user}, info) {
+  async updateUser(root, args, { db, user }, info) {
     const change = await db.mutation.updateUser({
       data: {
         username: args.username
@@ -174,18 +188,18 @@ const Mutation = {
       where: {
         id: user.id
       }
-    });
-    return change;
+    })
+    return change
   },
 
-  async updatePost(root, args, {db}, info) {
-    const postExists = db.exists.Post({id: data.postID});
+  async updatePost(root, args, { db }, info) {
+    const postExists = db.exists.Post({ id: data.postID })
     if (!postExists) {
       return {
         code: '401',
         success: true,
         message: 'Post does not exist!'
-      };
+      }
     }
 
     const post = await db.mutation.updatePost({
@@ -195,11 +209,11 @@ const Mutation = {
       where: {
         id: args.postID
       }
-    });
-    return post;
+    })
+    return post
   },
 
-  async updateComment(root, args, {db}, info) {
+  async updateComment(root, args, { db }, info) {
     await db.mutation.updateComment({
       data: {
         title: args.title
@@ -207,24 +221,24 @@ const Mutation = {
       where: {
         id: args.commentID
       }
-    });
-    return comment;
+    })
+    return comment
   },
 
-  async deleteUser(root, {data}, {db}, info) {
-    const result = await db.mutation.deleteUser({email: data.email});
-    return result;
+  async deleteUser(root, { data }, { db }, info) {
+    const result = await db.mutation.deleteUser({ email: data.email })
+    return result
   },
 
-  async deletePost(root, {data}, {db}, info) {
-    const result = await db.mutation.deletePost({id: data.postID});
-    return result;
+  async deletePost(root, { data }, { db }, info) {
+    const result = await db.mutation.deletePost({ id: data.postID })
+    return result
   },
 
-  async deleteComment(root, {data}, {db}, info) {
-    const result = await db.mutation.deleteComment({id: data.commentID});
-    return result;
+  async deleteComment(root, { data }, { db }, info) {
+    const result = await db.mutation.deleteComment({ id: data.commentID })
+    return result
   }
-};
+}
 
-export {Mutation as default};
+export { Mutation as default }

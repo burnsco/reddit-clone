@@ -23,8 +23,9 @@ const pubsub = new PubSub()
 
 const server = new ApolloServer({
   schema,
-  context: async req => ({
+  context: async (req, res) => ({
     ...req,
+    ...res,
     pubsub,
     user: getUser(req),
     db
