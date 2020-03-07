@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { gql, useMutation } from '@apollo/client'
 import Spinner from '../../components/shared/FallBackSpinner'
+import { UserContext } from '../../context/user-context'
 
 const SUBMIT_DATA_SIGN_UP = gql`
   mutation SubmitDataAndSignUp(
@@ -17,14 +18,8 @@ const SUBMIT_DATA_SIGN_UP = gql`
       message
       code
       success
-      token
-      user {
-        id
-        username
-        email
-        __typename
-      }
-      __typename
+      accessToken
+      username
     }
   }
 `
@@ -33,6 +28,8 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const { user, setUser } = useContext(UserContext)
+  const [result, setResult] = useState('')
   const [createUser, { loading, error }] = useMutation(SUBMIT_DATA_SIGN_UP, {
     variables: { username: username, password: password, email: email }
   })
@@ -44,8 +41,17 @@ const SignUpPage = () => {
     if (error) return <div>error</div>
 
     try {
-      const user = await createUser()
-      return user
+      const result = await createUser()
+
+      const { message, accessToken, username } = result.data.createUser
+
+      setUser(username)
+
+      localStorage.setItem('token', accessToken)
+      console.log(accessToken)
+      setResult(message)
+
+      return result
     } catch (error) {
       console.log(error)
     }
@@ -107,7 +113,7 @@ const SignUpPage = () => {
           </ButtonsBarContainer>
         </form>
         <br />
-        <CustomButton isGoogleSignIn>Sign in with Google</CustomButton>
+        <CustomButton isGoogleSignIn>{result}</CustomButton>
       </SignInContainer>
     </WelcomePage>
   )

@@ -29,7 +29,7 @@ const Mutation = {
     }
   },
 
-  async createUser(root, { data }, { db }, info) {
+  async createUser(root, { data }, { db, res }, info) {
     const emailExists = await db.exists.User({ email: data.email }, info)
 
     if (emailExists) {
@@ -49,16 +49,18 @@ const Mutation = {
       }
     })
 
-    const token = await createAccessToken(user)
+    const accessToken = await createAccessToken(user)
 
     res.cookie('redt', createRefreshToken(user), { httpOnly: true })
+
+    const { username } = user
 
     return {
       code: '200',
       success: true,
       message: 'User was Created',
-      user,
-      token
+      username,
+      accessToken
     }
   },
 

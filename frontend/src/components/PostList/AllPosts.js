@@ -5,6 +5,9 @@ import { GET_ALL_POSTS } from './query'
 import Spinner from '../shared/FallBackSpinner'
 import Post from '../Post'
 
+// show a certain amount, then when at bottom show another certain amount
+//  make it so the user can choose
+
 function AllPosts() {
   const { data, loading, error, fetchMore } = useQuery(GET_ALL_POSTS, {
     variables: { first: 3, skip: 0 }

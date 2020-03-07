@@ -4,7 +4,7 @@ import FormInput from '../../components/shared/FormInput'
 import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { UserContext } from '../../context/user-context'
-import Spinner from 'react-spinkit'
+import { redirectTo } from '@reach/router'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -29,20 +29,22 @@ function LoginPage() {
   })
 
   const handleSubmit = async event => {
+    event.preventDefault()
+
     if (loading) return <div>Loading</div>
     if (error) return <div>error!</div>
 
     try {
-      event.preventDefault()
       const result = await loginUser()
 
       const { message, accessToken, username } = result.data.loginUser
-      console.log(`token = ${accessToken}`)
-      console.log(`username = ${username}`)
+
       setUser(username)
-      // check status code and redirect to main page
+
       localStorage.setItem('token', accessToken)
+
       setResult(message)
+
       return result
     } catch (error) {
       console.log(error)
@@ -95,7 +97,9 @@ function LoginPage() {
           </fieldset>
         </form>
         <br />
-        <CustomButton isGoogleSignIn>{result}</CustomButton>
+        <CustomButton isGoogleSignIn>
+          {result} ({user})
+        </CustomButton>
       </SignInContainer>
     </WelcomePage>
   )

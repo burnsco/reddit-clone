@@ -127,8 +127,8 @@ const typeDefs = gql`
     code: String!
     success: Boolean!
     message: String!
-    user: User
-    token: String
+    accessToken: String
+    username: String
   }
 
   type DeleteCommentMutationResponse implements MutationResponse {
