@@ -10,7 +10,7 @@ import App from './App'
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000/',
-  credentials: 'same-origin'
+  credentials: 'include'
 })
 
 const client = new ApolloClient({

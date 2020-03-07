@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Link } from '@reach/router'
 import {
   HeaderContainer,
@@ -12,7 +12,7 @@ import { UserContext } from '../../context/user-context'
 import { SignOutUser } from '../../utils/signout'
 
 const Header = () => {
-  const { user, setUser } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   return (
     <HeaderContainer>
