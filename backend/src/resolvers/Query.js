@@ -18,9 +18,6 @@ const Query = {
   // TODO make posts and comments paginated
 
   categories: async (root, args, { db, user }, info) => {
-    if (!user.userID) {
-      throw new Error('you are not authorized')
-    }
     const opArgs = {}
 
     if (args.query) {

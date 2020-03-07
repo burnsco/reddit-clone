@@ -49,9 +49,9 @@ const Mutation = {
       }
     })
 
-    const token = jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '7d'
-    })
+    const token = await createAccessToken(user)
+
+    res.cookie('redt', createRefreshToken(user), { httpOnly: true })
 
     return {
       code: '200',
@@ -84,7 +84,7 @@ const Mutation = {
 
     const accessToken = await createAccessToken(user)
 
-    res.cookie('artyu', createRefreshToken(user), { httpOnly: true })
+    res.cookie('redt', createRefreshToken(user), { httpOnly: true })
 
     const { username } = user
 
