@@ -1,5 +1,5 @@
-import React from 'react'
-import { useQuery } from '@apollo/client'
+import React, { useState } from 'react'
+import { useQuery, gql } from '@apollo/client'
 import Spinner from '../shared/FallBackSpinner'
 import { PostListContainer } from '../PostList/styles'
 import {
@@ -7,14 +7,33 @@ import {
   InputCommentBox,
   InputCommentFooter
 } from './styles'
-import { GET_POST_AND_COMMENTS } from './query'
 import Post from '../Post'
 
-// separate comments and POST into separate components
-// make a data container for each ==>  THEN
-// make a container that has all the above in it
+const GET_POST_AND_COMMENTS = gql`
+  query getPostsAndComments($postID: ID!) {
+    post(postID: $postID) {
+      id
+      title
+      url
+      category {
+        name
+      }
+      author {
+        username
+      }
+      comments {
+        id
+        body
+        author {
+          username
+        }
+      }
+    }
+  }
+`
 
 function Comments({ postID }) {
+  const [comment, setComment] = useState('')
   const { loading, error, data } = useQuery(GET_POST_AND_COMMENTS, {
     variables: { postID: postID }
   })
@@ -24,22 +43,36 @@ function Comments({ postID }) {
 
   const { post } = data
 
+  const handleChange = e => {
+    setComment(e.target.value)
+  }
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+
+    console.log(comment)
+  }
+
   return (
     <PostListContainer>
       <Post post={post} />
       <br />
-      <InputCommentBox
-        style={{ background: 'white' }}
-        contentEditable="true"
-        role="textbox"
-        spellCheck="true"
-        placeholder="Comment box with submission"
-        height="300"
-        width="300"
-      ></InputCommentBox>
-      <InputCommentFooter>
-        <button>Submit</button>
-      </InputCommentFooter>
+      <form onSubmit={handleSubmit}>
+        <InputCommentBox
+          value={comment}
+          onChange={handleChange}
+          style={{ background: 'white' }}
+          contentEditable='true'
+          role='textbox'
+          spellCheck='true'
+          placeholder='Comment box with submission'
+          height='300'
+          width='300'
+        ></InputCommentBox>
+        <InputCommentFooter>
+          <button>Submit</button>
+        </InputCommentFooter>
+      </form>
 
       {/* TODO refactor this obviously */}
 

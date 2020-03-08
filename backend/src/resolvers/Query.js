@@ -16,8 +16,6 @@ const Query = {
     return db.query.users(null, info)
   },
 
-  // TODO make posts and comments paginated
-
   categories: async (root, args, { db, user }, info) => {
     const opArgs = {}
 
@@ -58,7 +56,18 @@ const Query = {
     return results
   },
 
-  post: (root, args, { db }, info) => db.post(),
+  post: async (root, args, { db, user }, info) => {
+    const post = await db.query.post(
+      {
+        where: {
+          id: args.postID
+        }
+      },
+      info
+    )
+
+    return post
+  },
 
   comments: async (root, args, { db, user }, info) => {
     const opArgs = {

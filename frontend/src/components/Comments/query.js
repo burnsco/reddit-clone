@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GET_POST_AND_COMMENTS = gql`
-  query getPostsAndComments($postID: String!) {
+  query getPostsAndComments($postID: ID!) {
     post(postID: $postID) {
       id
       title

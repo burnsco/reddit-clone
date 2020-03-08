@@ -8,7 +8,7 @@ const typeDefs = gql`
     morePosts(query: String, first: Int, skip: Int, after: String): [Post!]!
     comments(query: String, first: Int, skip: Int, after: String): [Comment!]!
     users(query: String, first: Int, skip: Int, after: String): [User!]!
-    post(id: ID!): Post!
+    post(postID: ID!): Post!
     node(id: ID!): Node
   }
 
