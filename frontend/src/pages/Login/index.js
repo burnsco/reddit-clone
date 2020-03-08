@@ -3,7 +3,6 @@ import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
-import { UserContext } from '../../context/user-context'
 import { navigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
 
@@ -28,7 +27,6 @@ function LoginPage() {
   const [password, setPassword] = useState('')
   const [checking, setChecking] = useState(false)
   const [result, setResult] = useState('')
-  const { user, setUser } = useContext(UserContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password }
@@ -49,7 +47,6 @@ function LoginPage() {
 
       if (code === '200') {
         setAccessToken(accessToken)
-        setUser(username)
         navigate('/r/all')
       }
       return result
@@ -104,9 +101,7 @@ function LoginPage() {
           </fieldset>
         </form>
         <br />
-        <CustomButton isGoogleSignIn>
-          {result} ({user})
-        </CustomButton>
+        <CustomButton isGoogleSignIn>{result}</CustomButton>
       </SignInContainer>
     </WelcomePage>
   )

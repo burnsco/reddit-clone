@@ -32,7 +32,6 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const { user, setUser } = useContext(UserContext)
   const [result, setResult] = useState('')
   const [createUser, { loading, error }] = useMutation(SUBMIT_DATA_SIGN_UP, {
     variables: { username: username, password: password, email: email }
@@ -48,11 +47,6 @@ const SignUpPage = () => {
       const result = await createUser()
 
       const { message, accessToken, username } = result.data.createUser
-
-      setUser(username)
-
-      localStorage.setItem('token', accessToken)
-      localStorage.setItem('user', username)
 
       setResult(message)
 
@@ -87,40 +81,38 @@ const SignUpPage = () => {
 
         <form onSubmit={handleSubmit}>
           <FormInput
-            name="email"
-            type="email"
+            name='email'
+            type='email'
             handleChange={handleChange}
             value={email}
-            label="email"
+            label='email'
             required
           />
           <FormInput
-            name="username"
-            type="text"
+            name='username'
+            type='text'
             handleChange={handleChange}
             value={username}
-            label="username"
+            label='username'
             required
           />
           <FormInput
-            name="password"
-            type="password"
+            name='password'
+            type='password'
             value={password}
             handleChange={handleChange}
-            label="password"
+            label='password'
             required
           />
           <ButtonsBarContainer>
-            <CustomButton type="submit" style={{ width: 100 + '%' }}>
+            <CustomButton type='submit' style={{ width: 100 + '%' }}>
               {' '}
               Sign in with email{' '}
             </CustomButton>
           </ButtonsBarContainer>
         </form>
         <br />
-        <CustomButton isGoogleSignIn>
-          {result} ({user})
-        </CustomButton>
+        <CustomButton isGoogleSignIn>{result}</CustomButton>
       </SignInContainer>
     </WelcomePage>
   )

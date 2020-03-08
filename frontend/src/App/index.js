@@ -16,9 +16,7 @@ import MainSpinner from '../components/shared/FallBackSpinner'
 
 const App = () => {
   const [user, setUser] = useState(localStorage.getItem('user'))
-
   const [loading, setLoading] = useState(true)
-
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
   useEffect(() => {
@@ -31,28 +29,27 @@ const App = () => {
       setLoading(false)
     })
   }, [])
+
   if (loading) return <MainSpinner />
 
   return (
     <AppContainer>
-      <UserContext.Provider value={providerValue}>
-        <Header />
-        <Router>
-          <Profile path="profile/:userID">
-            <AllPosts path="profile/:userID/posts" />
-            <Comments path="profile/:userID/comments" />
-            <AllPosts path="/" />
-          </Profile>
-          <CreatePostPage path="submit" />
-          <LoginPage path="login" />
-          <Signup path="signup" />
-          <Home path="/">
-            <CategoryPosts path="r/:category" />
-            <Comments path="r/:category/:postID/comments" />
-            <AllPosts path="/" />
-          </Home>
-        </Router>
-      </UserContext.Provider>
+      <Header />
+      <Router>
+        <Profile path="profile/:userID">
+          <AllPosts path="profile/:userID/posts" />
+          <Comments path="profile/:userID/comments" />
+          <AllPosts path="/" />
+        </Profile>
+        <CreatePostPage path="submit" />
+        <LoginPage path="login" />
+        <Signup path="signup" />
+        <Home path="/">
+          <CategoryPosts path="r/:category" />
+          <Comments path="r/:category/:postID/comments" />
+          <AllPosts path="/" />
+        </Home>
+      </Router>
     </AppContainer>
   )
 }
