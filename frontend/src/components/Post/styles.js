@@ -6,7 +6,7 @@ export const PostContainer = styled.div`
   background: #ffffff;
   border-radius: 5rpx;
   display: flex;
-  min-height: 150rpx;
+  min-height: 100rpx;
   width: 100%;
   &:hover {
     border: 1px solid #6b6969;
@@ -14,13 +14,12 @@ export const PostContainer = styled.div`
 `
 export const VoteBoxContainer = styled.div``
 export const PostDetailsContainer = styled.div`
-  min-height: 150rpx;
+  min-height: 100rpx;
   width: 100%;
   padding: 10rpx;
   display: flex;
 
   flex-direction: column;
-  justify-content: space-between;
 `
 export const PostTitle = styled.div``
 export const PostLink = styled.div`

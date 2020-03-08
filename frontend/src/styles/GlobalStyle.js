@@ -1,6 +1,7 @@
 import { createGlobalStyle } from '@xstyled/styled-components'
 
 export const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -20,9 +21,10 @@ body {
   color: text;
   min-height: 100%;
   padding-bottom: 48rpx;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Open Sans', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
