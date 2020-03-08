@@ -6,6 +6,7 @@ export const PostContainer = styled.div`
   background: #ffffff;
   border-radius: 5rpx;
   display: flex;
+  min-height: 150rpx;
   width: 100%;
   &:hover {
     border: 1px solid #6b6969;
@@ -13,7 +14,13 @@ export const PostContainer = styled.div`
 `
 export const VoteBoxContainer = styled.div``
 export const PostDetailsContainer = styled.div`
+  min-height: 150rpx;
+  width: 100%;
   padding: 10rpx;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
 `
 export const PostTitle = styled.div``
 export const PostLink = styled.div`
@@ -21,8 +28,15 @@ export const PostLink = styled.div`
 `
 export const PostFooter = styled.div`
   display: flex;
+  width: 100%;
 `
 export const PostComments = styled.div``
-export const PostCategory = styled.div``
-export const PostAuthor = styled.div``
-export const PostDateCreated = styled.div``
+export const PostCategory = styled.div`
+  margin-left: 15rpx;
+`
+export const PostAuthor = styled.div`
+  margin-left: 15rpx;
+`
+export const PostDateCreated = styled.div`
+  margin-left: 15rpx;
+`

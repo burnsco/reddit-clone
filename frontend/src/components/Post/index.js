@@ -30,13 +30,16 @@ const Post = ({
     <VoteBoxContainer>
       <VoteBox votes="4" />
     </VoteBoxContainer>
+
     <PostDetailsContainer>
       <PostTitle>{title}</PostTitle>
       <PostLink>{url}</PostLink>
       <PostFooter>
         <PostComments>
           {' '}
-          <Link to={`/r/${name}/${id}/comments`}>1 comments</Link>
+          <Link to={`/r/${name}/${id}/comments`}>
+            {comments.length} comments
+          </Link>
         </PostComments>
         <PostCategory> /r/{name}</PostCategory>
 

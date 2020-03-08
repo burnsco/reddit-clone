@@ -15,7 +15,7 @@ function AllPosts() {
 
   if (loading) return <Spinner />
   if (error) return <h1>Error!</h1>
-
+  console.log(data)
   return (
     <PostListContainer>
       {data.posts.map(post => (

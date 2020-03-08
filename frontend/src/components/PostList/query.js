@@ -7,6 +7,13 @@ const GET_ALL_POSTS = gql`
       title
       url
       createdAt
+      comments {
+        id
+        body
+        author {
+          username
+        }
+      }
       author {
         username
       }
@@ -23,6 +30,13 @@ const GET_POSTS_BY_CATEGORY = gql`
       id
       title
       url
+      comments {
+        id
+        body
+        author {
+          username
+        }
+      }
       createdAt
       author {
         username
