@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useQuery } from '@apollo/client'
 import { Link } from '@reach/router'
+import { useColorMode } from '@xstyled/styled-components'
 import {
   HeaderContainer,
   HeaderNavWrapper,
@@ -15,45 +16,54 @@ import { CURRENT_USER } from './query'
 
 const Header = () => {
   const { loading, error, data } = useQuery(CURRENT_USER)
+  const [colorMode, setColorMode] = useColorMode()
 
   return (
     <HeaderContainer>
       <HeaderNavWrapper>
         <HeaderLogo>
-          <Link to="/" style={{ display: 'flex' }}>
-            <img src={Logo} height="35" width="100" alt="logo" />
+          <Link to='/' style={{ display: 'flex' }}>
+            <img src={Logo} height='35' width='100' alt='logo' />
           </Link>
         </HeaderLogo>
 
         <HeaderLinks>
           <HeaderLink style={{ background: '#f5222d', border: 'none' }}>
-            <Link to="/submit" style={{ color: 'white' }}>
+            <Link to='/submit' style={{ color: 'white' }}>
               <h5>Create</h5>
             </Link>
           </HeaderLink>
           <HeaderLink>
-            <Link to="/login" style={{ color: '#33a0ff' }}>
+            <Link to='/login' style={{ color: '#33a0ff' }}>
               <h5>Login</h5>
             </Link>
           </HeaderLink>
 
           <HeaderLink style={{ background: '#33a0ff' }}>
-            <Link to="/signup" style={{ color: 'white' }}>
+            <Link to='/signup' style={{ color: 'white' }}>
               <h5>Signup</h5>
             </Link>
           </HeaderLink>
 
           <HeaderLink style={{ background: '#333333' }}>
-            <Link to="/profile" style={{ color: 'white' }}>
+            <Link to='/profile' style={{ color: 'white' }}>
               <pre>{data ? data.currentUser.username : 'user'}</pre>
             </Link>
           </HeaderLink>
           <HeaderLink
             onClick={() => SignOutUser()}
-            as="div"
+            as='div'
             style={{ background: 'white' }}
           >
             <pre>SignOut</pre>
+          </HeaderLink>
+          <HeaderLink
+            as='button'
+            onClick={e => {
+              setColorMode(colorMode === 'light' ? 'dark' : 'light')
+            }}
+          >
+            {colorMode}
           </HeaderLink>
         </HeaderLinks>
       </HeaderNavWrapper>

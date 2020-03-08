@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^7.1.2",
     "@xstyled/emotion": "^1.17.0",
     "@xstyled/styled-components": "^1.16.0",
+    "@xstyled/system": "^1.17.0",
     "apollo-link-context": "^1.0.19",
     "apollo-link-error": "^1.1.12",
     "apollo-link-token-refresh": "^0.2.7",
