@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useQuery } from '@apollo/client'
 import { Link } from '@reach/router'
 import {
   HeaderContainer,
@@ -10,9 +11,10 @@ import {
 import Logo from '../../assets/logoWithTitle.png'
 import { UserContext } from '../../context/user-context'
 import { SignOutUser } from '../../utils/signout'
+import { CURRENT_USER } from './query'
 
 const Header = () => {
-  const { user } = useContext(UserContext)
+  const { loading, error, data } = useQuery(CURRENT_USER)
 
   return (
     <HeaderContainer>
@@ -41,15 +43,9 @@ const Header = () => {
             </Link>
           </HeaderLink>
 
-          <HeaderLink style={{ border: 1 + 'px solid orange' }}>
-            <Link to="/profile/1" style={{ color: 'black' }}>
-              <h5>Profile</h5>
-            </Link>
-          </HeaderLink>
-
           <HeaderLink style={{ background: '#333333' }}>
             <Link to="/profile" style={{ color: 'white' }}>
-              <pre>{user}</pre>
+              <pre>{data ? data.currentUser.username : 'user'}</pre>
             </Link>
           </HeaderLink>
           <HeaderLink

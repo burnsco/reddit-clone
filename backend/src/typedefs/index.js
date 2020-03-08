@@ -120,7 +120,7 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     accessToken: String
-    username: String
+    user: User
   }
 
   type CreateUserMutationResponse implements MutationResponse {
@@ -128,7 +128,7 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     accessToken: String
-    username: String
+    user: User
   }
 
   type DeleteCommentMutationResponse implements MutationResponse {
@@ -136,7 +136,6 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     comment: Comment
-    user: User
   }
 
   type DeletePostMutationResponse implements MutationResponse {
@@ -144,7 +143,6 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     post: Post
-    user: User
   }
 
   type DeleteUserMutationResponse implements MutationResponse {
@@ -159,7 +157,6 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     comment: Comment
-    user: User
   }
 
   type UpdatePostMutationResponse implements MutationResponse {
@@ -167,7 +164,6 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     post: Post
-    user: User
   }
 
   type UpdateUserMutationResponse implements MutationResponse {
@@ -182,7 +178,6 @@ const typeDefs = gql`
     success: Boolean!
     message: String!
     comment: Comment
-    user: User
   }
 
   type CreateCategoryMutationResponse implements MutationResponse {
@@ -196,7 +191,6 @@ const typeDefs = gql`
     code: String!
     success: Boolean!
     message: String!
-    user: User
     post: Post
   }
 

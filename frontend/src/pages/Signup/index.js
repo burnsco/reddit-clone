@@ -19,7 +19,11 @@ const SUBMIT_DATA_SIGN_UP = gql`
       code
       success
       accessToken
-      username
+      user {
+        id
+        email
+        username
+      }
     }
   }
 `

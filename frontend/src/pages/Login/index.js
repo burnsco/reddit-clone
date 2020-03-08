@@ -14,7 +14,11 @@ const LOGIN_MUTATION = gql`
       message
       code
       accessToken
-      username
+      user {
+        id
+        email
+        username
+      }
     }
   }
 `
@@ -22,6 +26,7 @@ const LOGIN_MUTATION = gql`
 function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [checking, setChecking] = useState(false)
   const [result, setResult] = useState('')
   const { user, setUser } = useContext(UserContext)
 
@@ -38,15 +43,13 @@ function LoginPage() {
     try {
       const result = await loginUser()
 
-      const { message, accessToken, username, code } = result.data.loginUser
-
+      const { message, accessToken, user, code } = result.data.loginUser
+      const { email, id, username } = user
       setResult(message)
 
       if (code === '200') {
-        setUser(username)
-        localStorage.setItem('user', username)
         setAccessToken(accessToken)
-
+        setUser(username)
         navigate('/r/all')
       }
       return result

@@ -53,13 +53,11 @@ const Mutation = {
 
     res.cookie('redt', createRefreshToken(user), { httpOnly: true })
 
-    const { username } = user
-
     return {
       code: '200',
       success: true,
       message: 'User was Created',
-      username,
+      user,
       accessToken
     }
   },
@@ -88,14 +86,12 @@ const Mutation = {
 
     res.cookie('redt', createRefreshToken(user), { httpOnly: true })
 
-    const { username } = user
-
     return {
       code: '200',
       success: true,
       message: 'Login Successful',
       accessToken,
-      username
+      user
     }
   },
 
