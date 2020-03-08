@@ -1,13 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { ThemeProvider, ColorModeProvider } from '@xstyled/styled-components'
-import RedditApp from './apollo.config'
-import './index.css'
+import RedditApp from './Apollo'
 import theme from './styles/theme'
+import { GlobalStyle } from './styles/GlobalStyle'
 
 const App = () => (
   <ThemeProvider theme={theme}>
     <ColorModeProvider>
+      <GlobalStyle />
       <RedditApp />
     </ColorModeProvider>
   </ThemeProvider>

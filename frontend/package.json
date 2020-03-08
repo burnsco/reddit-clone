@@ -30,6 +30,7 @@
     "react-scripts": "3.4.0",
     "react-spinkit": "^3.0.0",
     "styled-components": "^5.0.1",
+    "styled-icons": "^10.2.1",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "scripts": {

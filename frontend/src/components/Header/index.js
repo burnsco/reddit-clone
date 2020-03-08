@@ -22,43 +22,46 @@ const Header = () => {
     <HeaderContainer>
       <HeaderNavWrapper>
         <HeaderLogo>
-          <Link to='/' style={{ display: 'flex' }}>
-            <img src={Logo} height='35' width='100' alt='logo' />
+          <Link to="/">
+            <img src={Logo} height="35" width="100" alt="logo" />
           </Link>
         </HeaderLogo>
 
         <HeaderLinks>
-          <HeaderLink style={{ background: '#f5222d', border: 'none' }}>
-            <Link to='/submit' style={{ color: 'white' }}>
+          <HeaderLink>
+            <Link to="/submit">
               <h5>Create</h5>
             </Link>
           </HeaderLink>
+
           <HeaderLink>
-            <Link to='/login' style={{ color: '#33a0ff' }}>
+            <Link to="/login">
               <h5>Login</h5>
             </Link>
           </HeaderLink>
 
-          <HeaderLink style={{ background: '#33a0ff' }}>
-            <Link to='/signup' style={{ color: 'white' }}>
+          <HeaderLink>
+            <Link to="/signup">
               <h5>Signup</h5>
             </Link>
           </HeaderLink>
 
-          <HeaderLink style={{ background: '#333333' }}>
-            <Link to='/profile' style={{ color: 'white' }}>
+          <HeaderLink>
+            <Link to="/profile">
               <pre>{data ? data.currentUser.username : 'user'}</pre>
             </Link>
           </HeaderLink>
+
           <HeaderLink
             onClick={() => SignOutUser()}
-            as='div'
+            as="div"
             style={{ background: 'white' }}
           >
             <pre>SignOut</pre>
           </HeaderLink>
+
           <HeaderLink
-            as='button'
+            as="button"
             onClick={e => {
               setColorMode(colorMode === 'light' ? 'dark' : 'light')
             }}

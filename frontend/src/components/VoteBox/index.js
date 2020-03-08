@@ -1,11 +1,12 @@
 import React from 'react'
 import { Container, Upvote, Downvote, Votes } from './styles'
+import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 
 const VoteBox = ({ votes }) => (
   <Container>
-    <Upvote />
+    <UpArrowSquare />
     <Votes>{votes} </Votes>
-    <Downvote />
+    <DownArrowSquare />
   </Container>
 )
 

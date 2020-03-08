@@ -1,3 +1,6 @@
+import { createGlobalStyle } from '@xstyled/styled-components'
+
+export const GlobalStyle = createGlobalStyle`
 * {
   box-sizing: border-box;
   margin: 0;
@@ -13,7 +16,8 @@ a {
 }
 
 body {
-  background: #f4f6f8;
+  background: bg;
+  color: text;
   min-height: 100%;
   padding-bottom: 48rpx;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -23,7 +27,4 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+`

@@ -3,7 +3,14 @@ import { Link } from '@reach/router'
 import {
   PostContainer,
   VoteBoxContainer,
-  PostDetailsContainer
+  PostDetailsContainer,
+  PostTitle,
+  PostLink,
+  PostFooter,
+  PostComments,
+  PostCategory,
+  PostAuthor,
+  PostDateCreated
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
 import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
@@ -24,14 +31,18 @@ const Post = ({
       <VoteBox votes="4" />
     </VoteBoxContainer>
     <PostDetailsContainer>
-      <p>
-        <strong>{title} </strong>
-      </p>
-      <p>{url}</p>
-      <p>
-        <Link to={`/r/${name}/${id}/comments`}>1 comments</Link>
-        --/r/{name}--{username}--{timeDifferenceForDate(createdAt)}
-      </p>
+      <PostTitle>{title}</PostTitle>
+      <PostLink>{url}</PostLink>
+      <PostFooter>
+        <PostComments>
+          {' '}
+          <Link to={`/r/${name}/${id}/comments`}>1 comments</Link>
+        </PostComments>
+        <PostCategory> /r/{name}</PostCategory>
+
+        <PostAuthor>{username}</PostAuthor>
+        <PostDateCreated>{timeDifferenceForDate(createdAt)}</PostDateCreated>
+      </PostFooter>
     </PostDetailsContainer>
   </PostContainer>
 )

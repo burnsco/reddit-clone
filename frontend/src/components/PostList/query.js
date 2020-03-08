@@ -23,6 +23,7 @@ const GET_POSTS_BY_CATEGORY = gql`
       id
       title
       url
+      createdAt
       author {
         username
       }
