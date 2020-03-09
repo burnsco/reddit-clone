@@ -47,7 +47,7 @@ const typeDefs = gql`
     id: ID!
     category: Category!
     title: String!
-    url: String!
+    text: String
     author: User!
     comments: [Comment!]!
   }
@@ -81,7 +81,7 @@ const typeDefs = gql`
     categoryID: ID
     author: ID
     title: String!
-    url: String!
+    text: String
   }
 
   input CreateCommentInput {

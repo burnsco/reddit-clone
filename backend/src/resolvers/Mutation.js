@@ -103,7 +103,7 @@ const Mutation = {
     const post = await db.mutation.createPost({
       data: {
         title: data.title,
-        url: data.url,
+        text: data.text,
         category: {
           connect: {
             id: data.categoryID

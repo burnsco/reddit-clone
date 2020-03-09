@@ -5,7 +5,7 @@ const GET_ALL_POSTS = gql`
     posts(first: $first, skip: $skip, after: $cursor) {
       id
       title
-      url
+      text
       createdAt
       comments {
         id
@@ -29,7 +29,7 @@ const GET_POSTS_BY_CATEGORY = gql`
     posts(query: $query) {
       id
       title
-      url
+      text
       comments {
         id
         body

@@ -1,0 +1,8 @@
+.env*
+dist
+.web-variables.env
+package-lock.json
+node_modules
+.idea
+.vscode
+*.log

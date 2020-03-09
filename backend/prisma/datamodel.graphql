@@ -21,7 +21,7 @@ type Post {
   updatedAt: DateTime! @updatedAt
   title: String!
   category: Category!
-  url: String!
+  text: String
   author: User!
   comments: [Comment!]!
 }

@@ -1,7 +1,6 @@
 import { createGlobalStyle } from '@xstyled/styled-components'
 
 export const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;

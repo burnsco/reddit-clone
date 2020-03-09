@@ -472,7 +472,7 @@ type Post {
   updatedAt: DateTime!
   title: String!
   category: Category!
-  url: String!
+  text: String
   author: User!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
@@ -487,7 +487,7 @@ input PostCreateInput {
   id: ID
   title: String!
   category: CategoryCreateOneWithoutPostsInput!
-  url: String!
+  text: String
   author: UserCreateOneWithoutPostsInput!
   comments: CommentCreateManyWithoutPostInput
 }
@@ -511,14 +511,14 @@ input PostCreateWithoutAuthorInput {
   id: ID
   title: String!
   category: CategoryCreateOneWithoutPostsInput!
-  url: String!
+  text: String
   comments: CommentCreateManyWithoutPostInput
 }
 
 input PostCreateWithoutCategoryInput {
   id: ID
   title: String!
-  url: String!
+  text: String
   author: UserCreateOneWithoutPostsInput!
   comments: CommentCreateManyWithoutPostInput
 }
@@ -527,7 +527,7 @@ input PostCreateWithoutCommentsInput {
   id: ID
   title: String!
   category: CategoryCreateOneWithoutPostsInput!
-  url: String!
+  text: String
   author: UserCreateOneWithoutPostsInput!
 }
 
@@ -545,8 +545,8 @@ enum PostOrderByInput {
   updatedAt_DESC
   title_ASC
   title_DESC
-  url_ASC
-  url_DESC
+  text_ASC
+  text_DESC
 }
 
 type PostPreviousValues {
@@ -554,7 +554,7 @@ type PostPreviousValues {
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
-  url: String!
+  text: String
 }
 
 input PostScalarWhereInput {
@@ -602,20 +602,20 @@ input PostScalarWhereInput {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
-  url: String
-  url_not: String
-  url_in: [String!]
-  url_not_in: [String!]
-  url_lt: String
-  url_lte: String
-  url_gt: String
-  url_gte: String
-  url_contains: String
-  url_not_contains: String
-  url_starts_with: String
-  url_not_starts_with: String
-  url_ends_with: String
-  url_not_ends_with: String
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
   AND: [PostScalarWhereInput!]
   OR: [PostScalarWhereInput!]
   NOT: [PostScalarWhereInput!]
@@ -642,19 +642,19 @@ input PostSubscriptionWhereInput {
 input PostUpdateInput {
   title: String
   category: CategoryUpdateOneRequiredWithoutPostsInput
-  url: String
+  text: String
   author: UserUpdateOneRequiredWithoutPostsInput
   comments: CommentUpdateManyWithoutPostInput
 }
 
 input PostUpdateManyDataInput {
   title: String
-  url: String
+  text: String
 }
 
 input PostUpdateManyMutationInput {
   title: String
-  url: String
+  text: String
 }
 
 input PostUpdateManyWithoutAuthorInput {
@@ -696,13 +696,13 @@ input PostUpdateOneRequiredWithoutCommentsInput {
 input PostUpdateWithoutAuthorDataInput {
   title: String
   category: CategoryUpdateOneRequiredWithoutPostsInput
-  url: String
+  text: String
   comments: CommentUpdateManyWithoutPostInput
 }
 
 input PostUpdateWithoutCategoryDataInput {
   title: String
-  url: String
+  text: String
   author: UserUpdateOneRequiredWithoutPostsInput
   comments: CommentUpdateManyWithoutPostInput
 }
@@ -710,7 +710,7 @@ input PostUpdateWithoutCategoryDataInput {
 input PostUpdateWithoutCommentsDataInput {
   title: String
   category: CategoryUpdateOneRequiredWithoutPostsInput
-  url: String
+  text: String
   author: UserUpdateOneRequiredWithoutPostsInput
 }
 
@@ -787,20 +787,20 @@ input PostWhereInput {
   title_ends_with: String
   title_not_ends_with: String
   category: CategoryWhereInput
-  url: String
-  url_not: String
-  url_in: [String!]
-  url_not_in: [String!]
-  url_lt: String
-  url_lte: String
-  url_gt: String
-  url_gte: String
-  url_contains: String
-  url_not_contains: String
-  url_starts_with: String
-  url_not_starts_with: String
-  url_ends_with: String
-  url_not_ends_with: String
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
   author: UserWhereInput
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput

@@ -7,8 +7,8 @@ import { gql } from '@apollo/client'
 import { navigate } from '@reach/router'
 
 const SUBMIT_POST = gql`
-  mutation SUBMIT_POST($title: String!, $url: String!, $categoryID: ID!) {
-    createPost(data: { title: $title, url: $url, categoryID: $categoryID }) {
+  mutation SUBMIT_POST($title: String!, $text: String!, $categoryID: ID!) {
+    createPost(data: { title: $title, text: $text, categoryID: $categoryID }) {
       code
       success
       message
@@ -18,11 +18,11 @@ const SUBMIT_POST = gql`
 
 function CreatePostPage() {
   const [title, setTitle] = useState('')
-  const [url, setUrl] = useState('')
+  const [text, setText] = useState('')
   const [categoryID, setCategoryID] = useState('')
 
   const [createPost, { loading, error }] = useMutation(SUBMIT_POST, {
-    variables: { title: title, url: url, categoryID: categoryID }
+    variables: { title: title, text: text, categoryID: categoryID }
   })
 
   const handleSubmit = async event => {
@@ -47,8 +47,8 @@ function CreatePostPage() {
     if (name === 'title') {
       setTitle(value)
     }
-    if (name === 'url') {
-      setUrl(value)
+    if (name === 'text') {
+      setText(value)
     }
     if (name === 'category') {
       setCategoryID(value)
@@ -74,12 +74,12 @@ function CreatePostPage() {
             required
           />
           <FormInput
-            name="url"
+            name="text"
             type="text"
             handleChange={handleChange}
-            value={url}
-            label="Url"
-            required
+            value={text}
+            label="Text"
+            
           />
           <FormInput
             name="category"

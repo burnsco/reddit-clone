@@ -5,7 +5,7 @@ import {
   VoteBoxContainer,
   PostDetailsContainer,
   PostTitle,
-  PostLink,
+  PostText,
   PostFooter,
   PostComments,
   PostCategory,
@@ -19,7 +19,7 @@ const Post = ({
   post: {
     id,
     title,
-    url,
+    text,
     category: { name },
     comments,
     createdAt,
@@ -33,7 +33,7 @@ const Post = ({
 
     <PostDetailsContainer>
       <PostTitle>{title}</PostTitle>
-      <PostLink>{url}</PostLink>
+      <PostText>{text}</PostText>
       <PostFooter>
         <PostComments>
           {' '}

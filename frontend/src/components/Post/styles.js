@@ -21,9 +21,10 @@ export const PostDetailsContainer = styled.div`
 
   flex-direction: column;
 `
-export const PostTitle = styled.div``
-export const PostLink = styled.div`
-  font-weight: 500;
+export const PostTitle = styled.div`
+font-weight: 500;
+`
+export const PostText = styled.div`
 `
 export const PostFooter = styled.div`
   display: flex;
