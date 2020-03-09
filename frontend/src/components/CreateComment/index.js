@@ -23,6 +23,16 @@ const CreateCommentForm = ({ postID }) => {
 
   const handleSubmit = async event => {
     event.preventDefault()
+
+    try {
+      const comment = await createComment()
+
+      const { message, code, success } = comment.data.createComment
+
+      console.log(message, code, success)
+    } catch (ex) {
+      console.log(ex)
+    }
   }
 
   return (
