@@ -1,6 +1,7 @@
 import { ApolloServer, PubSub } from 'apollo-server-express'
 import express from 'express'
 import cors from 'cors'
+import http from 'http'
 import jwt from 'jsonwebtoken'
 import { makeExecutableSchema } from 'graphql-tools'
 import typeDefs from './typedefs/index'
@@ -12,7 +13,8 @@ import cookieParser from 'cookie-parser'
 require('dotenv').config()
 
 const app = express()
-const path = '/'
+const PORT = 4000
+const path = '/graphql'
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true
@@ -78,6 +80,18 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path, cors: false })
 
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-)
+const httpServer = http.createServer(app)
+server.installSubscriptionHandlers(httpServer)
+
+httpServer.listen(PORT, () => {
+  console.log(
+    `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+  )
+  console.log(
+    `🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
+  )
+})
+
+// app.listen({ port: 4000 }, () =>
+//   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+// )
