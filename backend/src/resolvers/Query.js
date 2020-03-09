@@ -4,6 +4,9 @@ import { AuthenticationError } from 'apollo-server-express'
 
 const Query = {
   currentUser: async (root, args, { db, user }, info) => {
+    if (!user.userID) {
+      throw new Error('no user logged in')
+    }
     const requested = await db.query.user({
       where: {
         id: user.userID

@@ -1,0 +1,35 @@
+type User {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  email: String! @unique
+  password: String!
+  username: String!
+  posts: [Post!]!
+  comments: [Comment!]!
+}
+
+type Category {
+  id: ID! @id
+  name: String!
+  posts: [Post!]!
+}
+
+type Post {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  title: String!
+  category: Category!
+  url: String!
+  author: User!
+  comments: [Comment!]!
+}
+type Comment {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  body: String!
+  author: User!
+  post: Post!
+}

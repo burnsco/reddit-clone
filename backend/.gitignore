@@ -1,7 +1,5 @@
 .env*
 dist
-prisma
-*.yml
 .web-variables.env
 package-lock.json
 node_modules

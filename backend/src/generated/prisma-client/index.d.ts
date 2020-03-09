@@ -221,10 +221,10 @@ export interface ClientConstructor<T> {
 export type PostOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
   | "title_ASC"
   | "title_DESC"
   | "url_ASC"
@@ -233,42 +233,37 @@ export type PostOrderByInput =
 export type CommentOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
   | "body_ASC"
   | "body_DESC";
 
 export type CategoryOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
   | "name_ASC"
   | "name_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
   | "email_ASC"
   | "email_DESC"
-  | "username_ASC"
-  | "username_DESC"
   | "password_ASC"
-  | "password_DESC";
+  | "password_DESC"
+  | "username_ASC"
+  | "username_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export type CategoryWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
-  name?: Maybe<String>;
 }>;
 
 export interface PostWhereInput {
@@ -286,14 +281,6 @@ export interface PostWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -302,7 +289,14 @@ export interface PostWhereInput {
   createdAt_lte?: Maybe<DateTimeInput>;
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
-  category?: Maybe<CategoryWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   title?: Maybe<String>;
   title_not?: Maybe<String>;
   title_in?: Maybe<String[] | String>;
@@ -317,6 +311,7 @@ export interface PostWhereInput {
   title_not_starts_with?: Maybe<String>;
   title_ends_with?: Maybe<String>;
   title_not_ends_with?: Maybe<String>;
+  category?: Maybe<CategoryWhereInput>;
   url?: Maybe<String>;
   url_not?: Maybe<String>;
   url_in?: Maybe<String[] | String>;
@@ -355,22 +350,6 @@ export interface CategoryWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -408,14 +387,6 @@ export interface UserWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -424,6 +395,14 @@ export interface UserWhereInput {
   createdAt_lte?: Maybe<DateTimeInput>;
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   email?: Maybe<String>;
   email_not?: Maybe<String>;
   email_in?: Maybe<String[] | String>;
@@ -438,20 +417,6 @@ export interface UserWhereInput {
   email_not_starts_with?: Maybe<String>;
   email_ends_with?: Maybe<String>;
   email_not_ends_with?: Maybe<String>;
-  username?: Maybe<String>;
-  username_not?: Maybe<String>;
-  username_in?: Maybe<String[] | String>;
-  username_not_in?: Maybe<String[] | String>;
-  username_lt?: Maybe<String>;
-  username_lte?: Maybe<String>;
-  username_gt?: Maybe<String>;
-  username_gte?: Maybe<String>;
-  username_contains?: Maybe<String>;
-  username_not_contains?: Maybe<String>;
-  username_starts_with?: Maybe<String>;
-  username_not_starts_with?: Maybe<String>;
-  username_ends_with?: Maybe<String>;
-  username_not_ends_with?: Maybe<String>;
   password?: Maybe<String>;
   password_not?: Maybe<String>;
   password_in?: Maybe<String[] | String>;
@@ -466,12 +431,26 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
-  comments_every?: Maybe<CommentWhereInput>;
-  comments_some?: Maybe<CommentWhereInput>;
-  comments_none?: Maybe<CommentWhereInput>;
+  username?: Maybe<String>;
+  username_not?: Maybe<String>;
+  username_in?: Maybe<String[] | String>;
+  username_not_in?: Maybe<String[] | String>;
+  username_lt?: Maybe<String>;
+  username_lte?: Maybe<String>;
+  username_gt?: Maybe<String>;
+  username_gte?: Maybe<String>;
+  username_contains?: Maybe<String>;
+  username_not_contains?: Maybe<String>;
+  username_starts_with?: Maybe<String>;
+  username_not_starts_with?: Maybe<String>;
+  username_ends_with?: Maybe<String>;
+  username_not_ends_with?: Maybe<String>;
   posts_every?: Maybe<PostWhereInput>;
   posts_some?: Maybe<PostWhereInput>;
   posts_none?: Maybe<PostWhereInput>;
+  comments_every?: Maybe<CommentWhereInput>;
+  comments_some?: Maybe<CommentWhereInput>;
+  comments_none?: Maybe<CommentWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -492,14 +471,6 @@ export interface CommentWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -508,6 +479,14 @@ export interface CommentWhereInput {
   createdAt_lte?: Maybe<DateTimeInput>;
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   body?: Maybe<String>;
   body_not?: Maybe<String>;
   body_in?: Maybe<String[] | String>;
@@ -522,8 +501,8 @@ export interface CommentWhereInput {
   body_not_starts_with?: Maybe<String>;
   body_ends_with?: Maybe<String>;
   body_not_ends_with?: Maybe<String>;
-  post?: Maybe<PostWhereInput>;
   author?: Maybe<UserWhereInput>;
+  post?: Maybe<PostWhereInput>;
   AND?: Maybe<CommentWhereInput[] | CommentWhereInput>;
   OR?: Maybe<CommentWhereInput[] | CommentWhereInput>;
   NOT?: Maybe<CommentWhereInput[] | CommentWhereInput>;
@@ -571,8 +550,8 @@ export interface UserCreateOneWithoutPostsInput {
 export interface UserCreateWithoutPostsInput {
   id?: Maybe<ID_Input>;
   email: String;
-  username: String;
   password: String;
+  username: String;
   comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
 }
 
@@ -596,8 +575,8 @@ export interface PostCreateOneWithoutCommentsInput {
 
 export interface PostCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
-  category: CategoryCreateOneWithoutPostsInput;
   title: String;
+  category: CategoryCreateOneWithoutPostsInput;
   url: String;
   author: UserCreateOneWithoutPostsInput;
 }
@@ -633,8 +612,8 @@ export interface UserCreateOneWithoutCommentsInput {
 export interface UserCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
   email: String;
-  username: String;
   password: String;
+  username: String;
   posts?: Maybe<PostCreateManyWithoutAuthorInput>;
 }
 
@@ -645,8 +624,8 @@ export interface PostCreateManyWithoutAuthorInput {
 
 export interface PostCreateWithoutAuthorInput {
   id?: Maybe<ID_Input>;
-  category: CategoryCreateOneWithoutPostsInput;
   title: String;
+  category: CategoryCreateOneWithoutPostsInput;
   url: String;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
@@ -699,8 +678,8 @@ export interface UserUpdateOneRequiredWithoutPostsInput {
 
 export interface UserUpdateWithoutPostsDataInput {
   email?: Maybe<String>;
-  username?: Maybe<String>;
   password?: Maybe<String>;
+  username?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
 }
 
@@ -745,8 +724,8 @@ export interface PostUpdateOneRequiredWithoutCommentsInput {
 }
 
 export interface PostUpdateWithoutCommentsDataInput {
-  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   title?: Maybe<String>;
+  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   url?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
 }
@@ -793,14 +772,6 @@ export interface CommentScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -809,6 +780,14 @@ export interface CommentScalarWhereInput {
   createdAt_lte?: Maybe<DateTimeInput>;
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   body?: Maybe<String>;
   body_not?: Maybe<String>;
   body_in?: Maybe<String[] | String>;
@@ -884,8 +863,8 @@ export interface UserUpdateOneRequiredWithoutCommentsInput {
 
 export interface UserUpdateWithoutCommentsDataInput {
   email?: Maybe<String>;
-  username?: Maybe<String>;
   password?: Maybe<String>;
+  username?: Maybe<String>;
   posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
 }
 
@@ -915,8 +894,8 @@ export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
 }
 
 export interface PostUpdateWithoutAuthorDataInput {
-  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   title?: Maybe<String>;
+  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   url?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
 }
@@ -942,14 +921,6 @@ export interface PostScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -958,6 +929,14 @@ export interface PostScalarWhereInput {
   createdAt_lte?: Maybe<DateTimeInput>;
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   title?: Maybe<String>;
   title_not?: Maybe<String>;
   title_in?: Maybe<String[] | String>;
@@ -1025,14 +1004,14 @@ export interface CategoryUpdateManyMutationInput {
 export interface CommentCreateInput {
   id?: Maybe<ID_Input>;
   body: String;
-  post: PostCreateOneWithoutCommentsInput;
   author: UserCreateOneWithoutCommentsInput;
+  post: PostCreateOneWithoutCommentsInput;
 }
 
 export interface CommentUpdateInput {
   body?: Maybe<String>;
-  post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
   author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
+  post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
 }
 
 export interface CommentUpdateManyMutationInput {
@@ -1041,16 +1020,16 @@ export interface CommentUpdateManyMutationInput {
 
 export interface PostCreateInput {
   id?: Maybe<ID_Input>;
-  category: CategoryCreateOneWithoutPostsInput;
   title: String;
+  category: CategoryCreateOneWithoutPostsInput;
   url: String;
   author: UserCreateOneWithoutPostsInput;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
 }
 
 export interface PostUpdateInput {
-  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   title?: Maybe<String>;
+  category?: Maybe<CategoryUpdateOneRequiredWithoutPostsInput>;
   url?: Maybe<String>;
   author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
@@ -1064,24 +1043,24 @@ export interface PostUpdateManyMutationInput {
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email: String;
-  username: String;
   password: String;
-  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  username: String;
   posts?: Maybe<PostCreateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
 }
 
 export interface UserUpdateInput {
   email?: Maybe<String>;
-  username?: Maybe<String>;
   password?: Maybe<String>;
-  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  username?: Maybe<String>;
   posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
 }
 
 export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
-  username?: Maybe<String>;
   password?: Maybe<String>;
+  username?: Maybe<String>;
 }
 
 export interface CategorySubscriptionWhereInput {
@@ -1138,15 +1117,11 @@ export interface NodeNode {
 
 export interface Category {
   id: ID_Output;
-  updatedAt: DateTimeOutput;
-  createdAt: DateTimeOutput;
   name: String;
 }
 
 export interface CategoryPromise extends Promise<Category>, Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
   posts: <T = FragmentableArray<Post>>(args?: {
     where?: PostWhereInput;
@@ -1163,8 +1138,6 @@ export interface CategorySubscription
   extends Promise<AsyncIterator<Category>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
   posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
     where?: PostWhereInput;
@@ -1181,8 +1154,6 @@ export interface CategoryNullablePromise
   extends Promise<Category | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
   posts: <T = FragmentableArray<Post>>(args?: {
     where?: PostWhereInput;
@@ -1197,18 +1168,18 @@ export interface CategoryNullablePromise
 
 export interface Post {
   id: ID_Output;
-  updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
   title: String;
   url: String;
 }
 
 export interface PostPromise extends Promise<Post>, Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
-  category: <T = CategoryPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
+  category: <T = CategoryPromise>() => T;
   url: () => Promise<String>;
   author: <T = UserPromise>() => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
@@ -1226,10 +1197,10 @@ export interface PostSubscription
   extends Promise<AsyncIterator<Post>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  category: <T = CategorySubscription>() => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   title: () => Promise<AsyncIterator<String>>;
+  category: <T = CategorySubscription>() => T;
   url: () => Promise<AsyncIterator<String>>;
   author: <T = UserSubscription>() => T;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
@@ -1247,10 +1218,10 @@ export interface PostNullablePromise
   extends Promise<Post | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
-  category: <T = CategoryPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
+  category: <T = CategoryPromise>() => T;
   url: () => Promise<String>;
   author: <T = UserPromise>() => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
@@ -1266,32 +1237,32 @@ export interface PostNullablePromise
 
 export interface User {
   id: ID_Output;
-  updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
   email: String;
-  username: String;
   password: String;
+  username: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   email: () => Promise<String>;
-  username: () => Promise<String>;
   password: () => Promise<String>;
-  comments: <T = FragmentableArray<Comment>>(args?: {
-    where?: CommentWhereInput;
-    orderBy?: CommentOrderByInput;
+  username: () => Promise<String>;
+  posts: <T = FragmentableArray<Post>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -1304,23 +1275,23 @@ export interface UserSubscription
   extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   email: () => Promise<AsyncIterator<String>>;
-  username: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
-  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
-    where?: CommentWhereInput;
-    orderBy?: CommentOrderByInput;
+  username: () => Promise<AsyncIterator<String>>;
+  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
-  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -1333,23 +1304,23 @@ export interface UserNullablePromise
   extends Promise<User | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   email: () => Promise<String>;
-  username: () => Promise<String>;
   password: () => Promise<String>;
-  comments: <T = FragmentableArray<Comment>>(args?: {
-    where?: CommentWhereInput;
-    orderBy?: CommentOrderByInput;
+  username: () => Promise<String>;
+  posts: <T = FragmentableArray<Post>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -1360,40 +1331,40 @@ export interface UserNullablePromise
 
 export interface Comment {
   id: ID_Output;
-  updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
   body: String;
 }
 
 export interface CommentPromise extends Promise<Comment>, Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   body: () => Promise<String>;
-  post: <T = PostPromise>() => T;
   author: <T = UserPromise>() => T;
+  post: <T = PostPromise>() => T;
 }
 
 export interface CommentSubscription
   extends Promise<AsyncIterator<Comment>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   body: () => Promise<AsyncIterator<String>>;
-  post: <T = PostSubscription>() => T;
   author: <T = UserSubscription>() => T;
+  post: <T = PostSubscription>() => T;
 }
 
 export interface CommentNullablePromise
   extends Promise<Comment | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   body: () => Promise<String>;
-  post: <T = PostPromise>() => T;
   author: <T = UserPromise>() => T;
+  post: <T = PostPromise>() => T;
 }
 
 export interface CategoryConnection {
@@ -1680,8 +1651,6 @@ export interface CategorySubscriptionPayloadSubscription
 
 export interface CategoryPreviousValues {
   id: ID_Output;
-  updatedAt: DateTimeOutput;
-  createdAt: DateTimeOutput;
   name: String;
 }
 
@@ -1689,8 +1658,6 @@ export interface CategoryPreviousValuesPromise
   extends Promise<CategoryPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
 }
 
@@ -1698,8 +1665,6 @@ export interface CategoryPreviousValuesSubscription
   extends Promise<AsyncIterator<CategoryPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
 }
 
@@ -1730,8 +1695,8 @@ export interface CommentSubscriptionPayloadSubscription
 
 export interface CommentPreviousValues {
   id: ID_Output;
-  updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
   body: String;
 }
 
@@ -1739,8 +1704,8 @@ export interface CommentPreviousValuesPromise
   extends Promise<CommentPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   body: () => Promise<String>;
 }
 
@@ -1748,8 +1713,8 @@ export interface CommentPreviousValuesSubscription
   extends Promise<AsyncIterator<CommentPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   body: () => Promise<AsyncIterator<String>>;
 }
 
@@ -1780,8 +1745,8 @@ export interface PostSubscriptionPayloadSubscription
 
 export interface PostPreviousValues {
   id: ID_Output;
-  updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
   title: String;
   url: String;
 }
@@ -1790,8 +1755,8 @@ export interface PostPreviousValuesPromise
   extends Promise<PostPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   title: () => Promise<String>;
   url: () => Promise<String>;
 }
@@ -1800,8 +1765,8 @@ export interface PostPreviousValuesSubscription
   extends Promise<AsyncIterator<PostPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   title: () => Promise<AsyncIterator<String>>;
   url: () => Promise<AsyncIterator<String>>;
 }
@@ -1833,33 +1798,33 @@ export interface UserSubscriptionPayloadSubscription
 
 export interface UserPreviousValues {
   id: ID_Output;
-  updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
   email: String;
-  username: String;
   password: String;
+  username: String;
 }
 
 export interface UserPreviousValuesPromise
   extends Promise<UserPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
   email: () => Promise<String>;
-  username: () => Promise<String>;
   password: () => Promise<String>;
+  username: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
   extends Promise<AsyncIterator<UserPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   email: () => Promise<AsyncIterator<String>>;
-  username: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  username: () => Promise<AsyncIterator<String>>;
 }
 
 /*
@@ -1901,6 +1866,10 @@ export type Long = string;
 
 export const models: Model[] = [
   {
+    name: "User",
+    embedded: false
+  },
+  {
     name: "Category",
     embedded: false
   },
@@ -1910,10 +1879,6 @@ export const models: Model[] = [
   },
   {
     name: "Comment",
-    embedded: false
-  },
-  {
-    name: "User",
     embedded: false
   }
 ];

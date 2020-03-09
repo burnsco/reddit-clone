@@ -25,8 +25,6 @@ type BatchPayload {
 
 type Category {
   id: ID!
-  updatedAt: DateTime!
-  createdAt: DateTime!
   name: String!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
 }
@@ -61,18 +59,12 @@ type CategoryEdge {
 enum CategoryOrderByInput {
   id_ASC
   id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
   name_ASC
   name_DESC
 }
 
 type CategoryPreviousValues {
   id: ID!
-  updatedAt: DateTime!
-  createdAt: DateTime!
   name: String!
 }
 
@@ -134,22 +126,6 @@ input CategoryWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -174,16 +150,15 @@ input CategoryWhereInput {
 
 input CategoryWhereUniqueInput {
   id: ID
-  name: String
 }
 
 type Comment {
   id: ID!
-  updatedAt: DateTime!
   createdAt: DateTime!
+  updatedAt: DateTime!
   body: String!
-  post: Post!
   author: User!
+  post: Post!
 }
 
 type CommentConnection {
@@ -195,8 +170,8 @@ type CommentConnection {
 input CommentCreateInput {
   id: ID
   body: String!
-  post: PostCreateOneWithoutCommentsInput!
   author: UserCreateOneWithoutCommentsInput!
+  post: PostCreateOneWithoutCommentsInput!
 }
 
 input CommentCreateManyWithoutAuthorInput {
@@ -229,18 +204,18 @@ type CommentEdge {
 enum CommentOrderByInput {
   id_ASC
   id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   body_ASC
   body_DESC
 }
 
 type CommentPreviousValues {
   id: ID!
-  updatedAt: DateTime!
   createdAt: DateTime!
+  updatedAt: DateTime!
   body: String!
 }
 
@@ -259,14 +234,6 @@ input CommentScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -275,6 +242,14 @@ input CommentScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   body: String
   body_not: String
   body_in: [String!]
@@ -314,8 +289,8 @@ input CommentSubscriptionWhereInput {
 
 input CommentUpdateInput {
   body: String
-  post: PostUpdateOneRequiredWithoutCommentsInput
   author: UserUpdateOneRequiredWithoutCommentsInput
+  post: PostUpdateOneRequiredWithoutCommentsInput
 }
 
 input CommentUpdateManyDataInput {
@@ -402,14 +377,6 @@ input CommentWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -418,6 +385,14 @@ input CommentWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   body: String
   body_not: String
   body_in: [String!]
@@ -432,8 +407,8 @@ input CommentWhereInput {
   body_not_starts_with: String
   body_ends_with: String
   body_not_ends_with: String
-  post: PostWhereInput
   author: UserWhereInput
+  post: PostWhereInput
   AND: [CommentWhereInput!]
   OR: [CommentWhereInput!]
   NOT: [CommentWhereInput!]
@@ -493,10 +468,10 @@ type PageInfo {
 
 type Post {
   id: ID!
-  updatedAt: DateTime!
   createdAt: DateTime!
-  category: Category!
+  updatedAt: DateTime!
   title: String!
+  category: Category!
   url: String!
   author: User!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
@@ -510,8 +485,8 @@ type PostConnection {
 
 input PostCreateInput {
   id: ID
-  category: CategoryCreateOneWithoutPostsInput!
   title: String!
+  category: CategoryCreateOneWithoutPostsInput!
   url: String!
   author: UserCreateOneWithoutPostsInput!
   comments: CommentCreateManyWithoutPostInput
@@ -534,8 +509,8 @@ input PostCreateOneWithoutCommentsInput {
 
 input PostCreateWithoutAuthorInput {
   id: ID
-  category: CategoryCreateOneWithoutPostsInput!
   title: String!
+  category: CategoryCreateOneWithoutPostsInput!
   url: String!
   comments: CommentCreateManyWithoutPostInput
 }
@@ -550,8 +525,8 @@ input PostCreateWithoutCategoryInput {
 
 input PostCreateWithoutCommentsInput {
   id: ID
-  category: CategoryCreateOneWithoutPostsInput!
   title: String!
+  category: CategoryCreateOneWithoutPostsInput!
   url: String!
   author: UserCreateOneWithoutPostsInput!
 }
@@ -564,10 +539,10 @@ type PostEdge {
 enum PostOrderByInput {
   id_ASC
   id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   title_ASC
   title_DESC
   url_ASC
@@ -576,8 +551,8 @@ enum PostOrderByInput {
 
 type PostPreviousValues {
   id: ID!
-  updatedAt: DateTime!
   createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   url: String!
 }
@@ -597,14 +572,6 @@ input PostScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -613,6 +580,14 @@ input PostScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   title: String
   title_not: String
   title_in: [String!]
@@ -665,8 +640,8 @@ input PostSubscriptionWhereInput {
 }
 
 input PostUpdateInput {
-  category: CategoryUpdateOneRequiredWithoutPostsInput
   title: String
+  category: CategoryUpdateOneRequiredWithoutPostsInput
   url: String
   author: UserUpdateOneRequiredWithoutPostsInput
   comments: CommentUpdateManyWithoutPostInput
@@ -719,8 +694,8 @@ input PostUpdateOneRequiredWithoutCommentsInput {
 }
 
 input PostUpdateWithoutAuthorDataInput {
-  category: CategoryUpdateOneRequiredWithoutPostsInput
   title: String
+  category: CategoryUpdateOneRequiredWithoutPostsInput
   url: String
   comments: CommentUpdateManyWithoutPostInput
 }
@@ -733,8 +708,8 @@ input PostUpdateWithoutCategoryDataInput {
 }
 
 input PostUpdateWithoutCommentsDataInput {
-  category: CategoryUpdateOneRequiredWithoutPostsInput
   title: String
+  category: CategoryUpdateOneRequiredWithoutPostsInput
   url: String
   author: UserUpdateOneRequiredWithoutPostsInput
 }
@@ -781,14 +756,6 @@ input PostWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -797,7 +764,14 @@ input PostWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  category: CategoryWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   title: String
   title_not: String
   title_in: [String!]
@@ -812,6 +786,7 @@ input PostWhereInput {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
+  category: CategoryWhereInput
   url: String
   url_not: String
   url_in: [String!]
@@ -864,13 +839,13 @@ type Subscription {
 
 type User {
   id: ID!
-  updatedAt: DateTime!
   createdAt: DateTime!
+  updatedAt: DateTime!
   email: String!
-  username: String!
   password: String!
-  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  username: String!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
 
 type UserConnection {
@@ -882,10 +857,10 @@ type UserConnection {
 input UserCreateInput {
   id: ID
   email: String!
-  username: String!
   password: String!
-  comments: CommentCreateManyWithoutAuthorInput
+  username: String!
   posts: PostCreateManyWithoutAuthorInput
+  comments: CommentCreateManyWithoutAuthorInput
 }
 
 input UserCreateOneWithoutCommentsInput {
@@ -901,16 +876,16 @@ input UserCreateOneWithoutPostsInput {
 input UserCreateWithoutCommentsInput {
   id: ID
   email: String!
-  username: String!
   password: String!
+  username: String!
   posts: PostCreateManyWithoutAuthorInput
 }
 
 input UserCreateWithoutPostsInput {
   id: ID
   email: String!
-  username: String!
   password: String!
+  username: String!
   comments: CommentCreateManyWithoutAuthorInput
 }
 
@@ -922,25 +897,25 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   email_ASC
   email_DESC
-  username_ASC
-  username_DESC
   password_ASC
   password_DESC
+  username_ASC
+  username_DESC
 }
 
 type UserPreviousValues {
   id: ID!
-  updatedAt: DateTime!
   createdAt: DateTime!
+  updatedAt: DateTime!
   email: String!
-  username: String!
   password: String!
+  username: String!
 }
 
 type UserSubscriptionPayload {
@@ -963,16 +938,16 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   email: String
-  username: String
   password: String
-  comments: CommentUpdateManyWithoutAuthorInput
+  username: String
   posts: PostUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateManyMutationInput {
   email: String
-  username: String
   password: String
+  username: String
 }
 
 input UserUpdateOneRequiredWithoutCommentsInput {
@@ -991,15 +966,15 @@ input UserUpdateOneRequiredWithoutPostsInput {
 
 input UserUpdateWithoutCommentsDataInput {
   email: String
-  username: String
   password: String
+  username: String
   posts: PostUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateWithoutPostsDataInput {
   email: String
-  username: String
   password: String
+  username: String
   comments: CommentUpdateManyWithoutAuthorInput
 }
 
@@ -1028,14 +1003,6 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1044,6 +1011,14 @@ input UserWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   email: String
   email_not: String
   email_in: [String!]
@@ -1058,20 +1033,6 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
-  username: String
-  username_not: String
-  username_in: [String!]
-  username_not_in: [String!]
-  username_lt: String
-  username_lte: String
-  username_gt: String
-  username_gte: String
-  username_contains: String
-  username_not_contains: String
-  username_starts_with: String
-  username_not_starts_with: String
-  username_ends_with: String
-  username_not_ends_with: String
   password: String
   password_not: String
   password_in: [String!]
@@ -1086,12 +1047,26 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
-  comments_every: CommentWhereInput
-  comments_some: CommentWhereInput
-  comments_none: CommentWhereInput
+  username: String
+  username_not: String
+  username_in: [String!]
+  username_not_in: [String!]
+  username_lt: String
+  username_lte: String
+  username_gt: String
+  username_gte: String
+  username_contains: String
+  username_not_contains: String
+  username_starts_with: String
+  username_not_starts_with: String
+  username_ends_with: String
+  username_not_ends_with: String
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
