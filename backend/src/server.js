@@ -77,10 +77,11 @@ const server = new ApolloServer({
         pubsub
       }
     } else {
+      const token = req.headers.authorization || ''
       return {
         req,
         res,
-        user: await getUser(req),
+        user: getUser(token),
         db
       }
     }

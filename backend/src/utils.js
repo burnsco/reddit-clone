@@ -1,19 +1,17 @@
 import jwt from 'jsonwebtoken'
 import { AuthenticationError } from 'apollo-server-express'
 
-export const getUser = ({ req }) => {
-  let authorization = req.headers.authorization
-
-  if (authorization) {
+export const getUser = ({ checkToken }) => {
+  if (checkToken) {
     try {
-      let token = authorization.split(' ')[1]
+      let token = checkToken.split(' ')[1]
       let user = jwt.verify(token, process.env.JWT_SECRET)
       return user
     } catch (ex) {
       throw new AuthenticationError(ex)
     }
   }
-  if (!authorization) {
+  if (!checkToken) {
     return new AuthenticationError('Not authenticated')
   }
 }
