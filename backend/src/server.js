@@ -2,27 +2,28 @@ import { ApolloServer, PubSub } from 'apollo-server-express'
 import express from 'express'
 import cors from 'cors'
 import http from 'http'
+import morgan from 'morgan'
 import jwt from 'jsonwebtoken'
 import { makeExecutableSchema } from 'graphql-tools'
 import typeDefs from './typedefs/index'
 import db from './context/index'
 import resolvers from './resolvers/root'
+import subscriptions from './subscriptions/index'
 import { getUser, createAccessToken } from './utils'
 import { applyMiddleware } from 'graphql-middleware'
 import cookieParser from 'cookie-parser'
 require('dotenv').config()
 
 const app = express()
-const PORT = 4000
-const path = '/graphql'
+
 const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true
 }
-app.use(cors(corsOptions))
+
 app.use(cookieParser())
 
-app.post('/refresh_token', async (req, res) => {
+app.post('/refresh_token', cors(corsOptions), async (req, res) => {
   const token = req.cookies.redt
 
   if (!token) {
@@ -69,16 +70,37 @@ const pubsub = new PubSub()
 
 const server = new ApolloServer({
   schema,
-  context: async (req, res) => ({
-    ...req,
-    ...res,
-    pubsub,
-    user: getUser(req),
-    db
-  })
+  context: async ({ req, res, connection }) => {
+    if (connection) {
+      return {
+        ...connection.context,
+        pubsub
+      }
+    } else {
+      return {
+        req,
+        res,
+        user: await getUser(req),
+        db
+      }
+    }
+  },
+  subscriptions: {
+    path: '/subscriptions',
+    onConnect: async (connectionParams, webSocket, context) => {
+      console.log(
+        `Subscription client connected using Apollo server's built-in SubscriptionServer.`
+      )
+    },
+    onDisconnect: async (webSocket, context) => {
+      console.log(`Subscription client disconnected.`)
+    }
+  }
 })
 
-server.applyMiddleware({ app, path, cors: false })
+server.applyMiddleware({ app, cors: false })
+
+const PORT = 4000
 
 const httpServer = http.createServer(app)
 server.installSubscriptionHandlers(httpServer)
@@ -91,7 +113,3 @@ httpServer.listen(PORT, () => {
     `🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
   )
 })
-
-// app.listen({ port: 4000 }, () =>
-//   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-// )

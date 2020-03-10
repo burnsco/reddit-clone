@@ -1,7 +1,6 @@
 import React from 'react'
 import { TokenRefreshLink } from 'apollo-link-token-refresh'
 import { WebSocketLink } from '@apollo/link-ws'
-import { getMainDefinition } from '@apollo/client/utilities'
 import jwtDecode from 'jwt-decode'
 import { onError } from 'apollo-link-error'
 import {
@@ -95,32 +94,9 @@ const requestLink = new ApolloLink(
 )
 
 const httpRefresh = ApolloLink.from([
-  onError(({ graphQLErrors, networkError, operation, forward }) => {
-    if (graphQLErrors) {
-      graphQLErrors.map(({ message, locations, path }) =>
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
-      )
-      for (let err of graphQLErrors) {
-        switch (err.extensions.code) {
-          case 'UNAUTHENTICATED':
-            const oldHeaders = operation.getContext().headers
-            operation.setContext({
-              headers: {
-                ...oldHeaders,
-                authorization: getAccessToken()
-              }
-            })
-        }
-      }
-    }
-    if (networkError)
-      console.error(`[Network error]: ${networkError}`, networkError.stack)
-  }),
-  refreshLink,
-  requestLink,
-  httpLink
+  new httpLink(),
+  new refreshLink(),
+  new requestLink()
 ])
 
 const link = split(
@@ -131,8 +107,8 @@ const link = split(
       definition.operation === 'subscription'
     )
   },
-  httpRefresh,
-  wsLink
+  wsLink,
+  httpRefresh
 )
 
 const client = new ApolloClient({
