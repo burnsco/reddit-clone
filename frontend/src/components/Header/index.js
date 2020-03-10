@@ -16,6 +16,7 @@ import { CURRENT_USER } from './query'
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext)
+  const { loading, error, data } = useQuery(CURRENT_USER)
   const [colorMode, setColorMode] = useColorMode()
 
   return (
@@ -48,7 +49,7 @@ const Header = () => {
 
           <HeaderLink>
             <Link to="/profile">
-              <pre>{user || 'test'}</pre>
+              <pre>{user || 'void'}</pre>
             </Link>
           </HeaderLink>
 

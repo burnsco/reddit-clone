@@ -3,9 +3,9 @@ import Header from '../components/Header'
 import { Router } from '@reach/router'
 import { AppContainer } from './styles'
 import Home from '../pages/Home'
-import jwtDecode from 'jwt-decode'
 import Profile from '../pages/Profile'
 import LoginPage from '../pages/Login'
+import jwtDecode from 'jwt-decode'
 import Signup from '../pages/Signup'
 import CategoryPosts from '../components/PostList/CategoryPosts'
 import AllPosts from '../components/PostList/AllPosts'
@@ -26,8 +26,7 @@ const App = () => {
       credentials: 'include'
     }).then(async x => {
       const { accessToken } = await x.json()
-      const { username } = jwtDecode(accessToken)
-      setUser(username)
+      console.log(accessToken)
       setAccessToken(accessToken)
       setLoading(false)
     })

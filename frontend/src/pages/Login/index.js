@@ -5,6 +5,7 @@ import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { navigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
+import { UserContext } from '../../context/user-context'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -27,6 +28,7 @@ function LoginPage() {
   const [password, setPassword] = useState('')
   const [checking, setChecking] = useState(false)
   const [result, setResult] = useState('')
+  const { user, setUser } = useContext(UserContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password }
@@ -43,6 +45,7 @@ function LoginPage() {
 
       const { message, accessToken, user, code } = result.data.loginUser
       const { email, id, username } = user
+      setUser(username)
       setResult(message)
 
       if (code === '200') {
