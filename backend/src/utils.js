@@ -17,13 +17,21 @@ export const getUser = ({ checkToken }) => {
 }
 
 export const createAccessToken = user => {
-  return jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
-    expiresIn: '300m'
-  })
+  return jwt.sign(
+    { userID: user.id, username: user.username },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '300m'
+    }
+  )
 }
 
 export const createRefreshToken = user => {
-  return jwt.sign({ userID: user.id }, process.env.JWT_REFRESH, {
-    expiresIn: '21d'
-  })
+  return jwt.sign(
+    { userID: user.id, username: user.username },
+    process.env.JWT_REFRESH,
+    {
+      expiresIn: '21d'
+    }
+  )
 }

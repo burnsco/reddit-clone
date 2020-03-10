@@ -26,8 +26,8 @@ const App = () => {
       credentials: 'include'
     }).then(async x => {
       const { accessToken } = await x.json()
-      const { userID } = jwtDecode(accessToken)
-      setUser(userID)
+      const { username } = jwtDecode(accessToken)
+      setUser(username)
       setAccessToken(accessToken)
       setLoading(false)
     })
