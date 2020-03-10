@@ -15,7 +15,7 @@ import { SignOutUser } from '../../utils/signout'
 import { CURRENT_USER } from './query'
 
 const Header = () => {
-  const { loading, error, data } = useQuery(CURRENT_USER)
+  const { user, setUser } = useContext(UserContext)
   const [colorMode, setColorMode] = useColorMode()
 
   return (
@@ -48,7 +48,7 @@ const Header = () => {
 
           <HeaderLink>
             <Link to="/profile">
-              <pre>{data ? data.currentUser.username : 'user'}</pre>
+              <pre>{user || 'test'}</pre>
             </Link>
           </HeaderLink>
 

@@ -99,7 +99,7 @@ const server = new ApolloServer({
   }
 })
 
-server.applyMiddleware({ app, cors: false })
+server.applyMiddleware({ app, cors: corsOptions })
 
 const PORT = 4000
 

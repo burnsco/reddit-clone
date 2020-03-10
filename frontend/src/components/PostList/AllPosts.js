@@ -14,7 +14,10 @@ function AllPosts() {
   })
 
   if (loading) return <Spinner />
-  if (error) return <h1>Error!</h1>
+  if (error) {
+    console.log(error)
+    return <div>error</div>
+  }
   console.log(data)
   return (
     <PostListContainer>

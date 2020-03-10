@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import { Router } from '@reach/router'
 import { AppContainer } from './styles'
 import Home from '../pages/Home'
+import jwtDecode from 'jwt-decode'
 import Profile from '../pages/Profile'
 import LoginPage from '../pages/Login'
 import Signup from '../pages/Signup'
@@ -15,7 +16,7 @@ import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
 
 const App = () => {
-  const [user, setUser] = useState(localStorage.getItem('user'))
+  const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
@@ -25,6 +26,8 @@ const App = () => {
       credentials: 'include'
     }).then(async x => {
       const { accessToken } = await x.json()
+      const { userID } = jwtDecode(accessToken)
+      setUser(userID)
       setAccessToken(accessToken)
       setLoading(false)
     })
@@ -34,22 +37,24 @@ const App = () => {
 
   return (
     <AppContainer>
-      <Header />
-      <Router>
-        <Profile path="profile/:userID">
-          <AllPosts path="profile/:userID/posts" />
-          <Comments path="profile/:userID/comments" />
-          <AllPosts path="/" />
-        </Profile>
-        <CreatePostPage path="submit" />
-        <LoginPage path="login" />
-        <Signup path="signup" />
-        <Home path="/">
-          <CategoryPosts path="r/:category" />
-          <Comments path="r/:category/:postID/comments" />
-          <AllPosts path="/" />
-        </Home>
-      </Router>
+      <UserContext.Provider value={providerValue}>
+        <Header />
+        <Router>
+          <Profile path="profile/:userID">
+            <AllPosts path="profile/:userID/posts" />
+            <Comments path="profile/:userID/comments" />
+            <AllPosts path="/" />
+          </Profile>
+          <CreatePostPage path="submit" />
+          <LoginPage path="login" />
+          <Signup path="signup" />
+          <Home path="/">
+            <CategoryPosts path="r/:category" />
+            <Comments path="r/:category/:postID/comments" />
+            <AllPosts path="/" />
+          </Home>
+        </Router>
+      </UserContext.Provider>
     </AppContainer>
   )
 }

@@ -3,6 +3,7 @@ import { TokenRefreshLink } from 'apollo-link-token-refresh'
 import { WebSocketLink } from '@apollo/link-ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import jwtDecode from 'jwt-decode'
+import apolloLogger from 'apollo-link-logger'
 import { onError } from 'apollo-link-error'
 import {
   ApolloClient,
@@ -16,10 +17,9 @@ import {
 import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 
-const cache = new InMemoryCache({})
-
 const httpLink = new HttpLink({
-  uri: `http://localhost:4000/graphql`
+  uri: `http://localhost:4000/graphql`,
+  credentials: 'include'
 })
 
 const wsLink = new WebSocketLink({
@@ -28,6 +28,36 @@ const wsLink = new WebSocketLink({
     reconnect: true
   }
 })
+
+const requestLink = new ApolloLink(
+  (operation, forward) =>
+    new Observable(observer => {
+      let handle
+      Promise.resolve(operation)
+        .then(operation => {
+          const accessToken = getAccessToken()
+          if (accessToken) {
+            operation.setContext({
+              headers: {
+                authorization: `bearer ${accessToken}`
+              }
+            })
+          }
+        })
+        .then(() => {
+          handle = forward(operation).subscribe({
+            next: observer.next.bind(observer),
+            error: observer.error.bind(observer),
+            complete: observer.complete.bind(observer)
+          })
+        })
+        .catch(observer.error.bind(observer))
+
+      return () => {
+        if (handle) handle.unsubscribe()
+      }
+    })
+)
 
 const refreshLink = new TokenRefreshLink({
   accessTokenField: 'accessToken',
@@ -64,80 +94,23 @@ const refreshLink = new TokenRefreshLink({
   }
 })
 
-const requestLink = new ApolloLink(
-  (operation, forward) =>
-    new Observable(observer => {
-      let handle: any
-      Promise.resolve(operation)
-        .then(operation => {
-          const accessToken = getAccessToken()
-          if (accessToken) {
-            operation.setContext({
-              headers: {
-                authorization: `bearer ${accessToken}`
-              }
-            })
-          }
-        })
-        .then(() => {
-          handle = forward(operation).subscribe({
-            next: observer.next.bind(observer),
-            error: observer.error.bind(observer),
-            complete: observer.complete.bind(observer)
-          })
-        })
-        .catch(observer.error.bind(observer))
+const link = ApolloLink.from([apolloLogger, refreshLink, requestLink, httpLink])
 
-      return () => {
-        if (handle) handle.unsubscribe()
-      }
-    })
-)
-
-const httpRefresh = ApolloLink.from([
-  onError(({ graphQLErrors, networkError, operation, forward }) => {
-    if (graphQLErrors) {
-      graphQLErrors.map(({ message, locations, path }) =>
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
-      )
-      for (let err of graphQLErrors) {
-        switch (err.extensions.code) {
-          case 'UNAUTHENTICATED':
-            const oldHeaders = operation.getContext().headers
-            operation.setContext({
-              headers: {
-                ...oldHeaders,
-                authorization: getAccessToken()
-              }
-            })
-        }
-      }
-    }
-    if (networkError)
-      console.error(`[Network error]: ${networkError}`, networkError.stack)
-  }),
-  refreshLink,
-  requestLink,
-  httpLink
-])
-
-const link = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query)
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    )
-  },
-  httpRefresh,
-  wsLink
-)
+// const link = split(
+//   ({ query }) => {
+//     const definition = getMainDefinition(query)
+//     return (
+//       definition.kind === 'OperationDefinition' &&
+//       definition.operation === 'subscription'
+//     )
+//   },
+//   httpRefresh,
+//   wsLink
+// )
 
 const client = new ApolloClient({
-  link: split,
-  cache
+  cache: new InMemoryCache(),
+  link
 })
 
 const RedditApp = () => (
