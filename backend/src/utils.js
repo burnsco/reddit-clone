@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 import { AuthenticationError } from 'apollo-server-express'
 
-export const getUser = req => {
-  let authorization = req.req.headers.authorization
+export const getUser = ({ req }) => {
+  let authorization = req.headers.authorization
 
   if (authorization) {
     try {
@@ -20,7 +20,7 @@ export const getUser = req => {
 
 export const createAccessToken = user => {
   return jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
-    expiresIn: '300m'
+    expiresIn: '15m'
   })
 }
 

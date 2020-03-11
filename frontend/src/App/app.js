@@ -9,7 +9,7 @@ const AuthenticatedApp = React.lazy(loadAuthenticatedApp)
 const UnauthenticatedApp = React.lazy(() => import('./unAuthenticatedApp'))
 
 function App(props) {
-  const user = useUser()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch('http://localhost:4000/refresh_token', {
@@ -18,6 +18,7 @@ function App(props) {
     }).then(async x => {
       const data = await x.json()
       console.log(data)
+      setAccessToken(data.accessToken)
     })
   }, [])
 
@@ -27,7 +28,7 @@ function App(props) {
 
   return (
     <React.Suspense fallback={<MainSpinner />}>
-      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {loading ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </React.Suspense>
   )
 }

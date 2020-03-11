@@ -41,6 +41,7 @@ const Mutation = {
     }
 
     const password = await bcrypt.hash(data.password, 8)
+
     const user = await db.mutation.createUser({
       data: {
         username: data.username,

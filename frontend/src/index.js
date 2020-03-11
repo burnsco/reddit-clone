@@ -14,9 +14,4 @@ const App = () => (
     </ColorModeProvider>
   </ThemeProvider>
 )
-render(
-  <AppProviders>
-    <App />
-  </AppProviders>,
-  document.getElementById('root')
-)
+render(<App />, document.getElementById('root'))

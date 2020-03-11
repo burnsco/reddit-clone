@@ -6,7 +6,12 @@ import { makeExecutableSchema } from 'graphql-tools'
 import typeDefs from './typedefs/index'
 import db from './context/index'
 import resolvers from './resolvers/root'
-import { getUser, createAccessToken } from './utils'
+import {
+  getUser,
+  createAccessToken,
+  sendRefreshToken,
+  createRefreshToken
+} from './utils'
 import { applyMiddleware } from 'graphql-middleware'
 import cookieParser from 'cookie-parser'
 require('dotenv').config()
@@ -21,8 +26,6 @@ app.use(cors(corsOptions))
 app.use(cookieParser())
 
 app.post('/refresh_token', async (req, res) => {
-  console.log('request')
-  console.log(req.cookies)
   const token = req.cookies.redt
 
   if (!token) {
@@ -70,7 +73,7 @@ const server = new ApolloServer({
     ...req,
     ...res,
     pubsub,
-    user: getUser(req),
+    user: await getUser(req),
     db
   })
 })

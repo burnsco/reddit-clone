@@ -10,12 +10,9 @@ import {
   HeaderLink
 } from './styles'
 import Logo from '../../assets/logoWithTitle.png'
-import { UserContext } from '../../context/user-context'
-import { SignOutUser } from '../../utils/signout'
 import { CURRENT_USER } from './query'
 
 const Header = () => {
-  const { user, setUser } = useContext(UserContext)
   const { loading, error, data } = useQuery(CURRENT_USER)
   const [colorMode, setColorMode] = useColorMode()
 
@@ -49,15 +46,11 @@ const Header = () => {
 
           <HeaderLink>
             <Link to="/profile">
-              <pre>{user || 'void'}</pre>
+              <pre>{'void'}</pre>
             </Link>
           </HeaderLink>
 
-          <HeaderLink
-            onClick={() => SignOutUser()}
-            as="div"
-            style={{ background: 'white' }}
-          >
+          <HeaderLink as="div" style={{ background: 'white' }}>
             <pre>SignOut</pre>
           </HeaderLink>
 
