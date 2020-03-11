@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
 import { Link } from '@reach/router'
 import { useColorMode } from '@xstyled/styled-components'
@@ -11,11 +11,18 @@ import {
 } from './styles'
 import Logo from '../../assets/logoWithTitle.png'
 import { CURRENT_USER } from './query'
+import MainSpinner from '../shared/FallBackSpinner'
 
 const Header = () => {
   const { loading, error, data } = useQuery(CURRENT_USER)
   const [colorMode, setColorMode] = useColorMode()
 
+  if (loading) return <MainSpinner />
+  if (error) return <div>error</div>
+
+  const { username } = data.currentUser
+
+  console.log(data)
   return (
     <HeaderContainer>
       <HeaderNavWrapper>
@@ -46,7 +53,7 @@ const Header = () => {
 
           <HeaderLink>
             <Link to="/profile">
-              <pre>{'void'}</pre>
+              <pre>{username}</pre>
             </Link>
           </HeaderLink>
 

@@ -15,6 +15,7 @@ const typeDefs = gql`
   type Mutation {
     createUser(data: CreateUserInput!): CreateUserMutationResponse!
     loginUser(data: LoginUserInput!): LoginUserMutationResponse!
+    logoutUser: LogoutUserMutationResponse!
     createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
     createPost(data: CreatePostInput): CreatePostMutationResponse!
     createComment(data: CreateCommentInput): CreateCommentMutationResponse!
@@ -121,6 +122,12 @@ const typeDefs = gql`
     message: String!
     accessToken: String
     user: User
+  }
+
+  type LogoutUserMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
   }
 
   type CreateUserMutationResponse implements MutationResponse {

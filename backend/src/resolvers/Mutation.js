@@ -5,9 +5,23 @@ import {
 } from '../constants'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import { getUserID, createAccessToken, createRefreshToken } from '../utils'
+import {
+  getUserID,
+  createAccessToken,
+  createRefreshToken,
+  sendRefreshToken
+} from '../utils'
 
 const Mutation = {
+  async logoutUser(root, args, context, info) {
+    sendRefreshToken(res, '')
+    return {
+      code: '200',
+      success: true,
+      message: 'You have been logged out'
+    }
+  },
+
   async createCategory(root, { data }, { db }) {
     const categoryExists = await db.exists.Category({ name: data.name })
 

@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { navigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
-import { UserContext } from '../../context/user-context'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {

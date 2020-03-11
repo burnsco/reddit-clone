@@ -1,15 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react'
-import { useUser } from '../context/user-context'
+import React, { useEffect, useState } from 'react'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import { setAccessToken } from '../context/access-token'
-import { UserContext } from '../context/user-context'
 
 const loadAuthenticatedApp = () => import('./authenticatedApp')
 const AuthenticatedApp = React.lazy(loadAuthenticatedApp)
 const UnauthenticatedApp = React.lazy(() => import('./unAuthenticatedApp'))
 
 function App(props) {
-  const [loading, setLoading] = useState(true)
+  const [isAuth, setIsAuth] = useState(false)
 
   useEffect(() => {
     fetch('http://localhost:4000/refresh_token', {
@@ -17,8 +15,10 @@ function App(props) {
       credentials: 'include'
     }).then(async x => {
       const data = await x.json()
-      console.log(data)
-      setAccessToken(data.accessToken)
+      if (data.accessToken) {
+        setAccessToken(data.accessToken)
+        setIsAuth(true)
+      }
     })
   }, [])
 
@@ -28,7 +28,7 @@ function App(props) {
 
   return (
     <React.Suspense fallback={<MainSpinner />}>
-      {loading ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {isAuth ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </React.Suspense>
   )
 }
