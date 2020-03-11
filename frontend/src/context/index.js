@@ -1,5 +1,5 @@
 import React from 'react'
-import { AuthProvider } from './auth-context'
+import { AuthProvider } from './auth-context.js'
 import { UserProvider } from './user-context'
 
 function AppProviders({ children }) {
