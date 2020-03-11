@@ -10,23 +10,15 @@ import {
   HeaderLink
 } from './styles'
 import Logo from '../../assets/logoWithTitle.png'
-import { CURRENT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
 import { LOGOUT_USER } from '../CreateComment/query'
-import { setAccessToken } from '../../context/access-token'
+import { useUser } from '../../context/user-context'
 
 const Header = () => {
-  const { loading, error, data } = useQuery(CURRENT_USER)
+  const user = useUser()
   const [logoutUser] = useMutation(LOGOUT_USER)
-
   const [colorMode, setColorMode] = useColorMode()
 
-  if (loading) return <MainSpinner />
-  if (error) return <div>error</div>
-
-  const { username } = data.currentUser
-
-  console.log(data)
   return (
     <HeaderContainer>
       <HeaderNavWrapper>
@@ -45,7 +37,7 @@ const Header = () => {
 
           <HeaderLink>
             <Link to="/profile">
-              <pre>{username}</pre>
+              <pre>{user.username}</pre>
             </Link>
           </HeaderLink>
 
@@ -53,7 +45,6 @@ const Header = () => {
             as="button"
             onClick={async () => {
               await logoutUser()
-              setAccessToken('')
             }}
           >
             <pre>Logout</pre>

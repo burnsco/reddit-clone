@@ -7,19 +7,18 @@ const AuthContext = createContext()
 
 function AuthProvider(props) {
   const [user, setUser] = useState(null)
-
   const { loading, error, data } = useQuery(CURRENT_USER)
 
   if (loading) return <MainSpinner />
+
   if (error) {
-    console.log(error)
+    console.log(`auth provider error ==> ${error.message}`)
   }
   if (data !== undefined) {
-    const { username } = data.currentUser
-    setUser(data.currentUser)
+    setUser(true)
   }
 
-  return <AuthContext.Provider value={user} {...props} />
+  return <AuthContext.Provider value={{ user, setUser }} {...props} />
 }
 
 function useAuth() {

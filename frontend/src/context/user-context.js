@@ -4,19 +4,20 @@ import { useAuth } from './auth-context'
 const UserContext = createContext()
 
 function UserProvider(props) {
-  const user = useAuth()
-
-  return <UserContext.Provider value={user} {...props} />
+  const [user, setUser] = useState({ username: null, email: null, id: null })
+  console.log('user ==>')
+  console.log(user)
+  return <UserContext.Provider value={{ user, setUser }} {...props} />
 }
 
 function useUser() {
-  const context = React.useContext(UserContext)
+  const { user } = useContext(UserContext)
 
-  if (context === undefined) {
+  if (user === undefined) {
     throw new Error(`useUser must be used within a UserProvider`)
   }
 
-  return context
+  return user
 }
 
 export { UserProvider, useUser, UserContext }
