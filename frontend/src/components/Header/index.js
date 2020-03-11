@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { Link } from '@reach/router'
 import { useColorMode } from '@xstyled/styled-components'
 import {
@@ -12,9 +12,13 @@ import {
 import Logo from '../../assets/logoWithTitle.png'
 import { CURRENT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
+import { LOGOUT_USER } from '../CreateComment/query'
+import { setAccessToken } from '../../context/access-token'
 
 const Header = () => {
   const { loading, error, data } = useQuery(CURRENT_USER)
+  const [logoutUser] = useMutation(LOGOUT_USER)
+
   const [colorMode, setColorMode] = useColorMode()
 
   if (loading) return <MainSpinner />
@@ -40,25 +44,19 @@ const Header = () => {
           </HeaderLink>
 
           <HeaderLink>
-            <Link to="/login">
-              <h5>Login</h5>
-            </Link>
-          </HeaderLink>
-
-          <HeaderLink>
-            <Link to="/signup">
-              <h5>Signup</h5>
-            </Link>
-          </HeaderLink>
-
-          <HeaderLink>
             <Link to="/profile">
               <pre>{username}</pre>
             </Link>
           </HeaderLink>
 
-          <HeaderLink as="div" style={{ background: 'white' }}>
-            <pre>SignOut</pre>
+          <HeaderLink
+            as="button"
+            onClick={async () => {
+              await logoutUser()
+              setAccessToken('')
+            }}
+          >
+            <pre>Logout</pre>
           </HeaderLink>
 
           <HeaderLink

@@ -4,7 +4,6 @@ import { ThemeProvider, ColorModeProvider } from '@xstyled/styled-components'
 import RedditApp from './Apollo'
 import theme from './styles/theme'
 import { GlobalStyle } from './styles/GlobalStyle'
-import AppProviders from './context'
 
 const App = () => (
   <ThemeProvider theme={theme}>

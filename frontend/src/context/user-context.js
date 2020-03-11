@@ -1,14 +1,23 @@
 import React, { createContext, useContext, useState } from 'react'
+import { useAuth } from './auth-context'
 
-const UserContext = createContext(null)
+const UserContext = createContext()
 
 function UserProvider(props) {
-  const [user, setUser] = useState(null)
-  return <UserContext.Provider data={user} {...props} />
+  const {
+    data: { user }
+  } = useAuth()
+
+  return <UserContext.Provider value={user} {...props} />
 }
 
 function useUser() {
-  const context = useContext(UserContext)
+  const context = React.useContext(UserContext)
+
+  if (context === undefined) {
+    throw new Error(`useUser must be used within a UserProvider`)
+  }
+
   return context
 }
 

@@ -20,7 +20,7 @@ export const getUser = ({ req }) => {
 
 export const createAccessToken = user => {
   return jwt.sign({ userID: user.id }, process.env.JWT_SECRET, {
-    expiresIn: '15m'
+    expiresIn: '300m'
   })
 }
 

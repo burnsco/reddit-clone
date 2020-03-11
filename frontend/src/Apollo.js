@@ -14,6 +14,7 @@ import {
 import App from './App/app'
 
 import { getAccessToken, setAccessToken } from './context/access-token'
+import AppProviders from './context'
 
 const cache = new InMemoryCache({})
 
@@ -102,7 +103,9 @@ const client = new ApolloClient({
 
 const RedditApp = () => (
   <ApolloProvider client={client}>
-    <App />
+    <AppProviders>
+      <App />
+    </AppProviders>
   </ApolloProvider>
 )
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Upvote, Downvote, Votes } from './styles'
+import { Container, Votes } from './styles'
 import styled from '@xstyled/styled-components'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 

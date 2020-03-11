@@ -1,14 +1,15 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
-const AuthContext = createContext(null)
+const AuthContext = createContext()
 
 function AuthProvider(props) {
   return <AuthContext.Provider {...props} />
 }
 
-function useAuth() {
-  const context = useContext(AuthContext)
-  return context
+function useAuth(props) {
+  const [user, setUser] = useState(null)
+
+  return user
 }
 
-export { AuthProvider, useAuth, AuthContext }
+export { AuthProvider, AuthContext, useAuth }

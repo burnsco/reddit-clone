@@ -13,13 +13,9 @@ import {
 } from '../utils'
 
 const Mutation = {
-  async logoutUser(root, args, context, info) {
-    sendRefreshToken(res, '')
-    return {
-      code: '200',
-      success: true,
-      message: 'You have been logged out'
-    }
+  async logoutUser(root, args, { res }) {
+    res.clearCookie
+    return true
   },
 
   async createCategory(root, { data }, { db }) {
