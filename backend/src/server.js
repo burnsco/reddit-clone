@@ -21,6 +21,8 @@ app.use(cors(corsOptions))
 app.use(cookieParser())
 
 app.post('/refresh_token', async (req, res) => {
+  console.log('request')
+  console.log(req.cookies)
   const token = req.cookies.redt
 
   if (!token) {
@@ -45,10 +47,7 @@ app.post('/refresh_token', async (req, res) => {
   if (!user) {
     return res.send({ ok: false, accessToken: '' })
   }
-  res.cookie('redt', token, {
-    httpOnly: true,
-    path: '/refresh_token'
-  })
+  sendRefreshToken(res, createRefreshToken(user))
 
   return res.send({ ok: true, accessToken: createAccessToken(user) })
 })

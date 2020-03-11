@@ -26,9 +26,7 @@ const LOGIN_MUTATION = gql`
 function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [checking, setChecking] = useState(false)
   const [result, setResult] = useState('')
-  const { user, setUser } = useContext(UserContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password }
@@ -42,10 +40,9 @@ function LoginPage() {
 
     try {
       const result = await loginUser()
-
+      console.log(result)
       const { message, accessToken, user, code } = result.data.loginUser
-      const { email, id, username } = user
-      setUser(username)
+
       setResult(message)
 
       if (code === '200') {

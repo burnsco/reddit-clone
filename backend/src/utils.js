@@ -29,3 +29,10 @@ export const createRefreshToken = user => {
     expiresIn: '21d'
   })
 }
+
+export const sendRefreshToken = (res, token) => {
+  res.cookie('rdt', token, {
+    httpOnly: true,
+    path: '/refresh_token'
+  })
+}
