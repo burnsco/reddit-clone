@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { AuthenticationError } from 'apollo-server-express'
 
-export const getUser = ({ req }) => {
+export const getUser = req => {
   let authorization = req.headers.authorization
 
   if (authorization) {
@@ -29,9 +29,8 @@ export const createRefreshToken = user => {
     expiresIn: '21d'
   })
 }
-
 export const sendRefreshToken = (res, token) => {
-  res.cookie('rdt', token, {
+  res.cookie('jid', token, {
     httpOnly: true,
     path: '/refresh_token'
   })

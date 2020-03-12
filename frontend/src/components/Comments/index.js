@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import Spinner from '../shared/FallBackSpinner'
 import { PostListContainer } from '../PostList/styles'

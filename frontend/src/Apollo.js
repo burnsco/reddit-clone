@@ -1,25 +1,27 @@
 import React from 'react'
 import { TokenRefreshLink } from 'apollo-link-token-refresh'
+import { WebSocketLink } from '@apollo/link-ws'
+import { getMainDefinition } from '@apollo/client/utilities'
 import jwtDecode from 'jwt-decode'
-import { onError } from 'apollo-link-error'
+import { onError } from '@apollo/link-error'
 import {
   ApolloClient,
   ApolloLink,
   HttpLink,
   InMemoryCache,
   Observable,
-  ApolloProvider
+  ApolloProvider,
+  split
 } from '@apollo/client'
-import AppProviders from './context'
-import App from './App/app'
+import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 
-const cache = new InMemoryCache({})
+const cache = new InMemoryCache()
 
 const requestLink = new ApolloLink(
   (operation, forward) =>
     new Observable(observer => {
-      let handle: any
+      let handle
       Promise.resolve(operation)
         .then(operation => {
           const accessToken = getAccessToken()
@@ -48,6 +50,15 @@ const requestLink = new ApolloLink(
 
 const client = new ApolloClient({
   link: ApolloLink.from([
+    onError(({ graphQLErrors, networkError }) => {
+      if (graphQLErrors)
+        graphQLErrors.map(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          )
+        )
+      if (networkError) console.log(`[Network error]: ${networkError}`)
+    }),
     new TokenRefreshLink({
       accessTokenField: 'accessToken',
       isTokenValidOrUndefined: () => {
@@ -82,18 +93,11 @@ const client = new ApolloClient({
         console.error(err)
       }
     }),
-    onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors) {
-        console.log(graphQLErrors)
-      }
-      if (networkError) {
-        console.log(networkError)
-      }
-    }),
+
     requestLink,
     new HttpLink({
-      uri: 'http://localhost:4000/',
-      credentials: 'same-origin'
+      uri: 'http://localhost:4000/graphql',
+      credentials: 'include'
     })
   ]),
   cache
@@ -101,9 +105,7 @@ const client = new ApolloClient({
 
 const RedditApp = () => (
   <ApolloProvider client={client}>
-    <AppProviders>
-      <App />
-    </AppProviders>
+    <App />
   </ApolloProvider>
 )
 

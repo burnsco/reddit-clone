@@ -5,7 +5,6 @@ import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { navigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
-import { UserContext } from '../../context/user-context'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -26,8 +25,8 @@ const LOGIN_MUTATION = gql`
 function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [checking, setChecking] = useState(false)
   const [result, setResult] = useState('')
-  const { user, setUser } = useContext(UserContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password }
@@ -37,10 +36,7 @@ function LoginPage() {
     event.preventDefault()
 
     if (loading) return <div>Loading</div>
-    if (error) {
-      console.log('login page error ==>')
-      console.log(error)
-    }
+    if (error) return <div>error!</div>
 
     try {
       const result = await loginUser()
@@ -50,10 +46,7 @@ function LoginPage() {
       setResult(message)
 
       if (code === '200') {
-        const { id, email, username } = user
-        console.log(`id = ${id} email = ${email} username=${username}`)
         setAccessToken(accessToken)
-        setUser({ id, username, email })
         navigate('/r/all')
       }
       return result

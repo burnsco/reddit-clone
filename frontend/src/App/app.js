@@ -1,21 +1,21 @@
-import React, { useEffect, useState, lazy } from 'react'
-import MainSpinner from '../components/shared/FallBackSpinner'
-import { setAccessToken } from '../context/access-token'
-import { CURRENT_USER } from '../components/Header/query'
-import { useQuery } from '@apollo/client'
+import React from 'react'
 import { useUser } from '../context/user-context'
+import MainSpinner from '../components/shared/FallBackSpinner'
 
-const AuthenticatedApp = lazy(() => import('./authenticatedApp'))
-const UnauthenticatedApp = lazy(() => import('./unAuthenticatedApp'))
+const loadAuthenticatedApp = () => import('./authenticatedApp')
+const AuthenticatedApp = React.lazy(loadAuthenticatedApp)
+const UnauthenticatedApp = React.lazy(() => import('./unAuthenticatedApp'))
 
-function App(props) {
+function App() {
   const user = useUser()
+
+  React.useEffect(() => {
+    loadAuthenticatedApp()
+  }, [])
 
   return (
     <React.Suspense fallback={<MainSpinner />}>
-      {user.username ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </React.Suspense>
   )
 }
-
-export default App

@@ -13,11 +13,11 @@ import {
 } from '../utils'
 
 const Mutation = {
-  async logoutUser(root, args, { res }) {
-    res.clearCookie
+  async logout(root, args, { res }) {
+    await sendRefreshToken(res, '')
+    await res.clearCookies
     return true
   },
-
   async createCategory(root, { data }, { db }) {
     const categoryExists = await db.exists.Category({ name: data.name })
 
@@ -51,7 +51,6 @@ const Mutation = {
     }
 
     const password = await bcrypt.hash(data.password, 8)
-
     const user = await db.mutation.createUser({
       data: {
         username: data.username,

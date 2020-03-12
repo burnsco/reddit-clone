@@ -8,8 +8,9 @@ import {
   HeaderLink
 } from './styles'
 import Logo from '../../assets/logoWithTitle.png'
+import { UserContext } from '../../context/user-context'
 
-const Header = () => {
+const NoAuthHeader = () => {
   return (
     <HeaderContainer>
       <HeaderNavWrapper>
@@ -37,4 +38,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default NoAuthHeader

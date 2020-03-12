@@ -5,7 +5,6 @@ import { AppContainer } from './styles'
 import Home from '../pages/Home'
 import Profile from '../pages/Profile'
 import LoginPage from '../pages/Login'
-import jwtDecode from 'jwt-decode'
 import Signup from '../pages/Signup'
 import CategoryPosts from '../components/PostList/CategoryPosts'
 import AllPosts from '../components/PostList/AllPosts'
@@ -16,7 +15,7 @@ import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(localStorage.getItem('user'))
   const [loading, setLoading] = useState(true)
   const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
@@ -36,24 +35,22 @@ const App = () => {
 
   return (
     <AppContainer>
-      <UserContext.Provider value={providerValue}>
-        <Header />
-        <Router>
-          <Profile path="profile/:userID">
-            <AllPosts path="profile/:userID/posts" />
-            <Comments path="profile/:userID/comments" />
-            <AllPosts path="/" />
-          </Profile>
-          <CreatePostPage path="submit" />
-          <LoginPage path="login" />
-          <Signup path="signup" />
-          <Home path="/">
-            <CategoryPosts path="r/:category" />
-            <Comments path="r/:category/:postID/comments" />
-            <AllPosts path="/" />
-          </Home>
-        </Router>
-      </UserContext.Provider>
+      <Header />
+      <Router>
+        <Profile path="profile/:userID">
+          <AllPosts path="profile/:userID/posts" />
+          <Comments path="profile/:userID/comments" />
+          <AllPosts path="/" />
+        </Profile>
+        <CreatePostPage path="submit" />
+        <LoginPage path="login" />
+        <Signup path="signup" />
+        <Home path="/">
+          <CategoryPosts path="r/:category" />
+          <Comments path="r/:category/:postID/comments" />
+          <AllPosts path="/" />
+        </Home>
+      </Router>
     </AppContainer>
   )
 }

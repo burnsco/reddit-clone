@@ -12,6 +12,7 @@
     "deploy": "prisma deploy --env-file .env"
   },
   "dependencies": {
+    "@apollo/link-error": "^2.0.0-beta.3",
     "apollo-server-express": "^2.11.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.4",
@@ -20,7 +21,9 @@
     "graphql": "^14.6.0",
     "graphql-middleware": "^4.0.2",
     "graphql-tools": "^4.0.7",
+    "http": "^0.0.0",
     "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
     "nodemailer": "^6.4.4",
     "npm-run-all": "^4.1.5",
     "prisma-binding": "^2.3.16"

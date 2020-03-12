@@ -1,33 +1,9 @@
 const Subscription = {
-  post: {
-    subscribe(root, args, { db }, info) {
-      return db.subscription.post(
-        {
-          where: {
-            node: {
-              post: {
-                id: args.postID
-              }
-            }
-          }
-        },
-        info
-      )
-    },
+  post: async (root, args, { db }, info) =>
+    await db.subscription.post(null, info),
 
-    comment: {
-      subscribe(root, args, { db }, info) {
-        return db.subscription.comment({
-          where: {
-            node: {
-              post: {
-                id: args.postID
-              }
-            }
-          }
-        })
-      }
-    }
-  }
+  comment: async (root, { postID }, { db }, info) =>
+    await db.subscription.comment(null, info)
 }
+
 export { Subscription as default }
