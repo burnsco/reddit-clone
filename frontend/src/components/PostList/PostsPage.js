@@ -4,13 +4,25 @@ import Post from '../Post'
 import MainSpinner from '../shared/FallBackSpinner'
 
 function PostsPage(data) {
-  console.log('posts page data')
-
-  console.log(data)
-
   useEffect(() => {
     data.subscribeToNewPosts()
-  }, [])
+  }, [data])
+
+  if (data.category) {
+    let { posts } = { ...data }
+    const filtered = posts.filter(post => post.category.name === data.category)
+
+    if (filtered.length < 1) {
+      return <div>No Posts Here</div>
+    }
+    return (
+      <PostListContainer>
+        {filtered.map(post => (
+          <Post key={post.id} post={post} />
+        ))}
+      </PostListContainer>
+    )
+  }
 
   return (
     <PostListContainer>

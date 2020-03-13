@@ -5,18 +5,19 @@ import { gql, useQuery, updateQuery } from '@apollo/client'
 import { POSTS_SUBSCRIPTION } from './subscription'
 import MainSpinner from '../shared/FallBackSpinner'
 
-function PostsPageWithData() {
+function PostsPageWithData({ category }) {
   const { subscribeToMore, data, loading, error } = useQuery(POSTS_QUERY)
 
-  console.log('parent post page data')
-
-  console.log(data)
-
   if (loading) return <MainSpinner />
+  if (error) {
+    console.log(error)
+    return <div>Error, please return to main page</div>
+  }
 
   return (
     <PostsPage
       {...data}
+      category={category}
       subscribeToNewPosts={() =>
         subscribeToMore({
           document: POSTS_SUBSCRIPTION,
