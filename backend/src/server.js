@@ -68,15 +68,26 @@ const schema = applyMiddleware(
   })
 )
 
+const pubsub = new PubSub()
+
 const server = new ApolloServer({
   schema,
-  context: async ({ req, res }) => ({
-    ...req,
-    res,
-    user: await getUser(req),
-    db
-  }),
+  context: async ({ req, res, connection }) => {
+    if (connection) {
+      return {
+        ...connection.context,
+        db
+      }
+    }
 
+    return {
+      ...req,
+      ...res,
+      pubsub,
+      user: await getUser(req),
+      db
+    }
+  },
   subscriptions: {
     path: '/subscriptions',
     onConnect: async (connectionParams, webSocket, context) => {

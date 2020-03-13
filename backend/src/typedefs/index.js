@@ -4,9 +4,21 @@ const typeDefs = gql`
   type Query {
     currentUser: User!
     categories(query: String): [Category!]!
-    posts(query: String, first: Int, skip: Int, after: String): [Post!]!
+    posts(
+      query: String
+      first: Int
+      skip: Int
+      after: String
+      orderBy: PostOrderByInput
+    ): [Post!]!
     morePosts(query: String, first: Int, skip: Int, after: String): [Post!]!
-    comments(query: String, first: Int, skip: Int, after: String): [Comment!]!
+    comments(
+      query: String
+      first: Int
+      skip: Int
+      after: String
+      orderBy: CommentOrderByInput
+    ): [Comment!]!
     users(query: String, first: Int, skip: Int, after: String): [User!]!
     post(postID: ID!): Post!
     node(id: ID!): Node
@@ -14,6 +26,7 @@ const typeDefs = gql`
 
   type Mutation {
     logout: Boolean!
+    vote(postID: ID!, upVote: Boolean!, downVote: Boolean!): Vote
     createUser(data: CreateUserInput!): CreateUserMutationResponse!
     loginUser(data: LoginUserInput!): LoginUserMutationResponse!
     createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
@@ -51,6 +64,7 @@ const typeDefs = gql`
     text: String
     author: User!
     comments: [Comment!]!
+    votes: [Vote!]!
   }
 
   type User implements Node {
@@ -62,6 +76,15 @@ const typeDefs = gql`
     password: String!
     posts: [Post!]!
     comments: [Comment!]!
+    votes: [Vote!]!
+  }
+
+  type Vote implements Node {
+    id: ID!
+    post: Post!
+    user: User!
+    upVote: Boolean!
+    downVote: Boolean!
   }
 
   type Comment implements Node {
@@ -202,18 +225,50 @@ const typeDefs = gql`
   }
 
   type PostSubscriptionPayload {
-    mutation: MutationType!
+    mutation: MutationType
     node: Post
   }
 
   type CommentSubscriptionPayload {
-    mutation: MutationType!
+    mutation: MutationType
     node: Comment
   }
 
+  type VoteSubscriptionPayload {
+    mutation: MutationType
+    node: Vote
+  }
+
   type Subscription {
-    post: PostSubscriptionPayload!
-    comment(postID: ID!): CommentSubscriptionPayload!
+    post: PostSubscriptionPayload
+    comment: CommentSubscriptionPayload
+    vote: VoteSubscriptionPayload
+  }
+
+  enum PostOrderByInput {
+    id_ASC
+    id_DESC
+    description_ASC
+    description_DESC
+    url_ASC
+    url_DESC
+    updatedAt_ASC
+    updatedAt_DESC
+    createdAt_ASC
+    createdAt_DESC
+  }
+
+  enum CommentOrderByInput {
+    id_ASC
+    id_DESC
+    description_ASC
+    description_DESC
+    url_ASC
+    url_DESC
+    updatedAt_ASC
+    updatedAt_DESC
+    createdAt_ASC
+    createdAt_DESC
   }
 
   enum Role {
@@ -226,6 +281,8 @@ const typeDefs = gql`
     CREATED
     UPDATED
     DELETED
+    UPVOTE
+    DOWNVOTE
   }
 `
 export { typeDefs as default }

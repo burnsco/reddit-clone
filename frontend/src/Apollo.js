@@ -3,6 +3,7 @@ import { TokenRefreshLink } from 'apollo-link-token-refresh'
 import { WebSocketLink } from '@apollo/link-ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import jwtDecode from 'jwt-decode'
+import apolloLogger from 'apollo-link-logger'
 import { onError } from '@apollo/link-error'
 import {
   ApolloClient,
@@ -17,6 +18,18 @@ import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 
 const cache = new InMemoryCache()
+
+const httpLink = new HttpLink({
+  uri: 'http://localhost:4000/graphql',
+  credentials: 'include'
+})
+
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:4000/subscriptions`,
+  options: {
+    reconnect: true
+  }
+})
 
 const requestLink = new ApolloLink(
   (operation, forward) =>
@@ -48,6 +61,53 @@ const requestLink = new ApolloLink(
     })
 )
 
+const refreshLink = new TokenRefreshLink({
+  accessTokenField: 'accessToken',
+  isTokenValidOrUndefined: () => {
+    const token = getAccessToken()
+
+    if (!token) {
+      return true
+    }
+
+    try {
+      const { exp } = jwtDecode(token)
+      if (Date.now() >= exp * 1000) {
+        return false
+      } else {
+        return true
+      }
+    } catch {
+      return false
+    }
+  },
+  fetchAccessToken: () => {
+    return fetch('http://localhost:4000/refresh_token', {
+      method: 'POST',
+      credentials: 'include'
+    })
+  },
+  handleFetch: accessToken => {
+    setAccessToken(accessToken)
+  },
+  handleError: err => {
+    console.warn('Your refresh token is invalid. Try to relogin')
+    console.error(err)
+  }
+})
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query)
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    )
+  },
+  wsLink,
+  httpLink
+)
+
 const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
@@ -59,46 +119,10 @@ const client = new ApolloClient({
         )
       if (networkError) console.log(`[Network error]: ${networkError}`)
     }),
-    new TokenRefreshLink({
-      accessTokenField: 'accessToken',
-      isTokenValidOrUndefined: () => {
-        const token = getAccessToken()
-
-        if (!token) {
-          return true
-        }
-
-        try {
-          const { exp } = jwtDecode(token)
-          if (Date.now() >= exp * 1000) {
-            return false
-          } else {
-            return true
-          }
-        } catch {
-          return false
-        }
-      },
-      fetchAccessToken: () => {
-        return fetch('http://localhost:4000/refresh_token', {
-          method: 'POST',
-          credentials: 'include'
-        })
-      },
-      handleFetch: accessToken => {
-        setAccessToken(accessToken)
-      },
-      handleError: err => {
-        console.warn('Your refresh token is invalid. Try to relogin')
-        console.error(err)
-      }
-    }),
-
+    apolloLogger,
+    refreshLink,
     requestLink,
-    new HttpLink({
-      uri: 'http://localhost:4000/graphql',
-      credentials: 'include'
-    })
+    splitLink
   ]),
   cache
 })

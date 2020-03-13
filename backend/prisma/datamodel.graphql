@@ -7,6 +7,7 @@ type User {
   username: String!
   posts: [Post!]!
   comments: [Comment!]!
+  votes: [Vote!]!
 }
 
 type Category {
@@ -24,6 +25,7 @@ type Post {
   text: String
   author: User!
   comments: [Comment!]!
+  votes: [Vote!]!
 }
 type Comment {
   id: ID! @id
@@ -32,4 +34,12 @@ type Comment {
   body: String!
   author: User!
   post: Post!
+}
+
+type Vote {
+  id: ID! @id
+  post: Post!
+  user: User!
+  upVote: Boolean!
+  downVote: Boolean!
 }

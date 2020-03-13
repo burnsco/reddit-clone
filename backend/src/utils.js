@@ -35,3 +35,15 @@ export const sendRefreshToken = (res, token) => {
     path: '/refresh_token'
   })
 }
+
+export const validateToken = authToken => {
+  let user = jwt.verify(authToken, process.env.JWT_SECRET)
+  return user
+}
+
+export const findUser = authToken => {
+  return tokenValidationResult => {
+    let user = jwt.verify(authToken, process.env.JWT_SECRET)
+    return user
+  }
+}

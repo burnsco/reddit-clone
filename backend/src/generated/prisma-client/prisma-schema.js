@@ -19,6 +19,10 @@ type AggregateUser {
   count: Int!
 }
 
+type AggregateVote {
+  count: Int!
+}
+
 type BatchPayload {
   count: Long!
 }
@@ -447,6 +451,12 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createVote(data: VoteCreateInput!): Vote!
+  updateVote(data: VoteUpdateInput!, where: VoteWhereUniqueInput!): Vote
+  updateManyVotes(data: VoteUpdateManyMutationInput!, where: VoteWhereInput): BatchPayload!
+  upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
+  deleteVote(where: VoteWhereUniqueInput!): Vote
+  deleteManyVotes(where: VoteWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -475,6 +485,7 @@ type Post {
   text: String
   author: User!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
 type PostConnection {
@@ -490,6 +501,7 @@ input PostCreateInput {
   text: String
   author: UserCreateOneWithoutPostsInput!
   comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
 }
 
 input PostCreateManyWithoutAuthorInput {
@@ -507,12 +519,18 @@ input PostCreateOneWithoutCommentsInput {
   connect: PostWhereUniqueInput
 }
 
+input PostCreateOneWithoutVotesInput {
+  create: PostCreateWithoutVotesInput
+  connect: PostWhereUniqueInput
+}
+
 input PostCreateWithoutAuthorInput {
   id: ID
   title: String!
   category: CategoryCreateOneWithoutPostsInput!
   text: String
   comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
 }
 
 input PostCreateWithoutCategoryInput {
@@ -521,6 +539,7 @@ input PostCreateWithoutCategoryInput {
   text: String
   author: UserCreateOneWithoutPostsInput!
   comments: CommentCreateManyWithoutPostInput
+  votes: VoteCreateManyWithoutPostInput
 }
 
 input PostCreateWithoutCommentsInput {
@@ -529,6 +548,16 @@ input PostCreateWithoutCommentsInput {
   category: CategoryCreateOneWithoutPostsInput!
   text: String
   author: UserCreateOneWithoutPostsInput!
+  votes: VoteCreateManyWithoutPostInput
+}
+
+input PostCreateWithoutVotesInput {
+  id: ID
+  title: String!
+  category: CategoryCreateOneWithoutPostsInput!
+  text: String
+  author: UserCreateOneWithoutPostsInput!
+  comments: CommentCreateManyWithoutPostInput
 }
 
 type PostEdge {
@@ -645,6 +674,7 @@ input PostUpdateInput {
   text: String
   author: UserUpdateOneRequiredWithoutPostsInput
   comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
 }
 
 input PostUpdateManyDataInput {
@@ -693,11 +723,19 @@ input PostUpdateOneRequiredWithoutCommentsInput {
   connect: PostWhereUniqueInput
 }
 
+input PostUpdateOneRequiredWithoutVotesInput {
+  create: PostCreateWithoutVotesInput
+  update: PostUpdateWithoutVotesDataInput
+  upsert: PostUpsertWithoutVotesInput
+  connect: PostWhereUniqueInput
+}
+
 input PostUpdateWithoutAuthorDataInput {
   title: String
   category: CategoryUpdateOneRequiredWithoutPostsInput
   text: String
   comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
 }
 
 input PostUpdateWithoutCategoryDataInput {
@@ -705,6 +743,7 @@ input PostUpdateWithoutCategoryDataInput {
   text: String
   author: UserUpdateOneRequiredWithoutPostsInput
   comments: CommentUpdateManyWithoutPostInput
+  votes: VoteUpdateManyWithoutPostInput
 }
 
 input PostUpdateWithoutCommentsDataInput {
@@ -712,6 +751,15 @@ input PostUpdateWithoutCommentsDataInput {
   category: CategoryUpdateOneRequiredWithoutPostsInput
   text: String
   author: UserUpdateOneRequiredWithoutPostsInput
+  votes: VoteUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithoutVotesDataInput {
+  title: String
+  category: CategoryUpdateOneRequiredWithoutPostsInput
+  text: String
+  author: UserUpdateOneRequiredWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
 }
 
 input PostUpdateWithWhereUniqueWithoutAuthorInput {
@@ -727,6 +775,11 @@ input PostUpdateWithWhereUniqueWithoutCategoryInput {
 input PostUpsertWithoutCommentsInput {
   update: PostUpdateWithoutCommentsDataInput!
   create: PostCreateWithoutCommentsInput!
+}
+
+input PostUpsertWithoutVotesInput {
+  update: PostUpdateWithoutVotesDataInput!
+  create: PostCreateWithoutVotesInput!
 }
 
 input PostUpsertWithWhereUniqueWithoutAuthorInput {
@@ -805,6 +858,9 @@ input PostWhereInput {
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
   AND: [PostWhereInput!]
   OR: [PostWhereInput!]
   NOT: [PostWhereInput!]
@@ -827,6 +883,9 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  vote(where: VoteWhereUniqueInput!): Vote
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote]!
+  votesConnection(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VoteConnection!
   node(id: ID!): Node
 }
 
@@ -835,6 +894,7 @@ type Subscription {
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  vote(where: VoteSubscriptionWhereInput): VoteSubscriptionPayload
 }
 
 type User {
@@ -846,6 +906,7 @@ type User {
   username: String!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
 type UserConnection {
@@ -861,6 +922,7 @@ input UserCreateInput {
   username: String!
   posts: PostCreateManyWithoutAuthorInput
   comments: CommentCreateManyWithoutAuthorInput
+  votes: VoteCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutCommentsInput {
@@ -873,12 +935,18 @@ input UserCreateOneWithoutPostsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateWithoutCommentsInput {
   id: ID
   email: String!
   password: String!
   username: String!
   posts: PostCreateManyWithoutAuthorInput
+  votes: VoteCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutPostsInput {
@@ -886,6 +954,16 @@ input UserCreateWithoutPostsInput {
   email: String!
   password: String!
   username: String!
+  comments: CommentCreateManyWithoutAuthorInput
+  votes: VoteCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutVotesInput {
+  id: ID
+  email: String!
+  password: String!
+  username: String!
+  posts: PostCreateManyWithoutAuthorInput
   comments: CommentCreateManyWithoutAuthorInput
 }
 
@@ -942,6 +1020,7 @@ input UserUpdateInput {
   username: String
   posts: PostUpdateManyWithoutAuthorInput
   comments: CommentUpdateManyWithoutAuthorInput
+  votes: VoteUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -964,17 +1043,34 @@ input UserUpdateOneRequiredWithoutPostsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
+  update: UserUpdateWithoutVotesDataInput
+  upsert: UserUpsertWithoutVotesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateWithoutCommentsDataInput {
   email: String
   password: String
   username: String
   posts: PostUpdateManyWithoutAuthorInput
+  votes: VoteUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutPostsDataInput {
   email: String
   password: String
   username: String
+  comments: CommentUpdateManyWithoutAuthorInput
+  votes: VoteUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutVotesDataInput {
+  email: String
+  password: String
+  username: String
+  posts: PostUpdateManyWithoutAuthorInput
   comments: CommentUpdateManyWithoutAuthorInput
 }
 
@@ -986,6 +1082,11 @@ input UserUpsertWithoutCommentsInput {
 input UserUpsertWithoutPostsInput {
   update: UserUpdateWithoutPostsDataInput!
   create: UserCreateWithoutPostsInput!
+}
+
+input UserUpsertWithoutVotesInput {
+  update: UserUpdateWithoutVotesDataInput!
+  create: UserCreateWithoutVotesInput!
 }
 
 input UserWhereInput {
@@ -1067,6 +1168,9 @@ input UserWhereInput {
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -1075,6 +1179,224 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type Vote {
+  id: ID!
+  post: Post!
+  user: User!
+  upVote: Boolean!
+  downVote: Boolean!
+}
+
+type VoteConnection {
+  pageInfo: PageInfo!
+  edges: [VoteEdge]!
+  aggregate: AggregateVote!
+}
+
+input VoteCreateInput {
+  id: ID
+  post: PostCreateOneWithoutVotesInput!
+  user: UserCreateOneWithoutVotesInput!
+  upVote: Boolean!
+  downVote: Boolean!
+}
+
+input VoteCreateManyWithoutPostInput {
+  create: [VoteCreateWithoutPostInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateManyWithoutUserInput {
+  create: [VoteCreateWithoutUserInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateWithoutPostInput {
+  id: ID
+  user: UserCreateOneWithoutVotesInput!
+  upVote: Boolean!
+  downVote: Boolean!
+}
+
+input VoteCreateWithoutUserInput {
+  id: ID
+  post: PostCreateOneWithoutVotesInput!
+  upVote: Boolean!
+  downVote: Boolean!
+}
+
+type VoteEdge {
+  node: Vote!
+  cursor: String!
+}
+
+enum VoteOrderByInput {
+  id_ASC
+  id_DESC
+  upVote_ASC
+  upVote_DESC
+  downVote_ASC
+  downVote_DESC
+}
+
+type VotePreviousValues {
+  id: ID!
+  upVote: Boolean!
+  downVote: Boolean!
+}
+
+input VoteScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  upVote: Boolean
+  upVote_not: Boolean
+  downVote: Boolean
+  downVote_not: Boolean
+  AND: [VoteScalarWhereInput!]
+  OR: [VoteScalarWhereInput!]
+  NOT: [VoteScalarWhereInput!]
+}
+
+type VoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Vote
+  updatedFields: [String!]
+  previousValues: VotePreviousValues
+}
+
+input VoteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: VoteWhereInput
+  AND: [VoteSubscriptionWhereInput!]
+  OR: [VoteSubscriptionWhereInput!]
+  NOT: [VoteSubscriptionWhereInput!]
+}
+
+input VoteUpdateInput {
+  post: PostUpdateOneRequiredWithoutVotesInput
+  user: UserUpdateOneRequiredWithoutVotesInput
+  upVote: Boolean
+  downVote: Boolean
+}
+
+input VoteUpdateManyDataInput {
+  upVote: Boolean
+  downVote: Boolean
+}
+
+input VoteUpdateManyMutationInput {
+  upVote: Boolean
+  downVote: Boolean
+}
+
+input VoteUpdateManyWithoutPostInput {
+  create: [VoteCreateWithoutPostInput!]
+  delete: [VoteWhereUniqueInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutPostInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutPostInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  updateMany: [VoteUpdateManyWithWhereNestedInput!]
+}
+
+input VoteUpdateManyWithoutUserInput {
+  create: [VoteCreateWithoutUserInput!]
+  delete: [VoteWhereUniqueInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  updateMany: [VoteUpdateManyWithWhereNestedInput!]
+}
+
+input VoteUpdateManyWithWhereNestedInput {
+  where: VoteScalarWhereInput!
+  data: VoteUpdateManyDataInput!
+}
+
+input VoteUpdateWithoutPostDataInput {
+  user: UserUpdateOneRequiredWithoutVotesInput
+  upVote: Boolean
+  downVote: Boolean
+}
+
+input VoteUpdateWithoutUserDataInput {
+  post: PostUpdateOneRequiredWithoutVotesInput
+  upVote: Boolean
+  downVote: Boolean
+}
+
+input VoteUpdateWithWhereUniqueWithoutPostInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutPostDataInput!
+}
+
+input VoteUpdateWithWhereUniqueWithoutUserInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutUserDataInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutPostInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutPostDataInput!
+  create: VoteCreateWithoutPostInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutUserInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutUserDataInput!
+  create: VoteCreateWithoutUserInput!
+}
+
+input VoteWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  post: PostWhereInput
+  user: UserWhereInput
+  upVote: Boolean
+  upVote_not: Boolean
+  downVote: Boolean
+  downVote_not: Boolean
+  AND: [VoteWhereInput!]
+  OR: [VoteWhereInput!]
+  NOT: [VoteWhereInput!]
+}
+
+input VoteWhereUniqueInput {
+  id: ID
 }
 `
       }

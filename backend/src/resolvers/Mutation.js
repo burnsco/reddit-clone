@@ -13,6 +13,21 @@ import {
 } from '../utils'
 
 const Mutation = {
+  async vote(root, args, { db, user }, info) {
+    await db.mutation.createVote({
+      data: {
+        user: { connect: { id: user.userID } },
+        link: {
+          upVote: true,
+          downVote: false,
+          connect: {
+            id: args.postID
+          }
+        }
+      }
+    })
+  },
+
   async logout(root, args, { res }) {
     await sendRefreshToken(res, '')
     await res.clearCookies

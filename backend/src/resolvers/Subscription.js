@@ -1,20 +1,25 @@
-
-const newPostSubscribe = async (root, args, {db}, info) => await db.$subscribe.post({ mutation_in: ['CREATED']}).node()
-
-const newCommentSubscribe = async (root, args,{db}, info) => await db.$subscribe.comment({ mutation_in: ['CREATED']}).node()
-
 const Subscription = {
- 
-  const newPost = {
-    subscribe: newPostSubscribe,
-    resolve: payload => payload
+  post: {
+    subscribe(root, { postID }, { db }, info) {
+      return db.subscription.post({ where: { mutation_in: ['CREATED'] } }, info)
+    }
+  },
+  comment: {
+    subscribe(root, { postID }, { db }, info) {
+      return db.subscription.comment(
+        { where: { mutation_in: ['CREATED'] } },
+        info
+      )
+    }
+  },
+  vote: {
+    subscribe(root, { postID }, { db }, info) {
+      return db.subscription.comment(
+        { where: { mutation_in: ['UPVOTE', 'DOWNVOTE', 'CREATED'] } },
+        info
+      )
+    }
   }
-
-  const newComment = {
-    subscribe: newCommentSubscribe,
-    resolve: payload => payload
-  }
-   
 }
 
 export { Subscription as default }
