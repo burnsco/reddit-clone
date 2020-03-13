@@ -1,5 +1,5 @@
 import React from 'react'
-import { COMMENTS_SUBSCRIPTION } from './LatestComment'
+import { COMMENTS_SUBSCRIPTION } from './subscription'
 import { useQuery, updateQuery, gql } from '@apollo/client'
 import CommentsPage from './CommentsPage'
 

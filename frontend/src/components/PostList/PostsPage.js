@@ -8,10 +8,23 @@ function PostsPage(data) {
     data.subscribeToNewPosts()
   }, [data])
 
+  // if there are no categories asked for or we want ALL categories
+  if (!data.category || data.category === 'all') {
+    return (
+      <PostListContainer>
+        {data.posts.map(post => (
+          <Post key={post.id} post={post} />
+        ))}
+      </PostListContainer>
+    )
+  }
+
+  // asking for a specific category (subreddit)
   if (data.category) {
     let { posts } = { ...data }
     const filtered = posts.filter(post => post.category.name === data.category)
 
+    // if ther
     if (filtered.length < 1) {
       return <div>No Posts Here</div>
     }
@@ -23,14 +36,6 @@ function PostsPage(data) {
       </PostListContainer>
     )
   }
-
-  return (
-    <PostListContainer>
-      {data.posts.map(post => (
-        <Post key={post.id} post={post} />
-      ))}
-    </PostListContainer>
-  )
 }
 
 export default PostsPage

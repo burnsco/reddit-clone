@@ -4,7 +4,7 @@ import { CommentsContainer } from './styles'
 function CommentsPage(props) {
   useEffect(() => {
     props.subscribeToNewComments()
-  }, [])
+  }, [props])
   console.log(props)
   const { post } = props.data
   return (

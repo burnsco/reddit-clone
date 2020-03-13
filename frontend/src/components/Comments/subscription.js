@@ -1,12 +1,14 @@
 import gql from 'graphql-tag'
 
 export const COMMENTS_SUBSCRIPTION = gql`
-  subscription onCommentCreated($postID: ID!) {
-    commentCreated(postID: $postID) {
-      id
-      body
-      author {
-        username
+  subscription onCommentAdded($postID: ID!) {
+    commentAdded(postID: $postID) {
+      node {
+        id
+        body
+        author {
+          username
+        }
       }
     }
   }

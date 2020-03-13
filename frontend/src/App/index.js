@@ -11,6 +11,7 @@ import Comments from '../components/Comments'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import PostsPageWithData from '../components/PostList/PostsPageWithData'
+import PostAndCommentsPage from '../components/Comments'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
@@ -43,7 +44,7 @@ const App = () => {
         <Signup path="signup" />
         <Home path="/">
           <PostsPageWithData path="r/:category" />
-          <Comments path="r/:category/:postID/comments" />
+          <PostAndCommentsPage path="r/:category/:postID/comments" />
           <PostsPageWithData path="/" />
         </Home>
       </Router>

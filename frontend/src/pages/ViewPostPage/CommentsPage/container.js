@@ -19,7 +19,7 @@ const COMMENTS_QUERY = gql`
 
 const COMMENTS_SUBSCRIPTION = gql`
   subscription onCommentCreated($postID: ID!) {
-    commentCreated(postID: $postID) {
+    commentAdded(postID: $postID) {
       id
       body
       author {

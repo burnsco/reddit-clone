@@ -7,7 +7,7 @@ import { PostPageContainer } from './styles'
 const ViewPostPage = ({ postID }) => (
   <PostPageContainer>
     <PostPageWithData postID={postID} />
-    <CommentsButton />
+    <SubmitCommentForm postID={postID} />
     <CommentsPageWithData postID={postID} />
   </PostPageContainer>
 )

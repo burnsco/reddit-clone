@@ -5,9 +5,13 @@ export const GET_POST_AND_COMMENTS = gql`
     post(postID: $postID) {
       id
       title
-      url
+      text
+      createdAt
       category {
         name
+      }
+      author {
+        username
       }
       comments {
         id

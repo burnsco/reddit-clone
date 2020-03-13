@@ -17,7 +17,7 @@ type Category {
 }
 
 type Post {
-  id: ID! @id
+  id: ID! @id @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   title: String!
@@ -28,7 +28,7 @@ type Post {
   votes: [Vote!]!
 }
 type Comment {
-  id: ID! @id
+  id: ID! @id @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   body: String!
@@ -37,7 +37,7 @@ type Comment {
 }
 
 type Vote {
-  id: ID! @id
+  id: ID! @id @unique
   post: Post!
   user: User!
   upVote: Boolean!
