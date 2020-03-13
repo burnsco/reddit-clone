@@ -13,6 +13,7 @@ import Comments from '../components/Comments'
 import { UserContext } from '../context/user-context'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
+import PostsPageWithData from '../components/PostList/PostsPageWithData'
 
 const App = () => {
   const [user, setUser] = useState(localStorage.getItem('user'))

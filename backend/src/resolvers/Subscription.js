@@ -1,6 +1,6 @@
 const Subscription = {
   postAdded: {
-    subscribe(root, { postID }, { db }, info) {
+    subscribe(root, args, { db }, info) {
       return db.subscription.post({ where: { mutation_in: ['CREATED'] } }, info)
     }
   },

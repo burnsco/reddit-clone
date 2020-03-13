@@ -13,9 +13,14 @@ function AllPosts() {
     variables: { first: 50, skip: 0 }
   })
 
-  if (loading) return <Spinner />
-  if (error) return <h1>Error!</h1>
   console.log(data)
+  if (loading) return <Spinner />
+
+  if (error) {
+    console.log(error)
+    return <div>error</div>
+  }
+
   return (
     <PostListContainer>
       {data.posts.map(post => (
