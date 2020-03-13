@@ -6,6 +6,7 @@ import CreateCommentForm from '../CreateComment/index'
 import { CommentsContainer } from './styles'
 import Post from '../Post'
 import LatestComment from './LatestComment'
+import CommentsPageWithData from './CommentsData'
 
 const GET_POST_AND_COMMENTS = gql`
   query getPostsAndComments($postID: ID!) {
@@ -43,20 +44,14 @@ function Comments({ postID }) {
 
   return (
     <PostListContainer>
+      {/* POST COMPONENT */}
       <Post post={post} style={{ marginBottom: 20 + 'rpx' }} />
 
-      {/* COMMENT COMPONENT */}
+      {/* CREATE COMMENT COMPONENT */}
       <CreateCommentForm postID={postID} />
 
-      {post.comments.map(comment => (
-        <CommentsContainer key={comment.id}>
-          <p>
-            <strong>{comment.author.username}</strong>
-          </p>
-          <p>{comment.body}</p>
-        </CommentsContainer>
-      ))}
-      <LatestComment postID={postID} />
+      {/* COMMENTS COMPONENT WITH FETCH */}
+      <CommentsPageWithData postID={postID} />
     </PostListContainer>
   )
 }

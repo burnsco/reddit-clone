@@ -234,15 +234,9 @@ const typeDefs = gql`
     node: Comment
   }
 
-  type VoteSubscriptionPayload {
-    mutation: MutationType
-    node: Vote
-  }
-
   type Subscription {
-    post: PostSubscriptionPayload
-    comment(postID: ID): CommentSubscriptionPayload
-    vote: VoteSubscriptionPayload
+    postAdded(postID: ID, categoryID: ID): PostSubscriptionPayload
+    commentAdded(postID: ID): CommentSubscriptionPayload
   }
 
   enum PostOrderByInput {

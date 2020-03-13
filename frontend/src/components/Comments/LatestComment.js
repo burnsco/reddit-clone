@@ -4,8 +4,8 @@ import MainSpinner from '../shared/FallBackSpinner'
 import { CommentsContainer } from './styles'
 
 export const COMMENTS_SUBSCRIPTION = gql`
-  subscription comment($postID: ID!) {
-    comment(postID: $postID) {
+  subscription onCommentAdded($postID: ID!) {
+    commentAdded(postID: $postID) {
       node {
         id
         body

@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { CommentsContainer } from './styles'
 
-const CommentsPage = ({ data: post }) => {
+function CommentsPage(props) {
+  useEffect(() => {
+    props.subscribeToNewComments()
+  }, [])
+  console.log(props)
+  const { post } = props.data
   return (
-    <PostListContainer>
+    <>
       {post.comments.map(comment => (
         <CommentsContainer key={comment.id}>
           <p>
@@ -11,8 +17,7 @@ const CommentsPage = ({ data: post }) => {
           <p>{comment.body}</p>
         </CommentsContainer>
       ))}
-      <LatestComment postID={postID} />
-    </PostListContainer>
+    </>
   )
 }
 
