@@ -1,44 +1,25 @@
 import React from 'react'
-import { GET_ALL_POSTS, GET_POSTS_BY_CATEGORY } from './query'
+import { GET_ALL_POSTS, GET_POSTS_BY_CATEGORY, POSTS_QUERY } from './query'
 import PostsPage from './PostsPage'
 import { gql, useQuery, updateQuery } from '@apollo/client'
+import { POSTS_SUBSCRIPTION } from './subscription'
+import MainSpinner from '../shared/FallBackSpinner'
 
-const POSTS_SUBSCRIPTION = gql`
-  subscription onPostAdded {
-    postAdded {
-      node {
-        id
-        title
-        text
-        createdAt
-        comments {
-          id
-          body
-          author {
-            username
-          }
-        }
-        author {
-          username
-        }
-        category {
-          name
-        }
-      }
-    }
-  }
-`
+function PostsPageWithData() {
+  const { subscribeToMore, data, loading, error } = useQuery(POSTS_QUERY)
 
-function PostsPageWithData({ category }) {
-  const { subscribeToMore, ...result } = useQuery(GET_ALL_POSTS)
+  console.log('parent post page data')
+
+  console.log(data)
+
+  if (loading) return <MainSpinner />
 
   return (
     <PostsPage
-      {...result}
+      {...data}
       subscribeToNewPosts={() =>
         subscribeToMore({
           document: POSTS_SUBSCRIPTION,
-          variables: { category: category },
           updateQuery: (prev, { subscriptionData }) => {
             if (!subscriptionData.data) return prev
             const newFeedItem = subscriptionData.data.postAdded.node

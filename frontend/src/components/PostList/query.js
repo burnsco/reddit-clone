@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const GET_ALL_POSTS = gql`
-  query getPaginatedPosts($first: Int, $skip: Int, $cursor: String) {
-    posts(first: $first, skip: $skip, after: $cursor) {
+export const POSTS_QUERY = gql`
+  query posts {
+    posts {
       id
       title
       text
@@ -24,7 +24,7 @@ const GET_ALL_POSTS = gql`
   }
 `
 
-const GET_POSTS_BY_CATEGORY = gql`
+export const GET_POSTS_BY_CATEGORY = gql`
   query getPostsByCategory($query: String!) {
     posts(query: $query) {
       id
@@ -47,5 +47,3 @@ const GET_POSTS_BY_CATEGORY = gql`
     }
   }
 `
-
-export { GET_ALL_POSTS, GET_POSTS_BY_CATEGORY }

@@ -49,7 +49,7 @@ const App = () => {
         <Home path="/">
           <CategoryPosts path="r/:category" />
           <Comments path="r/:category/:postID/comments" />
-          <AllPosts path="/" />
+          <PostsPageWithData path="/" />
         </Home>
       </Router>
     </AppContainer>

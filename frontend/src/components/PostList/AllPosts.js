@@ -1,15 +1,12 @@
 import React from 'react'
 import { PostListContainer } from './styles'
 import { useQuery } from '@apollo/client'
-import { GET_ALL_POSTS } from './query'
+import { POSTS_QUERY } from './query'
 import Spinner from '../shared/FallBackSpinner'
 import Post from '../Post'
 
-// show a certain amount, then when at bottom show another certain amount
-//  make it so the user can choose
-
 function AllPosts() {
-  const { data, loading, error } = useQuery(GET_ALL_POSTS, {
+  const { data, loading, error } = useQuery(POSTS_QUERY, {
     variables: { first: 50, skip: 0 }
   })
 
