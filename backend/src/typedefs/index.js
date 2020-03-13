@@ -241,7 +241,7 @@ const typeDefs = gql`
 
   type Subscription {
     post: PostSubscriptionPayload
-    comment: CommentSubscriptionPayload
+    comment(postID: ID): CommentSubscriptionPayload
     vote: VoteSubscriptionPayload
   }
 

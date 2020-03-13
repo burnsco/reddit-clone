@@ -5,6 +5,7 @@ import { PostListContainer } from '../PostList/styles'
 import CreateCommentForm from '../CreateComment/index'
 import { CommentsContainer } from './styles'
 import Post from '../Post'
+import LatestComment from './LatestComment'
 
 const GET_POST_AND_COMMENTS = gql`
   query getPostsAndComments($postID: ID!) {
@@ -55,6 +56,7 @@ function Comments({ postID }) {
           <p>{comment.body}</p>
         </CommentsContainer>
       ))}
+      <LatestComment postID={postID} />
     </PostListContainer>
   )
 }

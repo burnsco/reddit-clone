@@ -13,7 +13,7 @@ import {
 } from '../utils'
 
 const Mutation = {
-  async vote(root, args, { db, user }, info) {
+  async vote(root, { postID }, { db, user }, info) {
     await db.mutation.createVote({
       data: {
         user: { connect: { id: user.userID } },
