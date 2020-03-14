@@ -5,8 +5,9 @@ import { PostListContainer } from '../PostList/styles'
 import CreateCommentForm from '../CreateComment/index'
 import { CommentsContainer } from './styles'
 import { PostPage } from './PostPage'
-import CommentsPageWithData from './CommentsData'
+import CommentsPageWithData from './CommentsPageWithData'
 import { GET_POST_AND_COMMENTS } from './query'
+import PostPageWithData from './PostPageWithData'
 
 function PostAndCommentsPage({ postID }) {
   return (

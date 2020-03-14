@@ -2,14 +2,15 @@ import React, { useEffect } from 'react'
 import { CommentsContainer } from './styles'
 
 function CommentsPage(props) {
+  const { subscribeToNewComments } = props
+  const { comments } = props.data.post
+
   useEffect(() => {
-    props.subscribeToNewComments()
+    subscribeToNewComments()
   }, [props])
-  console.log(props)
-  const { post } = props.data
   return (
     <>
-      {post.comments.map(comment => (
+      {comments.map(comment => (
         <CommentsContainer key={comment.id}>
           <p>
             <strong>{comment.author.username}</strong>

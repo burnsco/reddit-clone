@@ -3,9 +3,9 @@
 
 
 "@apollo/client@^3.0.0-beta.23":
-  version "3.0.0-beta.40"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.40.tgz#26ce6a9dc0cda3a552ce7a0765f22bb235098695"
-  integrity sha512-sP5On5SWHnsJtOjirJYEssjrRbEznU+4/DR6ikZ5b2mmWYR3UaZ0HoSqbeLlHMJ4736x+n6sqRNTnBFjXVG+5Q==
+  version "3.0.0-beta.41"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-beta.41.tgz#37769f95d4829f2af884e76442401a31ac9d9238"
+  integrity sha512-3FtiBP0gKDjmCIbPUn8GkBshA8vXUB9Zi+BOSEOwo5HDIEF0NXg19ov+m8SqaZEG+jU6p7w+dmHyRGkUxj9b4g==
   dependencies:
     "@types/zen-observable" "^0.8.0"
     "@wry/equality" "^0.1.9"
@@ -1495,9 +1495,9 @@
   integrity sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==
 
 "@types/methods@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@types/methods/-/methods-1.1.0.tgz#fa0c8c81992257903f724651ec2500ec427dc32d"
-  integrity sha512-ROomEm+QHlUmcQoDr3CBo3GRm0w4PVoFYjVT9YcfyBha/Per4deb1IpvHU7KTK7YBZCIvOYbSADoEyDnFgaWLA==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/methods/-/methods-1.1.1.tgz#4a440afcd01b687d267f2c61c7c1328b86c40172"
+  integrity sha512-hvD1Yz0xugpvbFNVihc0Eu60Y/o1dD8LmSdN4d5QHV315ljuVGlwS5DYrb3RqFi6JskDC0Xi6/Bv6aEe/1A9bw==
 
 "@types/mime@*":
   version "2.0.1"
