@@ -1,15 +1,24 @@
-import React from 'react'
-import PostPageWithData from './PostPage/container'
-import CommentsButton from './CommentsButton'
-import CommentsPageWithData from './CommentsPage/container'
-import { PostPageContainer } from './styles'
+import React, { useState } from 'react'
+import { useQuery, gql } from '@apollo/client'
+import Spinner from '../shared/FallBackSpinner'
+import { PostListContainer } from '../PostList/styles'
+import CreateCommentForm from '../CreateComment/index'
+import { CommentsContainer } from './styles'
+import { PostPage } from './PostPage'
+import CommentsPageWithData from './CommentsPageWithData'
+import { GET_POST_AND_COMMENTS } from './query'
+import PostPageWithData from './PostPageWithData'
 
-const ViewPostPage = ({ postID }) => (
-  <PostPageContainer>
-    <PostPageWithData postID={postID} />
-    <SubmitCommentForm postID={postID} />
-    <CommentsPageWithData postID={postID} />
-  </PostPageContainer>
-)
+function PostAndCommentsPage({ postID }) {
+  return (
+    <PostListContainer>
+      <PostPageWithData postID={postID} />
 
-export default ViewPostPage
+      <CreateCommentForm postID={postID} />
+
+      <CommentsPageWithData postID={postID} />
+    </PostListContainer>
+  )
+}
+
+export default PostAndCommentsPage

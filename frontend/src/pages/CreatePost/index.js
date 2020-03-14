@@ -3,27 +3,28 @@ import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { useMutation } from '@apollo/client'
-import { gql } from '@apollo/client'
+import MainSpinner from '../../components/shared/FallBackSpinner'
+import { gql, useQuery } from '@apollo/client'
 import { navigate } from '@reach/router'
-
-const SUBMIT_POST = gql`
-  mutation SUBMIT_POST($title: String!, $text: String!, $categoryID: ID!) {
-    createPost(data: { title: $title, text: $text, categoryID: $categoryID }) {
-      code
-      success
-      message
-    }
-  }
-`
+import { SUBMIT_POST } from './mutation'
+import { GET_CATEGORIES } from './query'
 
 function CreatePostPage() {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   const [categoryID, setCategoryID] = useState('')
 
-  const [createPost, { loading, error }] = useMutation(SUBMIT_POST, {
+  const { loading, data } = useQuery(GET_CATEGORIES)
+
+  const [createPost, { error }] = useMutation(SUBMIT_POST, {
     variables: { title: title, text: text, categoryID: categoryID }
   })
+
+  if (loading) return <MainSpinner />
+  if (error) {
+    console.log(error)
+    return <div>Error!</div>
+  }
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -50,7 +51,7 @@ function CreatePostPage() {
     if (name === 'text') {
       setText(value)
     }
-    if (name === 'category') {
+    if (name === 'categoryID') {
       setCategoryID(value)
     }
   }
@@ -79,16 +80,21 @@ function CreatePostPage() {
             handleChange={handleChange}
             value={text}
             label="Text"
-            
           />
-          <FormInput
-            name="category"
-            type="text"
-            value={categoryID}
-            handleChange={handleChange}
-            label="Category"
-            required
-          />
+          <label>
+            Category
+            <select
+              name="categoryID"
+              value={categoryID}
+              onChange={handleChange}
+            >
+              {data.categories.map(category => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </label>
           <ButtonsBarContainer>
             <CustomButton type="submit" style={{ width: 100 + '%' }}>
               {' '}

@@ -14,6 +14,7 @@ import { UserContext } from '../../context/user-context'
 import { CURRENT_USER, LOGOUT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'
+import LogoutUser from '../../utils/logoutUser'
 
 const Header = () => {
   const [logout] = useMutation(LOGOUT_USER)
@@ -46,14 +47,14 @@ const Header = () => {
                 <pre>{data ? data.currentUser.username : 'user'}</pre>
               </Link>
             </HeaderLink>
-
-            <HeaderLink
-              onClick={() => logout()}
+            {/* TODO Create Logout Function with Cookies */}
+            {/* <HeaderLink
+              onClick={() => LogoutUser()}
               as="button"
               style={{ background: 'white' }}
             >
               <pre>SignOut</pre>
-            </HeaderLink>
+            </HeaderLink> */}
 
             <HeaderLink
               as="button"
