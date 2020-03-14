@@ -69,7 +69,7 @@ function CreatePostPage() {
           <FormInput
             name="title"
             type="text"
-            handleChange={handleChange}
+            handleChange={e => handleChange(e)}
             value={title}
             label="Title"
             required
@@ -77,16 +77,18 @@ function CreatePostPage() {
           <FormInput
             name="text"
             type="text"
-            handleChange={handleChange}
+            handleChange={e => handleChange(e)}
             value={text}
             label="Text"
           />
+
           <label>
             Category
+            <br />
             <select
               name="categoryID"
               value={categoryID}
-              onChange={handleChange}
+              onChange={e => handleChange(e)}
             >
               {data.categories.map(category => (
                 <option key={category.id} value={category.id}>

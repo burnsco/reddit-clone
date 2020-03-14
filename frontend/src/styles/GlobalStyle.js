@@ -7,15 +7,11 @@ export const GlobalStyle = createGlobalStyle`
   padding: 0;
 }
 
-html {
-  height: 100%;
-}
-
 a {
   text-decoration: none;
 }
 
-body {
+body, html {
   background: bg;
   color: text;
   min-height: 100%;

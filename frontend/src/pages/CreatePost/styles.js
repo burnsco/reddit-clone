@@ -40,6 +40,7 @@ export const CreateAccountLink = styled(Link)`
 `
 
 export const ButtonsBarContainer = styled.div`
+  margin-top: 20rpx;
   display: flex;
   justify-content: space-between;
 `
