@@ -1,7 +1,6 @@
 import styled from '@xstyled/styled-components'
 
 export const CategoriesContainer = styled.aside`
-  width: 100%;
   height: 30vh;
   display: flex;
   padding: 10rpx;
@@ -13,6 +12,6 @@ export const ContainerTitle = styled.h1`
   text-decoration: underline;
 `
 
-export const CategoryTitles = styled.h4`
+export const CategoryTitles = styled.p`
   flex-grow: 1;
 `

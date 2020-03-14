@@ -22,7 +22,6 @@ const App = () => {
       credentials: 'include'
     }).then(async x => {
       const { accessToken } = await x.json()
-      console.log(accessToken)
       setAccessToken(accessToken)
       setLoading(false)
     })

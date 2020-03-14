@@ -1,24 +1,21 @@
 import styled from '@xstyled/styled-components'
 
-export const HomeContainer = styled.body`
+export const HomeContainer = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
+  margin: 0 5vw;
+  max-width: 90vw;
   background: #f4f6f8;
   justify-content: center;
 `
 
 export const FeedContainer = styled.section`
   min-height: 100%;
-  margin: 1rem;
   width: 100%;
 `
 
 export const SidebarContainer = styled.aside`
   width: 180rpx;
-  height: 500rpx;
-  margin: 1rem;
+  margin-left: 10rpx;
   background: #ffffff;
   @media (max-width: 768px) {
     display: none;

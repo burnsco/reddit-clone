@@ -7,6 +7,7 @@ import {
 import Spinner from '../../components/shared/FallBackSpinner'
 import { navigate } from '@reach/router'
 import { useQuery, gql } from '@apollo/client'
+import MainSpinner from '../../components/shared/FallBackSpinner'
 
 const GET_CATEGORIES = gql`
   {
@@ -20,8 +21,11 @@ const GET_CATEGORIES = gql`
 function Categories() {
   const { loading, error, data } = useQuery(GET_CATEGORIES)
 
-  if (loading) return <Spinner />
-  if (error) return <h1>Error!</h1>
+  if (loading) return <MainSpinner />
+  if (error) {
+    console.log(error)
+    return <div>Error</div>
+  }
 
   return (
     <CategoriesContainer>
