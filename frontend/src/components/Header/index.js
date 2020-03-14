@@ -42,18 +42,6 @@ const Header = () => {
             </HeaderLink>
 
             <HeaderLink>
-              <Link to="/login">
-                <h5>Login</h5>
-              </Link>
-            </HeaderLink>
-
-            <HeaderLink>
-              <Link to="/signup">
-                <h5>Signup</h5>
-              </Link>
-            </HeaderLink>
-
-            <HeaderLink>
               <Link to="/profile">
                 <pre>{data ? data.currentUser.username : 'user'}</pre>
               </Link>

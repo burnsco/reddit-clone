@@ -11,11 +11,14 @@ function PostsPage(data) {
   // if there are no categories asked for or we want ALL categories
   if (!data.category || data.category === 'all') {
     return (
-      <PostListContainer>
-        {data.posts.map(post => (
-          <Post key={post.id} post={post} />
-        ))}
-      </PostListContainer>
+      <>
+        <h2>/r/all</h2>
+        <PostListContainer>
+          {data.posts.map(post => (
+            <Post key={post.id} post={post} />
+          ))}
+        </PostListContainer>
+      </>
     )
   }
 
@@ -29,11 +32,14 @@ function PostsPage(data) {
       return <div>No Posts Here</div>
     }
     return (
-      <PostListContainer>
-        {filtered.map(post => (
-          <Post key={post.id} post={post} />
-        ))}
-      </PostListContainer>
+      <>
+        <h2>/r/{data.category}</h2>
+        <PostListContainer>
+          {filtered.map(post => (
+            <Post key={post.id} post={post} />
+          ))}
+        </PostListContainer>
+      </>
     )
   }
 }
