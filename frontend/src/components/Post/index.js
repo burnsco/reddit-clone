@@ -10,7 +10,8 @@ import {
   PostComments,
   PostCategory,
   PostAuthor,
-  PostDateCreated
+  PostDateCreated,
+  PostDetailsHeader
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
 import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
@@ -32,8 +33,14 @@ const Post = ({
     </VoteBoxContainer>
 
     <PostDetailsContainer>
+      <PostDetailsHeader>
+        <PostCategory> /r/{name} --- </PostCategory> Posted by u/{username}{' '}
+        {timeDifferenceForDate(createdAt)}
+      </PostDetailsHeader>
       <PostTitle>{title}</PostTitle>
+
       <PostText>{text}</PostText>
+
       <PostFooter>
         <PostComments>
           {' '}
@@ -41,10 +48,6 @@ const Post = ({
             {comments.length} comments
           </Link>
         </PostComments>
-        <PostCategory> /r/{name}</PostCategory>
-
-        <PostAuthor>{username}</PostAuthor>
-        <PostDateCreated>{timeDifferenceForDate(createdAt)}</PostDateCreated>
       </PostFooter>
     </PostDetailsContainer>
   </PostContainer>

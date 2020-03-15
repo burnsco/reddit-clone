@@ -22,6 +22,7 @@ function Categories() {
   const { loading, error, data } = useQuery(GET_CATEGORIES)
 
   if (loading) return <MainSpinner />
+
   if (error) {
     console.log(error)
     return <div>Error</div>
