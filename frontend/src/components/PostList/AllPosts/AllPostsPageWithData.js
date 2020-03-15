@@ -1,12 +1,18 @@
 import React from 'react'
-import { GET_ALL_POSTS, GET_POSTS_BY_CATEGORY, POSTS_QUERY } from './query'
+import {
+  GET_POSTS_BY_CATEGORY,
+  POSTS_QUERY,
+  GET_ALL_POSTS_QUERY
+} from '../query'
 import PostsPage from './PostsPage'
 import { gql, useQuery, updateQuery } from '@apollo/client'
-import { POSTS_SUBSCRIPTION } from './subscription'
-import MainSpinner from '../shared/FallBackSpinner'
+import { POSTS_SUBSCRIPTION } from '../subscription'
+import MainSpinner from '../../shared/FallBackSpinner'
 
-function PostsPageWithData({ category }) {
-  const { subscribeToMore, data, loading, error } = useQuery(POSTS_QUERY)
+function AllPostsPageWithData() {
+  const { subscribeToMore, data, loading, error } = useQuery(
+    GET_ALL_POSTS_QUERY
+  )
 
   if (loading) return <MainSpinner />
   if (error) {
@@ -17,7 +23,6 @@ function PostsPageWithData({ category }) {
   return (
     <PostsPage
       {...data}
-      category={category}
       subscribeToNewPosts={() =>
         subscribeToMore({
           document: POSTS_SUBSCRIPTION,
@@ -34,4 +39,4 @@ function PostsPageWithData({ category }) {
   )
 }
 
-export default PostsPageWithData
+export default AllPostsPageWithData

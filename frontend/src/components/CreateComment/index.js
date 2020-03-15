@@ -30,6 +30,9 @@ const CreateCommentForm = ({ postID }) => {
       const { message, code, success } = comment.data.createComment
 
       console.log(message, code, success)
+      if (code === '200') {
+        setComment('')
+      }
     } catch (ex) {
       console.log(ex)
     }
