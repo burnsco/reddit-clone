@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { PostListContainer } from '../styles'
 import Post from '../../Post'
-import MainSpinner from '../../shared/FallBackSpinner'
 
 function PostsPage(data) {
   useEffect(() => {

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { Link } from '@reach/router'
-import { useColorMode } from '@xstyled/styled-components'
 import {
   HeaderContainer,
   HeaderNavWrapper,
@@ -10,7 +9,7 @@ import {
   HeaderLink
 } from './styles'
 import Logo from '../../assets/logoWithTitle.png'
-import { CURRENT_USER, LOGOUT_USER } from './query'
+import { CURRENT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'
 

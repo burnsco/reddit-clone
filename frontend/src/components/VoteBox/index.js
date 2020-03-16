@@ -1,8 +1,7 @@
 import React from 'react'
 import { useMutation } from '@apollo/client'
-import { Container, Upvote, Downvote, Votes } from './styles'
+import { Container, Votes } from './styles'
 import styled from '@xstyled/styled-components'
-import GetNumberOfVotes from './getVotes'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 import { UPVOTE_POST_MUTATION } from './mutation'
 
@@ -34,6 +33,11 @@ const VoteBox = ({ votes, postID }) => {
         showVoteNumber -= 1
       }
     })
+  }
+
+  if (error) {
+    console.log(error)
+    return <div>error</div>
   }
 
   return (

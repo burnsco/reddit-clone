@@ -45,7 +45,7 @@ function SignUpPage() {
     try {
       const result = await createUser()
 
-      const { message, accessToken, username } = result.data.createUser
+      const { message } = result.data.createUser
 
       setResult(message)
 

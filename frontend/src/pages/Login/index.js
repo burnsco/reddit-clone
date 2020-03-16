@@ -41,7 +41,7 @@ function LoginPage() {
     try {
       const result = await loginUser()
       console.log(result)
-      const { message, accessToken, user, code } = result.data.loginUser
+      const { message, accessToken, code } = result.data.loginUser
 
       setResult(message)
 
