@@ -21,6 +21,7 @@ function CreatePostPage() {
   })
 
   if (loading) return <MainSpinner />
+
   if (error) {
     console.log(error)
     return <div>Error!</div>
@@ -31,7 +32,6 @@ function CreatePostPage() {
 
     try {
       const result = await createPost()
-
       const { message, code } = result.data.createPost
 
       if (code === '200') {
@@ -45,18 +45,22 @@ function CreatePostPage() {
 
   const handleChange = event => {
     const { value, name } = event.target
+
     if (name === 'title') {
       setTitle(value)
     }
+
     if (name === 'text') {
       setText(value)
     }
+
     if (name === 'categoryID') {
       setCategoryID(value)
     }
   }
 
   if (loading) return <div>Loading</div>
+
   if (error) {
     console.log(error.error)
     return <h1>error</h1>
