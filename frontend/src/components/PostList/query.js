@@ -7,6 +7,14 @@ export const GET_ALL_POSTS_QUERY = gql`
       title
       text
       createdAt
+      votes {
+        id
+        downVote
+        upVote
+        user {
+          id
+        }
+      }
       comments {
         id
         body
@@ -35,6 +43,14 @@ export const GET_POSTS_BY_CATEGORY_QUERY = gql`
         body
         author {
           username
+        }
+      }
+      votes {
+        id
+        downVote
+        upVote
+        user {
+          id
         }
       }
       createdAt

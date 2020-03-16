@@ -29,6 +29,7 @@ const Post = ({
     id,
     title,
     text,
+    votes,
     category: { name },
     comments,
     createdAt,
@@ -37,7 +38,7 @@ const Post = ({
 }) => (
   <PostContainer>
     <VoteBoxContainer>
-      <VoteBox votes="4" />
+      <VoteBox votes={votes} postID={id} />
     </VoteBoxContainer>
 
     <PostDetailsContainer>
@@ -54,7 +55,7 @@ const Post = ({
       <PostFooter>
         <PostComments>
           {' '}
-          <Link to={`/r/${name}/${id}/comments`}>
+          <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
             <CommentIcon />
             {comments.length} comments
           </Link>

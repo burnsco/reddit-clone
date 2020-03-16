@@ -1,18 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const UPVOTE_POST_MUTATION = gql`
-  mutation upVotePost(userID: ID!) {
-    onUpvotePost(userID: $userID) {
-      code
-      success
-      message
-    }
-  }
-`
-
-export const DOWNVOTE_POST_MUTATION = gql`
-  mutation upVotePost(userID: ID!) {
-    onUpvotePost(userID: $userID) {
+  mutation onUpVotePost($postID: ID!, $downVote: Boolean!, $upVote: Boolean!) {
+    vote(postID: $postID, downVote: $downVote, upVote: $upVote) {
       code
       success
       message

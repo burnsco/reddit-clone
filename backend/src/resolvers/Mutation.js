@@ -3,6 +3,7 @@ import {
   NoAuthorization,
   CategoryTitleTaken
 } from '../constants'
+import { AuthenticationError } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import {
@@ -13,19 +14,41 @@ import {
 } from '../utils'
 
 const Mutation = {
-  async vote(root, { postID }, { db, user }, info) {
-    await db.mutation.createVote({
+  async vote(root, args, { db, user }, info) {
+    const postExists = db.exists.Post({ id: args.postID })
+    if (!postExists) {
+      return {
+        code: '401',
+        success: false,
+        message: 'Post does not exist!'
+      }
+    }
+    if (!user) {
+      throw new AuthenticationError('you are not logged in')
+    }
+
+    const vote = await db.mutation.createVote({
       data: {
-        user: { connect: { id: user.userID } },
-        link: {
-          upVote: true,
-          downVote: false,
+        upVote: args.upVote,
+        downVote: args.downVote,
+        user: {
+          connect: {
+            id: user.userID
+          }
+        },
+        post: {
           connect: {
             id: args.postID
           }
         }
       }
     })
+
+    return {
+      code: '200',
+      success: true,
+      message: 'Vote Cast Successfully!'
+    }
   },
 
   async logout(root, args, { res }) {
@@ -155,7 +178,7 @@ const Mutation = {
     if (!postExists) {
       return {
         code: '401',
-        success: true,
+        success: false,
         message: 'Post does not exist!'
       }
     }
