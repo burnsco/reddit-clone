@@ -19,13 +19,8 @@ function ProfilePage({ userID, children }) {
   const [showPosts, setShowPosts] = useState(true)
 
   if (loading) return <Spinner />
+
   if (error) return <h1>Error!</h1>
-
-  console.log(userID)
-  console.log(data)
-
-  // make it a route and match it to switch between posts and comments?
-  // or some sort of switch on the page?
 
   function showPostsOrComments() {
     if (showPosts) {
@@ -37,7 +32,6 @@ function ProfilePage({ userID, children }) {
     }
   }
 
-  // FIXME refactor this page at some point, posts, comments, functions, etc
   const { user } = data
 
   return (
