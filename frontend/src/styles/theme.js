@@ -1,5 +1,3 @@
-import { th } from '@xstyled/system'
-
 const theme = {
   colors: {
     bg: '#fff',

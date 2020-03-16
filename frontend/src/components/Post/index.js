@@ -10,8 +10,6 @@ import {
   PostFooter,
   PostComments,
   PostCategory,
-  PostAuthor,
-  PostDateCreated,
   PostDetailsHeader,
   PostedBy
 } from './styles.js'

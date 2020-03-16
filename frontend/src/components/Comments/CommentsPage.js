@@ -7,7 +7,7 @@ function CommentsPage(props) {
 
   useEffect(() => {
     subscribeToNewComments()
-  }, [props])
+  }, [subscribeToNewComments])
   return (
     <>
       {comments.map(comment => (

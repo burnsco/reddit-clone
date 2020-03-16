@@ -14,7 +14,6 @@ function PostPageWithData({ postID }) {
     return <div>Error</div>
   }
 
-  const { post } = data
   return <Post key={data.post.id} post={data.post} />
 }
 export default PostPageWithData

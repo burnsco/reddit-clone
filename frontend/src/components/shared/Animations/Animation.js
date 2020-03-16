@@ -33,7 +33,7 @@ export function Spinner(props) {
   return (
     <FaSpinner
       css={{ animation: `${spin} 3s linear infinite` }}
-      aria-label='loading'
+      aria-label="loading"
       {...props}
     />
   )

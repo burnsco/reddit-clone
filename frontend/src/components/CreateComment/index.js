@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import { InputCommentBox, InputCommentFooter } from './styles'
+import MainSpinner from '../shared/FallBackSpinner'
 
 const SUBMIT_COMMENT = gql`
   mutation submitComment($body: String!, $postID: ID!) {
@@ -37,6 +38,13 @@ const CreateCommentForm = ({ postID }) => {
       console.log(ex)
     }
   }
+
+  if (error) {
+    console.log(error)
+    return <div>error</div>
+  }
+
+  if (loading) return <MainSpinner />
 
   return (
     <form onSubmit={handleSubmit}>

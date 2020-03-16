@@ -1,10 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { gql, useMutation } from '@apollo/client'
-import Spinner from '../../components/shared/FallBackSpinner'
-import { UserContext } from '../../context/user-context'
+import MainSpinner from '../../components/shared/FallBackSpinner'
 
 const SUBMIT_DATA_SIGN_UP = gql`
   mutation SubmitDataAndSignUp(
@@ -40,7 +39,7 @@ function SignUpPage() {
   const handleSubmit = async event => {
     event.preventDefault()
 
-    if (loading) return <Spinner />
+    if (loading) return <MainSpinner />
     if (error) return <div>error</div>
 
     try {
