@@ -3,7 +3,7 @@ import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
-import { navigate } from '@reach/router'
+import { useNavigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
 
 const LOGIN_MUTATION = gql`
@@ -23,6 +23,7 @@ const LOGIN_MUTATION = gql`
 `
 
 function LoginPage() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [checking, setChecking] = useState(false)
@@ -47,7 +48,7 @@ function LoginPage() {
 
       if (code === '200') {
         setAccessToken(accessToken)
-        navigate('/r/all')
+        navigate('../', { replace: true })
       }
       return result
     } catch (error) {

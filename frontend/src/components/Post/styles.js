@@ -11,13 +11,10 @@ export const PostContainer = styled.div`
     border: 1px solid #6b6969;
   }
 `
-export const VoteBoxContainer = styled.div`
-  border: 1px solid orange;
-`
+export const VoteBoxContainer = styled.div``
 
 export const PostDetailsContainer = styled.div`
   margin-top: 5rpx;
-  border: 1px solid red;
   min-height: 100rpx;
   padding-right: 5rpx;
   padding-left: 5rpx;
@@ -28,7 +25,6 @@ export const PostDetailsContainer = styled.div`
 `
 
 export const PostDetailsHeader = styled.div`
-  border: 1px solid green;
   font-size: 12rpx;
   display: flex;
   color: #85898b;
@@ -37,24 +33,36 @@ export const PostDetailsHeader = styled.div`
 export const PostTitle = styled.h2`
   margin-top: 10rpx;
   font-weight: 500;
-  border: 1px solid blue;
 `
 
 export const PostText = styled.div`
   margin-top: 15rpx;
-  border: 1px solid green;
+`
+
+export const PostedBy = styled.div`
+  margin-left: 10rpx;
 `
 
 export const PostFooter = styled.div`
   margin-top: 20rpx;
-  border: 1px solid purple;
   display: flex;
   width: 100%;
 `
 
-export const PostComments = styled.div``
+export const PostComments = styled.div`
+  border-radius: 5rpx;
+  padding: 5rpx;
+  margin-bottom: 5rpx;
+  color: grey;
+  &:hover {
+    background: #ebedf0;
+  }
+`
 
 export const PostCategory = styled.div`
+  &:hover {
+    text-decoration: underline;
+  }
   font-weight: 700;
   color: black;
 `

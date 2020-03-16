@@ -4,22 +4,13 @@ import {
   CategoryTitles,
   ContainerTitle
 } from './styles.js'
-import Spinner from '../../components/shared/FallBackSpinner'
+import { useQuery } from '@apollo/client'
+import { GET_CATEGORIES_QUERY } from './query'
 import { navigate } from '@reach/router'
-import { useQuery, gql } from '@apollo/client'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 
-const GET_CATEGORIES = gql`
-  {
-    categories {
-      id
-      name
-    }
-  }
-`
-
 function Categories() {
-  const { loading, error, data } = useQuery(GET_CATEGORIES)
+  const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)
 
   if (loading) return <MainSpinner />
 
