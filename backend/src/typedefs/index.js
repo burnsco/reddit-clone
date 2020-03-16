@@ -63,12 +63,23 @@ const typeDefs = gql`
     updatedAt: String!
     createdAt: String!
     id: ID!
+    type: [PostType!]!
     category: Category!
     title: String!
     text: String
     author: User!
     comments: [Comment!]!
     votes: [Vote!]!
+    tags: [PostTagType!]!
+  }
+
+  enum PostTagType {
+    QUESTION
+    RANT
+    RAVE
+    PSA
+    DISCUSSION
+    TUTORIAL
   }
 
   type User implements Node {
@@ -76,6 +87,7 @@ const typeDefs = gql`
     updatedAt: String!
     createdAt: String!
     email: String!
+    role: Role!
     username: String!
     password: String!
     posts: [Post!]!

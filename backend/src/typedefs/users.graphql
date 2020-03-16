@@ -1,0 +1,11 @@
+type User implements Node {
+  id: ID!
+  updatedAt: String!
+  createdAt: String!
+  email: String!
+  username: String!
+  password: String!
+  posts: [Post!]!
+  comments: [Comment!]!
+  votes: [Vote!]!
+}

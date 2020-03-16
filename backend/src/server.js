@@ -4,8 +4,8 @@ import cors from 'cors'
 import http from 'http'
 import morgan from 'morgan'
 import jwt from 'jsonwebtoken'
+import { importSchema } from 'graphql-import'
 import { makeExecutableSchema } from 'graphql-tools'
-import typeDefs from './typedefs/index'
 import db from './context/index'
 import resolvers from './resolvers/root'
 import subscriptions from './subscriptions/index'
@@ -15,7 +15,6 @@ import {
   sendRefreshToken,
   createRefreshToken
 } from './utils'
-import { applyMiddleware } from 'graphql-middleware'
 import cookieParser from 'cookie-parser'
 require('dotenv').config()
 
@@ -57,61 +56,65 @@ app.post('/refresh_token', cors(corsOptions), async (req, res) => {
   return res.send({ ok: true, accessToken: createAccessToken(user) })
 })
 
-const schema = applyMiddleware(
-  makeExecutableSchema({
+async function main() {
+  const typeDefs = await importSchema('./schema.graphql')
+
+  const schema = makeExecutableSchema({
     typeDefs,
     resolvers,
     resolverValidationOptions: {
       requireResolversForResolveType: false
     }
   })
-)
 
-const pubsub = new PubSub()
+  const pubsub = new PubSub()
 
-const server = new ApolloServer({
-  schema,
-  context: async ({ req, res, connection }) => {
-    if (connection) {
+  const server = new ApolloServer({
+    schema,
+    context: async ({ req, res, connection }) => {
+      if (connection) {
+        return {
+          ...connection.context,
+          db
+        }
+      }
+
       return {
-        ...connection.context,
+        ...req,
+        ...res,
+        pubsub,
+        user: await getUser(req),
         db
       }
-    }
-
-    return {
-      ...req,
-      ...res,
-      pubsub,
-      user: await getUser(req),
-      db
-    }
-  },
-  subscriptions: {
-    path: '/subscriptions',
-    onConnect: async (connectionParams, webSocket, context) => {
-      console.log(
-        `Subscription client connected using Apollo server's built-in SubscriptionServer.`
-      )
     },
-    onDisconnect: async (webSocket, context) => {
-      console.log(`Subscription client disconnected.`)
+    subscriptions: {
+      path: '/subscriptions',
+      onConnect: async (connectionParams, webSocket, context) => {
+        console.log(
+          `Subscription client connected using Apollo server's built-in SubscriptionServer.`
+        )
+      },
+      onDisconnect: async (webSocket, context) => {
+        console.log(`Subscription client disconnected.`)
+      }
     }
-  }
-})
+  })
 
-server.applyMiddleware({ app, cors: corsOptions })
+  server.applyMiddleware({ app, cors: corsOptions })
 
-const PORT = 4000
+  const PORT = 4000
 
-const httpServer = http.createServer(app)
-server.installSubscriptionHandlers(httpServer)
+  const httpServer = http.createServer(app)
+  server.installSubscriptionHandlers(httpServer)
 
-httpServer.listen(PORT, () => {
-  console.log(
-    `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
-  )
-  console.log(
-    `🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
-  )
-})
+  httpServer.listen(PORT, () => {
+    console.log(
+      `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+    )
+    console.log(
+      `🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
+    )
+  })
+}
+
+main().catch(err => console.log(err))

@@ -7,6 +7,14 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
       title
       text
       createdAt
+      votes {
+        id
+        downVote
+        upVote
+        user {
+          id
+        }
+      }
       category {
         name
       }

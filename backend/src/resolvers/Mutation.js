@@ -56,6 +56,7 @@ const Mutation = {
     await res.clearCookies
     return true
   },
+
   async createCategory(root, { data }, { db }) {
     const categoryExists = await db.exists.Category({ name: data.name })
 

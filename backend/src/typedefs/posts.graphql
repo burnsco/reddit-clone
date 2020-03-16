@@ -1,0 +1,11 @@
+type Post implements Node {
+  updatedAt: String!
+  createdAt: String!
+  id: ID!
+  category: Category!
+  title: String!
+  text: String
+  author: User!
+  comments: [Comment!]!
+  votes: [Vote!]!
+}
