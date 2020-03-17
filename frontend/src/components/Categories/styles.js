@@ -23,7 +23,7 @@ export const ContainerHeader = styled(Link)`
   align-items: center;
   justify-content: center;
   border-radius: 5rpx;
-  background-color: #ff3f3f;
+  background-color: #bb5454;
   color: white;
   border: none;
   height: 30rpx;

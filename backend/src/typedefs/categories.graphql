@@ -1,7 +1,0 @@
-type Category implements Node {
-  updatedAt: String!
-  createdAt: String!
-  id: ID!
-  name: String!
-  posts: [Post!]!
-}

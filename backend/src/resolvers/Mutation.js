@@ -14,48 +14,7 @@ import {
 } from '../utils'
 
 const Mutation = {
-  async vote(root, args, { db, user }, info) {
-    const postExists = db.exists.Post({ id: args.postID })
-    if (!postExists) {
-      return {
-        code: '401',
-        success: false,
-        message: 'Post does not exist!'
-      }
-    }
-    if (!user) {
-      throw new AuthenticationError('you are not logged in')
-    }
-
-    const vote = await db.mutation.createVote({
-      data: {
-        upVote: args.upVote,
-        downVote: args.downVote,
-        user: {
-          connect: {
-            id: user.userID
-          }
-        },
-        post: {
-          connect: {
-            id: args.postID
-          }
-        }
-      }
-    })
-
-    return {
-      code: '200',
-      success: true,
-      message: 'Vote Cast Successfully!'
-    }
-  },
-
-  async logout(root, args, { res }) {
-    await sendRefreshToken(res, '')
-    await res.clearCookies
-    return true
-  },
+  async createVote(root, args, { db, user }, info) {},
 
   async createCategory(root, { data }, { db }) {
     const categoryExists = await db.exists.Category({ name: data.name })

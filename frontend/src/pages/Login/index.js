@@ -47,7 +47,6 @@ function LoginPage() {
 
       if (code === '200') {
         setAccessToken(accessToken)
-        window.location.reload(true)
         navigate('../', { replace: true })
       }
       return result
