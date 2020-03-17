@@ -53,7 +53,7 @@ const VoteBox = ({ votes, postID }) => {
       />
       <Votes>{showVoteNumber}</Votes>
       <DownArrow
-        style={{ color: downVote ? 'red' : 'black' }}
+        style={{ color: downVote ? '#d85d38' : 'black' }}
         onClick={async () => {
           console.log('downvote')
 
