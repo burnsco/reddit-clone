@@ -10,7 +10,7 @@ export const PostContainer = styled.div`
   min-height: 100rpx;
   width: 100%;
   &:hover {
-    border: 1px solid #6b6969;
+    border: 1px solid #ced1db;
   }
 `
 export const VoteBoxContainer = styled.div`
@@ -31,7 +31,7 @@ export const PostDetailsContainer = styled.div`
 export const PostDetailsHeader = styled.div`
   font-size: 12rpx;
   display: flex;
-  color: #85898b;
+  color: #ced1db;
 `
 
 export const PostTitle = styled.h2`

@@ -22,12 +22,12 @@ export const ContainerHeader = styled(Link)`
   align-items: center;
   justify-content: center;
   border-radius: 5rpx;
-  background-color: #bb5454;
+  background-color: #3661ed;
   color: white;
   border: none;
   height: 30rpx;
   &:hover {
-    background-color: #f3f5f3;
+    background-color: #8ca2ea;
   }
 `
 

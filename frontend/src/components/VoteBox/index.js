@@ -40,7 +40,7 @@ const VoteBox = ({ votes, postID }) => {
   return (
     <Container>
       <UpArrow
-        style={{ color: upVote ? 'red' : 'black' }}
+        style={{ color: upVote ? '#d85d38' : 'black' }}
         onClick={async () => {
           console.log('upvote')
 
