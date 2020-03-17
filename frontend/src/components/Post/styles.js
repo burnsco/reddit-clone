@@ -13,7 +13,9 @@ export const PostContainer = styled.div`
     border: 1px solid #6b6969;
   }
 `
-export const VoteBoxContainer = styled.div``
+export const VoteBoxContainer = styled.div`
+  margin-right: 5rpx;
+`
 
 export const PostDetailsContainer = styled.div`
   margin-top: 5rpx;

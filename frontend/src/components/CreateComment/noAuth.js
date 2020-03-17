@@ -7,7 +7,7 @@ const Container = styled.div`
   justify-content: space-evenly;
 `
 
-const noAuth = () => (
+const NoAuth = () => (
   <Container>
     <Link to="/login" style={{ color: '#33a0ff' }}>
       <h5>Login</h5>
@@ -19,4 +19,4 @@ const noAuth = () => (
   </Container>
 )
 
-export default noAuth
+export default NoAuth

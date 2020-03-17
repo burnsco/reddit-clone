@@ -32,24 +32,26 @@ const App = () => {
   if (loading) return <MainSpinner />
 
   return (
-    <AppContainer>
+    <>
       <Header />
-      <Router>
-        <Profile path="profile/:userID">
-          <AllPostsPageWithData path="profile/:userID/posts" />
-          <CommentsPageWithData path="profile/:userID/comments" />
-          <ProfilePage path="/" />
-        </Profile>
-        <CreatePostPage path="submit" />
-        <LoginPage path="login" />
-        <Signup path="signup" />
-        <Home path="/">
-          <CategoryPostsPageWithData path="r/:category" />
-          <PostAndCommentsPage path="r/:category/:postID/comments" />
-          <AllPostsPageWithData path="/" />
-        </Home>
-      </Router>
-    </AppContainer>
+      <AppContainer>
+        <Router>
+          <Profile path="profile/:userID">
+            <AllPostsPageWithData path="profile/:userID/posts" />
+            <CommentsPageWithData path="profile/:userID/comments" />
+            <ProfilePage path="/" />
+          </Profile>
+          <CreatePostPage path="submit" />
+          <LoginPage path="login" />
+          <Signup path="signup" />
+          <Home path="/">
+            <CategoryPostsPageWithData path="r/:category" />
+            <PostAndCommentsPage path="r/:category/:postID/comments" />
+            <AllPostsPageWithData path="/" />
+          </Home>
+        </Router>
+      </AppContainer>
+    </>
   )
 }
 

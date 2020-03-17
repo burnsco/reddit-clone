@@ -14,6 +14,7 @@ function CategoryPostsPageWithData({ category }) {
   )
 
   if (loading) return <MainSpinner />
+
   if (error) {
     console.log(error)
     return <div>Error, please return to main page</div>

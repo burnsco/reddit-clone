@@ -19,7 +19,7 @@ const DownArrow = styled(DownArrowSquare)`
   }
 `
 
-const VoteBox = ({ votes, postID }) => {
+const VoteBox = ({ votes, postID, currentUser }) => {
   const { hasVoted, loading, data } = useQuery(CHECK_IF_USER_VOTED_QUERY, {
     variables: { postID: postID }
   })
@@ -55,6 +55,7 @@ const VoteBox = ({ votes, postID }) => {
         style={{ color: upVote ? 'red' : 'black' }}
         onClick={async () => {
           console.log('upvote')
+
           const vote = await createVote({
             variables: { postID: postID, upVote: true, downVote: false }
           })
@@ -67,6 +68,7 @@ const VoteBox = ({ votes, postID }) => {
         style={{ color: downVote ? 'red' : 'black' }}
         onClick={async () => {
           console.log('downvote')
+
           const vote = await createVote({
             variables: { postID: postID, upVote: false, downVote: true }
           })

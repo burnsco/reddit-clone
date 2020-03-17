@@ -1,8 +1,16 @@
 import styled from '@xstyled/styled-components'
+import { Link } from '@reach/router'
 
 export const CommentsContainer = styled.div`
+  border-radius: 5rpx;
   border: 1px solid grey;
   padding: 10rpx;
+  margin-top: 10rpx;
+`
+
+export const PostCommentHeader = styled(Link)``
+
+export const PostCommentBody = styled.div`
   margin-top: 10rpx;
 `
 

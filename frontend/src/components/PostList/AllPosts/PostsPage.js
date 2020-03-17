@@ -7,6 +7,10 @@ function PostsPage(data) {
     data.subscribeToNewPosts()
   }, [data])
 
+  if (data.posts.length === 0) {
+    return <div>No posts here</div>
+  }
+
   return (
     <PostListContainer>
       {data.posts.map(post => (
