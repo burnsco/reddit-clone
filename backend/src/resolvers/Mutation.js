@@ -14,7 +14,34 @@ import {
 } from '../utils'
 
 const Mutation = {
-  async createVote(root, args, { db, user }, info) {},
+  async createVote(root, { data }, { db, user }, info) {
+    const voteExists = await db.exists.Vote({
+      user: { id: user.userID },
+      post: { id: data.postID }
+    })
+    if (voteExists) {
+      return {
+        code: '401',
+        success: false,
+        message: 'you have already voted'
+      }
+    }
+
+    const vote = await db.mutation.createVote({
+      data: {
+        upVote: data.upVote,
+        downVote: data.downVote,
+        user: { connect: { id: user.userID } },
+        post: { connect: { id: data.postID } }
+      }
+    })
+    return {
+      code: '200',
+      success: true,
+      message: 'vote submitted',
+      vote
+    }
+  },
 
   async createCategory(root, { data }, { db }) {
     const categoryExists = await db.exists.Category({ name: data.name })

@@ -1,4 +1,5 @@
 type Query {
+  hasVoted: CreateVoteMutationResponse!
   currentUser: User!
   categories(query: String): [Category!]!
   posts(
@@ -18,12 +19,11 @@ type Query {
   ): [Comment!]!
   users(query: String, first: Int, skip: Int, after: String): [User!]!
   post(postID: ID!): Post!
-  votes: Vote!
   node(id: ID!): Node
 }
 
 type Mutation {
-  createVote(data: CreateVoteInput!): CreateVoteMutationResponse!
+  createVote(data: CreateVoteInput): CreateVoteMutationResponse!
   createUser(data: CreateUserInput!): CreateUserMutationResponse!
   loginUser(data: LoginUserInput!): LoginUserMutationResponse!
   createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
@@ -100,9 +100,15 @@ input UpdatePostInput {
 }
 
 input CreateVoteInput {
-  postID: ID!
-  upVote: Boolean!
-  downVote: Boolean!
+  postID: ID
+  upVote: Boolean
+  downVote: Boolean
+}
+
+input CreateCommentInput {
+  postID: ID
+  author: ID
+  body: String!
 }
 
 input CreatePostInput {
@@ -110,12 +116,6 @@ input CreatePostInput {
   author: ID
   title: String!
   text: String
-}
-
-input CreateCommentInput {
-  postID: ID
-  author: ID
-  body: String!
 }
 
 input CreateCategoryInput {

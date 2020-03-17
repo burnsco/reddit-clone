@@ -1,9 +1,11 @@
 import React from 'react'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { Container, Votes } from './styles'
 import styled from '@xstyled/styled-components'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
+import { CHECK_IF_USER_VOTED_QUERY } from './query'
 import { UPVOTE_POST_MUTATION } from './mutation'
+import MainSpinner from '../shared/FallBackSpinner'
 
 const UpArrow = styled(UpArrowSquare)`
   &:hover {
@@ -18,9 +20,10 @@ const DownArrow = styled(DownArrowSquare)`
 `
 
 const VoteBox = ({ votes, postID }) => {
-  const [vote, { error }] = useMutation(UPVOTE_POST_MUTATION, {
-    variables: { postID: postID, upVote: true, downVote: false }
+  const { hasVoted, loading, data } = useQuery(CHECK_IF_USER_VOTED_QUERY, {
+    variables: { postID: postID }
   })
+  const [createVote, { error }] = useMutation(UPVOTE_POST_MUTATION)
 
   let showVoteNumber = 0
 
@@ -35,21 +38,42 @@ const VoteBox = ({ votes, postID }) => {
     })
   }
 
+  console.log(data)
+
+  if (loading) return <MainSpinner />
+
   if (error) {
     console.log(error)
     return <div>error</div>
   }
 
+  const { upVote, downVote } = data.hasVoted
+
   return (
     <Container>
       <UpArrow
+        style={{ color: upVote ? 'red' : 'black' }}
         onClick={async () => {
           console.log('upvote')
-          await vote()
+          const vote = await createVote({
+            variables: { postID: postID, upVote: true, downVote: false }
+          })
+          console.log(vote)
+          return vote
         }}
       />
       <Votes>{showVoteNumber}</Votes>
-      <DownArrow onClick={() => console.log('downvote')} />
+      <DownArrow
+        style={{ color: downVote ? 'red' : 'black' }}
+        onClick={async () => {
+          console.log('downvote')
+          const vote = await createVote({
+            variables: { postID: postID, upVote: false, downVote: true }
+          })
+          console.log(vote)
+          return vote
+        }}
+      />
     </Container>
   )
 }
