@@ -6,6 +6,10 @@ export const CommentsContainer = styled.div`
   margin-top: 10rpx;
 `
 
+export const CommentCreatedAt = styled.span`
+  margin-left: 10rpx;
+`
+
 export const PostContainer = styled.div`
   margin-top: 20rpx;
   border: 1px solid #ebedf0;
@@ -17,6 +21,10 @@ export const PostContainer = styled.div`
   &:hover {
     border: 1px solid #6b6969;
   }
+`
+
+export const CommentBody = styled.div`
+  margin-top: 10rpx;
 `
 export const VoteBoxContainer = styled.div``
 export const PostDetailsContainer = styled.div`

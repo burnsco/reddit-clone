@@ -1,12 +1,7 @@
-import React, { useState } from 'react'
-import { useQuery, gql } from '@apollo/client'
-import Spinner from '../shared/FallBackSpinner'
-import { PostListContainer } from '../PostList/styles'
-import CreateCommentForm from '../CreateComment/index'
-import { CommentsContainer } from './styles'
-import { PostPage } from './PostPage'
+import React from 'react'
+import { PostListContainer } from '../../components/PostList/styles'
+import CreateCommentForm from '../../components/CreateComment'
 import CommentsPageWithData from './CommentsPageWithData'
-import { GET_POST_AND_COMMENTS } from './query'
 import PostPageWithData from './PostPageWithData'
 
 function PostAndCommentsPage({ postID }) {

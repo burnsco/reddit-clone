@@ -3,7 +3,6 @@ import { gql, useMutation, useQuery } from '@apollo/client'
 import { InputCommentBox, InputCommentFooter } from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
 import { CURRENT_USER } from './query'
-import noAuth from './noAuth'
 import NoAuth from './noAuth'
 
 const SUBMIT_COMMENT = gql`

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
-import { CommentsContainer } from './styles'
+import { CommentsContainer, CommentCreatedAt, CommentBody } from './styles'
+import { Link } from '@reach/router'
+import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate'
 
 function CommentsPage(props) {
   const { subscribeToNewComments } = props
@@ -7,15 +9,24 @@ function CommentsPage(props) {
 
   useEffect(() => {
     subscribeToNewComments()
-  }, [props])
+  }, [subscribeToNewComments])
+
+  if (comments.length === 0) {
+    return <div>No Comments Yet</div>
+  }
   return (
     <>
       {comments.map(comment => (
         <CommentsContainer key={comment.id}>
-          <p>
+          <Link to={`/r/profile/${comment.author.username}`}>
+            {' '}
             <strong>{comment.author.username}</strong>
-          </p>
-          <p>{comment.body}</p>
+          </Link>
+          <CommentCreatedAt>
+            {timeDifferenceForDate(comment.createdAt)}
+          </CommentCreatedAt>
+
+          <CommentBody>{comment.body}</CommentBody>
         </CommentsContainer>
       ))}
     </>

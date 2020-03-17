@@ -12,7 +12,7 @@ import {
   PostAuthor,
   PostDateCreated
 } from './styles.js'
-import VoteBox from '../VoteBox/index.js'
+import VoteBox from '../../components/VoteBox'
 import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
 
 const Post = ({

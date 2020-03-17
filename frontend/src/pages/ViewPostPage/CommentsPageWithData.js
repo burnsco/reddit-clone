@@ -1,9 +1,9 @@
 import React from 'react'
-import { useQuery, updateQuery, gql } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { COMMENTS_QUERY } from './query'
 import { COMMENTS_SUBSCRIPTION } from './subscription'
-import MainSpinner from '../shared/FallBackSpinner'
 import CommentsPage from './CommentsPage'
+import MainSpinner from '../../components/shared/FallBackSpinner'
 
 function CommentsPageWithData({ postID }) {
   const { subscribeToMore, loading, error, ...result } = useQuery(

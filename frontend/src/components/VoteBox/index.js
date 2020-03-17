@@ -5,6 +5,7 @@ import styled from '@xstyled/styled-components'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 import { CHECK_IF_USER_VOTED_QUERY } from './query'
 import { UPVOTE_POST_MUTATION } from './mutation'
+import { getVotes } from './getVotes'
 import MainSpinner from '../shared/FallBackSpinner'
 
 const UpArrow = styled(UpArrowSquare)`
@@ -19,26 +20,13 @@ const DownArrow = styled(DownArrowSquare)`
   }
 `
 
-const VoteBox = ({ votes, postID, currentUser }) => {
+const VoteBox = ({ votes, postID }) => {
   const { hasVoted, loading, data } = useQuery(CHECK_IF_USER_VOTED_QUERY, {
     variables: { postID: postID }
   })
   const [createVote, { error }] = useMutation(UPVOTE_POST_MUTATION)
-
-  let showVoteNumber = 0
-
-  if (votes.length > 0) {
-    votes.forEach(vote => {
-      if (vote.upVote) {
-        showVoteNumber += 1
-      }
-      if (vote.downVote) {
-        showVoteNumber -= 1
-      }
-    })
-  }
-
-  console.log(data)
+  console.log(votes)
+  let showVoteNumber = getVotes(votes)
 
   if (loading) return <MainSpinner />
 

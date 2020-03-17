@@ -9,10 +9,10 @@ import CreatePostPage from '../pages/CreatePost'
 import { AppContainer } from './styles'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
-import PostAndCommentsPage from '../components/Comments'
+import PostAndCommentsPage from '../pages/ViewPostPage/index'
 import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWithData'
 import ProfilePage from '../pages/Profile/index'
-import CommentsPageWithData from '../components/Comments/CommentsPageWithData'
+import CommentsPageWithData from '../pages/ViewPostPage/CommentsPageWithData'
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 
 const App = () => {
