@@ -21,6 +21,8 @@ const Header = () => {
   if (error) {
     console.log(error)
   }
+  console.log('data')
+  console.log(data)
   if (data && data.currentUser) {
     return (
       <HeaderContainer>

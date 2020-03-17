@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import { InputCommentBox, InputCommentFooter } from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
+import { CURRENT_USER } from './query'
+import noAuth from './noAuth'
 
 const SUBMIT_COMMENT = gql`
   mutation submitComment($body: String!, $postID: ID!) {
@@ -14,8 +16,9 @@ const SUBMIT_COMMENT = gql`
 `
 
 const CreateCommentForm = ({ postID }) => {
+  const { loading, data } = useQuery(CURRENT_USER)
   const [comment, setComment] = useState('')
-  const [createComment, { loading, error }] = useMutation(SUBMIT_COMMENT, {
+  const [createComment, { error }] = useMutation(SUBMIT_COMMENT, {
     variables: { body: comment, postID: postID }
   })
   const handleChange = e => {
@@ -46,25 +49,28 @@ const CreateCommentForm = ({ postID }) => {
 
   if (loading) return <MainSpinner />
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <InputCommentBox
-        as="textarea"
-        value={comment}
-        onChange={handleChange}
-        style={{ background: 'white' }}
-        role="textbox"
-        spellCheck="true"
-        placeholder="What are your thoughts"
-        height="300"
-        width="300"
-      ></InputCommentBox>
+  if (data && data.currentUser) {
+    return (
+      <form onSubmit={handleSubmit}>
+        <InputCommentBox
+          as="textarea"
+          value={comment}
+          onChange={handleChange}
+          style={{ background: 'white' }}
+          role="textbox"
+          spellCheck="true"
+          placeholder="What are your thoughts"
+          height="300"
+          width="300"
+        ></InputCommentBox>
 
-      <InputCommentFooter>
-        <button>Submit</button>
-      </InputCommentFooter>
-    </form>
-  )
+        <InputCommentFooter>
+          <button>Submit</button>
+        </InputCommentFooter>
+      </form>
+    )
+  }
+  return <noAuth />
 }
 
 export default CreateCommentForm

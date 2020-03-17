@@ -13,6 +13,7 @@ export const InputCommentBox = styled.input`
   min-width: 500rpx;
   display: block;
   width: 100%;
+  min-height: 100rpx;
   display: flex;
   vertical-align: baseline;
   word-break: break-word;

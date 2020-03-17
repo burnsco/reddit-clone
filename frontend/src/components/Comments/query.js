@@ -34,6 +34,7 @@ export const COMMENTS_QUERY = gql`
       comments {
         id
         body
+        createdAt
         author {
           username
         }

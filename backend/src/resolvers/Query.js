@@ -41,6 +41,7 @@ const Query = {
       }
     }
   },
+
   currentUser: async (root, args, { db, user }, info) => {
     if (!user.userID) {
       throw new Error('no user logged in')
