@@ -1,5 +1,11 @@
 import styled from '@xstyled/styled-components'
+import { UserNinja } from '@styled-icons/fa-solid'
 import { CustomButton } from '../shared/CustomButton'
+
+export const UserIcon = styled(UserNinja)`
+  height: 20rpx;
+  width: 30rpx;
+`
 
 export const HeaderContainer = styled.header`
   position: sticky;

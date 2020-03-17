@@ -6,9 +6,11 @@ import {
   HeaderNavWrapper,
   HeaderLogo,
   HeaderLinks,
-  HeaderLink
+  HeaderLink,
+  UserIcon
 } from './styles'
 import Logo from '../../assets/logoWithTitle.png'
+
 import { CURRENT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'
@@ -35,6 +37,7 @@ const Header = () => {
 
           <HeaderLinks>
             <CategoryLink to="/profile">
+              <UserIcon />
               {data ? data.currentUser.username : 'no user'}
             </CategoryLink>
 
