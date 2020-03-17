@@ -1,17 +1,14 @@
 import styled from '@xstyled/styled-components'
+import NavLink from '../shared/NavLink'
 
 export const CategoriesContainer = styled.aside`
-  height: 30vh;
+  border-radius: 5rpx;
+  border: 1px solid grey;
   display: flex;
   padding: 10rpx;
   flex-direction: column;
 `
 
-export const ContainerTitle = styled.h1`
-  flex-grow: 2;
-  text-decoration: underline;
-`
+export const ContainerTitle = styled.h1``
 
-export const CategoryTitles = styled.p`
-  flex-grow: 1;
-`
+export const CategoryLink = styled(NavLink)``

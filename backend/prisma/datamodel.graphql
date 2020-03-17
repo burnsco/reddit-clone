@@ -27,6 +27,7 @@ type Post {
   comments: [Comment!]!
   votes: [Vote!]!
 }
+
 type Comment {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt

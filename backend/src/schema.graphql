@@ -67,16 +67,6 @@ type Post implements Node {
   author: User!
   comments: [Comment!]!
   votes: [Vote!]!
-  tags: [PostTagType!]!
-}
-
-enum PostTagType {
-  QUESTION
-  RANT
-  RAVE
-  PSA
-  DISCUSSION
-  TUTORIAL
 }
 
 type User implements Node {
@@ -84,7 +74,6 @@ type User implements Node {
   updatedAt: String!
   createdAt: String!
   email: String!
-  role: Role!
   username: String!
   password: String!
   posts: [Post!]!
@@ -271,13 +260,18 @@ enum PostOrderByInput {
   createdAt_DESC
 }
 
+enum PostTagType {
+  QUESTION
+  RANT
+  RAVE
+  PSA
+  DISCUSSION
+  TUTORIAL
+}
+
 enum CommentOrderByInput {
   id_ASC
   id_DESC
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC

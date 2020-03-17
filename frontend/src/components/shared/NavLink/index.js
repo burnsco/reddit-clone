@@ -1,17 +1,18 @@
+import styled from '@xstyled/styled-components'
 import React from 'react'
 import { Link } from '@reach/router'
 
-const Navlink = props => (
+const NavLink = props => (
   <Link
     {...props}
     getProps={({ isCurrent }) => {
       return {
         style: {
-          color: isCurrent ? 'red' : 'blue'
+          color: isCurrent ? 'black' : 'grey'
         }
       }
     }}
   />
 )
 
-export default Navlink
+export default NavLink
