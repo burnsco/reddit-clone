@@ -4,6 +4,7 @@ import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { gql, useMutation } from '@apollo/client'
 import MainSpinner from '../../components/shared/FallBackSpinner'
+import { navigate } from '@reach/router'
 
 const SUBMIT_DATA_SIGN_UP = gql`
   mutation SubmitDataAndSignUp(
@@ -45,10 +46,12 @@ function SignUpPage() {
     try {
       const result = await createUser()
 
-      const { message } = result.data.createUser
+      const { message, success } = result.data.createUser
 
       setResult(message)
-
+      if (success) {
+        navigate('/login')
+      }
       return result
     } catch (error) {
       console.log(error)

@@ -3,7 +3,9 @@ import {
   CategoriesContainer,
   CategoryTitles,
   ContainerTitle,
-  CategoryLink
+  ContainerHeader,
+  CategoryLink,
+  CategoryLinksContainer
 } from './styles.js'
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES_QUERY } from './query'
@@ -23,11 +25,15 @@ function Categories() {
 
   return (
     <CategoriesContainer>
-      {data.categories.map(category => (
-        <CategoryLink to={`/r/${category.name}`} key={category.id}>
-          r/{category.name}
-        </CategoryLink>
-      ))}
+      <ContainerHeader to="/submit">Create Post</ContainerHeader>
+      <CategoryLinksContainer>
+        <CategoryLink to="/">r/all</CategoryLink>
+        {data.categories.map(category => (
+          <CategoryLink to={`/r/${category.name}`} key={category.id}>
+            r/{category.name}
+          </CategoryLink>
+        ))}
+      </CategoryLinksContainer>
     </CategoriesContainer>
   )
 }

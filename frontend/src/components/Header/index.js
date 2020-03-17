@@ -12,6 +12,7 @@ import Logo from '../../assets/logoWithTitle.png'
 import { CURRENT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'
+import { CategoryLink } from '../Categories/styles'
 
 const Header = () => {
   const { loading, error, data } = useQuery(CURRENT_USER)
@@ -31,17 +32,10 @@ const Header = () => {
           </HeaderLogo>
 
           <HeaderLinks>
-            <HeaderLink>
-              <Link to="/submit">
-                <h5>Create</h5>
-              </Link>
-            </HeaderLink>
+            <CategoryLink to="/profile">
+              {data ? data.currentUser.username : 'no user'}
+            </CategoryLink>
 
-            <HeaderLink>
-              <Link to="/profile">
-                <pre>{data ? data.currentUser.username : 'user'}</pre>
-              </Link>
-            </HeaderLink>
             {/* TODO Create Logout Function with Cookies */}
             {/* <HeaderLink
               onClick={() => LogoutUser()}

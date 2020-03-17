@@ -11,7 +11,8 @@ import {
   PostComments,
   PostCategory,
   PostDetailsHeader,
-  PostedBy
+  PostedBy,
+  UserName
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
 import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
@@ -43,9 +44,15 @@ const Post = ({
 
     <PostDetailsContainer>
       <PostDetailsHeader>
-        <PostCategory> /r/{name}</PostCategory>
+        <PostCategory>
+          <Link style={{ color: 'black' }} to={`/r/${name}`}>
+            /r/{name}
+          </Link>{' '}
+        </PostCategory>
         <PostedBy>
-          Posted by u/{username} {timeDifferenceForDate(createdAt)}
+          Posted by{' '}
+          <UserName to={`/profile/${username}`}>u/{username} </UserName>
+          {timeDifferenceForDate(createdAt)}
         </PostedBy>
       </PostDetailsHeader>
       <PostTitle>{title}</PostTitle>
@@ -57,7 +64,10 @@ const Post = ({
           {' '}
           <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
             <CommentIcon />
-            {comments.length} comments
+            {comments.length}{' '}
+            {comments.length < 10 && comments.length !== 0
+              ? 'comment'
+              : 'comments'}
           </Link>
         </PostComments>
       </PostFooter>

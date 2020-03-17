@@ -14,11 +14,21 @@ function timeDifference(current, previous) {
   if (elapsed < milliSecondsPerMinute) {
     return 'less than 1 min ago'
   } else if (elapsed < milliSecondsPerHour) {
-    return Math.round(elapsed / milliSecondsPerMinute) + ' min ago'
+    return Math.round(elapsed / milliSecondsPerMinute) + ' mins ago'
   } else if (elapsed < milliSecondsPerDay) {
-    return Math.round(elapsed / milliSecondsPerHour) + ' hours ago'
+    const remaining = Math.round(elapsed / milliSecondsPerHour)
+    if (remaining === 1) {
+      return remaining + ' hour ago'
+    } else {
+      return remaining + ' hours ago'
+    }
   } else if (elapsed < milliSecondsPerMonth) {
-    return Math.round(elapsed / milliSecondsPerDay) + ' days ago'
+    const remaining = Math.round(elapsed / milliSecondsPerDay)
+    if (remaining === 1) {
+      return remaining + ' day ago'
+    } else {
+      return remaining + ' days ago'
+    }
   } else if (elapsed < milliSecondsPerYear) {
     return Math.round(elapsed / milliSecondsPerMonth) + ' months ago'
   } else {
