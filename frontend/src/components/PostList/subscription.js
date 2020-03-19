@@ -8,6 +8,14 @@ export const POSTS_SUBSCRIPTION = gql`
         title
         text
         createdAt
+        votes {
+          id
+          downVote
+          upVote
+          user {
+            id
+          }
+        }
         comments {
           id
           body

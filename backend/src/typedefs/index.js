@@ -2,6 +2,7 @@ import { gql } from 'apollo-server-express'
 
 const typeDefs = gql`
   type Query {
+    votesConnection(where: VoteWhereInput): VoteConnection
     hasVoted(postID: ID!): HasVotedMutationResponse!
     currentUser: User!
     categories(query: String): [Category!]!
@@ -20,6 +21,7 @@ const typeDefs = gql`
       after: String
       orderBy: CommentOrderByInput
     ): [Comment!]!
+    votes(where: VoteWhereInput): [Vote!]
     users(query: String, first: Int, skip: Int, after: String): [User!]!
     post(postID: ID!): Post!
     node(id: ID!): Node
@@ -45,6 +47,31 @@ const typeDefs = gql`
 
   interface Node {
     id: ID!
+  }
+
+  type AggregatePost {
+    count: Int!
+  }
+
+  type AggregateVote {
+    count: Int!
+  }
+
+  input VoteWhereInput {
+    id: ID
+    upVote: Boolean
+    downVote: Boolean
+    post: PostWhereInput
+    AND: [VoteWhereInput!]
+  }
+
+  input PostWhereInput {
+    id: ID
+    AND: [PostWhereInput!]
+  }
+
+  type VoteConnection {
+    aggregate: AggregateVote!
   }
 
   type Category implements Node {

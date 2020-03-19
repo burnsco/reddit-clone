@@ -1,4 +1,3 @@
-import styled from '@xstyled/styled-components'
 import React from 'react'
 import { Link } from '@reach/router'
 import { LeftArrowAlt } from '@styled-icons/boxicons-regular'

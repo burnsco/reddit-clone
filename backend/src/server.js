@@ -2,9 +2,8 @@ import { ApolloServer, PubSub } from 'apollo-server-express'
 import express from 'express'
 import cors from 'cors'
 import http from 'http'
-import morgan from 'morgan'
 import jwt from 'jsonwebtoken'
-import typeDefs from './typedefs'
+import { importSchema } from 'graphql-import'
 import { makeExecutableSchema } from 'graphql-tools'
 import db from './context/index'
 import resolvers from './resolvers/root'
@@ -21,7 +20,7 @@ require('dotenv').config()
 const app = express()
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }
 
@@ -56,6 +55,8 @@ app.post('/refresh_token', cors(corsOptions), async (req, res) => {
 
   return res.send({ ok: true, accessToken: createAccessToken(user) })
 })
+
+const typeDefs = importSchema('./src/schema.graphql')
 
 const schema = makeExecutableSchema({
   typeDefs: [typeDefs],
@@ -100,7 +101,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, cors: corsOptions })
 
-const PORT = 4000
+const PORT = 4000 || process.env.SERVER_PORT
 
 const httpServer = http.createServer(app)
 server.installSubscriptionHandlers(httpServer)

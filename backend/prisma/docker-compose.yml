@@ -12,11 +12,10 @@ services:
         databases:
           default:
             connector: postgres
-            host: postgresql.cd7ipnc4wthx.us-east-2.rds.amazonaws.com
-            database: postgres
-            schema: public
-            user: postgres
-            password: LIAmWuJ83g3o1A6FtMaI
+            host: ${env:PG_HOST}
+            database: ${env:PG_DB}
+            user: ${env:PG_USER}
+            password: ${env:PG_PASS}
             ssl: true
             rawAccess: true
             port: 5432

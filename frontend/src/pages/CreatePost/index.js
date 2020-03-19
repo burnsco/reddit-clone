@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 import { useQuery } from '@apollo/client'
 import { navigate } from '@reach/router'
+import Select from 'react-select'
 import { SUBMIT_POST } from './mutation'
 import { GET_CATEGORIES } from './query'
 
@@ -17,7 +18,7 @@ function CreatePostPage() {
   const { loading, data } = useQuery(GET_CATEGORIES)
 
   const [createPost, { error }] = useMutation(SUBMIT_POST, {
-    variables: { title: title, text: text, categoryID: categoryID }
+    variables: { title: title, text: text, categoryID: categoryID.value }
   })
 
   if (loading) return <MainSpinner />
@@ -42,6 +43,10 @@ function CreatePostPage() {
       console.log(error)
     }
   }
+  const handleSelect = categoryID => {
+    setCategoryID(categoryID)
+    console.log(`Option selected: `, categoryID)
+  }
 
   const handleChange = event => {
     const { value, name } = event.target
@@ -53,10 +58,6 @@ function CreatePostPage() {
     if (name === 'text') {
       setText(value)
     }
-
-    if (name === 'categoryID') {
-      setCategoryID(value)
-    }
   }
 
   if (loading) return <div>Loading</div>
@@ -65,6 +66,10 @@ function CreatePostPage() {
     console.log(error.error)
     return <h1>error</h1>
   }
+
+  const options = data.categories.map(option => {
+    return { value: option.id, label: option.name }
+  })
 
   return (
     <WelcomePage>
@@ -85,11 +90,11 @@ function CreatePostPage() {
             value={text}
             label="Text"
           />
-
+          {/* 
           <label>
             Category
-            <br />
-            <select
+            <br /> */}
+          {/* <select
               name="categoryID"
               value={categoryID}
               onChange={e => handleChange(e)}
@@ -100,7 +105,15 @@ function CreatePostPage() {
                 </option>
               ))}
             </select>
-          </label>
+          </label> */}
+
+          <Select
+            name="categoryID"
+            value={categoryID}
+            options={options}
+            onChange={handleSelect}
+          />
+
           <ButtonsBarContainer>
             <CustomButton type="submit" style={{ width: 100 + '%' }}>
               {' '}

@@ -11,3 +11,15 @@ export const CHECK_IF_USER_VOTED_QUERY = gql`
     }
   }
 `
+
+export const GET_VOTES_QUERY = gql`
+  query onGetVotes($postID: ID!) {
+    post(postID: $postID) {
+      votes {
+        id
+        upVote
+        downVote
+      }
+    }
+  }
+`

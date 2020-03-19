@@ -3,9 +3,10 @@ import { PostListContainer } from '../styles'
 import Post from '../../Post'
 
 function PostsPage(data) {
+  const { subscribeToNewPosts } = data
   useEffect(() => {
-    data.subscribeToNewPosts()
-  }, [data])
+    subscribeToNewPosts()
+  }, [subscribeToNewPosts])
 
   if (data.posts.length === 0) {
     return <div>No posts here</div>
