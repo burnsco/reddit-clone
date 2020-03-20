@@ -10,7 +10,7 @@ import { Link } from '@reach/router'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 
 function CommentsPage(props) {
-  const { editComment } = useMutation(EDIT_COMMENT_MUTATION)
+  // const { editComment } = useMutation(EDIT_COMMENT_MUTATION)
   const { subscribeToNewComments } = props
   const { comments } = props.data.post
 

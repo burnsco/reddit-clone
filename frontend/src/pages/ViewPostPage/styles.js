@@ -13,8 +13,7 @@ export const VoteBoxContainer = styled.div``
 export const PostDetailsContainer = styled.div`
   margin-top: 5rpx;
   min-height: 100rpx;
-  padding-right: 5rpx;
-  padding-left: 5rpx;
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -78,7 +77,8 @@ export const CommentHeader = styled.div`
 
 export const CommentsContainer = styled.div`
   margin-top: 20rpx;
-  margin-left: 50rpx;
+  margin-left: 45rpx;
+  margin-right: 45rpx;
 `
 export const CommentAuthor = styled.div`
   margin-left: 15rpx;

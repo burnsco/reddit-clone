@@ -6,7 +6,8 @@ import {
   EmailTaken,
   UserDoesNotExist,
   PostDoesNotExist,
-  UserNotLoggedIn
+  UserNotLoggedIn,
+  CommentDoesNotExist
 } from '../constants'
 import { AuthenticationError } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
@@ -212,29 +213,36 @@ const Mutation = {
   },
 
   async updateComment(root, { data }, { db, user }, info) {
-    const userExists = await db.exists.user({ id: data.userID })
+    const userExists = await db.exists.User({ id: user.userID })
+    if (!userExists) return UserDoesNotExist
     const postExists = await db.exists.Post({ id: data.postID })
+    if (!postExists) return PostDoesNotExist
     const commentExists = await db.exists.Comment({ id: data.commentID })
+    if (!commentExists) return CommentDoesNotExist
 
     await db.mutation.updateComment({
       data: {
-        title: data.title
+        body: data.body
       },
       where: {
         id: data.commentID
       }
     })
-    return comment
+    return {
+      code: '200',
+      success: true,
+      message: 'Comment Updated Successfully!'
+    }
   },
 
-  async deleteUser(root, { data }, { db }, info) {
+  async deleteUser(root, { data }, { db, user }, info) {
     const userExists = await db.exists.user({ id: data.userID })
 
     const result = await db.mutation.deleteUser({ email: data.email })
     return result
   },
 
-  async deletePost(root, { data }, { db }, info) {
+  async deletePost(root, { data }, { db, user }, info) {
     const userExists = await db.exists.user({ id: data.userID })
     const postExists = await db.exists.Post({ id: data.postID })
 
@@ -242,7 +250,14 @@ const Mutation = {
     return result
   },
 
-  async deleteComment(root, { data }, { db }, info) {
+  async deleteComment(root, { data }, { db, user }, info) {
+    const userExists = await db.exists.User({ id: user.userID })
+    if (!userExists) return UserDoesNotExist
+    const postExists = await db.exists.Post({ id: data.postID })
+    if (!postExists) return PostDoesNotExist
+    const commentExists = await db.exists.Comment({ id: data.commentID })
+    if (!commentExists) return CommentDoesNotExist
+
     const result = await db.mutation.deleteComment({ id: data.commentID })
     return result
   }

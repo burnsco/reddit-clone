@@ -2,6 +2,7 @@ import styled from '@xstyled/styled-components'
 
 export const Container = styled.div`
   margin-left: 45rpx;
+  margin-right: 45rpx;
 `
 
 export const InputCommentBox = styled.input`

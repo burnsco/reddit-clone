@@ -30,14 +30,15 @@ type Mutation {
   createPost(data: CreatePostInput): CreatePostMutationResponse!
   createComment(data: CreateCommentInput): CreateCommentMutationResponse!
   updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
-  updatePost(id: ID!, data: UpdatePostInput!): UpdatePostMutationResponse!
-  updateComment(
-    id: ID!
-    data: UpdateCommentInput!
-  ): UpdateCommentMutationResponse!
-  deleteUser(id: ID!): DeleteUserMutationResponse!
-  deletePost(id: ID!): DeletePostMutationResponse!
-  deleteComment(id: ID!): DeleteCommentMutationResponse!
+  updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
+  updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
+  deleteUser: DeleteUserMutationResponse!
+  deletePost(data: DeletePostInput): DeletePostMutationResponse!
+  deleteComment(data: DeleteCommentInput): DeleteCommentMutationResponse!
+}
+
+input DeletePostInput {
+  postID: ID
 }
 
 interface Node {
@@ -128,7 +129,14 @@ input LoginUserInput {
 }
 
 input UpdateCommentInput {
+  postID: ID
+  commentID: ID
   body: String
+}
+
+input DeleteCommentInput {
+  postID: ID
+  commentID: ID
 }
 
 input UpdateUserInput {
