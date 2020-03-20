@@ -20,8 +20,8 @@ export const CategoryLinksContainer = styled.div`
 export const ContainerHeader = styled(Link)`
   display: flex;
   align-items: center;
+  margin-bottom: 5rpx;
   justify-content: center;
-  border-radius: 5rpx;
   background-color: #3661ed;
   color: white;
   border: none;

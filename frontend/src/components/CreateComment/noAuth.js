@@ -4,9 +4,11 @@ import { Link } from '@reach/router'
 
 const Container = styled.div`
   display: flex;
-  border: 1px solid black;
 `
 const CommentLinks = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
   padding: 10rpx;
   margin: 5rpx;
   border: 1px solid #33a0ff;
@@ -25,13 +27,12 @@ const NoAuth = () => (
         <h5>Signup</h5>
       </Link>
     </CommentLinks>
-    <h3>AND</h3>
     <CommentLinks>
       <Link to="/login" style={{ color: '#33a0ff' }}>
         <h5>Login</h5>
       </Link>
     </CommentLinks>
-    <h4>to comment</h4>
+    <p>Login to comment</p>
   </Container>
 )
 

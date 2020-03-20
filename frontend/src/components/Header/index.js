@@ -10,7 +10,7 @@ import {
   UserIcon
 } from './styles'
 import Logo from '../../assets/logoWithTitle.png'
-
+import { SmallLogo as ReactComponent } from '../../assets/reddit-icon.svg'
 import { CURRENT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'

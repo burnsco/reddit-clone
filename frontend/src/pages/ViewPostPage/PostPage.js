@@ -15,7 +15,7 @@ import {
 import VoteBox from '../../components/VoteBox'
 import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
 
-const Post = ({
+const PostPage = ({
   data: {
     id,
     title,
@@ -50,4 +50,4 @@ const Post = ({
   </PostContainer>
 )
 
-export default Post
+export default PostPage

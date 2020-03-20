@@ -1,7 +1,6 @@
 import styled from '@xstyled/styled-components'
 
 export const CommentsContainer = styled.div`
-  border: 1px solid grey;
   padding: 10rpx;
   margin-top: 10rpx;
 `
@@ -23,6 +22,11 @@ export const PostContainer = styled.div`
   }
 `
 
+export const PostAndCommentsContainer = styled.section`
+  width: 100%;
+  background: #ffffff;
+`
+
 export const CommentBody = styled.div`
   margin-top: 10rpx;
 `
@@ -32,7 +36,6 @@ export const PostDetailsContainer = styled.div`
   width: 100%;
   padding: 10rpx;
   display: flex;
-
   flex-direction: column;
 `
 export const PostTitle = styled.div`

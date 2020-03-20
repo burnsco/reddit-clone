@@ -1,5 +1,23 @@
 import styled from '@xstyled/styled-components'
 import { CustomButton } from '../shared/CustomButton'
+import { ReactComponent as SmallLogo } from '../../assets/reddit-icon.svg'
+import { ReactComponent as BigLogo } from '../../assets/reddit.svg'
+
+export const FullLogo = styled(BigLogo)`
+  height: 35;
+  width: 100;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
+
+export const HalfLogo = styled(SmallLogo)`
+  height: 35;
+  width: 50;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`
 
 export const HeaderContainer = styled.header`
   position: sticky;

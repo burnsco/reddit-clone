@@ -21,7 +21,9 @@ function Categories() {
 
   return (
     <CategoriesContainer>
-      <ContainerHeader to="/submit">Create Post</ContainerHeader>
+      <ContainerHeader to="/submit">Post</ContainerHeader>
+      <ContainerHeader to="/createcagory">Category</ContainerHeader>
+
       <CategoryLinksContainer>
         <CategoryLink to="/">r/all</CategoryLink>
         {data.categories.map(category => (

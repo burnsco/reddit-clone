@@ -8,6 +8,7 @@ import {
   HeaderLink
 } from './styles'
 import Logo from '../../assets/logoWithTitle.png'
+import { FullLogo, HalfLogo } from './styles'
 
 const NoAuthHeader = () => {
   return (
@@ -15,7 +16,8 @@ const NoAuthHeader = () => {
       <HeaderNavWrapper>
         <HeaderLogo>
           <Link to="/" style={{ display: 'flex' }}>
-            <img src={Logo} height="35" width="100" alt="logo" />
+            <HalfLogo alt="logo" />
+            <FullLogo alt="logo" />
           </Link>
         </HeaderLogo>
 
