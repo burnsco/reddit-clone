@@ -13,9 +13,9 @@ import {
   PostDetailsHeader,
   PostedBy,
   UserName
-} from './styles.js'
-import VoteBox from '../VoteBox/index.js'
-import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
+} from '../styles.js'
+import VoteBox from '../../../components/VoteBox'
+import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentAlt } from '@styled-icons/fa-solid'
 
 const CommentIcon = styled(CommentAlt)`

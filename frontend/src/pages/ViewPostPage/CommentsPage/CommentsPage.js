@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import { CommentsContainer, CommentCreatedAt, CommentBody } from './styles'
+import { CommentsContainer, CommentCreatedAt, CommentBody } from '../styles'
 import { Link } from '@reach/router'
-import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate'
-import { UserIcon } from '../../components/Header/styles'
+import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 
 function CommentsPage(props) {
   const { subscribeToNewComments } = props
@@ -19,7 +18,6 @@ function CommentsPage(props) {
     <>
       {comments.map(comment => (
         <CommentsContainer key={comment.id}>
-          <UserIcon style={{ color: 'grey' }} />
           <Link to={`/r/profile/${comment.author.username}`}>
             {' '}
             <strong>{comment.author.username}</strong>

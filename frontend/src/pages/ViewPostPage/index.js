@@ -1,7 +1,7 @@
 import React from 'react'
 import CreateCommentForm from '../../components/CreateComment'
-import CommentsPageWithData from './CommentsPageWithData'
-import PostPageWithData from './PostPageWithData'
+import CommentsPageWithData from './CommentsPage/CommentsPageWithData'
+import PostPageWithData from './PostPage/PostPageWithData'
 import { PostAndCommentsContainer } from './styles'
 
 function PostAndCommentsPage({ postID }) {

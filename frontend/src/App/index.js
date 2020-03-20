@@ -4,7 +4,7 @@ import { Router } from '@reach/router'
 import Home from '../pages/Home'
 import Profile from '../pages/Profile'
 import LoginPage from '../pages/Login'
-import Signup from '../pages/Signup'
+import SignupPage from '../pages/Signup'
 import CreatePostPage from '../pages/CreatePost'
 import { AppContainer } from './styles'
 import { setAccessToken } from '../context/access-token'
@@ -12,7 +12,7 @@ import MainSpinner from '../components/shared/FallBackSpinner'
 import PostAndCommentsPage from '../pages/ViewPostPage/index'
 import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWithData'
 import ProfilePage from '../pages/Profile/index'
-import CommentsPageWithData from '../pages/ViewPostPage/CommentsPageWithData'
+import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPageWithData'
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 
 const App = () => {
@@ -41,12 +41,13 @@ const App = () => {
             <CommentsPageWithData path="profile/:userID/comments" />
             <ProfilePage path="/" />
           </Profile>
-          <CreatePostPage path="submit" />
-          <LoginPage path="login" />
-          <Signup path="signup" />
+
           <Home path="/">
             <CategoryPostsPageWithData path="r/:category" />
             <PostAndCommentsPage path="r/:category/:postID/comments" />
+            <LoginPage path="login" />
+            <SignupPage path="signup" />
+            <CreatePostPage path="submit" />
             <AllPostsPageWithData path="/" />
           </Home>
         </Router>
