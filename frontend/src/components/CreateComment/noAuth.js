@@ -3,7 +3,9 @@ import styled from '@xstyled/styled-components'
 import { Link } from '@reach/router'
 
 const Container = styled.div`
+  margin-left: 45rpx;
   display: flex;
+  border: 1px solid #ebedf0;
 `
 const CommentLinks = styled.div`
   @media (min-width: 768px) {
@@ -32,7 +34,7 @@ const NoAuth = () => (
         <h5>Login</h5>
       </Link>
     </CommentLinks>
-    <p>Login to comment</p>
+    <p style={{ alignSelf: 'center' }}>Login to comment</p>
   </Container>
 )
 

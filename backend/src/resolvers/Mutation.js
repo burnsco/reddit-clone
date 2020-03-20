@@ -1,7 +1,12 @@
 import {
   BadCredentials,
   NoAuthorization,
-  CategoryTitleTaken
+  CategoryTitleTaken,
+  AlreadyVoted,
+  EmailTaken,
+  UserDoesNotExist,
+  PostDoesNotExist,
+  UserNotLoggedIn
 } from '../constants'
 import { AuthenticationError } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
@@ -19,13 +24,8 @@ const Mutation = {
       user: { id: user.userID },
       post: { id: data.postID }
     })
-    if (voteExists) {
-      return {
-        code: '401',
-        success: false,
-        message: 'you have already voted'
-      }
-    }
+
+    if (voteExists) return AlreadyVoted
 
     const vote = await db.mutation.createVote({
       data: {
@@ -35,6 +35,7 @@ const Mutation = {
         post: { connect: { id: data.postID } }
       }
     })
+
     return {
       code: '200',
       success: true,
@@ -46,9 +47,7 @@ const Mutation = {
   async createCategory(root, { data }, { db }) {
     const categoryExists = await db.exists.Category({ name: data.name })
 
-    if (categoryExists) {
-      return CategoryTitleTaken
-    }
+    if (categoryExists) return CategoryTitleTaken
 
     let category = await db.mutation.createCategory({
       data: {
@@ -67,13 +66,7 @@ const Mutation = {
   async createUser(root, { data }, { db, res }, info) {
     const emailExists = await db.exists.User({ email: data.email }, info)
 
-    if (emailExists) {
-      return {
-        code: '401',
-        success: false,
-        message: 'Email is already in use!'
-      }
-    }
+    if (emailExists) return EmailTaken
 
     const password = await bcrypt.hash(data.password, 8)
     const user = await db.mutation.createUser({
@@ -103,19 +96,11 @@ const Mutation = {
         email: data.email
       }
     })
-    if (!user) {
-      return {
-        code: '401',
-        success: false,
-        message: 'User not found!'
-      }
-    }
+    if (!user) return UserDoesNotExist
 
     const isValidUser = await bcrypt.compare(data.password, user.password)
 
-    if (!isValidUser) {
-      return BadCredentials
-    }
+    if (!isValidUser) return BadCredentials
 
     const accessToken = await createAccessToken(user)
 
@@ -131,9 +116,7 @@ const Mutation = {
   },
 
   async createPost(root, { data }, { db, user }, info) {
-    if (!user) {
-      return NoAuthorization
-    }
+    if (!user) return NoAuthorization
 
     const post = await db.mutation.createPost({
       data: {
@@ -162,20 +145,10 @@ const Mutation = {
 
   async createComment(root, { data }, { user, db }, info) {
     const postExists = db.exists.Post({ id: data.postID })
-    if (!postExists) {
-      return {
-        code: '401',
-        success: false,
-        message: 'Post does not exist!'
-      }
-    }
-    if (!user) {
-      return {
-        code: '401',
-        success: false,
-        message: 'You are not logged in'
-      }
-    }
+
+    if (!postExists) return PostDoesNotExist
+
+    if (!user) return UserNotLoggedIn
 
     const comment = await db.mutation.createComment({
       data: {
@@ -201,10 +174,12 @@ const Mutation = {
     }
   },
 
-  async updateUser(root, args, { db, user }, info) {
+  async updateUser(root, { data }, { db, user }, info) {
+    const userExists = await db.exists.user({ id: data.userID })
+
     const change = await db.mutation.updateUser({
       data: {
-        username: args.username
+        username: data.username
       },
       where: {
         id: user.id
@@ -213,8 +188,10 @@ const Mutation = {
     return change
   },
 
-  async updatePost(root, args, { db }, info) {
-    const postExists = db.exists.Post({ id: data.postID })
+  async updatePost(root, { data }, { db }, info) {
+    const userExists = await db.exists.user({ id: data.userID })
+    const postExists = await db.exists.Post({ id: data.postID })
+
     if (!postExists) {
       return {
         code: '401',
@@ -225,33 +202,42 @@ const Mutation = {
 
     const post = await db.mutation.updatePost({
       data: {
-        title: args.title
+        title: data.title
       },
       where: {
-        id: args.postID
+        id: data.postID
       }
     })
     return post
   },
 
-  async updateComment(root, args, { db }, info) {
+  async updateComment(root, { data }, { db, user }, info) {
+    const userExists = await db.exists.user({ id: data.userID })
+    const postExists = await db.exists.Post({ id: data.postID })
+    const commentExists = await db.exists.Comment({ id: data.commentID })
+
     await db.mutation.updateComment({
       data: {
-        title: args.title
+        title: data.title
       },
       where: {
-        id: args.commentID
+        id: data.commentID
       }
     })
     return comment
   },
 
   async deleteUser(root, { data }, { db }, info) {
+    const userExists = await db.exists.user({ id: data.userID })
+
     const result = await db.mutation.deleteUser({ email: data.email })
     return result
   },
 
   async deletePost(root, { data }, { db }, info) {
+    const userExists = await db.exists.user({ id: data.userID })
+    const postExists = await db.exists.Post({ id: data.postID })
+
     const result = await db.mutation.deletePost({ id: data.postID })
     return result
   },

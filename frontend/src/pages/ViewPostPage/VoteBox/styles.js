@@ -5,10 +5,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding: 12rpx;
   height: 100%;
-  border-right: 1px solid #ebedf0;
 `
 
 export const Votes = styled.div`

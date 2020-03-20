@@ -14,7 +14,7 @@ import {
   PostedBy,
   UserName
 } from '../styles.js'
-import VoteBox from '../../../components/VoteBox'
+import VoteBox from '../VoteBox'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentAlt } from '@styled-icons/fa-solid'
 

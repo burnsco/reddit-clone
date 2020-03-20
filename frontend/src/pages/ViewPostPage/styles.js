@@ -8,13 +8,8 @@ export const PostContainer = styled.div`
   border-radius: 5rpx;
   min-height: 100rpx;
   width: 100%;
-  &:hover {
-    border: 1px solid #ced1db;
-  }
 `
-export const VoteBoxContainer = styled.div`
-  margin-right: 5rpx;
-`
+export const VoteBoxContainer = styled.div``
 export const PostDetailsContainer = styled.div`
   margin-top: 5rpx;
   min-height: 100rpx;
@@ -61,6 +56,7 @@ export const PostText = styled.div`
 
 export const PostFooter = styled.div`
   margin-top: 20rpx;
+
   display: flex;
   width: 100%;
 `
@@ -74,17 +70,18 @@ export const PostComments = styled.div`
   }
 `
 
-export const CommentAuthor = styled.div`
-  margin-left: 15rpx;
-`
-
-export const CommentDateCreated = styled.div`
-  margin-left: 15rpx;
+export const CommentHeader = styled.div`
+  font-size: 12rpx;
+  display: flex;
+  color: #ced1db;
 `
 
 export const CommentsContainer = styled.div`
-  padding: 10rpx;
-  margin-top: 10rpx;
+  margin-top: 20rpx;
+  margin-left: 50rpx;
+`
+export const CommentAuthor = styled.div`
+  margin-left: 15rpx;
 `
 
 export const CommentCreatedAt = styled.span`
@@ -93,6 +90,9 @@ export const CommentCreatedAt = styled.span`
 
 export const PostAndCommentsContainer = styled.section`
   width: 100%;
+  border-radius: 5rpx;
+  border: 1px solid #ffffff;
+
   background: #ffffff;
 `
 

@@ -1,6 +1,11 @@
 import styled from '@xstyled/styled-components'
 
+export const Container = styled.div`
+  margin-left: 45rpx;
+`
+
 export const InputCommentBox = styled.input`
+  margin-top: 10rpx;
   overflow: hidden;
   padding: 8px 16px;
   outline: none;
@@ -29,16 +34,18 @@ export const InputCommentFooter = styled.div`
   align-self: flex-end;
 `
 
-export const InputCommentButton = styled.div`
-  background: '#33a0ff';
-  color: 'white';
-  padding: 10rpx;
-  margin: 5rpx;
-  border: 1px solid #33a0ff;
+export const SubmitCommentButton = styled.button`
   border-radius: 5rpx;
+  padding: 10rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5rpx;
+  justify-content: center;
+  background-color: #ffb000;
+  color: white;
+  border: none;
+  height: 30rpx;
   &:hover {
-    -webkit-box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
-    -moz-box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
-    box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
+    background-color: #e8c36e;
   }
 `

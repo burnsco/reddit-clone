@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { InputCommentBox, InputCommentFooter } from './styles'
+import {
+  InputCommentBox,
+  InputCommentFooter,
+  Container,
+  SubmitCommentButton
+} from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
 import { CURRENT_USER } from './query'
 import NoAuth from './noAuth'
@@ -51,23 +56,30 @@ const CreateCommentForm = ({ postID }) => {
 
   if (data && data.currentUser) {
     return (
-      <form onSubmit={handleSubmit}>
-        <InputCommentBox
-          as="textarea"
-          value={comment}
-          onChange={handleChange}
-          style={{ background: 'white' }}
-          role="textbox"
-          spellCheck="true"
-          placeholder="What are your thoughts"
-          height="300"
-          width="300"
-        ></InputCommentBox>
+      <>
+        <Container>
+          <small>comment as {data.currentUser.username}</small>
+          <form onSubmit={handleSubmit}>
+            <InputCommentBox
+              as="textarea"
+              value={comment}
+              onChange={handleChange}
+              style={{ background: 'white' }}
+              role="textbox"
+              spellCheck="true"
+              placeholder="What are your thoughts"
+              height="300"
+              width="300"
+            ></InputCommentBox>
 
-        <InputCommentFooter>
-          <button>Submit</button>
-        </InputCommentFooter>
-      </form>
+            <InputCommentFooter>
+              {comment.length > 2 && (
+                <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
+              )}
+            </InputCommentFooter>
+          </form>
+        </Container>
+      </>
     )
   }
   return <NoAuth />

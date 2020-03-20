@@ -1,9 +1,16 @@
 import React, { useEffect } from 'react'
-import { CommentsContainer, CommentCreatedAt, CommentBody } from '../styles'
+import {
+  CommentsContainer,
+  CommentCreatedAt,
+  CommentBody,
+  CommentHeader,
+  UserName
+} from '../styles'
 import { Link } from '@reach/router'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 
 function CommentsPage(props) {
+  const { editComment } = useMutation(EDIT_COMMENT_MUTATION)
   const { subscribeToNewComments } = props
   const { comments } = props.data.post
 
@@ -18,13 +25,15 @@ function CommentsPage(props) {
     <>
       {comments.map(comment => (
         <CommentsContainer key={comment.id}>
-          <Link to={`/r/profile/${comment.author.username}`}>
-            {' '}
-            <strong>{comment.author.username}</strong>
-          </Link>
-          <CommentCreatedAt>
-            {timeDifferenceForDate(comment.createdAt)}
-          </CommentCreatedAt>
+          <CommentHeader>
+            <UserName to={`/r/profile/${comment.author.username}`}>
+              {' '}
+              <strong>{comment.author.username}</strong>
+            </UserName>
+            <CommentCreatedAt>
+              {timeDifferenceForDate(comment.createdAt)}
+            </CommentCreatedAt>
+          </CommentHeader>
 
           <CommentBody>{comment.body}</CommentBody>
         </CommentsContainer>
