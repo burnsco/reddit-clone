@@ -7,6 +7,7 @@ export const PostContainer = styled.div`
   margin-bottom: 20rpx;
   border-radius: 5rpx;
   min-height: 100rpx;
+  padding: 5rpx;
   width: 100%;
 `
 export const VoteBoxContainer = styled.div``
@@ -79,6 +80,7 @@ export const CommentsContainer = styled.div`
   margin-top: 20rpx;
   margin-left: 45rpx;
   margin-right: 45rpx;
+  margin-bottom: 20rpx;
 `
 export const CommentAuthor = styled.div`
   margin-left: 15rpx;

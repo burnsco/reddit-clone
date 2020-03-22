@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-export const SUBMIT_POST = gql`
-  mutation SUBMIT_POST($title: String!, $text: String!, $categoryID: ID!) {
-    createPost(data: { title: $title, text: $text, categoryID: $categoryID }) {
+export const CREATE_CATEGORY_MUTATION = gql`
+  mutation onCreateCategory($name: String!) {
+    createCategory(data: { name: $name }) {
       code
       success
       message

@@ -20,11 +20,11 @@ const Header = () => {
   const { loading, error, data } = useQuery(CURRENT_USER)
 
   if (loading) return <MainSpinner />
+
   if (error) {
     console.log(error)
   }
-  console.log('data')
-  console.log(data)
+
   if (data && data.currentUser) {
     return (
       <HeaderContainer>

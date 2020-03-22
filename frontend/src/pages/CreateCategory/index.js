@@ -7,19 +7,17 @@ import MainSpinner from '../../components/shared/FallBackSpinner'
 import { useQuery } from '@apollo/client'
 import { navigate } from '@reach/router'
 import Select from 'react-select'
-import { SUBMIT_POST } from './mutation'
-import { GET_CATEGORIES } from './query'
+import { CREATE_CATEGORY_MUTATION } from './mutation'
 
 function CreateCategoryPage() {
-  const [title, setTitle] = useState('')
-  const [text, setText] = useState('')
-  const [categoryID, setCategoryID] = useState('')
+  const [name, setName] = useState('')
 
-  const { loading, data } = useQuery(GET_CATEGORIES)
-
-  const [createCategory, { error }] = useMutation(SUBMIT_POST, {
-    variables: { title: title, text: text, categoryID: categoryID.value }
-  })
+  const [createCategory, { loading, error }] = useMutation(
+    CREATE_CATEGORY_MUTATION,
+    {
+      variables: { name: name }
+    }
+  )
 
   if (loading) return <MainSpinner />
 
@@ -32,32 +30,20 @@ function CreateCategoryPage() {
     event.preventDefault()
 
     try {
-      const result = await createPost()
-      const { message, code } = result.data.createPost
+      const result = await createCategory()
+      const { message, code } = result.data.createCategory
 
       if (code === '200') {
         alert(`${message}`)
-        navigate('/r/all')
+        navigate('../')
       }
     } catch (error) {
       console.log(error)
     }
   }
-  const handleSelect = categoryID => {
-    setCategoryID(categoryID)
-    console.log(`Option selected: `, categoryID)
-  }
 
   const handleChange = event => {
-    const { value, name } = event.target
-
-    if (name === 'title') {
-      setTitle(value)
-    }
-
-    if (name === 'text') {
-      setText(value)
-    }
+    setName(event.target.value)
   }
 
   if (loading) return <div>Loading</div>
@@ -67,57 +53,24 @@ function CreateCategoryPage() {
     return <h1>error</h1>
   }
 
-  const options = data.categories.map(option => {
-    return { value: option.id, label: option.name }
-  })
-
   return (
     <WelcomePage>
       <SignInContainer>
+        <h3>Create Subreddit</h3>
         <form onSubmit={handleSubmit}>
           <FormInput
-            name="title"
+            name="name"
             type="text"
             handleChange={e => handleChange(e)}
-            value={title}
-            label="Title"
+            value={name}
+            label="name"
             required
           />
-          <FormInput
-            name="text"
-            type="text"
-            handleChange={e => handleChange(e)}
-            value={text}
-            label="Text"
-          />
-          {/* 
-          <label>
-            Category
-            <br /> */}
-          {/* <select
-              name="categoryID"
-              value={categoryID}
-              onChange={e => handleChange(e)}
-            >
-              {data.categories.map(category => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </label> */}
-
-          <Select
-            name="categoryID"
-            value={categoryID}
-            options={options}
-            onChange={handleSelect}
-          />
-
+          {/* TODO make option to create moderators for the new subreddit */}
           <ButtonsBarContainer>
             <CustomButton type="submit" style={{ width: 100 + '%' }}>
               {' '}
-              Submit Post{' '}
+              Submit{' '}
             </CustomButton>
           </ButtonsBarContainer>
         </form>
@@ -126,4 +79,4 @@ function CreateCategoryPage() {
   )
 }
 
-export default CreatePostPage
+export default CreateCategoryPage

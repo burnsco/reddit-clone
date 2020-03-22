@@ -22,7 +22,7 @@ function Categories() {
   return (
     <CategoriesContainer>
       <ContainerHeader to="/submit">Post</ContainerHeader>
-      <ContainerHeader to="/createcagory">Category</ContainerHeader>
+      <ContainerHeader to="/createCategory">Category</ContainerHeader>
 
       <CategoryLinksContainer>
         <CategoryLink to="/">r/all</CategoryLink>

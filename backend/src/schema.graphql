@@ -1,5 +1,4 @@
 type Query {
-  hasVoted: CreateVoteMutationResponse!
   currentUser: User!
   categories(query: String): [Category!]!
   posts(
@@ -23,18 +22,18 @@ type Query {
 }
 
 type Mutation {
+  createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
+  loginUser(data: LoginUserInput!): LoginUserMutationResponse!
   createVote(data: CreateVoteInput): CreateVoteMutationResponse!
   createUser(data: CreateUserInput!): CreateUserMutationResponse!
-  loginUser(data: LoginUserInput!): LoginUserMutationResponse!
-  createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
-  createPost(data: CreatePostInput): CreatePostMutationResponse!
-  createComment(data: CreateCommentInput): CreateCommentMutationResponse!
   updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
-  updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
-  updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
   deleteUser: DeleteUserMutationResponse!
+  createPost(data: CreatePostInput): CreatePostMutationResponse!
+  updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
   deletePost(data: DeletePostInput): DeletePostMutationResponse!
-  deleteComment(data: DeleteCommentInput): DeleteCommentMutationResponse!
+  createComment(data: CreateCommentInput): CreateCommentMutationResponse!
+  updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
+  deleteComment(data: DeleteCommentInput!): DeleteCommentMutationResponse!
 }
 
 input DeletePostInput {
@@ -57,7 +56,6 @@ type Post implements Node {
   updatedAt: String!
   createdAt: String!
   id: ID!
-
   category: Category!
   title: String!
   text: String
@@ -135,8 +133,8 @@ input UpdateCommentInput {
 }
 
 input DeleteCommentInput {
-  postID: ID
-  commentID: ID
+  postID: ID!
+  commentID: ID!
 }
 
 input UpdateUserInput {

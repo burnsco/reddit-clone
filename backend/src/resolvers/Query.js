@@ -3,45 +3,6 @@ import { getUser } from '../utils'
 import { AuthenticationError } from 'apollo-server-express'
 
 const Query = {
-  hasVoted: async (root, args, { db, user }, info) => {
-    const checkVote = await db.exists.Vote({
-      user: { id: user.userID },
-      post: { id: args.postID }
-    })
-
-    if (checkVote) {
-      const vote = await db.query.votes({
-        where: {
-          user: {
-            id: user.userID
-          },
-          post: { id: args.postID }
-        }
-      })
-
-      const [{ upVote, downVote }] = vote
-
-      return {
-        code: '200',
-        success: true,
-        message: 'you have already voted',
-        upVote,
-        downVote
-      }
-    }
-    if (!checkVote) {
-      let upVote = false
-      let downVote = false
-      return {
-        code: '401',
-        success: false,
-        message: 'no votes registered',
-        upVote,
-        downVote
-      }
-    }
-  },
-
   currentUser: async (root, args, { db, user }, info) => {
     if (!user.userID) {
       throw new Error('no user logged in')

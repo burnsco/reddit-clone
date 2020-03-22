@@ -74,6 +74,7 @@ function CreatePostPage() {
   return (
     <WelcomePage>
       <SignInContainer>
+        <h3>Create Post</h3>
         <form onSubmit={handleSubmit}>
           <FormInput
             name="title"
