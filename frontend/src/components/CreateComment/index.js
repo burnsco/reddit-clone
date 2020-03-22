@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import {
   InputCommentBox,
   InputCommentFooter,
@@ -9,9 +9,12 @@ import {
 import MainSpinner from '../shared/FallBackSpinner'
 import { SUBMIT_COMMENT } from './mutation'
 import NoAuth from './noAuth'
+import { CURRENT_USER } from '../Header/query'
 
 const CreateCommentForm = ({ postID }) => {
   const [comment, setComment] = useState('')
+
+  const { loading, data } = useQuery(CURRENT_USER)
 
   const [createComment, { error }] = useMutation(SUBMIT_COMMENT, {
     variables: { body: comment, postID: postID }
