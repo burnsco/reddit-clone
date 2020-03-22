@@ -6,7 +6,6 @@ import {
   CommentHeader,
   UserName
 } from '../styles'
-import { Link } from '@reach/router'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 
 function CommentsPage(props) {

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import Post from '../../../components/Post'
 import PostPage from './PostPage'
 import { GET_POST_AND_COMMENTS_QUERY } from '../query'
 import MainSpinner from '../../../components/shared/FallBackSpinner'

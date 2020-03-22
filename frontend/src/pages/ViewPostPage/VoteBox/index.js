@@ -1,11 +1,10 @@
 import React from 'react'
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { Container, Votes } from './styles'
 import styled from '@xstyled/styled-components'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 import { UPVOTE_POST_MUTATION } from './mutation'
 import { getVotes } from './getVotes'
-import { GET_VOTES_QUERY } from './query'
 
 const UpArrow = styled(UpArrowSquare)`
   &:hover {
@@ -21,6 +20,11 @@ const DownArrow = styled(DownArrowSquare)`
 
 const VoteBox = ({ votes, postID }) => {
   const [createVote, { error }] = useMutation(UPVOTE_POST_MUTATION)
+
+  if (error) {
+    console.log('vote box error ==>')
+    console.log(error)
+  }
 
   let showVoteNumber = getVotes(votes)
 

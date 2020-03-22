@@ -7,7 +7,6 @@ import {
   HeaderLinks,
   HeaderLink
 } from './styles'
-import Logo from '../../assets/logoWithTitle.png'
 import { FullLogo, HalfLogo } from './styles'
 
 const NoAuthHeader = () => {

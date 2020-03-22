@@ -101,7 +101,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, cors: corsOptions })
 
-const PORT = 4000 || process.env.SERVER_PORT
+const PORT = 4000
 
 const httpServer = http.createServer(app)
 server.installSubscriptionHandlers(httpServer)

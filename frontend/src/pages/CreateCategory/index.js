@@ -4,9 +4,7 @@ import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { useMutation } from '@apollo/client'
 import MainSpinner from '../../components/shared/FallBackSpinner'
-import { useQuery } from '@apollo/client'
 import { navigate } from '@reach/router'
-import Select from 'react-select'
 import { CREATE_CATEGORY_MUTATION } from './mutation'
 
 function CreateCategoryPage() {
