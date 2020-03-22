@@ -10,7 +10,6 @@ import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentFooter } from './styles'
 
 function CommentsPage(props) {
-  // const { editComment } = useMutation(EDIT_COMMENT_MUTATION)
   const { subscribeToNewComments } = props
   const { comments } = props.data.post
 
@@ -38,7 +37,11 @@ function CommentsPage(props) {
           <CommentBody>{comment.body}</CommentBody>
           <CommentFooter>
             <button>Edit</button>
-            <button>Delete</button>
+            <button
+              onClick={() => console.log(`deleted comment ${comment.id}`)}
+            >
+              Delete
+            </button>
           </CommentFooter>
         </CommentsContainer>
       ))}

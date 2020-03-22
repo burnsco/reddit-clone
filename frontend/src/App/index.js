@@ -16,8 +16,9 @@ import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPag
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
+import { AuthProvider } from '../context/auth-context'
 
-const App = () => {
+function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {

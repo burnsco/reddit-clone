@@ -8,8 +8,9 @@ import {
   HeaderLink
 } from './styles'
 import { FullLogo, HalfLogo } from './styles'
+import { useAuth } from '../../context/auth-context'
 
-const NoAuthHeader = () => {
+function NoAuthHeader() {
   return (
     <HeaderContainer>
       <HeaderNavWrapper>
