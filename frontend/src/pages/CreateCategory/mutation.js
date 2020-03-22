@@ -6,8 +6,10 @@ export const CREATE_CATEGORY_MUTATION = gql`
       code
       success
       message
-      id
-      name
+      category {
+        id
+        title
+      }
     }
   }
 `

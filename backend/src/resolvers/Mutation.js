@@ -47,7 +47,7 @@ const Mutation = {
     }
   },
 
-  async createCategory(root, { data }, { db }) {
+  async createCategory(root, { data, user }, { db }) {
     const categoryExists = await db.exists.Category({ name: data.name })
 
     if (categoryExists) return CategoryTitleTaken
@@ -62,8 +62,7 @@ const Mutation = {
       code: '200',
       success: true,
       message: `${data.name} subreddit Created!`,
-      id: category.id,
-      name: category.name
+      category
     }
   },
 

@@ -180,8 +180,7 @@ type CreateCategoryMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  id: ID!
-  name: String!
+  category: Category
 }
 
 type CreateVoteMutationResponse implements MutationResponse {

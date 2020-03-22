@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { gql, useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import {
   InputCommentBox,
   InputCommentFooter,
@@ -7,25 +7,16 @@ import {
   SubmitCommentButton
 } from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
-import { CURRENT_USER } from './query'
+import { SUBMIT_COMMENT } from './mutation'
 import NoAuth from './noAuth'
 
-const SUBMIT_COMMENT = gql`
-  mutation submitComment($body: String!, $postID: ID!) {
-    createComment(data: { body: $body, postID: $postID }) {
-      code
-      success
-      message
-    }
-  }
-`
-
 const CreateCommentForm = ({ postID }) => {
-  const { loading, data } = useQuery(CURRENT_USER)
   const [comment, setComment] = useState('')
+
   const [createComment, { error }] = useMutation(SUBMIT_COMMENT, {
     variables: { body: comment, postID: postID }
   })
+
   const handleChange = e => {
     setComment(e.target.value)
   }
@@ -40,6 +31,7 @@ const CreateCommentForm = ({ postID }) => {
 
       console.log(message, code, success)
       if (code === '200') {
+        alert(`${message}`)
         setComment('')
       }
     } catch (ex) {
