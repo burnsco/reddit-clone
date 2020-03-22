@@ -89,25 +89,14 @@ type Comment implements Node {
   author: User!
 }
 
-input UpdatePostInput {
-  title: String
-  url: String
-}
-
 input CreateVoteInput {
   postID: ID
   upVote: Boolean
   downVote: Boolean
 }
 
-input CreateCommentInput {
-  postID: ID
-  author: ID
-  body: String!
-}
-
-input DeletePostInput {
-  postID: ID
+input CreateCategoryInput {
+  name: String!
 }
 
 input CreatePostInput {
@@ -116,9 +105,18 @@ input CreatePostInput {
   title: String!
   text: String
 }
+input UpdatePostInput {
+  title: String
+  url: String
+}
+input DeletePostInput {
+  postID: ID
+}
 
-input CreateCategoryInput {
-  name: String!
+input CreateCommentInput {
+  postID: ID
+  author: ID
+  body: String!
 }
 
 input LoginUserInput {
