@@ -8,7 +8,7 @@ export const CREATE_CATEGORY_MUTATION = gql`
       message
       category {
         id
-        title
+        name
       }
     }
   }
