@@ -15,6 +15,7 @@ import ProfilePage from '../pages/Profile/index'
 import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPageWithData'
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import CreateCategoryPage from '../pages/CreateCategory'
+import TestPage from '../components/TestPage'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
@@ -50,6 +51,7 @@ const App = () => {
             <SignupPage path="signup" />
             <CreatePostPage path="submit" />
             <CreateCategoryPage path="createCategory" />
+            <TestPage path="test" />
             <AllPostsPageWithData path="/" />
           </Home>
         </Router>

@@ -61,7 +61,9 @@ const Mutation = {
     return {
       code: '200',
       success: true,
-      message: `${data.name} subreddit Created!`
+      message: `${data.name} subreddit Created!`,
+      id: category.id,
+      name: category.name
     }
   },
 

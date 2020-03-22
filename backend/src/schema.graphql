@@ -225,7 +225,8 @@ type CreateCategoryMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  category: Category
+  id: ID!
+  name: String!
 }
 
 type CreatePostMutationResponse implements MutationResponse {

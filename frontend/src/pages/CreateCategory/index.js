@@ -29,6 +29,7 @@ function CreateCategoryPage() {
 
     try {
       const result = await createCategory()
+      console.log(result)
       const { message, code } = result.data.createCategory
 
       if (code === '200') {

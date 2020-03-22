@@ -7,6 +7,7 @@ import {
   UserName
 } from '../styles'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
+import { CommentFooter } from './styles'
 
 function CommentsPage(props) {
   // const { editComment } = useMutation(EDIT_COMMENT_MUTATION)
@@ -35,6 +36,10 @@ function CommentsPage(props) {
           </CommentHeader>
 
           <CommentBody>{comment.body}</CommentBody>
+          <CommentFooter>
+            <button>Edit</button>
+            <button>Delete</button>
+          </CommentFooter>
         </CommentsContainer>
       ))}
     </>
