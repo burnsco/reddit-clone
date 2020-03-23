@@ -29,6 +29,6 @@ exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
   endpoint: `http://localhost:4466`,
-  secret: `secret14673`
+  secret: `secret12345`
 });
 exports.prisma = new exports.Prisma();
