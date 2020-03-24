@@ -63,6 +63,7 @@ export const PostFooter = styled.div`
 
 export const PostComments = styled.div`
   border-radius: 5rpx;
+  font-size: 14rpx;
   padding: 5rpx;
   margin-bottom: 5rpx;
   color: grey;

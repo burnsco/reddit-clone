@@ -193,12 +193,21 @@ const Mutation = {
     return post
   },
   async deletePost(root, { data }, { db, user }, info) {
-    const userExists = await db.exists.user({ id: data.userID })
+    const userExists = await db.exists.User({ id: data.userID })
 
     const postExists = await db.exists.Post({ id: data.postID })
 
-    const result = await db.mutation.deletePost({ id: data.postID })
-    return result
+    const post = await db.mutation.deletePost({
+      where: {
+        id: data.postID
+      }
+    })
+    return {
+      code: '200',
+      success: true,
+      message: 'Post Deleted',
+      post
+    }
   },
 
   async createComment(root, { data }, { user, db }, info) {
