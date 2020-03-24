@@ -540,6 +540,7 @@ export interface CommentWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
+  createdBy?: Maybe<UserWhereInput>;
   body?: Maybe<String>;
   body_not?: Maybe<String>;
   body_in?: Maybe<String[] | String>;
@@ -554,7 +555,6 @@ export interface CommentWhereInput {
   body_not_starts_with?: Maybe<String>;
   body_ends_with?: Maybe<String>;
   body_not_ends_with?: Maybe<String>;
-  author?: Maybe<UserWhereInput>;
   post?: Maybe<PostWhereInput>;
   AND?: Maybe<CommentWhereInput[] | CommentWhereInput>;
   OR?: Maybe<CommentWhereInput[] | CommentWhereInput>;
@@ -636,18 +636,18 @@ export interface UserCreateWithoutPostsInput {
   email: String;
   password: String;
   username: String;
-  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentCreateManyWithoutCreatedByInput>;
   votes?: Maybe<VoteCreateManyWithoutUserInput>;
 }
 
-export interface CommentCreateManyWithoutAuthorInput {
+export interface CommentCreateManyWithoutCreatedByInput {
   create?: Maybe<
-    CommentCreateWithoutAuthorInput[] | CommentCreateWithoutAuthorInput
+    CommentCreateWithoutCreatedByInput[] | CommentCreateWithoutCreatedByInput
   >;
   connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
 }
 
-export interface CommentCreateWithoutAuthorInput {
+export interface CommentCreateWithoutCreatedByInput {
   id?: Maybe<ID_Input>;
   body: String;
   post: PostCreateOneWithoutCommentsInput;
@@ -700,7 +700,7 @@ export interface UserCreateWithoutVotesInput {
   password: String;
   username: String;
   posts?: Maybe<PostCreateManyWithoutAuthorInput>;
-  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentCreateManyWithoutCreatedByInput>;
 }
 
 export interface PostCreateManyWithoutAuthorInput {
@@ -726,8 +726,8 @@ export interface CommentCreateManyWithoutPostInput {
 
 export interface CommentCreateWithoutPostInput {
   id?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutCommentsInput;
   body: String;
-  author: UserCreateOneWithoutCommentsInput;
 }
 
 export interface UserCreateOneWithoutCommentsInput {
@@ -821,25 +821,25 @@ export interface UserUpdateWithoutPostsDataInput {
   email?: Maybe<String>;
   password?: Maybe<String>;
   username?: Maybe<String>;
-  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentUpdateManyWithoutCreatedByInput>;
   votes?: Maybe<VoteUpdateManyWithoutUserInput>;
 }
 
-export interface CommentUpdateManyWithoutAuthorInput {
+export interface CommentUpdateManyWithoutCreatedByInput {
   create?: Maybe<
-    CommentCreateWithoutAuthorInput[] | CommentCreateWithoutAuthorInput
+    CommentCreateWithoutCreatedByInput[] | CommentCreateWithoutCreatedByInput
   >;
   delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
   connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
   set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
   disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
   update?: Maybe<
-    | CommentUpdateWithWhereUniqueWithoutAuthorInput[]
-    | CommentUpdateWithWhereUniqueWithoutAuthorInput
+    | CommentUpdateWithWhereUniqueWithoutCreatedByInput[]
+    | CommentUpdateWithWhereUniqueWithoutCreatedByInput
   >;
   upsert?: Maybe<
-    | CommentUpsertWithWhereUniqueWithoutAuthorInput[]
-    | CommentUpsertWithWhereUniqueWithoutAuthorInput
+    | CommentUpsertWithWhereUniqueWithoutCreatedByInput[]
+    | CommentUpsertWithWhereUniqueWithoutCreatedByInput
   >;
   deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
   updateMany?: Maybe<
@@ -848,12 +848,12 @@ export interface CommentUpdateManyWithoutAuthorInput {
   >;
 }
 
-export interface CommentUpdateWithWhereUniqueWithoutAuthorInput {
+export interface CommentUpdateWithWhereUniqueWithoutCreatedByInput {
   where: CommentWhereUniqueInput;
-  data: CommentUpdateWithoutAuthorDataInput;
+  data: CommentUpdateWithoutCreatedByDataInput;
 }
 
-export interface CommentUpdateWithoutAuthorDataInput {
+export interface CommentUpdateWithoutCreatedByDataInput {
   body?: Maybe<String>;
   post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
 }
@@ -932,7 +932,7 @@ export interface UserUpdateWithoutVotesDataInput {
   password?: Maybe<String>;
   username?: Maybe<String>;
   posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
-  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentUpdateManyWithoutCreatedByInput>;
 }
 
 export interface PostUpdateManyWithoutAuthorInput {
@@ -997,8 +997,8 @@ export interface CommentUpdateWithWhereUniqueWithoutPostInput {
 }
 
 export interface CommentUpdateWithoutPostDataInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
   body?: Maybe<String>;
-  author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
 }
 
 export interface UserUpdateOneRequiredWithoutCommentsInput {
@@ -1273,10 +1273,10 @@ export interface PostUpsertWithoutCommentsInput {
   create: PostCreateWithoutCommentsInput;
 }
 
-export interface CommentUpsertWithWhereUniqueWithoutAuthorInput {
+export interface CommentUpsertWithWhereUniqueWithoutCreatedByInput {
   where: CommentWhereUniqueInput;
-  update: CommentUpdateWithoutAuthorDataInput;
-  create: CommentCreateWithoutAuthorInput;
+  update: CommentUpdateWithoutCreatedByDataInput;
+  create: CommentCreateWithoutCreatedByInput;
 }
 
 export interface UserUpsertWithoutPostsInput {
@@ -1296,14 +1296,14 @@ export interface CategoryUpdateManyMutationInput {
 
 export interface CommentCreateInput {
   id?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutCommentsInput;
   body: String;
-  author: UserCreateOneWithoutCommentsInput;
   post: PostCreateOneWithoutCommentsInput;
 }
 
 export interface CommentUpdateInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
   body?: Maybe<String>;
-  author?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
   post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
 }
 
@@ -1341,7 +1341,7 @@ export interface UserCreateInput {
   password: String;
   username: String;
   posts?: Maybe<PostCreateManyWithoutAuthorInput>;
-  comments?: Maybe<CommentCreateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentCreateManyWithoutCreatedByInput>;
   votes?: Maybe<VoteCreateManyWithoutUserInput>;
 }
 
@@ -1350,7 +1350,7 @@ export interface UserUpdateInput {
   password?: Maybe<String>;
   username?: Maybe<String>;
   posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
-  comments?: Maybe<CommentUpdateManyWithoutAuthorInput>;
+  comments?: Maybe<CommentUpdateManyWithoutCreatedByInput>;
   votes?: Maybe<VoteUpdateManyWithoutUserInput>;
 }
 
@@ -1722,8 +1722,8 @@ export interface CommentPromise extends Promise<Comment>, Fragmentable {
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
   body: () => Promise<String>;
-  author: <T = UserPromise>() => T;
   post: <T = PostPromise>() => T;
 }
 
@@ -1733,8 +1733,8 @@ export interface CommentSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdBy: <T = UserSubscription>() => T;
   body: () => Promise<AsyncIterator<String>>;
-  author: <T = UserSubscription>() => T;
   post: <T = PostSubscription>() => T;
 }
 
@@ -1744,8 +1744,8 @@ export interface CommentNullablePromise
   id: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
   body: () => Promise<String>;
-  author: <T = UserPromise>() => T;
   post: <T = PostPromise>() => T;
 }
 

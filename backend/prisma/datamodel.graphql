@@ -20,8 +20,8 @@ type Comment {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
+  createdBy: User!
   body: String!
-  author: User!
   post: Post!
 }
 

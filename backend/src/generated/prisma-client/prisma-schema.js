@@ -160,8 +160,8 @@ type Comment {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  createdBy: User!
   body: String!
-  author: User!
   post: Post!
 }
 
@@ -173,13 +173,13 @@ type CommentConnection {
 
 input CommentCreateInput {
   id: ID
+  createdBy: UserCreateOneWithoutCommentsInput!
   body: String!
-  author: UserCreateOneWithoutCommentsInput!
   post: PostCreateOneWithoutCommentsInput!
 }
 
-input CommentCreateManyWithoutAuthorInput {
-  create: [CommentCreateWithoutAuthorInput!]
+input CommentCreateManyWithoutCreatedByInput {
+  create: [CommentCreateWithoutCreatedByInput!]
   connect: [CommentWhereUniqueInput!]
 }
 
@@ -188,7 +188,7 @@ input CommentCreateManyWithoutPostInput {
   connect: [CommentWhereUniqueInput!]
 }
 
-input CommentCreateWithoutAuthorInput {
+input CommentCreateWithoutCreatedByInput {
   id: ID
   body: String!
   post: PostCreateOneWithoutCommentsInput!
@@ -196,8 +196,8 @@ input CommentCreateWithoutAuthorInput {
 
 input CommentCreateWithoutPostInput {
   id: ID
+  createdBy: UserCreateOneWithoutCommentsInput!
   body: String!
-  author: UserCreateOneWithoutCommentsInput!
 }
 
 type CommentEdge {
@@ -292,8 +292,8 @@ input CommentSubscriptionWhereInput {
 }
 
 input CommentUpdateInput {
+  createdBy: UserUpdateOneRequiredWithoutCommentsInput
   body: String
-  author: UserUpdateOneRequiredWithoutCommentsInput
   post: PostUpdateOneRequiredWithoutCommentsInput
 }
 
@@ -305,14 +305,14 @@ input CommentUpdateManyMutationInput {
   body: String
 }
 
-input CommentUpdateManyWithoutAuthorInput {
-  create: [CommentCreateWithoutAuthorInput!]
+input CommentUpdateManyWithoutCreatedByInput {
+  create: [CommentCreateWithoutCreatedByInput!]
   delete: [CommentWhereUniqueInput!]
   connect: [CommentWhereUniqueInput!]
   set: [CommentWhereUniqueInput!]
   disconnect: [CommentWhereUniqueInput!]
-  update: [CommentUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [CommentUpsertWithWhereUniqueWithoutAuthorInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutCreatedByInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutCreatedByInput!]
   deleteMany: [CommentScalarWhereInput!]
   updateMany: [CommentUpdateManyWithWhereNestedInput!]
 }
@@ -334,19 +334,19 @@ input CommentUpdateManyWithWhereNestedInput {
   data: CommentUpdateManyDataInput!
 }
 
-input CommentUpdateWithoutAuthorDataInput {
+input CommentUpdateWithoutCreatedByDataInput {
   body: String
   post: PostUpdateOneRequiredWithoutCommentsInput
 }
 
 input CommentUpdateWithoutPostDataInput {
+  createdBy: UserUpdateOneRequiredWithoutCommentsInput
   body: String
-  author: UserUpdateOneRequiredWithoutCommentsInput
 }
 
-input CommentUpdateWithWhereUniqueWithoutAuthorInput {
+input CommentUpdateWithWhereUniqueWithoutCreatedByInput {
   where: CommentWhereUniqueInput!
-  data: CommentUpdateWithoutAuthorDataInput!
+  data: CommentUpdateWithoutCreatedByDataInput!
 }
 
 input CommentUpdateWithWhereUniqueWithoutPostInput {
@@ -354,10 +354,10 @@ input CommentUpdateWithWhereUniqueWithoutPostInput {
   data: CommentUpdateWithoutPostDataInput!
 }
 
-input CommentUpsertWithWhereUniqueWithoutAuthorInput {
+input CommentUpsertWithWhereUniqueWithoutCreatedByInput {
   where: CommentWhereUniqueInput!
-  update: CommentUpdateWithoutAuthorDataInput!
-  create: CommentCreateWithoutAuthorInput!
+  update: CommentUpdateWithoutCreatedByDataInput!
+  create: CommentCreateWithoutCreatedByInput!
 }
 
 input CommentUpsertWithWhereUniqueWithoutPostInput {
@@ -397,6 +397,7 @@ input CommentWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  createdBy: UserWhereInput
   body: String
   body_not: String
   body_in: [String!]
@@ -411,7 +412,6 @@ input CommentWhereInput {
   body_not_starts_with: String
   body_ends_with: String
   body_not_ends_with: String
-  author: UserWhereInput
   post: PostWhereInput
   AND: [CommentWhereInput!]
   OR: [CommentWhereInput!]
@@ -921,7 +921,7 @@ input UserCreateInput {
   password: String!
   username: String!
   posts: PostCreateManyWithoutAuthorInput
-  comments: CommentCreateManyWithoutAuthorInput
+  comments: CommentCreateManyWithoutCreatedByInput
   votes: VoteCreateManyWithoutUserInput
 }
 
@@ -954,7 +954,7 @@ input UserCreateWithoutPostsInput {
   email: String!
   password: String!
   username: String!
-  comments: CommentCreateManyWithoutAuthorInput
+  comments: CommentCreateManyWithoutCreatedByInput
   votes: VoteCreateManyWithoutUserInput
 }
 
@@ -964,7 +964,7 @@ input UserCreateWithoutVotesInput {
   password: String!
   username: String!
   posts: PostCreateManyWithoutAuthorInput
-  comments: CommentCreateManyWithoutAuthorInput
+  comments: CommentCreateManyWithoutCreatedByInput
 }
 
 type UserEdge {
@@ -1019,7 +1019,7 @@ input UserUpdateInput {
   password: String
   username: String
   posts: PostUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutCreatedByInput
   votes: VoteUpdateManyWithoutUserInput
 }
 
@@ -1062,7 +1062,7 @@ input UserUpdateWithoutPostsDataInput {
   email: String
   password: String
   username: String
-  comments: CommentUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutCreatedByInput
   votes: VoteUpdateManyWithoutUserInput
 }
 
@@ -1071,7 +1071,7 @@ input UserUpdateWithoutVotesDataInput {
   password: String
   username: String
   posts: PostUpdateManyWithoutAuthorInput
-  comments: CommentUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutCreatedByInput
 }
 
 input UserUpsertWithoutCommentsInput {

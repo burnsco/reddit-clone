@@ -20,7 +20,7 @@ export const GET_ALL_POSTS_QUERY = gql`
       comments {
         id
         body
-        author {
+        createdBy {
           id
           username
         }

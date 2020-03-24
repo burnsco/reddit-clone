@@ -14,7 +14,6 @@ function AllPostsPageWithData() {
 
   if (error) {
     console.log(error)
-    return <div>Error, please return to main page</div>
   }
 
   return (

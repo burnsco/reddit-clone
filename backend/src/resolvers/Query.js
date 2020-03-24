@@ -33,10 +33,6 @@ const Query = {
   },
 
   posts: async (root, args, { db, user }, info) => {
-    console.log(user)
-    if (!user) {
-      throw new AuthenticationError('not logged in')
-    }
     const opArgs = {
       first: args.first,
       skip: args.skip,
@@ -73,27 +69,20 @@ const Query = {
     return post
   },
 
-  comments: async (root, args, { db, user }, info) => {
-    const opArgs = {
-      first: args.first,
-      skip: args.skip,
-      after: args.after,
-      orderBy: args.orderBy
-    }
-
-    if (args.query === 'all') {
-      return db.query.comments(null, info)
-    }
-
-    if (args.query) {
-      opArgs.where = {
-        category: {
-          name: args.query
+  comment: async (root, args, { db, user }, info) => {
+    const comment = await db.query.comment(
+      {
+        where: {
+          id: args.commentID
         }
-      }
-    }
+      },
+      info
+    )
+    return comment
+  },
 
-    const results = await db.query.comments(opArgs, info)
+  comments: async (root, args, { db, user }, info) => {
+    const results = await db.query.comments(null, info)
     return results
   }
 }

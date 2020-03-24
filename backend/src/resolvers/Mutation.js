@@ -168,6 +168,7 @@ const Mutation = {
       post
     }
   },
+
   async updatePost(root, { data }, { db }, info) {
     const userExists = await db.exists.user({ id: data.userID })
 
@@ -220,19 +221,21 @@ const Mutation = {
     const comment = await db.mutation.createComment({
       data: {
         body: data.body,
+
         post: {
           connect: {
             id: data.postID
           }
         },
-        author: {
+
+        createdBy: {
           connect: {
             id: user.userID
           }
         }
       }
     })
-
+    console.log(comment)
     return {
       code: '200',
       success: true,

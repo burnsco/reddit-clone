@@ -7,7 +7,8 @@ export const COMMENTS_SUBSCRIPTION = gql`
         id
         body
         createdAt
-        author {
+        createdBy {
+          id
           username
         }
       }

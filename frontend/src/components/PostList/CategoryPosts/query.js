@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GET_POSTS_BY_CATEGORY_QUERY = gql`
-  query onGetPostsByCategory($query: String!) {
+  query onGetPostsByCategoryQuery($query: String!) {
     posts(query: $query) {
       id
       title
@@ -20,7 +20,7 @@ export const GET_POSTS_BY_CATEGORY_QUERY = gql`
       comments {
         id
         body
-        author {
+        createdBy {
           id
           username
         }

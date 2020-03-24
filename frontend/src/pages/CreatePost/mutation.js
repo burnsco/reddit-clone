@@ -6,6 +6,39 @@ export const SUBMIT_POST = gql`
       code
       success
       message
+      post {
+        id
+        title
+        createdAt
+
+        votes {
+          id
+          downVote
+          upVote
+          user {
+            id
+          }
+        }
+
+        comments {
+          id
+          body
+          createdBy {
+            id
+            username
+          }
+        }
+
+        author {
+          id
+          username
+        }
+
+        category {
+          id
+          name
+        }
+      }
     }
   }
 `

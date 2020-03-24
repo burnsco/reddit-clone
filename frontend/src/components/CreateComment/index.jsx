@@ -49,6 +49,8 @@ const CreateCommentForm = ({ postID }) => {
 
   if (loading) return <MainSpinner />
 
+  console.log(data.currentUser)
+
   if (data && data.currentUser) {
     return (
       <>

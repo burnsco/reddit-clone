@@ -1,32 +1,30 @@
 import { gql } from '@apollo/client'
 
 export const POSTS_SUBSCRIPTION = gql`
-  subscription onPostAdded {
+  subscription onPostAddedSubscription {
     postAdded {
       node {
         id
         title
         text
         createdAt
-        votes {
-          id
-          downVote
-          upVote
-          user {
-            id
-          }
-        }
+
         comments {
           id
           body
-          author {
+          createdBy {
+            id
             username
           }
         }
+
         author {
+          id
           username
         }
+
         category {
+          id
           name
         }
       }

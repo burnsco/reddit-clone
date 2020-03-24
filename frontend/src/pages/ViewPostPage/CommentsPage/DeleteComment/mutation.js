@@ -6,13 +6,6 @@ export const DELETE_COMMENT_MUTATION = gql`
       code
       message
       success
-      comment {
-        id
-        body
-        author {
-          id
-        }
-      }
     }
   }
 `

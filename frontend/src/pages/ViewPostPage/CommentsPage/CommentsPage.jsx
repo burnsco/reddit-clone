@@ -27,9 +27,9 @@ function CommentsPage(props) {
       {comments.map(comment => (
         <CommentsContainer key={comment.id}>
           <CommentHeader>
-            <UserName to={`/r/profile/${comment.author.username}`}>
+            <UserName to={`/r/profile/${comment.createdBy.username}`}>
               {' '}
-              <strong>{comment.author.username}</strong>
+              <strong>{comment.createdBy.username}</strong>
             </UserName>
             <CommentCreatedAt>
               {timeDifferenceForDate(comment.createdAt)}

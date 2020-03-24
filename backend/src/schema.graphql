@@ -9,6 +9,7 @@ type Query {
     orderBy: PostOrderByInput
   ): [Post!]!
   morePosts(query: String, first: Int, skip: Int, after: String): [Post!]!
+  comment(commentID: ID!): Comment!
   comments(
     query: String
     first: Int
@@ -24,14 +25,14 @@ type Query {
 type Mutation {
   createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
   loginUser(data: LoginUserInput!): LoginUserMutationResponse!
-  createVote(data: CreateVoteInput): CreateVoteMutationResponse!
+  createVote(data: CreateVoteInput!): CreateVoteMutationResponse!
   createUser(data: CreateUserInput!): CreateUserMutationResponse!
   updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
   deleteUser: DeleteUserMutationResponse!
-  createPost(data: CreatePostInput): CreatePostMutationResponse!
+  createPost(data: CreatePostInput!): CreatePostMutationResponse!
   updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
-  deletePost(data: DeletePostInput): DeletePostMutationResponse!
-  createComment(data: CreateCommentInput): CreateCommentMutationResponse!
+  deletePost(data: DeletePostInput!): DeletePostMutationResponse!
+  createComment(data: CreateCommentInput!): CreateCommentMutationResponse!
   updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
   deleteComment(data: DeleteCommentInput!): DeleteCommentMutationResponse!
 }
@@ -86,7 +87,7 @@ type Comment implements Node {
   createdAt: String!
   body: String!
   post: Post!
-  author: User!
+  createdBy: User!
 }
 
 input CreateVoteInput {
@@ -114,8 +115,7 @@ input DeletePostInput {
 }
 
 input CreateCommentInput {
-  postID: ID
-  author: ID
+  postID: ID!
   body: String!
 }
 
@@ -194,6 +194,7 @@ type CreatePostMutationResponse implements MutationResponse {
   message: String!
   post: Post
 }
+
 type UpdatePostMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!

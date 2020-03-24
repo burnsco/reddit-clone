@@ -33,6 +33,8 @@ function CreatePostPage() {
 
     try {
       const result = await createPost()
+      console.log('post result')
+      console.log(result)
       const { message, code } = result.data.createPost
 
       if (code === '200') {

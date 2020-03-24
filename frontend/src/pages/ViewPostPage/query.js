@@ -7,9 +7,12 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
       title
       text
       createdAt
+
       category {
+        id
         name
       }
+
       votes {
         id
         upVote
@@ -19,6 +22,7 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
         }
       }
       author {
+        id
         username
       }
       comments {
@@ -35,7 +39,8 @@ export const COMMENTS_QUERY = gql`
         id
         body
         createdAt
-        author {
+        createdBy {
+          id
           username
         }
       }

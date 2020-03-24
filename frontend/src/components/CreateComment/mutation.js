@@ -9,10 +9,7 @@ export const SUBMIT_COMMENT = gql`
       comment {
         id
         body
-        author {
-          id
-          username
-        }
+        createdAt
       }
     }
   }
