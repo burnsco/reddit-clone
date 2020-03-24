@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GET_POST_AND_COMMENTS_QUERY = gql`
-  query getPostsAndComments($postID: ID!) {
+  query onPostAndComments($postID: ID!) {
     post(postID: $postID) {
       id
       title
@@ -29,7 +29,7 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
 `
 
 export const COMMENTS_QUERY = gql`
-  query CommentsForPost($postID: ID!) {
+  query onCommentsForPost($postID: ID!) {
     post(postID: $postID) {
       comments {
         id

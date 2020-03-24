@@ -2383,10 +2383,6 @@ export type Long = string;
 
 export const models: Model[] = [
   {
-    name: "User",
-    embedded: false
-  },
-  {
     name: "Category",
     embedded: false
   },
@@ -2396,6 +2392,10 @@ export const models: Model[] = [
   },
   {
     name: "Comment",
+    embedded: false
+  },
+  {
+    name: "User",
     embedded: false
   },
   {

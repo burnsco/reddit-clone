@@ -268,10 +268,7 @@ const Mutation = {
   },
   async deleteComment(root, { data }, { db, user }, info) {
     const commentExists = await db.exists.Comment({
-      id: data.commentID,
-      author: {
-        id: user.userID
-      }
+      id: data.commentID
     })
 
     if (!commentExists) return CommentDoesNotExist

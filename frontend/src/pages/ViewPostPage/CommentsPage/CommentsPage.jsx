@@ -8,10 +8,12 @@ import {
 } from '../styles'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentFooter } from './styles'
+import DeleteComment from './DeleteComment'
 
 function CommentsPage(props) {
   const { subscribeToNewComments } = props
   const { comments } = props.data.post
+  const { postID, refetch } = props
 
   useEffect(() => {
     subscribeToNewComments()
@@ -37,11 +39,11 @@ function CommentsPage(props) {
           <CommentBody>{comment.body}</CommentBody>
           <CommentFooter>
             <button>Edit</button>
-            <button
-              onClick={() => console.log(`deleted comment ${comment.id}`)}
-            >
-              Delete
-            </button>
+            <DeleteComment
+              commentID={comment.id}
+              postID={postID}
+              refetch={refetch}
+            />
           </CommentFooter>
         </CommentsContainer>
       ))}
