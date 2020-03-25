@@ -21,6 +21,7 @@ function Categories() {
 
   return (
     <CategoriesContainer>
+      <ContainerHeader to="/chat">Chat</ContainerHeader>
       <ContainerHeader to="/submit">Post</ContainerHeader>
       <ContainerHeader to="/createCategory">Category</ContainerHeader>
 

@@ -9,7 +9,7 @@ import {
   UserNotLoggedIn,
   CommentDoesNotExist
 } from '../constants'
-
+import { response } from 'express'
 import { AuthenticationError } from 'apollo-server-express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
@@ -22,6 +22,9 @@ import {
 } from '../utils'
 
 const Mutation = {
+  async logout(root, args, { db, user }, info) {
+    await response.clearCookie('redt', process.env.JWT_REFRESH)
+  },
   async createVote(root, { data }, { db, user }, info) {
     const voteExists = await db.exists.Vote({
       user: { id: user.userID },

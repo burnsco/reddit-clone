@@ -4,9 +4,9 @@ import { Link } from '@reach/router'
 export const PostContainer = styled.div`
   border: 1px solid #ebedf0;
   background: #ffffff;
+  border-radius: 5rpx;
   display: flex;
   margin-bottom: 20rpx;
-  border-radius: 5rpx;
   min-height: 100rpx;
   width: 100%;
   &:hover {

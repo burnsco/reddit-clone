@@ -16,6 +16,7 @@ import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPag
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
+import ChatPage from '../pages/Chat'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -48,6 +49,7 @@ function App() {
             <CategoryPostsPageWithData path="r/:category" />
             <PostAndCommentsPage path="r/:category/:postID/comments" />
             <LoginPage path="login" />
+            <ChatPage path="chat" />
             <SignupPage path="signup" />
             <CreatePostPage path="submit" />
             <CreateCategoryPage path="createCategory" />

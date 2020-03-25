@@ -23,6 +23,7 @@ type Query {
 }
 
 type Mutation {
+  logout: String
   createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
   loginUser(data: LoginUserInput!): LoginUserMutationResponse!
   createVote(data: CreateVoteInput!): CreateVoteMutationResponse!

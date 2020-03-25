@@ -35,6 +35,17 @@ export const sendRefreshToken = (res, token) => {
     path: '/refresh_token'
   })
 }
+export const deleteRefreshToken = user => {
+  return jwt.sign({ userID: user.id }, process.env.JWT_REFRESH, {
+    expiresIn: '1m'
+  })
+}
+export const clearRefreshToken = res => {
+  res.cookie('redt', '', {
+    httpOnly: true,
+    path: '/refresh_token'
+  })
+}
 
 export const validateToken = authToken => {
   let user = jwt.verify(authToken, process.env.JWT_SECRET)

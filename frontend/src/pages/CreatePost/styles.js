@@ -3,7 +3,6 @@ import styled from '@xstyled/styled-components'
 import { CustomButton } from '../../components/shared/CustomButton'
 
 export const WelcomePage = styled.div`
-  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
