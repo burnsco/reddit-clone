@@ -15,7 +15,9 @@ function AllPostsPageWithData() {
         })
         cache.writeQuery({
           query: GET_ALL_POSTS_QUERY,
-          data: { posts }
+          data: {
+            posts: [...posts]
+          }
         })
       }
     }

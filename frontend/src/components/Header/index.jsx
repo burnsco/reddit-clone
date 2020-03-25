@@ -15,7 +15,9 @@ import { CategoryLink } from '../Categories/styles'
 import { FullLogo, HalfLogo } from '../NoAuthHeader/styles'
 
 const Header = () => {
-  const { loading, error, data } = useQuery(CURRENT_USER)
+  const { client, loading, error, data } = useQuery(CURRENT_USER, {
+    fetchPolicy: 'network-only'
+  })
 
   if (loading) return <MainSpinner />
 
@@ -36,7 +38,11 @@ const Header = () => {
 
           <HeaderLinks>
             <CategoryLink to="/profile">
-              <UserIcon />
+              <UserIcon
+                onClick={() => {
+                  client.resetStore()
+                }}
+              />
               {data ? data.currentUser.username : 'no user'}
             </CategoryLink>
 

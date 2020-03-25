@@ -28,7 +28,7 @@ function LoginPage() {
   const [password, setPassword] = useState('')
   const [result, setResult] = useState('')
 
-  const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
+  const [loginUser, { client, loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password }
   })
 
@@ -47,6 +47,7 @@ function LoginPage() {
 
       if (code === '200') {
         setAccessToken(accessToken)
+
         navigate('../', { replace: true })
       }
       return result
