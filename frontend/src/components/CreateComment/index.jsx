@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useMutation, useQuery } from '@apollo/client'
+import React from 'react'
+import { useMutation } from '@apollo/client'
 import {
   InputCommentBox,
   InputCommentFooter,
@@ -8,9 +8,6 @@ import {
 } from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
 import { SUBMIT_COMMENT } from './mutation'
-import NoAuth from './noAuth'
-import { CURRENT_USER } from '../Header/query'
-import { COMMENTS_QUERY } from '../../pages/ViewPostPage/query'
 
 const CreateCommentForm = ({ postID, refetch }) => {
   let input
@@ -26,9 +23,10 @@ const CreateCommentForm = ({ postID, refetch }) => {
         variables: { body: input.value, postID: postID }
       })
 
-      const { message, code, success } = data.createComment
+      const { message, code } = data.createComment
 
       if (code === '200') {
+        alert(`${message}`)
         refetch()
       }
     } catch (ex) {

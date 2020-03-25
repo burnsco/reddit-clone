@@ -21,7 +21,7 @@ function CommentsPage(props) {
     return function cleanUp() {
       unsubscribe()
     }
-  }, [comments])
+  }, [subscribeToNewComments])
 
   return (
     <>

@@ -8,7 +8,6 @@ import {
   HeaderLink
 } from './styles'
 import { FullLogo, HalfLogo } from './styles'
-import { useAuth } from '../../context/auth-context'
 
 function NoAuthHeader() {
   return (

@@ -11,16 +11,11 @@ import {
   HttpLink,
   InMemoryCache,
   Observable,
-  useQuery,
   ApolloProvider,
   split
 } from '@apollo/client'
 import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
-import { CURRENT_USER } from './components/Header/query'
-import AuthenticatedApp from './App/Authenticated'
-import UnAuthenticatedApp from './App/UnAuthenticated'
-import MainSpinner from './components/shared/FallBackSpinner'
 
 const cache = new InMemoryCache()
 
@@ -131,13 +126,6 @@ const client = new ApolloClient({
   ]),
   cache
 })
-
-function Switch() {
-  const { data, loading, error } = useQuery(CURRENT_USER)
-  if (loading) return <MainSpinner />
-
-  return data.currrentUser ? <AuthenticatedApp /> : <UnAuthenticatedApp />
-}
 
 const RedditApp = () => (
   <ApolloProvider client={client}>
