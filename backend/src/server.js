@@ -26,6 +26,10 @@ const corsOptions = {
 
 app.use(cookieParser())
 
+app.post('/logout', cors(corsOptions), async (req, res) => {
+  res.cookie('redt', { expires: Date.now() })
+})
+
 app.post('/refresh_token', cors(corsOptions), async (req, res) => {
   const token = req.cookies.redt
 

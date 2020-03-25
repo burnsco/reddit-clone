@@ -30,7 +30,7 @@ export const createRefreshToken = user => {
   })
 }
 export const sendRefreshToken = (res, token) => {
-  res.cookie('jid', token, {
+  res.cookie('redt', token, {
     httpOnly: true,
     path: '/refresh_token'
   })

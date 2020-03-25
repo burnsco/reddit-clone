@@ -9,13 +9,18 @@ export const GET_USER_PROFILE_DATA = gql`
       comments {
         id
         body
-        author
+        createdBy {
+          username
+        }
       }
       posts {
         id
         title
         url
-        category
+        category {
+          id
+          name
+        }
         author {
           username
         }

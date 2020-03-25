@@ -48,7 +48,7 @@ function ProfilePage({ userID, children }) {
         {/* FIXME Make a router on the profile page */}
       </ProfileFeedContainer>
 
-      {showPostsOrComments()}
+      {showPostsOrComments}
     </ProfileContainer>
   )
 }
