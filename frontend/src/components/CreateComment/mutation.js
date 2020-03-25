@@ -6,11 +6,6 @@ export const SUBMIT_COMMENT = gql`
       code
       success
       message
-      comment {
-        id
-        body
-        createdAt
-      }
     }
   }
 `

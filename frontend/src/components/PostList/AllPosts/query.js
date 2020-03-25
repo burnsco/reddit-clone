@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 export const GET_ALL_POSTS_QUERY = gql`
-  query onGetAllPosts {
+  query onGetAllPostsQuery {
     posts {
       id
       title
@@ -20,6 +20,7 @@ export const GET_ALL_POSTS_QUERY = gql`
       comments {
         id
         body
+        createdAt
         createdBy {
           id
           username

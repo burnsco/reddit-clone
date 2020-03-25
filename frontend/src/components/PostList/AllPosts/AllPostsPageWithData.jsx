@@ -7,7 +7,18 @@ import MainSpinner from '../../shared/FallBackSpinner'
 
 function AllPostsPageWithData() {
   const { subscribeToMore, data, loading, error } = useQuery(
-    GET_ALL_POSTS_QUERY
+    GET_ALL_POSTS_QUERY,
+    {
+      update(cache, { data }) {
+        const { posts } = cache.readyQuery({
+          query: GET_ALL_POSTS_QUERY
+        })
+        cache.writeQuery({
+          query: GET_ALL_POSTS_QUERY,
+          data: { posts }
+        })
+      }
+    }
   )
 
   if (loading) return <MainSpinner />

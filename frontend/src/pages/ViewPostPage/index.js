@@ -9,8 +9,6 @@ function PostAndCommentsPage({ postID }) {
     <PostAndCommentsContainer>
       <PostPageWithData postID={postID} />
 
-      <CreateCommentForm postID={postID} />
-
       <CommentsPageWithData postID={postID} />
     </PostAndCommentsContainer>
   )

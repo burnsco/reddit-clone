@@ -9,6 +9,7 @@ import { navigate } from '@reach/router'
 import Select from 'react-select'
 import { SUBMIT_POST } from './mutation'
 import { GET_CATEGORIES } from './query'
+import { GET_ALL_POSTS_QUERY } from '../../components/PostList/AllPosts/query'
 
 function CreatePostPage() {
   const [title, setTitle] = useState('')
@@ -18,15 +19,17 @@ function CreatePostPage() {
   const { loading, data } = useQuery(GET_CATEGORIES)
 
   const [createPost, { error }] = useMutation(SUBMIT_POST, {
+    update(cache, { data: { createPost } }) {
+      const { posts } = cache.readQuery({ query: GET_ALL_POSTS_QUERY })
+      cache.writeQuery({
+        query: GET_ALL_POSTS_QUERY,
+        data: { posts: posts.concat([createPost]) }
+      })
+    },
     variables: { title: title, text: text, categoryID: categoryID.value }
   })
 
   if (loading) return <MainSpinner />
-
-  if (error) {
-    console.log(error)
-    return <div>Error!</div>
-  }
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -39,7 +42,7 @@ function CreatePostPage() {
 
       if (code === '200') {
         alert(`${message}`)
-        navigate('/r/all')
+        navigate('../')
       }
     } catch (error) {
       console.log(error)

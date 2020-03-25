@@ -40,6 +40,9 @@ type Mutation {
 interface Node {
   id: ID!
 }
+type CommentsCountResponse {
+  count: Int!
+}
 
 type Vote implements Node {
   id: ID!
@@ -212,7 +215,6 @@ type CreateCommentMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  comment: Comment
 }
 type UpdateCommentMutationResponse implements MutationResponse {
   code: String!

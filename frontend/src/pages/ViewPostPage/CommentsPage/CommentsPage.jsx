@@ -9,6 +9,7 @@ import {
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentFooter } from './styles'
 import DeleteComment from './DeleteComment'
+import CreateCommentForm from '../../../components/CreateComment'
 
 function CommentsPage(props) {
   const { subscribeToNewComments } = props
@@ -19,11 +20,10 @@ function CommentsPage(props) {
     subscribeToNewComments()
   }, [subscribeToNewComments])
 
-  if (comments.length === 0) {
-    return <div>No Comments Yet</div>
-  }
   return (
     <>
+      <CreateCommentForm refetch={refetch} postID={postID} />
+
       {comments.map(comment => (
         <CommentsContainer key={comment.id}>
           <CommentHeader>

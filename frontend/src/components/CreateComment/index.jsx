@@ -10,14 +10,16 @@ import MainSpinner from '../shared/FallBackSpinner'
 import { SUBMIT_COMMENT } from './mutation'
 import NoAuth from './noAuth'
 import { CURRENT_USER } from '../Header/query'
+import { COMMENTS_QUERY } from '../../pages/ViewPostPage/query'
 
-const CreateCommentForm = ({ postID }) => {
+const CreateCommentForm = ({ postID, refetch }) => {
   const [comment, setComment] = useState('')
 
-  const { loading, data } = useQuery(CURRENT_USER)
-
-  const [createComment, { error }] = useMutation(SUBMIT_COMMENT, {
-    variables: { body: comment, postID: postID }
+  const [createComment, { loading, error }] = useMutation(SUBMIT_COMMENT, {
+    variables: {
+      body: comment,
+      postID: postID
+    }
   })
 
   const handleChange = e => {
@@ -32,9 +34,8 @@ const CreateCommentForm = ({ postID }) => {
 
       const { message, code, success } = comment.data.createComment
 
-      console.log(message, code, success)
       if (code === '200') {
-        alert(`${message}`)
+        refetch()
         setComment('')
       }
     } catch (ex) {
@@ -49,37 +50,31 @@ const CreateCommentForm = ({ postID }) => {
 
   if (loading) return <MainSpinner />
 
-  console.log(data.currentUser)
+  return (
+    <>
+      <Container>
+        <form onSubmit={handleSubmit}>
+          <InputCommentBox
+            as="textarea"
+            value={comment}
+            onChange={handleChange}
+            style={{ background: 'white' }}
+            role="textbox"
+            spellCheck="true"
+            placeholder="What are your thoughts"
+            height="300"
+            width="300"
+          ></InputCommentBox>
 
-  if (data && data.currentUser) {
-    return (
-      <>
-        <Container>
-          <small>comment as {data.currentUser.username}</small>
-          <form onSubmit={handleSubmit}>
-            <InputCommentBox
-              as="textarea"
-              value={comment}
-              onChange={handleChange}
-              style={{ background: 'white' }}
-              role="textbox"
-              spellCheck="true"
-              placeholder="What are your thoughts"
-              height="300"
-              width="300"
-            ></InputCommentBox>
-
-            <InputCommentFooter>
-              {comment.length > 2 && (
-                <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
-              )}
-            </InputCommentFooter>
-          </form>
-        </Container>
-      </>
-    )
-  }
-  return <NoAuth />
+          <InputCommentFooter>
+            {comment.length > 2 && (
+              <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
+            )}
+          </InputCommentFooter>
+        </form>
+      </Container>
+    </>
+  )
 }
 
 export default CreateCommentForm

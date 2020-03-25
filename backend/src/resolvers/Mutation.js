@@ -239,8 +239,7 @@ const Mutation = {
     return {
       code: '200',
       success: true,
-      message: 'Comment Created Successfully!',
-      comment
+      message: 'Comment Created Successfully!'
     }
   },
 
