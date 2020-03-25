@@ -18,7 +18,7 @@ const CreateCommentForm = ({ postID, refetch }) => {
 
   if (loading) return <MainSpinner />
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault()
 
     try {

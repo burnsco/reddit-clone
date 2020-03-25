@@ -25,6 +25,7 @@
     "jwt-decode": "^2.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
+    "react-confirm-alert": "^2.6.1",
     "react-dom": "^16.12.0",
     "react-hook-form": "^5.0.3",
     "react-icons": "^3.9.0",

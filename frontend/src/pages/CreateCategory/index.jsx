@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 import { navigate } from '@reach/router'
 import { CREATE_CATEGORY_MUTATION } from './mutation'
+import { GET_CATEGORIES_QUERY } from '../../components/Categories/query'
 
 function CreateCategoryPage() {
   const [name, setName] = useState('')
@@ -13,7 +14,14 @@ function CreateCategoryPage() {
   const [createCategory, { loading, error }] = useMutation(
     CREATE_CATEGORY_MUTATION,
     {
-      variables: { name: name }
+      variables: { name: name },
+      update(cache, { data: { createCategory } }) {
+        const { categories } = cache.readQuery({ query: GET_CATEGORIES_QUERY })
+        cache.writeQuery({
+          query: GET_CATEGORIES_QUERY,
+          data: { categories: categories.concat([createCategory]) }
+        })
+      }
     }
   )
 
