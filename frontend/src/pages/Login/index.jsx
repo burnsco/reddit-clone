@@ -39,7 +39,7 @@ function LoginPage() {
 
     try {
       const result = await loginUser()
-      console.log(result)
+
       const { message, accessToken, code } = result.data.loginUser
 
       if (code === '200') {

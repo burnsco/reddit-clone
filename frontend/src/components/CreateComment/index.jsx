@@ -9,21 +9,20 @@ import {
 import MainSpinner from '../shared/FallBackSpinner'
 import { SUBMIT_COMMENT } from './mutation'
 
-const CreateCommentForm = ({ postID, refetch }) => {
-  let input
+function CreateCommentForm({ postID, refetch }) {
   const [createComment, { loading, error, data }] = useMutation(SUBMIT_COMMENT)
-
+  let input
   if (loading) return <MainSpinner />
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
     try {
-      createComment({
+      const result = await createComment({
         variables: { body: input.value, postID: postID }
       })
 
-      const { message, code } = data.createComment
+      const { message, code } = result
 
       if (code === '200') {
         alert(`${message}`)
