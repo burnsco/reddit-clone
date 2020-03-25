@@ -17,7 +17,6 @@ function CommentsPageWithData({ postID }) {
     variables: { postID: postID },
     notifyOnNetworkStatusChange: true
   })
-
   if (networkStatus === 4) return <MainSpinner />
   if (loading) return <MainSpinner />
   if (error) return <div>error</div>

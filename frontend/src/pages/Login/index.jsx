@@ -47,7 +47,7 @@ function LoginPage() {
 
       if (code === '200') {
         setAccessToken(accessToken)
-
+        alert(message)
         navigate('../', { replace: true })
       }
       return result
@@ -101,8 +101,6 @@ function LoginPage() {
             </ButtonsBarContainer>
           </fieldset>
         </form>
-        <br />
-        <CustomButton isGoogleSignIn>{result}</CustomButton>
       </SignInContainer>
     </WelcomePage>
   )

@@ -13,30 +13,23 @@ import { CURRENT_USER } from '../Header/query'
 import { COMMENTS_QUERY } from '../../pages/ViewPostPage/query'
 
 const CreateCommentForm = ({ postID, refetch }) => {
-  const [comment, setComment] = useState('')
+  let input
+  const [createComment, { loading, error, data }] = useMutation(SUBMIT_COMMENT)
 
-  const [createComment, { loading, error }] = useMutation(SUBMIT_COMMENT, {
-    variables: {
-      body: comment,
-      postID: postID
-    }
-  })
+  if (loading) return <MainSpinner />
 
-  const handleChange = e => {
-    setComment(e.target.value)
-  }
-
-  const handleSubmit = async event => {
-    event.preventDefault()
+  const handleSubmit = async e => {
+    e.preventDefault()
 
     try {
-      const comment = await createComment()
+      createComment({
+        variables: { body: input.value, postID: postID }
+      })
 
-      const { message, code, success } = comment.data.createComment
+      const { message, code, success } = data.createComment
 
       if (code === '200') {
         refetch()
-        setComment('')
       }
     } catch (ex) {
       console.log(ex)
@@ -45,19 +38,17 @@ const CreateCommentForm = ({ postID, refetch }) => {
 
   if (error) {
     console.log(error)
-    return <div>error</div>
   }
-
-  if (loading) return <MainSpinner />
 
   return (
     <>
       <Container>
         <form onSubmit={handleSubmit}>
           <InputCommentBox
+            ref={node => {
+              input = node
+            }}
             as="textarea"
-            value={comment}
-            onChange={handleChange}
             style={{ background: 'white' }}
             role="textbox"
             spellCheck="true"
@@ -67,9 +58,7 @@ const CreateCommentForm = ({ postID, refetch }) => {
           ></InputCommentBox>
 
           <InputCommentFooter>
-            {comment.length > 2 && (
-              <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
-            )}
+            <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
           </InputCommentFooter>
         </form>
       </Container>

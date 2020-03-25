@@ -20,6 +20,7 @@ export const GET_POSTS_BY_CATEGORY_QUERY = gql`
       comments {
         id
         body
+        createdAt
         createdBy {
           id
           username

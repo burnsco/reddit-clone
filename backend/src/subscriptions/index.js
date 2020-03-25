@@ -1,9 +1,17 @@
 const Subscription = {
-  post: async (root, args, { db }, info) =>
-    await db.subscription.post(null, info),
-
-  comment: async (root, { postID }, { db }, info) =>
-    await db.subscription.comment(null, info)
+  postAdded: {
+    subscribe(root, args, { db }, info) {
+      return db.subscription.post({ where: { mutation_in: ['CREATED'] } }, info)
+    }
+  },
+  commentAdded: {
+    subscribe(root, { postID }, { db }, info) {
+      return db.subscription.comment(
+        { where: { mutation_in: ['CREATED'] } },
+        info
+      )
+    }
+  }
 }
 
 export { Subscription as default }

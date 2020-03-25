@@ -17,15 +17,18 @@ function CommentsPage(props) {
   const { postID, refetch } = props
 
   useEffect(() => {
-    subscribeToNewComments()
-  }, [subscribeToNewComments])
+    const unsubscribe = subscribeToNewComments()
+    return function cleanUp() {
+      unsubscribe()
+    }
+  }, [comments])
 
   return (
     <>
       <CreateCommentForm refetch={refetch} postID={postID} />
 
       {comments.map(comment => (
-        <CommentsContainer key={comment.id}>
+        <CommentsContainer key={`comment-${comment.id}-${comment.body}`}>
           <CommentHeader>
             <UserName to={`/r/profile/${comment.createdBy.username}`}>
               {' '}
