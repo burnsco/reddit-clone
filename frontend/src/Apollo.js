@@ -124,7 +124,12 @@ const client = new ApolloClient({
     requestLink,
     splitLink
   ]),
-  cache
+  cache,
+  defaultOptions: {
+    watchQuery: { errorPolicy: 'all' },
+    query: { errorPolicy: 'all' },
+    mutate: { errorPolicy: 'all' }
+  }
 })
 
 const RedditApp = () => (

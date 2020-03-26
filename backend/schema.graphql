@@ -39,9 +39,25 @@ type Mutation {
   deletePost(id: ID!): DeletePostMutationResponse!
   deleteComment(id: ID!): DeleteCommentMutationResponse!
 }
-
 interface Node {
   id: ID!
+}
+
+type Chat implements Node {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  category: Category!
+  name: String!
+  users: [User!]!
+  messages: [Message!]!
+}
+
+type Message implements Node {
+  id: ID!
+  createdAt: String!
+  text: String!
+  username: User!
 }
 
 type Category implements Node {
@@ -50,6 +66,7 @@ type Category implements Node {
   id: ID!
   name: String!
   posts: [Post!]!
+  chats: [Chat!]!
 }
 
 type Post implements Node {
@@ -68,12 +85,30 @@ type User implements Node {
   id: ID!
   updatedAt: String!
   createdAt: String!
+  chats: [Chat!]!
+  friends: [User!]!
+  isOnline: Boolean
+  lastSeen: String
+  lastTyped: String
   email: String!
   username: String!
   password: String!
   posts: [Post!]!
   comments: [Comment!]!
   votes: [Vote!]!
+}
+
+type Profile implements Node {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  subscribedTo: [Category!]!
+  avatar: String!
+  country: String!
+  notifications: Boolean
+  province: String
+  state: String
+  about: String
 }
 
 type Vote implements Node {
