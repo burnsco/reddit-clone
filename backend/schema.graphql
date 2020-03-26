@@ -1,5 +1,8 @@
 type Query {
   currentUser: User!
+  chat(chatID: ID!): Chat!
+  chats: [Chat!]!
+  messages: [Message!]!
   categories(query: String): [Category!]!
   posts(
     query: String
@@ -22,6 +25,7 @@ type Query {
 }
 
 type Mutation {
+  createMessage(text: String!): Message!
   logout: Boolean!
   vote(postID: ID!, upVote: Boolean!, downVote: Boolean!): Vote
   createUser(data: CreateUserInput!): CreateUserMutationResponse!
@@ -43,6 +47,17 @@ interface Node {
   id: ID!
 }
 
+enum PostType {
+  LINK
+  TEXT
+}
+
+enum RoleType {
+  USER
+  ADMIN
+  MODERATOR
+}
+
 type Chat implements Node {
   id: ID!
   createdAt: String!
@@ -57,7 +72,8 @@ type Message implements Node {
   id: ID!
   createdAt: String!
   text: String!
-  username: User!
+  chat: Chat!
+  user: User!
 }
 
 type Category implements Node {
@@ -73,9 +89,10 @@ type Post implements Node {
   updatedAt: String!
   createdAt: String!
   id: ID!
+  type: PostType!
   category: Category!
   title: String!
-  text: String
+  text: String!
   author: User!
   comments: [Comment!]!
   votes: [Vote!]!
@@ -85,6 +102,7 @@ type User implements Node {
   id: ID!
   updatedAt: String!
   createdAt: String!
+  role: RoleType!
   chats: [Chat!]!
   friends: [User!]!
   isOnline: Boolean
@@ -269,15 +287,10 @@ type CommentSubscriptionPayload {
 type Subscription {
   postAdded(postID: ID, categoryID: ID): PostSubscriptionPayload
   commentAdded(postID: ID): CommentSubscriptionPayload
+  messageAdded(chatID: ID): MessageSubscriptionPayload
 }
 
 enum PostOrderByInput {
-  id_ASC
-  id_DESC
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -285,12 +298,6 @@ enum PostOrderByInput {
 }
 
 enum CommentOrderByInput {
-  id_ASC
-  id_DESC
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -307,6 +314,4 @@ enum MutationType {
   CREATED
   UPDATED
   DELETED
-  UPVOTE
-  DOWNVOTE
 }
