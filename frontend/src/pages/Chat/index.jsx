@@ -1,28 +1,42 @@
 import React from 'react'
 import {
   ChatPageWrapper,
-  ChatRoomsList,
+  ChatRoomsListContainer,
   ChatDisplay,
   ChatUserList,
   ChatInputFooter,
-  ChatRoomLink
+  ChatRoomLink,
+  ChatRoomsHeader,
+  ListOfChatRooms
 } from './styles'
 
 function ChatPage() {
   return (
     <ChatPageWrapper>
-      <ChatRoomsList>
-        {/* List of Chats to Join */}
-        <h3>Room List</h3>
-      </ChatRoomsList>
+      <ChatRoomsListContainer>
+        <ListOfChatRooms>
+          <ChatRoomLink to="/">React</ChatRoomLink>
+          <ChatRoomLink to="/">Development</ChatRoomLink>
+          <ChatRoomLink to="/">Music</ChatRoomLink>
+          <ChatRoomLink to="/">Television</ChatRoomLink>
+          <ChatRoomLink to="/">Funny</ChatRoomLink>
+          <ChatRoomLink to="/">Aww</ChatRoomLink>
+          <ChatRoomLink to="/">Fitness</ChatRoomLink>
+          <ChatRoomLink to="/">ADHD</ChatRoomLink>
+          <ChatRoomLink to="/">Adderall</ChatRoomLink>
+          <ChatRoomLink to="/">GraphQL</ChatRoomLink>
+          <ChatRoomLink to="/">FrontEnd</ChatRoomLink>
+          <ChatRoomLink to="/">WebDev</ChatRoomLink>
+          <ChatRoomLink to="/">Movies</ChatRoomLink>
+          <ChatRoomLink to="/">Comedy</ChatRoomLink>
+        </ListOfChatRooms>
+      </ChatRoomsListContainer>
 
       <ChatDisplay>
-        {/* The Display of the Chat */}
-
         <ChatInputFooter>{/* Input Box For Chatting */}</ChatInputFooter>
       </ChatDisplay>
 
-      <ChatUserList>{/* Users Currently In the Room */}</ChatUserList>
+      <ChatUserList></ChatUserList>
     </ChatPageWrapper>
   )
 }
