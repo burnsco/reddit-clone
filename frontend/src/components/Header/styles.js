@@ -6,8 +6,8 @@ export const UserIcon = styled(UserNinja)`
   height: 20rpx;
   width: 30rpx;
 `
-
 export const HeaderContainer = styled.header`
+  overflow: hidden;
   position: sticky;
   z-index: 10;
   top: 0;
@@ -33,6 +33,11 @@ export const HeaderNavWrapper = styled.nav`
 export const HeaderLogo = styled.div`
   flex-grow: 1;
 `
+
+export const HeaderLinks = styled.div`
+  display: flex;
+  align-items: space-evenly;
+`
 export const HeaderLink = styled.div`
   padding: 10rpx;
   margin: 5rpx;
@@ -44,8 +49,5 @@ export const HeaderLink = styled.div`
     box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
   }
 `
-export const HeaderLinks = styled.div`
-  display: flex;
-  align-items: space-evenly;
-`
+
 export const HeaderButton = styled(CustomButton)``

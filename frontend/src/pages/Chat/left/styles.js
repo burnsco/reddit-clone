@@ -25,3 +25,10 @@ export const ChatRoomLink = styled(NavLink)`
     border-right: 6px solid #459cff;
   }
 `
+
+export const ChatRoomNav = styled.div`
+  display: flex;
+
+  border-top: 2px solid #ebedf0;
+`
+export const ChatRoomNavIcon = styled.div``

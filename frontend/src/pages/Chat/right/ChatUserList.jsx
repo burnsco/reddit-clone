@@ -1,6 +1,15 @@
 import React from 'react'
-import { ChatUserListContainer, UserIcon, UserIconTwo } from './styles'
+import {
+  ChatUserListContainer,
+  UserIcon,
+  UserIconTwo,
+  UserListNav
+} from './styles'
 import { ChatRoomLink } from '../left/styles'
+import {
+  RightArrow,
+  LeftArrow
+} from '../../../components/shared/NavIcons/CircleArrows'
 
 const ChatUserList = () => {
   return (
@@ -18,9 +27,11 @@ const ChatUserList = () => {
         <ChatRoomLink to="/">bushsmig</ChatRoomLink>
         <ChatRoomLink to="/"> elbowchloe </ChatRoomLink>
         <ChatRoomLink to="/">amazedfermium</ChatRoomLink>
-        <ChatRoomLink to="/">zillioncupped </ChatRoomLink>
-        <ChatRoomLink to="/">orionecologist</ChatRoomLink>
-        <ChatRoomLink to="/">sconnydizziness</ChatRoomLink>
+
+        <UserListNav>
+          <LeftArrow />
+          <RightArrow />
+        </UserListNav>
       </ChatUserListContainer>
     </>
   )

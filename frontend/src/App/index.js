@@ -45,11 +45,14 @@ function App() {
             <ProfilePage path="/" />
           </Profile>
 
+          <ChatPage path="chat" />
+          <ChatPage path="chat/:category" />
+
           <Home path="/">
             <CategoryPostsPageWithData path="r/:category" />
             <PostAndCommentsPage path="r/:category/:postID/comments" />
             <LoginPage path="login" />
-            <ChatPage path="chat" />
+
             <SignupPage path="signup" />
             <CreatePostPage path="submit" />
             <CreateCategoryPage path="createCategory" />

@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { ChatBoxInputContainer, ChatInputBox } from './styles'
 
-const ChatInputBox = () => {
+const ChatInputBoxComponent = () => {
+  const inputRef = useRef(null)
   return (
     <>
-      <input type="text" />
+      <ChatBoxInputContainer>
+        <ChatInputBox
+          ref={inputRef}
+          placeholder="chat here"
+          onMouseEnter={() => {
+            inputRef.current.focus()
+          }}
+        />
+      </ChatBoxInputContainer>
     </>
   )
 }
 
-export default ChatInputBox
+export default ChatInputBoxComponent

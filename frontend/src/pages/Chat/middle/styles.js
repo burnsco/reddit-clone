@@ -1,17 +1,30 @@
 import styled from '@xstyled/styled-components'
 
 export const ChatDisplayContainer = styled.div`
-  min-height: 100%;
-  flex-grow: 1;
   display: flex;
-  overflow: auto;
   flex-direction: column;
 `
 export const UserChats = styled.div`
+  overflow: auto;
+  ::-webkit-scrollbar {
+    width: 10rpx;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    &:hover {
+      background: #444;
+    }
+  }
   height: 92%;
   padding: 15rpx;
 `
 export const ChatBoxInputContainer = styled.div`
+  margin-top: 10rpx;
   display: flex;
   height: 8%;
   font-size: 16rpx;
@@ -19,11 +32,11 @@ export const ChatBoxInputContainer = styled.div`
 `
 export const ChatInputBox = styled.input`
   font-size: 17rpx;
-  min-width: 100%;
+  width: 100%;
   text-rendering: auto;
   letter-spacing: normal;
   word-spacing: normal;
-  border-radius: 3px;
+  border: 1px solid black;
 `
 export const ChatButton = styled.button`
   /* Adapt the colors based on primary prop */

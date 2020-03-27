@@ -2,8 +2,15 @@ import React from 'react'
 import {
   ChatRoomsListContainer,
   ListOfChatRoomsContainer,
-  ChatRoomLink
+  ChatRoomLink,
+  ChatRoomNav
 } from './styles'
+import { ArrowBackwardIcon } from '../../../components/shared/NavIcons/ArrowBackward'
+import { ArrowForwardIcon } from '../../../components/shared/NavIcons/ArrowForward'
+import {
+  LeftArrow,
+  RightArrow
+} from '../../../components/shared/NavIcons/CircleArrows'
 
 const ListOfChatRooms = () => {
   return (
@@ -21,8 +28,11 @@ const ListOfChatRooms = () => {
         <ChatRoomLink to="/">#GraphQL</ChatRoomLink>
         <ChatRoomLink to="/">#FrontEnd</ChatRoomLink>
         <ChatRoomLink to="/">#WebDev</ChatRoomLink>
-        <ChatRoomLink to="/">#Movies</ChatRoomLink>
-        <ChatRoomLink to="/">#Comedy</ChatRoomLink>
+
+        <ChatRoomNav>
+          <LeftArrow />
+          <RightArrow />
+        </ChatRoomNav>
       </ListOfChatRoomsContainer>
     </ChatRoomsListContainer>
   )
