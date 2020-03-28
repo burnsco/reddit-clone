@@ -14,7 +14,7 @@ import {
   ApolloProvider,
   split
 } from '@apollo/client'
-import App from './App'
+import App from '../App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 
 const cache = new InMemoryCache()

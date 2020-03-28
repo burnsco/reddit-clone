@@ -43,4 +43,4 @@ const ChatRoom = ({ chatID }) => {
   )
 }
 
-export default ChatDisplay
+export default ChatRoom

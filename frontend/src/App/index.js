@@ -6,7 +6,7 @@ import Profile from '../pages/Profile'
 import LoginPage from '../pages/Login'
 import SignupPage from '../pages/Signup'
 import CreatePostPage from '../pages/CreatePost'
-import { AppContainer } from './styles'
+import { AppContainer, RoutesContainer } from './styles'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import PostAndCommentsPage from '../pages/ViewPostPage/index'
@@ -17,6 +17,8 @@ import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/Cate
 import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
 import ChatPage from '../pages/Chat'
+import ChatRouter from '../pages/Chat/router'
+import ChatRoom from '../pages/Chat/ChatRoomDisplay/ChatRoom'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -35,22 +37,21 @@ function App() {
   if (loading) return <MainSpinner />
 
   return (
-    <>
+    <AppContainer>
       <Header />
-      <AppContainer>
+      <RoutesContainer>
         <Router>
           <Home path="/">
             <PostAndCommentsPage path="r/:category/:postID/comments" />
             <CategoryPostsPageWithData path="r/:category" />
 
-            <LoginPage path="login" />
-            <SignupPage path="signup" />
-
             <CreatePostPage path="submitPost" />
             <CreateCategoryPage path="submitCategory" />
-
             <AllPostsPageWithData path="/" />
           </Home>
+
+          <LoginPage path="login" />
+          <SignupPage path="signup" />
 
           <Profile path="profile">
             <AllPostsPageWithData path="profile/:userID/posts" />
@@ -58,12 +59,12 @@ function App() {
             <ProfilePage path="/" />
           </Profile>
 
-          <ChatRouter path="chat">
+          <ChatPage path="chat">
             <ChatRoom path="chat/:category" />
-          </ChatRouter>
+          </ChatPage>
         </Router>
-      </AppContainer>
-    </>
+      </RoutesContainer>
+    </AppContainer>
   )
 }
 

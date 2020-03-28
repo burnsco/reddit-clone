@@ -15,3 +15,5 @@ const ChatRouter = ({ children }) => (
     </UsersListContainer>
   </ChatRouterContainer>
 )
+
+export default ChatRouter
