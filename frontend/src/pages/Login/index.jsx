@@ -5,6 +5,7 @@ import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { useNavigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
+import { WarningMessage } from '../Signup/styles'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -25,6 +26,7 @@ const LOGIN_MUTATION = gql`
 function LoginPage() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
   const [password, setPassword] = useState('')
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
@@ -34,15 +36,13 @@ function LoginPage() {
   const handleSubmit = async event => {
     event.preventDefault()
 
-    if (loading) return <div>Loading</div>
-    if (error) return <div>error!</div>
-
     try {
       const result = await loginUser()
 
-      const { message, accessToken, code } = result.data.loginUser
+      const { message, accessToken, success } = result.data.loginUser
 
-      if (code === '200') {
+      setMessage(message)
+      if (success) {
         setAccessToken(accessToken)
         alert(message)
         navigate('../', { replace: true })
@@ -51,6 +51,8 @@ function LoginPage() {
     } catch (error) {
       console.log(error)
     }
+    setEmail('')
+    setPassword('')
   }
 
   const handleChange = event => {
@@ -62,6 +64,9 @@ function LoginPage() {
     }
   }
 
+  if (loading) return <div>Loading</div>
+  if (error) return <div>error!</div>
+
   return (
     <WelcomePage>
       <SignInContainer>
@@ -69,34 +74,29 @@ function LoginPage() {
         <span>Login with your email and password</span>
 
         <form onSubmit={handleSubmit}>
-          <fieldset
-            disabled={loading}
-            aria-busy={loading}
-            style={{ borderStyle: 'none' }}
-          >
-            <FormInput
-              name="email"
-              type="email"
-              handleChange={handleChange}
-              value={email}
-              label="email"
-              required
-            />
-            <FormInput
-              name="password"
-              type="password"
-              value={password}
-              handleChange={handleChange}
-              label="password"
-              required
-            />
-            <ButtonsBarContainer>
-              <CustomButton type="submit" style={{ width: 100 + '%' }}>
-                {' '}
-                Sign in with Email
-              </CustomButton>
-            </ButtonsBarContainer>
-          </fieldset>
+          <FormInput
+            name="email"
+            type="email"
+            handleChange={handleChange}
+            value={email}
+            label="email"
+            required
+          />
+          <FormInput
+            name="password"
+            type="password"
+            value={password}
+            handleChange={handleChange}
+            label="password"
+            required
+          />
+          <ButtonsBarContainer>
+            <WarningMessage>{message}</WarningMessage>
+            <CustomButton type="submit" style={{ width: 100 + '%' }}>
+              {' '}
+              Sign in with Email
+            </CustomButton>
+          </ButtonsBarContainer>
         </form>
       </SignInContainer>
     </WelcomePage>

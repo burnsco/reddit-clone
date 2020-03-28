@@ -41,7 +41,7 @@ export const CreateAccountLink = styled(Link)`
 
 export const ButtonsBarContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
 `
 export const SignUpContainer = styled.div`
   display: flex;

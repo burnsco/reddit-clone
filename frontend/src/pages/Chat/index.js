@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container } from './styles'
-
 import ListOfChatRooms from './left/ListOfChatRooms'
 import ChatDisplay from './middle/ChatDisplay'
 import ChatInputBox from './middle/ChatInput'

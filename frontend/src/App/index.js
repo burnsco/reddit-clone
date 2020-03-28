@@ -45,8 +45,9 @@ function App() {
             <ProfilePage path="/" />
           </Profile>
 
-          <ChatPage path="chat" />
-          <ChatPage path="chat/:category" />
+          <ChatRouter path="chat">
+            <ChatRoom path=":category" />
+          </ChatRouter>
 
           <Home path="/">
             <CategoryPostsPageWithData path="r/:category" />
