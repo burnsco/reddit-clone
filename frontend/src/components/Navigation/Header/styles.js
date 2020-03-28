@@ -1,6 +1,6 @@
 import styled from '@xstyled/styled-components'
 import { UserNinja } from '@styled-icons/fa-solid'
-import { CustomButton } from '../shared/CustomButton'
+import { CustomButton } from '../../shared/CustomButton'
 
 export const UserIcon = styled(UserNinja)`
   height: 20rpx;

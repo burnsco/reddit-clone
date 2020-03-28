@@ -6,7 +6,7 @@ import {
   Container,
   SubmitCommentButton
 } from './styles'
-import MainSpinner from '../shared/FallBackSpinner'
+import MainSpinner from '../../shared/FallBackSpinner'
 import { SUBMIT_COMMENT } from './mutation'
 
 function CreateCommentForm({ postID, refetch }) {

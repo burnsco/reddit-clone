@@ -15,7 +15,7 @@ import {
   UserName
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
-import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
+import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate.js'
 import { CommentAlt } from '@styled-icons/fa-solid'
 
 const CommentIcon = styled(CommentAlt)`

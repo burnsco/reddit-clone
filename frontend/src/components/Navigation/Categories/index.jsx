@@ -7,7 +7,7 @@ import {
 } from './styles.js'
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES_QUERY } from './query'
-import MainSpinner from '../shared/FallBackSpinner'
+import MainSpinner from '../../shared/FallBackSpinner'
 
 function Categories() {
   const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)

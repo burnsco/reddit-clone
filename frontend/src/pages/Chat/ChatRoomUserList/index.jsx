@@ -11,7 +11,7 @@ import {
   LeftArrow
 } from '../../../components/shared/NavIcons/CircleArrows'
 
-const ChatUserList = () => {
+const ChatRoomUserList = () => {
   return (
     <>
       <ChatUserListContainer>
@@ -37,4 +37,4 @@ const ChatUserList = () => {
   )
 }
 
-export default ChatUserList
+export default ChatRoomUserList

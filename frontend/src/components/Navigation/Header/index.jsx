@@ -9,10 +9,10 @@ import {
   UserIcon
 } from './styles'
 import { CURRENT_USER } from './query'
-import MainSpinner from '../shared/FallBackSpinner'
-import NoAuthHeader from '../NoAuthHeader'
+import MainSpinner from '../../shared/FallBackSpinner'
+import NoAuthHeader from '../../NoAuthHeader'
 import { CategoryLink } from '../Categories/styles'
-import { FullLogo, HalfLogo } from '../NoAuthHeader/styles'
+import { FullLogo, HalfLogo } from '../../NoAuthHeader/styles'
 
 const Header = () => {
   const { client, loading, error, data } = useQuery(CURRENT_USER, {
