@@ -1,6 +1,6 @@
 import React from 'react'
-import ListOfChatRooms from './left/ListOfChatRooms'
-import ChatUserList from './right/ChatUserList'
+import ListOfChatRooms from '../left/ListOfChatRooms'
+import ChatUserList from '../right/ChatUserList'
 
 const ChatRouter = ({ children }) => (
   <ChatRouterContainer>

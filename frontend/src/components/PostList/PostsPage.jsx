@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { PostListContainer } from '../styles'
-import Post from '../../Post'
+import { PostListContainer } from './styles'
+import Post from '../Post'
 
 function PostsPage(data) {
   const { subscribeToNewPosts } = data

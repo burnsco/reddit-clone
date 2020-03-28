@@ -14,10 +14,7 @@ function Categories() {
 
   if (loading) return <MainSpinner />
 
-  if (error) {
-    console.log(error)
-    return <div>Error</div>
-  }
+  if (error) return <div>Error</div>
 
   return (
     <CategoriesContainer>
@@ -28,7 +25,10 @@ function Categories() {
       <CategoryLinksContainer>
         <CategoryLink to="/">r/all</CategoryLink>
         {data.categories.map(category => (
-          <CategoryLink to={`/r/${category.name}`} key={category.id}>
+          <CategoryLink
+            to={`/r/${category.name}`}
+            key={`sidebar-category-${category.id}`}
+          >
             r/{category.name}
           </CategoryLink>
         ))}

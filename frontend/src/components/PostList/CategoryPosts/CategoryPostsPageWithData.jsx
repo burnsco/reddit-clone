@@ -1,6 +1,6 @@
 import React from 'react'
 import { GET_POSTS_BY_CATEGORY_QUERY } from './query'
-import PostsPage from './PostsPage'
+import PostsPage from '../PostsPage'
 import { useQuery } from '@apollo/client'
 import { POSTS_SUBSCRIPTION } from '../subscription'
 import MainSpinner from '../../shared/FallBackSpinner'

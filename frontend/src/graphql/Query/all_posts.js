@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-export const GET_POSTS_BY_CATEGORY_QUERY = gql`
-  query onGetPostsByCategoryQuery($query: String!) {
-    posts(query: $query) {
+export const ALL_POSTS_QUERY = gql`
+  query onGetAllPostsQuery {
+    posts {
       id
       title
       text

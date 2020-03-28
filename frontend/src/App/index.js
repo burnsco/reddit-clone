@@ -39,27 +39,28 @@ function App() {
       <Header />
       <AppContainer>
         <Router>
-          <Profile path="profile/:userID">
+          <Home path="/">
+            <PostAndCommentsPage path="r/:category/:postID/comments" />
+            <CategoryPostsPageWithData path="r/:category" />
+
+            <LoginPage path="login" />
+            <SignupPage path="signup" />
+
+            <CreatePostPage path="submitPost" />
+            <CreateCategoryPage path="submitCategory" />
+
+            <AllPostsPageWithData path="/" />
+          </Home>
+
+          <Profile path="profile">
             <AllPostsPageWithData path="profile/:userID/posts" />
             <CommentsPageWithData path="profile/:userID/comments" />
             <ProfilePage path="/" />
           </Profile>
 
           <ChatRouter path="chat">
-            <ChatRoom path=":category" />
+            <ChatRoom path="chat/:category" />
           </ChatRouter>
-
-          <Home path="/">
-            <CategoryPostsPageWithData path="r/:category" />
-            <PostAndCommentsPage path="r/:category/:postID/comments" />
-            <LoginPage path="login" />
-
-            <SignupPage path="signup" />
-            <CreatePostPage path="submit" />
-            <CreateCategoryPage path="createCategory" />
-            <TestPage path="test" />
-            <AllPostsPageWithData path="/" />
-          </Home>
         </Router>
       </AppContainer>
     </>
