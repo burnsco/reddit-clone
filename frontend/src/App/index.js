@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Header from '../components/Header'
 import { Router } from '@reach/router'
 import Home from '../pages/Home'
@@ -17,9 +17,14 @@ import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/Cate
 import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
 import ChatPage from '../pages/Chat'
+import { UserContext } from '../context/user-context'
 
 function App() {
   const [loading, setLoading] = useState(true)
+
+  const [user, setUser] = useState(null)
+
+  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser])
 
   useEffect(() => {
     fetch('http://localhost:4000/refresh_token', {
@@ -36,31 +41,33 @@ function App() {
 
   return (
     <>
-      <Header />
-      <AppContainer>
-        <Router>
-          <Profile path="profile/:userID">
-            <AllPostsPageWithData path="profile/:userID/posts" />
-            <CommentsPageWithData path="profile/:userID/comments" />
-            <ProfilePage path="/" />
-          </Profile>
+      <UserContext.Provider value={providerValue}>
+        <Header />
+        <AppContainer>
+          <Router>
+            <Profile path="profile/:userID">
+              <AllPostsPageWithData path="profile/:userID/posts" />
+              <CommentsPageWithData path="profile/:userID/comments" />
+              <ProfilePage path="/" />
+            </Profile>
 
-          <ChatPage path="chat" />
-          <ChatPage path="chat/:category" />
+            <ChatPage path="chat" />
+            <ChatPage path="chat/:category" />
 
-          <Home path="/">
-            <CategoryPostsPageWithData path="r/:category" />
-            <PostAndCommentsPage path="r/:category/:postID/comments" />
-            <LoginPage path="login" />
+            <Home path="/">
+              <CategoryPostsPageWithData path="r/:category" />
+              <PostAndCommentsPage path="r/:category/:postID/comments" />
+              <LoginPage path="login" />
 
-            <SignupPage path="signup" />
-            <CreatePostPage path="submit" />
-            <CreateCategoryPage path="createCategory" />
-            <TestPage path="test" />
-            <AllPostsPageWithData path="/" />
-          </Home>
-        </Router>
-      </AppContainer>
+              <SignupPage path="signup" />
+              <CreatePostPage path="submit" />
+              <CreateCategoryPage path="createCategory" />
+              <TestPage path="test" />
+              <AllPostsPageWithData path="/" />
+            </Home>
+          </Router>
+        </AppContainer>
+      </UserContext.Provider>
     </>
   )
 }

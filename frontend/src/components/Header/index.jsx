@@ -14,7 +14,7 @@ import NoAuthHeader from '../NoAuthHeader'
 import { CategoryLink } from '../Categories/styles'
 import { FullLogo, HalfLogo } from '../NoAuthHeader/styles'
 
-const Header = () => {
+function Header() {
   const { client, loading, error, data } = useQuery(CURRENT_USER, {
     fetchPolicy: 'network-only'
   })
@@ -38,11 +38,7 @@ const Header = () => {
 
           <HeaderLinks>
             <CategoryLink to="/profile">
-              <UserIcon
-                onClick={() => {
-                  client.resetStore()
-                }}
-              />
+              <UserIcon />
               {data ? data.currentUser.username : 'no user'}
             </CategoryLink>
 
@@ -67,8 +63,9 @@ const Header = () => {
         </HeaderNavWrapper>
       </HeaderContainer>
     )
+  } else {
+    return <NoAuthHeader />
   }
-  return <NoAuthHeader />
 }
 
 export default Header

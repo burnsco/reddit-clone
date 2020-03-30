@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { useMutation, gql } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { useNavigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
+import { UserContext } from '../../context/user-context'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -24,6 +25,9 @@ const LOGIN_MUTATION = gql`
 
 function LoginPage() {
   const navigate = useNavigate()
+
+  const { user, setUser } = useContext(UserContext)
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -45,6 +49,7 @@ function LoginPage() {
       if (code === '200') {
         setAccessToken(accessToken)
         alert(message)
+        setUser(result.data.loginUser.user)
         navigate('../', { replace: true })
       }
       return result
