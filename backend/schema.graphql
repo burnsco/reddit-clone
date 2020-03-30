@@ -1,8 +1,9 @@
 type Query {
-  categories(query: String): [Category!]!
   currentUser: User!
-  users(query: String, first: Int, skip: Int, after: String): [User!]!
-  post(postID: ID!): Post!
+  chat(chatID: ID!): Chat!
+  chats: [Chat!]!
+  messages: [Message!]!
+  categories(query: String): [Category!]!
   posts(
     query: String
     first: Int
@@ -10,9 +11,7 @@ type Query {
     after: String
     orderBy: PostOrderByInput
   ): [Post!]!
-  message(chatID: ID, userID: ID): Message!
-  messages(chatID: ID, userID: ID): [Message!]!
-  comment(commentID: ID!): Comment!
+  morePosts(query: String, first: Int, skip: Int, after: String): [Post!]!
   comments(
     query: String
     first: Int
@@ -20,30 +19,62 @@ type Query {
     after: String
     orderBy: CommentOrderByInput
   ): [Comment!]!
-  votes(postID: ID): [Vote!]!
-  node(id: ID!, createdAt: String!, updatedAt: String!): Node
-}
-type Mutation {
-  createUser(data: CreateUserInput!): CreateUserMutationResponse!
-  loginUser(data: LoginUserInput!): LoginUserMutationResponse!
-  updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
-  deleteUser: DeleteUserMutationResponse!
-  createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
-  createChat(data: CreateChatInput!): CreateChatMutationResponse!
-  createPost(data: CreatePostInput!): CreatePostMutationResponse!
-  updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
-  deletePost(data: DeletePostInput!): DeletePostMutationResponse!
-  likePost(data: LikeInput!): LikePostMutationResponse!
-  createComment(data: CreateCommentInput!): CreateCommentMutationResponse!
-  updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
-  deleteComment(data: DeleteCommentInput!): DeleteCommentMutationResponse!
+  users(query: String, first: Int, skip: Int, after: String): [User!]!
+  post(postID: ID!): Post!
+  node(id: ID!): Node
 }
 
+type Mutation {
+  createMessage(text: String!): Message!
+  logout: Boolean!
+  vote(postID: ID!, upVote: Boolean!, downVote: Boolean!): Vote
+  createUser(data: CreateUserInput!): CreateUserMutationResponse!
+  loginUser(data: LoginUserInput!): LoginUserMutationResponse!
+  createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
+  createPost(data: CreatePostInput): CreatePostMutationResponse!
+  createComment(data: CreateCommentInput): CreateCommentMutationResponse!
+  updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
+  updatePost(id: ID!, data: UpdatePostInput!): UpdatePostMutationResponse!
+  updateComment(
+    id: ID!
+    data: UpdateCommentInput!
+  ): UpdateCommentMutationResponse!
+  deleteUser(id: ID!): DeleteUserMutationResponse!
+  deletePost(id: ID!): DeletePostMutationResponse!
+  deleteComment(id: ID!): DeleteCommentMutationResponse!
+}
 interface Node {
   id: ID!
 }
 
-###### KEY TYPES ###############
+enum PostType {
+  LINK
+  TEXT
+}
+
+enum RoleType {
+  USER
+  ADMIN
+  MODERATOR
+}
+
+type Chat implements Node {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  category: Category!
+  name: String!
+  users: [User!]!
+  messages: [Message!]!
+}
+
+type Message implements Node {
+  id: ID!
+  createdAt: String!
+  text: String!
+  chat: Chat!
+  user: User!
+}
 
 type Category implements Node {
   updatedAt: String!
@@ -51,122 +82,113 @@ type Category implements Node {
   id: ID!
   name: String!
   posts: [Post!]!
-  Chat: [Chat!]!
+  chats: [Chat!]!
 }
-type Chat implements Node {
-  id: ID!
-  createdAt: String!
+
+type Post implements Node {
   updatedAt: String!
-  users: [User!]!
-  messages: [Message!]!
-}
-type Message implements Node {
+  createdAt: String!
   id: ID!
-  categoryID: ID!
-  chat: Chat!
-  user: User!
+  type: PostType!
+  category: Category!
+  title: String!
   text: String!
+  author: User!
+  comments: [Comment!]!
+  votes: [Vote!]!
 }
+
 type User implements Node {
   id: ID!
-  role: Role!
   updatedAt: String!
   createdAt: String!
-  messages: [Message!]!
+  role: RoleType!
+  chats: [Chat!]!
   friends: [User!]!
+  isOnline: Boolean
+  lastSeen: String
+  lastTyped: String
   email: String!
   username: String!
   password: String!
   posts: [Post!]!
   comments: [Comment!]!
-  likes: [Like!]!
+  votes: [Vote!]!
 }
-type Like implements Node {
+
+type Profile implements Node {
   id: ID!
-  user: User!
-  comment: Comment
-  post: Post
-}
-type Post implements Node {
-  updatedAt: String!
   createdAt: String!
-  id: ID!
-  category: Category!
-  title: String!
-  text: String
-  author: User!
-  comments: [Comment!]!
-  likes: [Like!]!
+  updatedAt: String!
+  subscribedTo: [Category!]!
+  avatar: String!
+  country: String!
+  notifications: Boolean
+  province: String
+  state: String
+  about: String
 }
+
+type Vote implements Node {
+  id: ID!
+  post: Post!
+  user: User!
+  upVote: Boolean!
+  downVote: Boolean!
+}
+
 type Comment implements Node {
   id: ID!
   updatedAt: String!
   createdAt: String!
   body: String!
   post: Post!
-  likes: [Like!]!
-  createdBy: User!
+  author: User!
 }
 
-enum Role {
-  ADMIN
-  USER
-}
-
-######## INPUTS ###########
-
-input LikeInput {
-  chatID: ID
-  messageID: ID
-  postID: ID
-  commentID: ID
-}
-input MessageInput {
-  chatID: ID
-  categoryID: ID
-  userID: ID
-  message: String
-}
-input CategoryInput {
-  categoryID: ID
-  name: String
-}
-input PostInput {
-  postID: ID
-  categoryID: ID
+input UpdatePostInput {
   title: String
+  url: String
+}
+
+input CreatePostInput {
+  categoryID: ID
+  author: ID
+  title: String!
   text: String
 }
-input CommentInput {
-  commentID: ID
+
+input CreateCommentInput {
   postID: ID
+  author: ID
+  body: String!
+}
+
+input CreateCategoryInput {
+  name: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input UpdateCommentInput {
   body: String
 }
-input UserInput {
+
+input UpdateUserInput {
+  password: String
   username: String
   email: String
-  password: String
 }
 
-########## MUTATION-RESPONSE ############
+input CreateUserInput {
+  username: String!
+  email: String!
+  password: String!
+}
 
-type CreateUserMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-}
-type UpdateUserMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  user: User
-}
-type DeleteUserMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  user: User
-}
 type LoginUserMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
@@ -174,67 +196,83 @@ type LoginUserMutationResponse implements MutationResponse {
   accessToken: String
   user: User
 }
-type CreateCategoryMutationResponse implements MutationResponse {
+
+type CreateUserMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-}
-type LikePostMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
+  accessToken: String
   user: User
-  post: Post
-}
-type LikeCommentMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  user: User
-  comment: Comment
 }
 
-type CreatePostMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-}
-type UpdatePostMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  post: Post
-}
-type DeletePostMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  post: Post
-}
-type CreateCommentMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-}
-type UpdateCommentMutationResponse implements MutationResponse {
-  code: String!
-  success: Boolean!
-  message: String!
-  comment: Comment
-}
 type DeleteCommentMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
   comment: Comment
 }
+
+type DeletePostMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  post: Post
+}
+
+type DeleteUserMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  user: User
+}
+
+type UpdateCommentMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  comment: Comment
+}
+
+type UpdatePostMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  post: Post
+}
+
+type UpdateUserMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  user: User
+}
+
+type CreateCommentMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  comment: Comment
+}
+
+type CreateCategoryMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  category: Category
+}
+
+type CreatePostMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  post: Post
+}
+
 interface MutationResponse {
   code: String!
   success: Boolean!
   message: String!
 }
-
-########### SUBSCRIPTIONS ############
 
 type PostSubscriptionPayload {
   mutation: MutationType
@@ -246,22 +284,15 @@ type CommentSubscriptionPayload {
   node: Comment
 }
 
-type MessageSubscriptionPayload {
-  mutation: MutationType
-  node: Message
-}
-
 type Subscription {
   postAdded(postID: ID, categoryID: ID): PostSubscriptionPayload
   commentAdded(postID: ID): CommentSubscriptionPayload
-  messageAdded(chatID: ID, userID: ID): MessageSubscriptionPayload
+  messageAdded(chatID: ID): MessageSubscriptionPayload
 }
 
 enum PostOrderByInput {
   updatedAt_ASC
   updatedAt_DESC
-  liked_ASC
-  liked_DESC
   createdAt_ASC
   createdAt_DESC
 }
@@ -269,15 +300,18 @@ enum PostOrderByInput {
 enum CommentOrderByInput {
   updatedAt_ASC
   updatedAt_DESC
-  liked_ASC
-  liked_DESC
   createdAt_ASC
   createdAt_DESC
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
 }
 
 enum MutationType {
   CREATED
   UPDATED
   DELETED
-  LIKED
 }

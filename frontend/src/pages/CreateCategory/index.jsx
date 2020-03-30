@@ -10,6 +10,7 @@ import { GET_CATEGORIES_QUERY } from '../../components/Categories/query'
 
 function CreateCategoryPage() {
   const [name, setName] = useState('')
+
   const [createCategory, { loading, error }] = useMutation(
     CREATE_CATEGORY_MUTATION,
     {
@@ -26,7 +27,10 @@ function CreateCategoryPage() {
 
   if (loading) return <MainSpinner />
 
-  if (error) return <div>Error!</div>
+  if (error) {
+    console.log(error)
+    return <div>Error!</div>
+  }
 
   const handleSubmit = async event => {
     event.preventDefault()

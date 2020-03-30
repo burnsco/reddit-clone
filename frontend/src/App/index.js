@@ -6,7 +6,7 @@ import Profile from '../pages/Profile'
 import LoginPage from '../pages/Login'
 import SignupPage from '../pages/Signup'
 import CreatePostPage from '../pages/CreatePost'
-import { AppContainer, RoutesContainer } from './styles'
+import { AppContainer } from './styles'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import PostAndCommentsPage from '../pages/ViewPostPage/index'
@@ -17,8 +17,6 @@ import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/Cate
 import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
 import ChatPage from '../pages/Chat'
-import ChatRouter from '../pages/Chat/router'
-import ChatRoom from '../pages/Chat/ChatRoomDisplay/ChatRoom'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -37,34 +35,33 @@ function App() {
   if (loading) return <MainSpinner />
 
   return (
-    <AppContainer>
+    <>
       <Header />
-      <RoutesContainer>
+      <AppContainer>
         <Router>
-          <Home path="/">
-            <PostAndCommentsPage path="r/:category/:postID/comments" />
-            <CategoryPostsPageWithData path="r/:category" />
-
-            <CreatePostPage path="submitPost" />
-            <CreateCategoryPage path="submitCategory" />
-            <AllPostsPageWithData path="/" />
-          </Home>
-
-          <LoginPage path="login" />
-          <SignupPage path="signup" />
-
-          <Profile path="profile">
+          <Profile path="profile/:userID">
             <AllPostsPageWithData path="profile/:userID/posts" />
             <CommentsPageWithData path="profile/:userID/comments" />
             <ProfilePage path="/" />
           </Profile>
 
-          <ChatPage path="chat">
-            <ChatRoom path="chat/:category" />
-          </ChatPage>
+          <ChatPage path="chat" />
+          <ChatPage path="chat/:category" />
+
+          <Home path="/">
+            <CategoryPostsPageWithData path="r/:category" />
+            <PostAndCommentsPage path="r/:category/:postID/comments" />
+            <LoginPage path="login" />
+
+            <SignupPage path="signup" />
+            <CreatePostPage path="submit" />
+            <CreateCategoryPage path="createCategory" />
+            <TestPage path="test" />
+            <AllPostsPageWithData path="/" />
+          </Home>
         </Router>
-      </RoutesContainer>
-    </AppContainer>
+      </AppContainer>
+    </>
   )
 }
 

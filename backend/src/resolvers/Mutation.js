@@ -22,6 +22,9 @@ import {
 } from '../utils'
 
 const Mutation = {
+  async logout(root, args, { db, user }, info) {
+    await response.clearCookie('redt', process.env.JWT_REFRESH)
+  },
   async createVote(root, { data }, { db, user }, info) {
     const voteExists = await db.exists.Vote({
       user: { id: user.userID },
@@ -80,41 +83,39 @@ const Mutation = {
       }
     })
 
+    const accessToken = await createAccessToken(user)
+
+    res.cookie('redt', createRefreshToken(user), { httpOnly: true })
+
     return {
       code: '200',
       success: true,
-      message: 'User was Created'
+      message: 'User was Created',
+      user,
+      accessToken
     }
   },
-
   async updateUser(root, { data }, { db, user }, info) {
     const userExists = await db.exists.user({ id: data.userID })
 
-    const changed = await db.mutation.updateUser({
+    const change = await db.mutation.updateUser({
       data: {
-        ...data
+        username: data.username
       },
 
       where: {
-        id: user.userID
+        id: user.id
       }
     })
 
-    return {
-      code: '200',
-      message: 'updated',
-      success: true,
-      user: changed
-    }
+    return change
   },
-
   async deleteUser(root, { data }, { db, user }, info) {
     const userExists = await db.exists.user({ id: data.userID })
 
     const result = await db.mutation.deleteUser({ email: data.email })
     return result
   },
-
   async loginUser(parent, { data }, { db, res }, info) {
     const user = await db.query.user({
       where: {
@@ -195,7 +196,6 @@ const Mutation = {
 
     return post
   },
-
   async deletePost(root, { data }, { db, user }, info) {
     const userExists = await db.exists.User({ id: data.userID })
 
@@ -238,7 +238,7 @@ const Mutation = {
         }
       }
     })
-
+    console.log(comment)
     return {
       code: '200',
       success: true,
@@ -271,7 +271,6 @@ const Mutation = {
       message: 'Comment Updated Successfully!'
     }
   },
-
   async deleteComment(root, { data }, { db, user }, info) {
     const commentExists = await db.exists.Comment({
       id: data.commentID

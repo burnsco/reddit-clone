@@ -11,14 +11,6 @@ const Subscription = {
         info
       )
     }
-  },
-  messageAdded: {
-    subscribe(root, { chatID }, { db }, info) {
-      return db.subscription.message(
-        { where: { mutation_in: ['CREATED'] } },
-        info
-      )
-    }
   }
 }
 

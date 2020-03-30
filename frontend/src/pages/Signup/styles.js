@@ -9,13 +9,6 @@ export const WelcomePage = styled.div`
   min-height: 80vh;
 `
 
-export const WarningMessage = styled.small`
-  margin-top: 10rpx;
-  margin-bottom: 10rpx;
-  color: red;
-  font-weight: 600;
-`
-
 export const CustomSignInButtonStyles = styled(CustomButton)
 export const CustomSignInButton = styled(Link)`
   ${CustomSignInButtonStyles}
@@ -47,7 +40,6 @@ export const CreateAccountLink = styled(Link)`
 
 export const ButtonsBarContainer = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
 `
 export const SignUpContainer = styled.div`

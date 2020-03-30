@@ -3,7 +3,6 @@ import styled from '@xstyled/styled-components'
 import { CustomButton } from '../../components/shared/CustomButton'
 
 export const WelcomePage = styled.div`
-  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,7 +40,7 @@ export const CreateAccountLink = styled(Link)`
 
 export const ButtonsBarContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 `
 export const SignUpContainer = styled.div`
   display: flex;
