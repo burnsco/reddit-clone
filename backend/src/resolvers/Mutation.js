@@ -80,39 +80,41 @@ const Mutation = {
       }
     })
 
-    const accessToken = await createAccessToken(user)
-
-    res.cookie('redt', createRefreshToken(user), { httpOnly: true })
-
     return {
       code: '200',
       success: true,
-      message: 'User was Created',
-      user,
-      accessToken
+      message: 'User was Created'
     }
   },
+
   async updateUser(root, { data }, { db, user }, info) {
     const userExists = await db.exists.user({ id: data.userID })
 
-    const change = await db.mutation.updateUser({
+    const changed = await db.mutation.updateUser({
       data: {
-        username: data.username
+        ...data
       },
 
       where: {
-        id: user.id
+        id: user.userID
       }
     })
 
-    return change
+    return {
+      code: '200',
+      message: 'updated',
+      success: true,
+      user: changed
+    }
   },
+
   async deleteUser(root, { data }, { db, user }, info) {
     const userExists = await db.exists.user({ id: data.userID })
 
     const result = await db.mutation.deleteUser({ email: data.email })
     return result
   },
+
   async loginUser(parent, { data }, { db, res }, info) {
     const user = await db.query.user({
       where: {
@@ -193,6 +195,7 @@ const Mutation = {
 
     return post
   },
+
   async deletePost(root, { data }, { db, user }, info) {
     const userExists = await db.exists.User({ id: data.userID })
 
@@ -235,7 +238,7 @@ const Mutation = {
         }
       }
     })
-    console.log(comment)
+
     return {
       code: '200',
       success: true,
@@ -268,6 +271,7 @@ const Mutation = {
       message: 'Comment Updated Successfully!'
     }
   },
+
   async deleteComment(root, { data }, { db, user }, info) {
     const commentExists = await db.exists.Comment({
       id: data.commentID

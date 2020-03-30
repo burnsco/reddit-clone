@@ -66,20 +66,20 @@ type Category implements Node {
   moderators: [User!]!
   name: String!
   posts: [Post!]!
-  chat: [Chat!]!
+  chat: [Chat!]
 }
 
 type Chat implements Node {
   id: ID!
   createdAt: String!
   updatedAt: String!
+  category: Category!
   users: [User!]!
   messages: [Message!]!
 }
 
 type Message implements Node {
   id: ID!
-  categoryID: ID!
   chat: Chat!
   user: User!
   text: String!
