@@ -6,6 +6,7 @@ import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { useNavigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
 import { UserContext } from '../../context/user-context'
+import { useAuth, AuthContext } from '../../context/auth-context'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -27,6 +28,7 @@ function LoginPage() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { data, setData } = useContext(AuthContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password }
@@ -39,11 +41,13 @@ function LoginPage() {
       const result = await loginUser()
 
       const { message, accessToken, code } = result.data.loginUser
+      console.log(result.data.loginUser)
 
       if (code === '200') {
+        const { user } = result.data.loginUser
+        setData({ user })
         setAccessToken(accessToken)
         alert(message)
-
         navigate('../', { replace: true })
       }
       return result

@@ -13,17 +13,12 @@ import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'
 import { CategoryLink } from '../Categories/styles'
 import { FullLogo, HalfLogo } from '../NoAuthHeader/styles'
+import { useUser } from '../../context/user-context'
 
 function Header() {
-  const { client, loading, error, data } = useQuery(CURRENT_USER, {
-    fetchPolicy: 'network-only'
-  })
+  const user = useUser()
 
-  if (loading) return <MainSpinner />
-
-  if (error) return <div>Error!</div>
-
-  if (data && data.currentUser) {
+  if (user && user.username) {
     return (
       <HeaderContainer>
         <HeaderNavWrapper>
@@ -37,7 +32,7 @@ function Header() {
           <HeaderLinks>
             <CategoryLink to="/profile">
               <UserIcon />
-              {data ? data.currentUser.username : 'no user'}
+              {user ? user.username : null}
             </CategoryLink>
 
             {/* TODO Create Logout Function with Cookies */}

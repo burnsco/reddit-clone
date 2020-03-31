@@ -33,6 +33,7 @@ const Query = {
   },
 
   posts: async (root, args, { db, user }, info) => {
+    console.log(user)
     const opArgs = {
       first: args.first,
       skip: args.skip,

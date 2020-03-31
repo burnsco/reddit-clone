@@ -17,9 +17,12 @@ import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/Cate
 import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
 import ChatPage from '../pages/Chat'
+import { useUser } from '../context/user-context'
 
 function App() {
   const [loading, setLoading] = useState(true)
+  const user = useUser()
+  console.log(`user === ${user}`)
 
   useEffect(() => {
     fetch('http://localhost:4000/refresh_token', {

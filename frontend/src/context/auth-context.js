@@ -6,24 +6,12 @@ import React, {
 } from 'react'
 import { setAccessToken } from './access-token'
 
-const AuthContext = createContext()
+export const AuthContext = createContext()
 
 function AuthProvider(props) {
-  const [loading, setLoading] = useState(true)
   const [data, setData] = useState({ user: null })
 
-  useLayoutEffect(() => {
-    fetch('http://localhost:4000/refresh_token', {
-      method: 'POST',
-      credentials: 'include'
-    }).then(async x => {
-      const { accessToken } = await x.json()
-      setAccessToken(accessToken)
-      setLoading(false)
-    })
-  }, [data])
-
-  return <AuthContext.Provider value={{ data }} {...props} />
+  return <AuthContext.Provider value={{ data, setData }} {...props} />
 }
 
 function useAuth() {
