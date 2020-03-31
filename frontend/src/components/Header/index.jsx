@@ -21,9 +21,7 @@ function Header() {
 
   if (loading) return <MainSpinner />
 
-  if (error) {
-    console.log(error)
-  }
+  if (error) return <div>Error!</div>
 
   if (data && data.currentUser) {
     return (

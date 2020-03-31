@@ -216,6 +216,7 @@ type CreateCommentMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
+  comment: Comment
 }
 type UpdateCommentMutationResponse implements MutationResponse {
   code: String!
@@ -252,30 +253,13 @@ type Subscription {
 }
 
 enum PostOrderByInput {
-  id_ASC
-  id_DESC
-  description_ASC
-  description_DESC
-  url_ASC
-  url_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
 
-enum PostTagType {
-  QUESTION
-  RANT
-  RAVE
-  PSA
-  DISCUSSION
-  TUTORIAL
-}
-
 enum CommentOrderByInput {
-  id_ASC
-  id_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -285,13 +269,10 @@ enum CommentOrderByInput {
 enum Role {
   USER
   ADMIN
-  MODERATOR
 }
 
 enum MutationType {
   CREATED
   UPDATED
   DELETED
-  UPVOTE
-  DOWNVOTE
 }

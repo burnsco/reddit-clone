@@ -25,9 +25,6 @@ const LOGIN_MUTATION = gql`
 
 function LoginPage() {
   const navigate = useNavigate()
-
-  const { user, setUser } = useContext(UserContext)
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -38,9 +35,6 @@ function LoginPage() {
   const handleSubmit = async event => {
     event.preventDefault()
 
-    if (loading) return <div>Loading</div>
-    if (error) return <div>error!</div>
-
     try {
       const result = await loginUser()
 
@@ -49,7 +43,7 @@ function LoginPage() {
       if (code === '200') {
         setAccessToken(accessToken)
         alert(message)
-        setUser(result.data.loginUser.user)
+
         navigate('../', { replace: true })
       }
       return result
@@ -66,6 +60,9 @@ function LoginPage() {
       setPassword(value)
     }
   }
+
+  if (loading) return <div>Loading</div>
+  if (error) return <div>error!</div>
 
   return (
     <WelcomePage>

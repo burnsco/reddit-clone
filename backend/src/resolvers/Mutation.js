@@ -239,11 +239,12 @@ const Mutation = {
         }
       }
     })
-    console.log(comment)
+
     return {
       code: '200',
       success: true,
-      message: 'Comment Created Successfully!'
+      message: 'Comment Created Successfully!',
+      comment
     }
   },
 
@@ -257,7 +258,7 @@ const Mutation = {
     const commentExists = await db.exists.Comment({ id: data.commentID })
     if (!commentExists) return CommentDoesNotExist
 
-    await db.mutation.updateComment({
+    const comment = await db.mutation.updateComment({
       data: {
         where: {
           id: data.commentID
@@ -269,7 +270,8 @@ const Mutation = {
     return {
       code: '200',
       success: true,
-      message: 'Comment Updated Successfully!'
+      message: 'Comment Updated Successfully!',
+      comment
     }
   },
   async deleteComment(root, { data }, { db, user }, info) {

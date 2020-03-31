@@ -23,14 +23,8 @@ function CreateCommentForm({ postID, refetch }) {
       })
 
       const { message, code } = result.data.createComment
-      console.log('result')
-      console.log(result)
 
-      if (code === '200') {
-        alert(message)
-        refetch()
-      }
-      if (code === '401') {
+      if (message) {
         alert(message)
         refetch()
       }
