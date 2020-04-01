@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentsPageWithData from './CommentsPage/CommentsPageWithData'
+import CommentsPageWithData from './CommentsPage/noAuthCommentsPageWithData'
 import PostPageWithData from './PostPage/PostPageWithData'
 import { PostAndCommentsContainer } from './styles'
 
