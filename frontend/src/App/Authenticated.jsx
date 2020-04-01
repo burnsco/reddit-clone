@@ -16,6 +16,8 @@ import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPag
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
+import NotFound from '../pages/404'
+import ChatPage from '../pages/Chat'
 
 function AuthenticatedApp() {
   const [loading, setLoading] = useState(true)
@@ -38,13 +40,18 @@ function AuthenticatedApp() {
       <Header />
       <AppContainer>
         <Router>
+          <NotFound default />
           <Profile path="profile/:userID">
             <AllPostsPageWithData path="profile/:userID/posts" />
             <CommentsPageWithData path="profile/:userID/comments" />
             <ProfilePage path="/" />
           </Profile>
 
+          <ChatPage path="chat" />
+          <ChatPage path="chat/:category" />
+
           <Home path="/">
+            <NotFound default />
             <CategoryPostsPageWithData path="r/:category" />
             <PostAndCommentsPage path="r/:category/:postID/comments" />
             <LoginPage path="login" />

@@ -16,14 +16,14 @@ function DeleteComment({ commentID, postID, refetch }) {
       {
         label: 'Yes',
         onClick: async () => {
-          deleteComment()
-          refetch()
+          await deleteComment()
+          await refetch()
         }
       },
       {
         label: 'No',
-        onClick: () => {
-          refetch()
+        onClick: async () => {
+          await refetch()
         }
       }
     ],
@@ -45,9 +45,6 @@ function DeleteComment({ commentID, postID, refetch }) {
       <button
         onClick={async () => {
           await confirmAlert(options)
-          await deleteComment()
-          await refetch()
-          console.log('deleted comment')
         }}
       >
         Delete
