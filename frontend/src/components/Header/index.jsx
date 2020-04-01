@@ -13,12 +13,22 @@ import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'
 import { CategoryLink } from '../Categories/styles'
 import { FullLogo, HalfLogo } from '../NoAuthHeader/styles'
-import { useUser } from '../../context/user-context'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/auth-context'
 
-function Header() {
-  const user = useUser()
+const Header = () => {
+  const { client, loading, error, data } = useQuery(CURRENT_USER, {
+    fetchPolicy: 'network-only'
+  })
+  const { setData } = useContext(AuthContext)
 
-  if (user && user.username) {
+  if (loading) return <MainSpinner />
+
+  if (error) {
+    console.log(error)
+  }
+
+  if (data && data.currentUser) {
     return (
       <HeaderContainer>
         <HeaderNavWrapper>
@@ -32,7 +42,7 @@ function Header() {
           <HeaderLinks>
             <CategoryLink to="/profile">
               <UserIcon />
-              {user ? user.username : null}
+              {data ? data.currentUser.username : 'no user'}
             </CategoryLink>
 
             {/* TODO Create Logout Function with Cookies */}
@@ -56,9 +66,8 @@ function Header() {
         </HeaderNavWrapper>
       </HeaderContainer>
     )
-  } else {
-    return <NoAuthHeader />
   }
+  return <NoAuthHeader />
 }
 
 export default Header

@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, useState, useContext } from 'react'
+import React, { useEffect, Suspense, useContext } from 'react'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import { useUser } from '../context/user-context'
 import { setAccessToken } from '../context/access-token'
@@ -11,35 +11,26 @@ const AuthenticatedApp = React.lazy(loadAuthenticatedApp)
 const UnauthenticatedApp = React.lazy(() => import('./UnAuthenticated'))
 
 function App() {
-  const [currentUser, { data, loading, error }] = useLazyQuery(CURRENT_USER, {
+  const { setData } = useContext(AuthContext)
+  const [currentUser, { loading, error, data }] = useLazyQuery(CURRENT_USER, {
     fetchPolicy: 'network-only'
   })
-  const { setData } = useContext(AuthContext)
-  const user = useUser()
+  let user = useUser()
 
   useEffect(() => {
     loadAuthenticatedApp()
-    console.log('first effect')
   }, [])
 
   useEffect(() => {
-    console.log('second effect')
-    fetch('http://localhost:4000/refresh_token', {
-      method: 'POST',
-      credentials: 'include'
-    }).then(async x => {
-      const { accessToken } = await x.json()
-      setAccessToken(accessToken)
-      currentUser()
-    })
+    currentUser()
   }, [])
 
-  if (loading) return <MainSpinner />
-
-  if (data) {
-    const { currentUser } = data
-    console.log(currentUser)
-    setData({ currentUser })
+  if (user === null && data !== null) {
+    return (
+      <Suspense fallback={<MainSpinner />}>
+        <AuthenticatedApp />
+      </Suspense>
+    )
   }
 
   return (

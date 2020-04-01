@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../components/NoAuthHeader'
+import Header from '../components/Header'
 import { Router } from '@reach/router'
 import Home from '../pages/Home'
 import Profile from '../pages/Profile'
@@ -16,7 +16,6 @@ import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPag
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
-import NoAuthHeader from '../components/NoAuthHeader'
 
 function UnAuthenticatedApp() {
   const [loading, setLoading] = useState(true)
@@ -36,7 +35,7 @@ function UnAuthenticatedApp() {
 
   return (
     <>
-      <NoAuthHeader />
+      <Header />
       <AppContainer>
         <Router>
           <Profile path="profile/:userID">
