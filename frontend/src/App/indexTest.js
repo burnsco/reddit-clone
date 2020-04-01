@@ -25,7 +25,8 @@ function App() {
     currentUser()
   }, [])
 
-  if (user === null && data !== null) {
+  if (user === null && data && data.currentUser) {
+    // User refreshes (loses context) but refresh tokens work (and can query)
     return (
       <Suspense fallback={<MainSpinner />}>
         <AuthenticatedApp />
