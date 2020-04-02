@@ -274,6 +274,7 @@ const Mutation = {
       comment
     }
   },
+
   async deleteComment(root, { data }, { db, user }, info) {
     const commentExists = await db.exists.Comment({
       id: data.commentID

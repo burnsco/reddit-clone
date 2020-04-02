@@ -1,69 +1,44 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import Header from '../components/Header'
-import { Router } from '@reach/router'
-import Home from '../pages/Home'
-import Profile from '../pages/Profile'
-import LoginPage from '../pages/Login'
-import SignupPage from '../pages/Signup'
-import CreatePostPage from '../pages/CreatePost'
-import { AppContainer } from './styles'
-import { setAccessToken } from '../context/access-token'
+import React, { useEffect, Suspense, useContext } from 'react'
 import MainSpinner from '../components/shared/FallBackSpinner'
-import PostAndCommentsPage from '../pages/ViewPostPage/index'
-import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWithData'
-import ProfilePage from '../pages/Profile/index'
-import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPageWithData'
-import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
-import CreateCategoryPage from '../pages/CreateCategory'
-import TestPage from '../components/TestPage'
-import ChatPage from '../pages/Chat'
 import { useUser } from '../context/user-context'
+import { setAccessToken } from '../context/access-token'
+import { AuthContext } from '../context/auth-context'
+import { useLazyQuery } from '@apollo/client'
+import { CURRENT_USER } from '../components/Header/query'
+
+const loadAuthenticatedApp = () => import('./Authenticated')
+const AuthenticatedApp = React.lazy(loadAuthenticatedApp)
+const UnauthenticatedApp = React.lazy(() => import('./UnAuthenticated'))
 
 function App() {
-  const [loading, setLoading] = useState(true)
-  const user = useUser()
-  console.log(`user === ${user}`)
+  const { setData } = useContext(AuthContext)
+  const [currentUser, { loading, error, data }] = useLazyQuery(CURRENT_USER, {
+    fetchPolicy: 'network-only'
+  })
+  let user = useUser()
 
   useEffect(() => {
-    fetch('http://localhost:4000/refresh_token', {
-      method: 'POST',
-      credentials: 'include'
-    }).then(async x => {
-      const { accessToken } = await x.json()
-      setAccessToken(accessToken)
-      setLoading(false)
-    })
+    loadAuthenticatedApp()
   }, [])
 
-  if (loading) return <MainSpinner />
+  useEffect(() => {
+    currentUser()
+  }, [])
+
+  if (user === null && data && data.currentUser) {
+    // User refreshes (loses context) but refresh tokens work (and can query)
+    return (
+      <Suspense fallback={<MainSpinner />}>
+        <AuthenticatedApp />
+      </Suspense>
+    )
+  }
 
   return (
     <>
-      <Header />
-      <AppContainer>
-        <Router>
-          <Profile path="profile/:userID">
-            <AllPostsPageWithData path="profile/:userID/posts" />
-            <CommentsPageWithData path="profile/:userID/comments" />
-            <ProfilePage path="/" />
-          </Profile>
-
-          <ChatPage path="chat" />
-          <ChatPage path="chat/:category" />
-
-          <Home path="/">
-            <CategoryPostsPageWithData path="r/:category" />
-            <PostAndCommentsPage path="r/:category/:postID/comments" />
-            <LoginPage path="login" />
-
-            <SignupPage path="signup" />
-            <CreatePostPage path="submit" />
-            <CreateCategoryPage path="createCategory" />
-            <TestPage path="test" />
-            <AllPostsPageWithData path="/" />
-          </Home>
-        </Router>
-      </AppContainer>
+      <Suspense fallback={<MainSpinner />}>
+        {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      </Suspense>
     </>
   )
 }

@@ -38,20 +38,7 @@ function CommentsPage(props) {
           </CommentHeader>
 
           <CommentBody>{comment.body}</CommentBody>
-          <CommentFooter>
-            <button
-              onClick={() => {
-                console.log(`edit comment ${comment.id}`)
-              }}
-            >
-              Edit
-            </button>
-            <DeleteComment
-              commentID={comment.id}
-              postID={postID}
-              refetch={refetch}
-            />
-          </CommentFooter>
+          <CommentFooter></CommentFooter>
         </CommentsContainer>
       ))}
     </>

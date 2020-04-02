@@ -14,7 +14,7 @@ import {
   ApolloProvider,
   split
 } from '@apollo/client'
-import App from './App/indexTest'
+import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 import AppProviders from './context'
 import { ThemeProvider } from 'styled-components'
@@ -113,6 +113,27 @@ const splitLink = split(
 )
 
 const client = new ApolloClient({
+  resolvers: {
+    Query: {
+      post: (root, args, context, info) => {
+        return root.post
+      }
+    }
+  },
+  cacheRedirects: {
+    Query: {
+      post: (_, { id }, { getCacheKey }) =>
+        getCacheKey({ id, __typename: 'Post' }),
+      comment: (_, { id }, { getCacheKey }) =>
+        getCacheKey({ id, __typename: 'Comment' }),
+      user: (_, { id }, { getCacheKey }) =>
+        getCacheKey({ id, __typename: 'User' }),
+      category: (_, { id }, { getCacheKey }) =>
+        getCacheKey({ id, __typename: 'Category' }),
+      vote: (_, { id }, { getCacheKey }) =>
+        getCacheKey({ id, __typename: 'Vote' })
+    }
+  },
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)

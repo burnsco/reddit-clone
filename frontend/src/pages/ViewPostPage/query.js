@@ -21,10 +21,12 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
           id
         }
       }
+
       author {
         id
         username
       }
+
       comments {
         id
       }

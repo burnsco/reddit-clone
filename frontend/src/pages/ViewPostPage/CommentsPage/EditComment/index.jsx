@@ -6,7 +6,7 @@ import { EDIT_COMMENT_MUTATION } from './mutation'
 import MainSpinner from '../../../../components/shared/FallBackSpinner'
 
 function EditComment({ commentID, postID, refetch }) {
-  const [editComment, { error, loading, data }] = useMutation(
+  const [updateComment, { error, loading, data }] = useMutation(
     EDIT_COMMENT_MUTATION,
     {
       variables: { commentID: commentID, postID: postID }
