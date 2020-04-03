@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   CommentsContainer,
   CommentCreatedAt,
   CommentBody,
   CommentHeader,
-  UserName
+  UserName,
 } from '../styles'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentFooter } from './styles'
 import DeleteComment from './DeleteComment'
 import CreateCommentForm from '../../../components/CreateComment'
+import EditComment from './EditComment'
 
 function CommentsPage(props) {
+  const [showComment, setShowComment] = useState(true)
   const { subscribeToNewComments } = props
   const { comments } = props.data.post
   const { postID, refetch } = props
@@ -41,13 +43,7 @@ function CommentsPage(props) {
 
           <CommentBody>{comment.body}</CommentBody>
           <CommentFooter>
-            <button
-              onClick={() => {
-                console.log(`edit comment ${comment.id}`)
-              }}
-            >
-              Edit
-            </button>
+            <EditComment commentID={comment.id} postID={postID} />
             <DeleteComment
               commentID={comment.id}
               postID={postID}
