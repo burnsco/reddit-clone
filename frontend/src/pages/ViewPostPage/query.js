@@ -29,6 +29,12 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
 
       comments {
         id
+        body
+        createdAt
+        createdBy {
+          id
+          username
+        }
       }
     }
   }

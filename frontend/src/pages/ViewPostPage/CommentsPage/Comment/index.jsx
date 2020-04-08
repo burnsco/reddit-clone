@@ -8,15 +8,35 @@ import {
 } from '../../styles'
 import { CommentFooter } from '../styles'
 import EditComment from '../EditComment'
+import { useMutation } from '@apollo/client'
 import DeleteComment from '../DeleteComment'
 import { timeDifferenceForDate } from '../../../../utils/timeDifferenceForDate'
+import { UPDATE_COMMENT_MUTATION } from '../EditComment/mutation'
 
 const CommentComponent = ({ postID, refetch, comment }) => {
+  const [editComment, { loading, error, data }] = useMutation(
+    UPDATE_COMMENT_MUTATION
+  )
+
   const [showComment, setShowComment] = useState(true)
+
+  let input
 
   const saveCancel = () => (
     <>
-      <button>Save</button>
+      <button
+        onClick={() => {
+          editComment({
+            variables: {
+              body: input.value,
+              postID: postID,
+              commentID: comment.id,
+            },
+          })
+        }}
+      >
+        Save
+      </button>
       <button onClick={() => setShowComment(!showComment)}>Cancel</button>
     </>
   )
@@ -28,6 +48,7 @@ const CommentComponent = ({ postID, refetch, comment }) => {
         refetch={refetch}
         commentID={comment.id}
         postID={postID}
+        comment={comment.body}
       />
       <DeleteComment commentID={comment.id} postID={postID} refetch={refetch} />
     </>
@@ -50,6 +71,9 @@ const CommentComponent = ({ postID, refetch, comment }) => {
       ) : (
         <CommentBody>
           <input
+            ref={node => {
+              input = node
+            }}
             type="text"
             defaultValue={comment.body}
             style={{ marginTop: 10 + 'rpx' }}

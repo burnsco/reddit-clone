@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client'
 import { EDIT_COMMENT_MUTATION } from './mutation'
 import MainSpinner from '../../../../components/shared/FallBackSpinner'
 
-function EditComment({ commentID, postID, refetch, onEdit }) {
+function EditComment({ commentID, postID, refetch, onEdit, comment }) {
   // const [updateComment, { error, loading, data }] = useMutation(
   //   EDIT_COMMENT_MUTATION,
   //   {
@@ -22,7 +22,8 @@ function EditComment({ commentID, postID, refetch, onEdit }) {
       <button
         onClick={() => {
           onEdit.setShowComment(!onEdit.showComment)
-          console.log(`asdfsdf ${commentID} ??`)
+          console.log(`ID =  ${commentID}`)
+          console.log(`BODY = ${comment}`)
         }}
       >
         Edit
