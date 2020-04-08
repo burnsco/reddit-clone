@@ -37,6 +37,30 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
 export const COMMENTS_QUERY = gql`
   query onCommentsForPost($postID: ID!) {
     post(postID: $postID) {
+      id
+      title
+      text
+      createdAt
+
+      category {
+        id
+        name
+      }
+
+      votes {
+        id
+        upVote
+        downVote
+        user {
+          id
+        }
+      }
+
+      author {
+        id
+        username
+      }
+
       comments {
         id
         body

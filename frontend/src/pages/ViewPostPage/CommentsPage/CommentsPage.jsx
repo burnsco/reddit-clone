@@ -31,9 +31,10 @@ function CommentsPage(props) {
 
       {comments.map(comment => (
         <CommentComponent
+          postID={postID}
           refetch={refetch}
           comment={comment}
-          key={`comment-#${comment.id}`}
+          key={`comment-#${comment.id}-${comment.body}`}
         />
       ))}
     </>

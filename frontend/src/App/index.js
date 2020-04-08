@@ -13,8 +13,9 @@ const UnauthenticatedApp = React.lazy(() => import('./UnAuthenticated'))
 function App() {
   const { setData } = useContext(AuthContext)
   const [currentUser, { loading, error, data }] = useLazyQuery(CURRENT_USER, {
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   })
+
   let user = useUser()
 
   useEffect(() => {
@@ -26,7 +27,6 @@ function App() {
   }, [])
 
   if (user === null && data && data.currentUser) {
-    // User refreshes (loses context) but refresh tokens work (and can query)
     return (
       <Suspense fallback={<MainSpinner />}>
         <AuthenticatedApp />
@@ -35,11 +35,9 @@ function App() {
   }
 
   return (
-    <>
-      <Suspense fallback={<MainSpinner />}>
-        {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-      </Suspense>
-    </>
+    <Suspense fallback={<MainSpinner />}>
+      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </Suspense>
   )
 }
 

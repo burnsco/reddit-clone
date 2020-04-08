@@ -12,7 +12,7 @@ import {
   InMemoryCache,
   Observable,
   ApolloProvider,
-  split
+  split,
 } from '@apollo/client'
 import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
@@ -25,14 +25,14 @@ const cache = new InMemoryCache()
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
-  credentials: 'include'
+  credentials: 'include',
 })
 
 const wsLink = new WebSocketLink({
   uri: `ws://localhost:4000/subscriptions`,
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+  },
 })
 
 const requestLink = new ApolloLink(
@@ -45,8 +45,8 @@ const requestLink = new ApolloLink(
           if (accessToken) {
             operation.setContext({
               headers: {
-                authorization: `bearer ${accessToken}`
-              }
+                authorization: `bearer ${accessToken}`,
+              },
             })
           }
         })
@@ -54,7 +54,7 @@ const requestLink = new ApolloLink(
           handle = forward(operation).subscribe({
             next: observer.next.bind(observer),
             error: observer.error.bind(observer),
-            complete: observer.complete.bind(observer)
+            complete: observer.complete.bind(observer),
           })
         })
         .catch(observer.error.bind(observer))
@@ -88,7 +88,7 @@ const refreshLink = new TokenRefreshLink({
   fetchAccessToken: () => {
     return fetch('http://localhost:4000/refresh_token', {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include',
     })
   },
   handleFetch: accessToken => {
@@ -97,7 +97,7 @@ const refreshLink = new TokenRefreshLink({
   handleError: err => {
     console.warn('Your refresh token is invalid. Try to relogin')
     console.error(err)
-  }
+  },
 })
 
 const splitLink = split(
@@ -113,27 +113,6 @@ const splitLink = split(
 )
 
 const client = new ApolloClient({
-  resolvers: {
-    Query: {
-      post: (root, args, context, info) => {
-        return root.post
-      }
-    }
-  },
-  cacheRedirects: {
-    Query: {
-      post: (_, { id }, { getCacheKey }) =>
-        getCacheKey({ id, __typename: 'Post' }),
-      comment: (_, { id }, { getCacheKey }) =>
-        getCacheKey({ id, __typename: 'Comment' }),
-      user: (_, { id }, { getCacheKey }) =>
-        getCacheKey({ id, __typename: 'User' }),
-      category: (_, { id }, { getCacheKey }) =>
-        getCacheKey({ id, __typename: 'Category' }),
-      vote: (_, { id }, { getCacheKey }) =>
-        getCacheKey({ id, __typename: 'Vote' })
-    }
-  },
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)
@@ -147,14 +126,14 @@ const client = new ApolloClient({
     apolloLogger,
     refreshLink,
     requestLink,
-    splitLink
+    splitLink,
   ]),
   cache,
   defaultOptions: {
     watchQuery: { errorPolicy: 'all' },
     query: { errorPolicy: 'all' },
-    mutate: { errorPolicy: 'all' }
-  }
+    mutate: { errorPolicy: 'all' },
+  },
 })
 
 const RedditApp = () => (
