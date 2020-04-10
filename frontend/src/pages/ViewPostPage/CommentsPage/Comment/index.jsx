@@ -69,6 +69,8 @@ const CommentComponent = ({ postID, refetch, comment }) => {
           />
         </>
       )
+    } else {
+      return null
     }
   }
 

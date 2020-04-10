@@ -4,6 +4,7 @@ type Query {
   posts(
     query: String
     first: Int
+    userID: ID
     skip: Int
     after: String
     orderBy: PostOrderByInput
@@ -14,10 +15,12 @@ type Query {
     query: String
     first: Int
     skip: Int
+    userID: ID
     after: String
     orderBy: CommentOrderByInput
   ): [Comment!]!
   users(query: String, first: Int, skip: Int, after: String): [User!]!
+  votes:(userID: ID): [Vote!]!
   post(postID: ID!): Post!
   node(id: ID!): Node
 }

@@ -53,6 +53,14 @@ const Query = {
       }
     }
 
+    if (args.userID) {
+      opArgs.where = {
+        author: {
+          id: args.userID
+        }
+      }
+    }
+
     const results = await db.query.posts(opArgs, info)
     return results
   },

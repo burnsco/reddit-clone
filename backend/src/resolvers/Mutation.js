@@ -262,15 +262,12 @@ const Mutation = {
         id: user.id
       }
     })
-    console.log('comment exists')
-    console.log(commentExists)
+
     if (!commentExists) return CommentDoesNotExist
 
     const userMadeComment = await db.query.comments({
       where: { createdBy: { id: user.id } }
     })
-    console.log('user made comment?')
-    console.log(userMadeComment)
 
     const comment = await db.mutation.updateComment({
       where: {
@@ -280,7 +277,6 @@ const Mutation = {
         body: data.body
       }
     })
-    console.log(comment)
 
     return {
       code: '200',

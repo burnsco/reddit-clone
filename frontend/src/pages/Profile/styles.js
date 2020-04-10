@@ -1,7 +1,9 @@
 import styled from '@xstyled/styled-components'
+import NavLink from '../../components/shared/NavLink'
 
 export const ProfileContainer = styled.section`
   display: flex;
+  width: 100%;
   flex-direction: column;
   border: 1px solid #ebedf0;
   background: #ffffff;
@@ -12,10 +14,12 @@ export const ProfileNavigationHeader = styled.div`
   border-bottom: 1px solid #ebedf0;
   justify-content: space-evenly;
 `
-export const ProfileNavigationLinks = styled.div``
-export const ProfileSorting = styled.div`
+export const ProfileNavigationLink = styled(NavLink)``
+export const ProfileNavigationLinks = styled.div`
   padding: 15rpx;
   display: flex;
+  justify-content: space-evenly;
+
   border-bottom: 1px solid #ebedf0;
 `
 export const ProfileSortingItems = styled.div``

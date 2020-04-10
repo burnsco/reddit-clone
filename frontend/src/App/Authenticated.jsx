@@ -18,6 +18,9 @@ import CreateCategoryPage from '../pages/CreateCategory'
 import TestPage from '../components/TestPage'
 import NotFound from '../pages/404'
 import ChatPage from '../pages/Chat'
+import ProfilePosts from '../pages/Profile/Posts'
+import ProfileComments from '../pages/Profile/Comments'
+import ProfileVotes from '../pages/Profile/Votes'
 
 function AuthenticatedApp() {
   const [loading, setLoading] = useState(true)
@@ -25,7 +28,7 @@ function AuthenticatedApp() {
   useEffect(() => {
     fetch('http://localhost:4000/refresh_token', {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include',
     }).then(async x => {
       const { accessToken } = await x.json()
       setAccessToken(accessToken)
@@ -41,11 +44,11 @@ function AuthenticatedApp() {
       <AppContainer>
         <Router>
           <NotFound default />
-          <Profile path="profile/:userID">
-            <AllPostsPageWithData path="profile/:userID/posts" />
-            <CommentsPageWithData path="profile/:userID/comments" />
-            <ProfilePage path="/" />
-          </Profile>
+          <ProfilePage path="profile">
+            <ProfilePosts path="/:userID/posts" />
+            <ProfileComments path="/:userID/comments" />
+            <ProfileVotes path="/:userID/votes" />
+          </ProfilePage>
 
           <ChatPage path="chat" />
           <ChatPage path="chat/:category" />
@@ -54,8 +57,7 @@ function AuthenticatedApp() {
             <NotFound default />
             <CategoryPostsPageWithData path="r/:category" />
             <PostAndCommentsPage path="r/:category/:postID/comments" />
-            <LoginPage path="login" />
-            <SignupPage path="signup" />
+
             <CreatePostPage path="submit" />
             <CreateCategoryPage path="createCategory" />
             <TestPage path="test" />

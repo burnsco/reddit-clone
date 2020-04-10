@@ -6,7 +6,7 @@ import {
   HeaderNavWrapper,
   HeaderLogo,
   HeaderLinks,
-  UserIcon
+  UserIcon,
 } from './styles'
 import { CURRENT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
@@ -18,7 +18,7 @@ import { AuthContext } from '../../context/auth-context'
 
 const Header = () => {
   const { client, loading, error, data } = useQuery(CURRENT_USER, {
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   })
   const { setData } = useContext(AuthContext)
 
@@ -40,7 +40,7 @@ const Header = () => {
           </HeaderLogo>
 
           <HeaderLinks>
-            <CategoryLink to="/profile">
+            <CategoryLink to={`/profile/${data.currentUser.id}`}>
               <UserIcon />
               {data ? data.currentUser.username : 'no user'}
             </CategoryLink>
