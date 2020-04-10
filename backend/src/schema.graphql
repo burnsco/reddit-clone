@@ -34,7 +34,7 @@ type Mutation {
   updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
   deletePost(data: DeletePostInput!): DeletePostMutationResponse!
   createComment(data: CreateCommentInput!): CreateCommentMutationResponse!
-  editComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
+  updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
   deleteComment(data: DeleteCommentInput!): DeleteCommentMutationResponse!
 }
 

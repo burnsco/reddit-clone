@@ -8,15 +8,14 @@ export const UPDATE_COMMENT_MUTATION = gql`
       code
       message
       success
+      code
+      message
+      success
       comment {
         id
         body
         createdAt
         updatedAt
-        createdBy {
-          id
-          username
-        }
       }
     }
   }
