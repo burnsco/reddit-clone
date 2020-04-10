@@ -3,12 +3,11 @@ import {
   CategoriesContainer,
   ContainerHeader,
   CategoryLink,
-  CategoryLinksContainer
+  CategoryLinksContainer,
 } from './styles.js'
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES_QUERY } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
-import { CURRENT_USER } from '../Header/query.js'
 
 function Categories() {
   const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)

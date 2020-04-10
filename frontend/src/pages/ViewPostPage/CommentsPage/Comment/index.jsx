@@ -33,6 +33,7 @@ const CommentComponent = ({ postID, refetch, comment }) => {
               commentID: comment.id,
             },
           })
+          refetch()
         }}
       >
         Save

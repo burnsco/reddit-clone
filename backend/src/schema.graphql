@@ -34,7 +34,7 @@ type Mutation {
   updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
   deletePost(data: DeletePostInput!): DeletePostMutationResponse!
   createComment(data: CreateCommentInput!): CreateCommentMutationResponse!
-  updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
+  editComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
   deleteComment(data: DeleteCommentInput!): DeleteCommentMutationResponse!
 }
 
@@ -129,9 +129,9 @@ input LoginUserInput {
 }
 
 input UpdateCommentInput {
-  postID: ID
-  commentID: ID
-  body: String
+  postID: ID!
+  commentID: ID!
+  body: String!
 }
 
 input DeleteCommentInput {

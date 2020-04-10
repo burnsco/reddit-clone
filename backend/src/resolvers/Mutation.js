@@ -248,7 +248,7 @@ const Mutation = {
     }
   },
 
-  async updateComment(root, { data }, { db, user }, info) {
+  async editComment(root, { data }, { db, user }, info) {
     const userExists = await db.exists.User({ id: user.userID })
     if (!userExists) return UserDoesNotExist
 
@@ -259,13 +259,14 @@ const Mutation = {
     if (!commentExists) return CommentDoesNotExist
 
     const comment = await db.mutation.updateComment({
+      where: {
+        id: data.commentID
+      },
       data: {
-        where: {
-          id: data.commentID
-        },
         body: data.body
       }
     })
+    console.log(comment)
 
     return {
       code: '200',
