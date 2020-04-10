@@ -250,13 +250,27 @@ const Mutation = {
 
   async updateComment(root, { data }, { db, user }, info) {
     const userExists = await db.exists.User({ id: user.userID })
+
     if (!userExists) return UserDoesNotExist
 
     const postExists = await db.exists.Post({ id: data.postID })
     if (!postExists) return PostDoesNotExist
 
-    const commentExists = await db.exists.Comment({ id: data.commentID })
+    const commentExists = await db.exists.Comment({
+      id: data.commentID,
+      createdBy: {
+        id: user.id
+      }
+    })
+    console.log('comment exists')
+    console.log(commentExists)
     if (!commentExists) return CommentDoesNotExist
+
+    const userMadeComment = await db.query.comments({
+      where: { createdBy: { id: user.id } }
+    })
+    console.log('user made comment?')
+    console.log(userMadeComment)
 
     const comment = await db.mutation.updateComment({
       where: {

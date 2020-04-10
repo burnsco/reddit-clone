@@ -8,52 +8,69 @@ import {
 } from '../../styles'
 import { CommentFooter } from '../styles'
 import EditComment from '../EditComment'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import DeleteComment from '../DeleteComment'
 import { timeDifferenceForDate } from '../../../../utils/timeDifferenceForDate'
 import { UPDATE_COMMENT_MUTATION } from '../EditComment/mutation'
+import { CURRENT_USER } from '../../../../components/Header/query'
 
 const CommentComponent = ({ postID, refetch, comment }) => {
-  const [editComment, { loading, error, data }] = useMutation(
-    UPDATE_COMMENT_MUTATION
-  )
+  const { data } = useQuery(CURRENT_USER)
+  const [editComment, { loading, error }] = useMutation(UPDATE_COMMENT_MUTATION)
 
   const [showComment, setShowComment] = useState(true)
 
   let input
 
-  const saveCancel = () => (
-    <>
-      <button
-        onClick={() => {
-          editComment({
-            variables: {
-              body: input.value,
-              postID: postID,
-              commentID: comment.id,
-            },
-          })
-          refetch()
-        }}
-      >
-        Save
-      </button>
-      <button onClick={() => setShowComment(!showComment)}>Cancel</button>
-    </>
-  )
+  let commentCreatedBy = comment.createdBy.id
+  let userID = data.currentUser.id
 
-  const editDelete = () => (
-    <>
-      <EditComment
-        onEdit={{ showComment, setShowComment }}
-        refetch={refetch}
-        commentID={comment.id}
-        postID={postID}
-        comment={comment.body}
-      />
-      <DeleteComment commentID={comment.id} postID={postID} refetch={refetch} />
-    </>
-  )
+  const saveCancel = () => {
+    if (commentCreatedBy === userID) {
+      return (
+        <>
+          <button
+            onClick={() => {
+              editComment({
+                variables: {
+                  body: input.value,
+                  postID: postID,
+                  commentID: comment.id,
+                },
+              })
+              refetch()
+            }}
+          >
+            Save
+          </button>
+          <button onClick={() => setShowComment(!showComment)}>Cancel</button>
+        </>
+      )
+    } else {
+      return null
+    }
+  }
+
+  const editDelete = () => {
+    if (commentCreatedBy === userID) {
+      return (
+        <>
+          <EditComment
+            onEdit={{ showComment, setShowComment }}
+            refetch={refetch}
+            commentID={comment.id}
+            postID={postID}
+            comment={comment.body}
+          />
+          <DeleteComment
+            commentID={comment.id}
+            postID={postID}
+            refetch={refetch}
+          />
+        </>
+      )
+    }
+  }
 
   const hasBeenEdited = (created, updated) => {
     if (created !== updated) {
