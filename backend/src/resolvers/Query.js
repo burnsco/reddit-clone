@@ -91,7 +91,22 @@ const Query = {
   },
 
   comments: async (root, args, { db, user }, info) => {
-    const results = await db.query.comments(null, info)
+    const opArgs = {
+      first: args.first,
+      skip: args.skip,
+      after: args.after,
+      orderBy: args.orderBy
+    }
+
+    if (args.userID) {
+      opArgs.where = {
+        author: {
+          id: args.userID
+        }
+      }
+    }
+
+    const results = await db.query.comments(opArgs, info)
     return results
   }
 }

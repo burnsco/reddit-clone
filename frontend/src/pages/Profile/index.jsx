@@ -14,7 +14,7 @@ import ProfileCommentsList from './Comments/ProfileCommentsList'
 import { CURRENT_USER } from '../../components/Header/query'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 
-function ProfilePage({ userID, children }) {
+function ProfilePage({ children }) {
   const { data, loading, error } = useQuery(CURRENT_USER)
 
   if (loading) return <MainSpinner />
@@ -23,6 +23,7 @@ function ProfilePage({ userID, children }) {
   }
 
   let username = data.currentUser.username
+  let userID = data.currentUser.id
 
   return (
     <ProfileContainer>
