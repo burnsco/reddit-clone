@@ -31,6 +31,7 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
         id
         body
         createdAt
+        updatedAt
         createdBy {
           id
           username
@@ -71,6 +72,7 @@ export const COMMENTS_QUERY = gql`
         id
         body
         createdAt
+        updatedAt
         createdBy {
           id
           username

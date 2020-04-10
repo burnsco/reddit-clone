@@ -55,6 +55,14 @@ const CommentComponent = ({ postID, refetch, comment }) => {
     </>
   )
 
+  const hasBeenEdited = (created, updated) => {
+    if (created !== updated) {
+      return 'edited ' + timeDifferenceForDate(updated)
+    } else {
+      return timeDifferenceForDate(created)
+    }
+  }
+
   return (
     <CommentsContainer>
       <CommentHeader>
@@ -63,7 +71,8 @@ const CommentComponent = ({ postID, refetch, comment }) => {
           <strong>{comment.createdBy.username}</strong>
         </UserName>
         <CommentCreatedAt>
-          {timeDifferenceForDate(comment.createdAt)}
+          {/* TODO make this calculate if its been updated */}
+          {hasBeenEdited(comment.createdAt, comment.updatedAt)}
         </CommentCreatedAt>
       </CommentHeader>
 
