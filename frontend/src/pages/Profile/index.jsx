@@ -13,6 +13,7 @@ import Post from '../../components/Post'
 import ProfileCommentsList from './Comments/ProfileCommentsList'
 import { CURRENT_USER } from '../../components/Header/query'
 import MainSpinner from '../../components/shared/FallBackSpinner'
+import ProfileNavigation from './Navigation'
 
 function ProfilePage({ children }) {
   const { data, loading, error } = useQuery(CURRENT_USER)
@@ -31,18 +32,8 @@ function ProfilePage({ children }) {
         <h1 style={{ marginTop: 50 + 'rpx' }}>{username}</h1>
       </ProfileNavigationHeader>
 
-      <ProfileNavigationLinks>
-        {/* TODO Navigation Header */}
-        <ProfileNavigationLink to={`/profile/${userID}/posts`}>
-          POSTS
-        </ProfileNavigationLink>
-        <ProfileNavigationLink to={`/profile/${userID}/comments`}>
-          COMMENTS
-        </ProfileNavigationLink>
-        <ProfileNavigationLink to={`/profile/${userID}/votes`}>
-          VOTES
-        </ProfileNavigationLink>
-      </ProfileNavigationLinks>
+      <ProfileNavigation userID={userID} />
+
       <ProfileFeedContainer>{children}</ProfileFeedContainer>
     </ProfileContainer>
   )

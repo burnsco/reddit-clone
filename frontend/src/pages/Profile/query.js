@@ -22,9 +22,9 @@ export const GET_USER_PROFILE_DATA = gql`
           name
         }
         author {
+          id
           username
         }
-        votes
       }
     }
   }
