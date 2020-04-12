@@ -4,14 +4,18 @@ import {
   InputCommentBox,
   InputCommentFooter,
   Container,
-  SubmitCommentButton
+  SubmitCommentButton,
 } from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
-import { SUBMIT_COMMENT } from './mutation'
+import { SUBMIT_COMMENT_MUTATION } from './mutation'
 
 function CreateCommentForm({ postID, refetch }) {
-  const [createComment, { loading, error, data }] = useMutation(SUBMIT_COMMENT)
+  const [createComment, { loading, error, data }] = useMutation(
+    SUBMIT_COMMENT_MUTATION
+  )
+
   let input
+
   if (loading) return <MainSpinner />
 
   const handleSubmit = async e => {
@@ -19,7 +23,7 @@ function CreateCommentForm({ postID, refetch }) {
 
     try {
       const result = await createComment({
-        variables: { body: input.value, postID: postID }
+        variables: { body: input.value, postID: postID },
       })
 
       const { message, code } = result.data.createComment

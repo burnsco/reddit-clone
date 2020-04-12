@@ -61,11 +61,11 @@ const Mutation = {
         name: data.name
       }
     })
-
+    console.log(category)
     return {
       code: '200',
       success: true,
-      message: `${data.name} subreddit Created!`,
+      message: `subreddit Created!`,
       category
     }
   },

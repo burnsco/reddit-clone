@@ -1,6 +1,7 @@
 type Query {
   currentUser: User!
   categories(query: String): [Category!]!
+  category: [Category!]!
   posts(
     query: String
     first: Int

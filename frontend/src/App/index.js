@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, useContext } from 'react'
+import React, { useEffect, Suspense, useContext, lazy } from 'react'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import { useUser } from '../context/user-context'
 import { setAccessToken } from '../context/access-token'
@@ -7,8 +7,8 @@ import { useLazyQuery } from '@apollo/client'
 import { CURRENT_USER } from '../components/Header/query'
 
 const loadAuthenticatedApp = () => import('./Authenticated')
-const AuthenticatedApp = React.lazy(loadAuthenticatedApp)
-const UnauthenticatedApp = React.lazy(() => import('./UnAuthenticated'))
+const AuthenticatedApp = lazy(loadAuthenticatedApp)
+const UnauthenticatedApp = lazy(() => import('./UnAuthenticated'))
 
 function App() {
   const { setData } = useContext(AuthContext)
