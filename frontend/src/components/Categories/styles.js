@@ -6,7 +6,6 @@ export const CategoriesContainer = styled.aside`
   display: flex;
   margin-left: 20rpx;
   flex-direction: column;
-  font-family: 'Open Sans', sans-serif;
   border-radius: 5rpx;
   border: 1px solid #ebedf0;
   background: #ffffff;
