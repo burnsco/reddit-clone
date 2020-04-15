@@ -14,6 +14,10 @@ export const CustomSignInButton = styled(Link)`
   ${CustomSignInButtonStyles}
 `
 
+export const WarningMessage = styled.small`
+  color: red;
+`
+
 export const FormsPageContainer = styled.div`
   display: flex;
   flex-direction: column;

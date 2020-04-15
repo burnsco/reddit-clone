@@ -8,9 +8,7 @@ import {
 } from '../styles'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentFooter } from './styles'
-import DeleteComment from './DeleteComment'
 import CreateCommentForm from '../../../components/CreateComment'
-import EditComment from './EditComment'
 import CommentComponent from './Comment'
 
 function CommentsPage(props) {

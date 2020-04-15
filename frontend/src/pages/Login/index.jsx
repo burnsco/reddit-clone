@@ -8,22 +8,7 @@ import { setAccessToken } from '../../context/access-token'
 import { UserContext } from '../../context/user-context'
 import { useAuth, AuthContext } from '../../context/auth-context'
 import { WarningMessage } from '../Signup/styles'
-
-const LOGIN_MUTATION = gql`
-  mutation LOGIN_MUTATION($email: String!, $password: String!) {
-    loginUser(data: { email: $email, password: $password }) {
-      success
-      message
-      code
-      accessToken
-      user {
-        id
-        email
-        username
-      }
-    }
-  }
-`
+import { LOGIN_MUTATION } from './mutation'
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -68,7 +53,10 @@ function LoginPage() {
   }
 
   if (loading) return <div>Loading</div>
-  if (error) return <div>error!</div>
+
+  if (error) {
+    console.log(error)
+  }
 
   return (
     <WelcomePage>
