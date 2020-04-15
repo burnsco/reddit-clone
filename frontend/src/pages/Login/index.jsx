@@ -7,6 +7,7 @@ import { useNavigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
 import { UserContext } from '../../context/user-context'
 import { useAuth, AuthContext } from '../../context/auth-context'
+import { WarningMessage } from '../Signup/styles'
 
 const LOGIN_MUTATION = gql`
   mutation LOGIN_MUTATION($email: String!, $password: String!) {
@@ -26,12 +27,13 @@ const LOGIN_MUTATION = gql`
 
 function LoginPage() {
   const navigate = useNavigate()
+  const [result, setResult] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { data, setData } = useContext(AuthContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
-    variables: { email: email, password: password }
+    variables: { email: email, password: password },
   })
 
   const handleSubmit = async event => {
@@ -41,7 +43,7 @@ function LoginPage() {
       const result = await loginUser()
 
       const { message, accessToken, code } = result.data.loginUser
-      console.log(result.data.loginUser)
+      setResult(message)
 
       if (code === '200') {
         const { user } = result.data.loginUser
@@ -96,6 +98,7 @@ function LoginPage() {
               label="password"
               required
             />
+            <WarningMessage>{result}</WarningMessage>
             <ButtonsBarContainer>
               <CustomButton type="submit" style={{ width: 100 + '%' }}>
                 {' '}

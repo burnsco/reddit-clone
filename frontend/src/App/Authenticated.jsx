@@ -15,7 +15,6 @@ import ProfilePage from '../pages/Profile/index'
 import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPageWithData'
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import CreateCategoryPage from '../pages/CreateCategory'
-import TestPage from '../components/TestPage'
 import NotFound from '../pages/404'
 import ChatPage from '../pages/Chat'
 import ProfilePosts from '../pages/Profile/Posts'
@@ -60,7 +59,7 @@ function AuthenticatedApp() {
 
             <CreatePostPage path="submit" />
             <CreateCategoryPage path="createCategory" />
-            <TestPage path="test" />
+
             <AllPostsPageWithData path="/" />
           </Home>
         </Router>

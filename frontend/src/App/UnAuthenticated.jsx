@@ -15,7 +15,6 @@ import ProfilePage from '../pages/Profile/index'
 import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/noAuthCommentsPageWithData'
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import CreateCategoryPage from '../pages/CreateCategory'
-import TestPage from '../components/TestPage'
 import NotFound from '../pages/404'
 
 function UnAuthenticatedApp() {
@@ -24,7 +23,7 @@ function UnAuthenticatedApp() {
   useEffect(() => {
     fetch('http://localhost:4000/refresh_token', {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include',
     }).then(async x => {
       const { accessToken } = await x.json()
       setAccessToken(accessToken)

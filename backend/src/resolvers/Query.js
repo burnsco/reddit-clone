@@ -32,6 +32,19 @@ const Query = {
     return results
   },
 
+  category: async (root, args, { db, user }, info) => {
+    const opArgs = {}
+
+    if (args.query) {
+      opArgs.where = {
+        name: args.query
+      }
+    }
+
+    const results = await db.query.category(opArgs, info)
+    return results
+  },
+
   posts: async (root, args, { db, user }, info) => {
     console.log(user)
     const opArgs = {

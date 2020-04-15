@@ -3,11 +3,7 @@ import { normalize } from 'styled-normalize'
 
 export const GlobalStyle = createGlobalStyle`
 ${normalize}
-
-@font-face {
-    font-family: 'myFont',
-    src: url('../assets/MaisonNeue-Bold.otf')
-  }
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
