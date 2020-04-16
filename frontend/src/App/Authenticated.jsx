@@ -16,7 +16,6 @@ import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/CommentsPag
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import CreateCategoryPage from '../pages/CreateCategory'
 import NotFound from '../pages/404'
-import ChatPage from '../pages/Chat'
 import ProfilePosts from '../pages/Profile/Posts'
 import ProfileComments from '../pages/Profile/Comments'
 import ProfileVotes from '../pages/Profile/Votes'
@@ -48,9 +47,6 @@ function AuthenticatedApp() {
             <ProfileComments path="/:userID/comments" />
             <ProfileVotes path="/:userID/votes" />
           </ProfilePage>
-
-          <ChatPage path="chat" />
-          <ChatPage path="chat/:category" />
 
           <Home path="/">
             <NotFound default />

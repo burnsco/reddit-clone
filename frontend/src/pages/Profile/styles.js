@@ -4,6 +4,7 @@ import NavLink from '../../components/shared/NavLink'
 export const ProfileContainer = styled.section`
   display: flex;
   width: 100%;
+  margin-bottom: 25rpx;
   flex-direction: column;
   border: 1px solid #ebedf0;
   background: #ffffff;
