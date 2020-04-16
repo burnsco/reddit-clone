@@ -15,7 +15,7 @@ import { CURRENT_USER } from '../../components/Header/query'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 import ProfileNavigation from './Navigation'
 
-function ProfilePage({ children }) {
+function ProfilePage({ children, userID }) {
   const { data, loading, error } = useQuery(CURRENT_USER)
 
   if (loading) return <MainSpinner />
@@ -24,8 +24,8 @@ function ProfilePage({ children }) {
   }
 
   let username = data.currentUser.username
-  let userID = data.currentUser.id
-
+  console.log(`userID == ${userID}`)
+  console.log('profile page')
   return (
     <ProfileContainer>
       <ProfileNavigationHeader>

@@ -12,7 +12,7 @@ import {
   PostCategory,
   PostDetailsHeader,
   PostedBy,
-  UserName
+  UserName,
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate.js'
@@ -34,8 +34,9 @@ const Post = ({
     category: { name },
     comments,
     createdAt,
-    author: { username }
-  }
+    author: { username },
+    author: { id: userID },
+  },
 }) => (
   <PostContainer>
     <VoteBoxContainer>
@@ -50,8 +51,7 @@ const Post = ({
           </Link>{' '}
         </PostCategory>
         <PostedBy>
-          Posted by{' '}
-          <UserName to={`/profile/${username}`}>u/{username} </UserName>
+          Posted by <UserName to={`/profile/${userID}`}>u/{username} </UserName>
           {timeDifferenceForDate(createdAt)}
         </PostedBy>
       </PostDetailsHeader>
