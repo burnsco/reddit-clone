@@ -22,6 +22,7 @@ type Query {
   ): [Comment!]!
   users(query: String, first: Int, skip: Int, after: String): [User!]!
   post(postID: ID!): Post!
+  votes(postID: ID): Vote
   node(id: ID!): Node
 }
 
@@ -43,9 +44,6 @@ type Mutation {
 
 interface Node {
   id: ID!
-}
-type CommentsCountResponse {
-  count: Int!
 }
 
 type Vote implements Node {
