@@ -11,6 +11,11 @@ const Subscription = {
         info
       )
     }
+  },
+  voteAdded: {
+    subscribe(root, { postID }, { db }, info) {
+      return db.subscription.vote({ where: { mutation_in: ['CREATED'] } }, info)
+    }
   }
 }
 
