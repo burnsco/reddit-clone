@@ -1,3 +1,4 @@
+import '@babel/polyfill/noConflict'
 import { ApolloServer, PubSub } from 'apollo-server-express'
 import express from 'express'
 import cors from 'cors'
