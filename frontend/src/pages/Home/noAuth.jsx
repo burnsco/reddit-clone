@@ -45,10 +45,19 @@ const HomePage = ({ children }) => {
               onChange={handleSelect}
             />
           </TopControlSelectContainer>
-          <TopControlButtons to="/submit" disabled>
+          {/* FIXME make these redirect to login */}
+          <TopControlButtons
+            to="/submit"
+            disabled
+            onClick={() => navigate('signup', { replace: true })}
+          >
             Post
           </TopControlButtons>
-          <TopControlButtons to="/createCategory" disabled>
+          <TopControlButtons
+            to="/createCategory"
+            disabled
+            onClick={() => navigate('signup', { replace: true })}
+          >
             Category
           </TopControlButtons>
         </TopControls>
