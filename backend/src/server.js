@@ -22,7 +22,7 @@ import cookieParser from 'cookie-parser'
 const app = express()
 
 const corsOptions = {
-  origin: 'https://reddit-frontend.coreyburns.now.sh/',
+  origin: 'https://reddit-frontend.coreyburns.now.sh/refresh_token',
   credentials: true
 }
 
@@ -71,6 +71,10 @@ const schema = makeExecutableSchema({
 const pubsub = new PubSub()
 
 const server = new ApolloServer({
+  cors: {
+    origin: '*',
+    credentials: true},
+  },
   schema,
   context: async ({ req, res, connection }) => {
     if (connection) {
