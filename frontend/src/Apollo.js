@@ -24,12 +24,12 @@ import theme from './styles/theme'
 const cache = new InMemoryCache()
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'https://reddit-clone-production.herokuapp.com/graphql',
   credentials: 'include',
 })
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/subscriptions`,
+  uri: `wss://reddit-clone-production.herokuapp.com/subscriptions`,
   options: {
     reconnect: true,
   },
@@ -86,10 +86,13 @@ const refreshLink = new TokenRefreshLink({
     }
   },
   fetchAccessToken: () => {
-    return fetch('http://localhost:4000/refresh_token', {
-      method: 'POST',
-      credentials: 'include',
-    })
+    return fetch(
+      'https://reddit-clone-production.herokuapp.com/refresh_token',
+      {
+        method: 'POST',
+        credentials: 'include',
+      }
+    )
   },
   handleFetch: accessToken => {
     setAccessToken(accessToken)

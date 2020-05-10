@@ -21,7 +21,7 @@ function UnAuthenticatedApp() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:4000/refresh_token', {
+    fetch('https://reddit-clone-production.herokuapp.com/refresh_token', {
       method: 'POST',
       credentials: 'include',
     }).then(async x => {
