@@ -17,12 +17,11 @@ import {
   deleteRefreshToken
 } from './utils'
 import cookieParser from 'cookie-parser'
-require('dotenv').config()
 
 const app = express()
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  origin: 'http://localhost:3000',
   credentials: true
 }
 

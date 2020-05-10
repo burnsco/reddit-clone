@@ -22,23 +22,17 @@ import {
 } from '../utils'
 
 const Mutation = {
-  // FIXME make logout remove tokens
   async logout(root, args, { res, user }, info) {
     const result = await res.clearCookie('redt', process.env.JWT_REFRESH)
     return result
   },
-
   async createVote(root, { data }, { db, user }, info) {
     const voteExists = await db.exists.Vote({
       user: { id: user.userID },
       post: { id: data.postID }
     })
 
-    // FIXME make so that you can take back your vote
-    if (voteExists) {
-      console.log(voteExists)
-      return AlreadyVoted
-    }
+    if (voteExists) return AlreadyVoted
 
     const vote = await db.mutation.createVote({
       data: {

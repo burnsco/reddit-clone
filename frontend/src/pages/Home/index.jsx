@@ -34,7 +34,6 @@ const HomePage = ({ children }) => {
   const options = data.categories.map(option => {
     return { value: option.id, label: option.name }
   })
-
   return (
     <HomeContainer>
       <FeedContainer>
