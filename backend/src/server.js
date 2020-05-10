@@ -22,7 +22,7 @@ import cookieParser from 'cookie-parser'
 const app = express()
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.FONTEND_URL,
   credentials: true
 }
 
@@ -103,7 +103,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, cors: corsOptions })
 
-const PORT = 4000 || process.env.PORT
+const PORT = process.env.PORT || 4000
 
 const httpServer = http.createServer(app)
 server.installSubscriptionHandlers(httpServer)
