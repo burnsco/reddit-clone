@@ -22,7 +22,7 @@ import cookieParser from 'cookie-parser'
 const app = express()
 
 const corsOptions = {
-  origin: '*',
+  origin: 'https://reddit-frontend.coreyburns.now.sh/',
   credentials: true
 }
 
