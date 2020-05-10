@@ -22,7 +22,7 @@ import cookieParser from 'cookie-parser'
 const app = express()
 
 const corsOptions = {
-  origin: process.env.FONTEND_URL,
+  origin: '*',
   credentials: true
 }
 
@@ -98,7 +98,9 @@ const server = new ApolloServer({
     onDisconnect: async (webSocket, context) => {
       console.log(`Subscription client disconnected.`)
     }
-  }
+  },
+  introspection: true,
+  playground: true
 })
 
 server.applyMiddleware({ app, cors: corsOptions })
