@@ -103,7 +103,7 @@ const server = new ApolloServer({
   playground: true
 })
 
-server.applyMiddleware({ app, cors: corsOptions })
+server.applyMiddleware({ app, cors: { origin: '*' } })
 
 const PORT = process.env.PORT || 4000
 
