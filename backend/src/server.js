@@ -22,7 +22,7 @@ import cookieParser from 'cookie-parser'
 const app = express()
 
 const corsOptions = {
-  origin: 'https://reddit-frontend.coreyburns.now.sh',
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }
 
@@ -105,7 +105,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({
   app,
-  cors: { origin: 'https://reddit-clone-production.herokuapp.com/graphql' }
+  cors: { origin: '*', credentials: true }
 })
 
 const PORT = process.env.PORT || 4000
