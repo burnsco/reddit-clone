@@ -104,8 +104,8 @@ const server = new ApolloServer({
 })
 
 server.applyMiddleware({
-  app,
-  cors: { origin: '*', credentials: true }
+  app
+  cors: false
 })
 
 const PORT = process.env.PORT || 4000
