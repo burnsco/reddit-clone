@@ -51,7 +51,7 @@ const redButton = css`
     background-color: #aa191c;
   }
 `
-
+// TODO style the buttons to look nicer
 const getButtonStyles = ({ isRed, isBlue }) => {
   if (isRed) return redButton
   if (isBlue) return blueButton
@@ -63,6 +63,8 @@ export const TopControlButtons = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition-duration: 0.4s;
+  cursor: pointer;
 
   ${getButtonStyles}
 `
