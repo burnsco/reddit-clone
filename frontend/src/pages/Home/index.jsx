@@ -45,8 +45,12 @@ const HomePage = ({ children }) => {
               onChange={handleSelect}
             />
           </TopControlSelectContainer>
-          <TopControlButtons to="/submit">Post</TopControlButtons>
-          <TopControlButtons to="/createCategory">Category</TopControlButtons>
+          <TopControlButtons isRed to="/submit">
+            Post
+          </TopControlButtons>
+          <TopControlButtons isBlue to="/createCategory">
+            Category
+          </TopControlButtons>
         </TopControls>
 
         {children}

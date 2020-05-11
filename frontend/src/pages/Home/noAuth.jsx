@@ -47,6 +47,7 @@ const HomePage = ({ children }) => {
           </TopControlSelectContainer>
           {/* FIXME make these redirect to login */}
           <TopControlButtons
+            isRed
             to="/submit"
             disabled
             onClick={() => navigate('signup', { replace: true })}
@@ -54,6 +55,7 @@ const HomePage = ({ children }) => {
             Post
           </TopControlButtons>
           <TopControlButtons
+            isBlue
             to="/createCategory"
             disabled
             onClick={() => navigate('signup', { replace: true })}
