@@ -58,13 +58,6 @@ const getButtonStyles = ({ isRed, isBlue }) => {
 }
 
 export const TopControlButtons = styled(Link)`
-  color: white;
-  background-color: #3661ed;
-  border: 1px solid white;
-  &:hover {
-    background-color: #8ca2ea;
-  }
-
   flex-grow: 1;
   border-radius: 5px;
   display: flex;
