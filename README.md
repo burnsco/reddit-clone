@@ -8,4 +8,5 @@
 - [ ] Fix votes so its updated in cache
 - [ ] Add user profile vote sections
 - [ ] Style profile ( posts, comments ) so it looks more like reddit
-- [ ]
+- [ ] Edit Post, Delete Post
+- [ ] Edit User, Delete User

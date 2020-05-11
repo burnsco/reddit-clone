@@ -3,7 +3,7 @@ import { normalize } from 'styled-normalize'
 
 export const GlobalStyle = createGlobalStyle`
 ${normalize}
-
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -25,9 +25,7 @@ body {
   height: 100%;
   text-rendering: optimizeSpeed;
   padding-bottom: 25rpx;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
