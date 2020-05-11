@@ -28,7 +28,6 @@ var models = [
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `https://salty-tor-15652.herokuapp.com/reddit-clone-db/dev`,
-  secret: `rFbvSJJpt1GgpZmgX9Ty5zPkU7FVn3YO0M9njDvevTU1UcQdrzajbcO8RRkKgv3`
+  endpoint: `https://prismacontainer.azurewebsites.net`
 });
 exports.prisma = new exports.Prisma();
