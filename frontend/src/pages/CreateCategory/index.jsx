@@ -27,6 +27,7 @@ function CreateCategoryPage() {
           data: { categories: categories.concat([createCategory]) },
         })
       },
+      variables: { name: name },
     }
   )
 
