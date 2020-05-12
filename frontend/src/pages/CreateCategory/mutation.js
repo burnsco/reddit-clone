@@ -7,6 +7,7 @@ export const CREATE_CATEGORY_MUTATION = gql`
       success
       message
       category {
+        createdAt
         id
         name
       }

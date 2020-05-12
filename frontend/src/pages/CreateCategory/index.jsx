@@ -20,7 +20,6 @@ function CreateCategoryPage() {
   const [createCategory, { loading, error }] = useMutation(
     CREATE_CATEGORY_MUTATION,
     {
-      variables: { name: name },
       update(cache, { data: { createCategory } }) {
         const { categories } = cache.readQuery({ query: GET_CATEGORIES_QUERY })
         cache.writeQuery({
@@ -28,6 +27,7 @@ function CreateCategoryPage() {
           data: { categories: categories.concat([createCategory]) },
         })
       },
+      variables: { name: name },
     }
   )
 
