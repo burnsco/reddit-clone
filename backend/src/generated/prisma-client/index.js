@@ -28,6 +28,7 @@ var models = [
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `https://eu1.prisma.sh/corey-burns-8e3243/demo/dev`
+  endpoint: `http://34.95.50.242.xip.io:4466`,
+  secret: `opendooropiate15150`
 });
 exports.prisma = new exports.Prisma();

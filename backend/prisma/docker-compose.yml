@@ -8,15 +8,16 @@ services:
       - '4466:4466'
     environment:
       PRISMA_CONFIG: |
+        managementApiSecret: opendooropiate15150
         port: 4466
         databases:
           default:
             connector: postgres
-            host: reddit-clone-db.postgres.database.azure.com
-            database: postgres
-            user: coreymburns@reddit-clone-db
-            password: Close15150!@#
-            ssl: true
-            rawAccess: true
+            host: 35.190.189.5
             port: 5432
+            rawAccess: true
+            database: postgres
+            user: postgres
+            password: 5Dlpos9oqA7rMCk0
             migrations: true
+            ssl: true
