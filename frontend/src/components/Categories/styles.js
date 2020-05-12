@@ -33,4 +33,7 @@ export const ContainerHeader = styled(Link)`
 
 export const CategoryLink = styled(NavLink)`
   margin-top: 10rpx;
+  &:hover {
+    background: #ebedf0;
+  }
 `
