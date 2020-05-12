@@ -17,9 +17,7 @@ import {
 import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 import AppProviders from './context'
-import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from './styles/GlobalStyle'
-import theme from './styles/theme'
 
 const cache = new InMemoryCache()
 
@@ -142,10 +140,8 @@ const client = new ApolloClient({
 const RedditApp = () => (
   <AppProviders>
     <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App />
-      </ThemeProvider>
+      <GlobalStyle />
+      <App />
     </ApolloProvider>
   </AppProviders>
 )

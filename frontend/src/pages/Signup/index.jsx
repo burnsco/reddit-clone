@@ -32,6 +32,7 @@ function SignUpPage() {
       setResult(message)
 
       if (success) {
+        alert(message)
         navigate('/login')
       }
 
@@ -94,7 +95,7 @@ function SignUpPage() {
           <ButtonsBarContainer>
             <CustomButton type="submit" style={{ width: 100 + '%' }}>
               {' '}
-              Sign in with email{' '}
+              Sign Up{' '}
             </CustomButton>
           </ButtonsBarContainer>
         </form>
