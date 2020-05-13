@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.reddit.com">
-    <img alt="Reddit" src="https://www.redditinc.com/assets/images/site/reddit-logo.png" />
+    <img alt="Reddit" width="50%" height="50%" src="https://www.redditinc.com/assets/images/site/reddit-logo.png" />
   </a>
 </p>
 <h1 align="center">
