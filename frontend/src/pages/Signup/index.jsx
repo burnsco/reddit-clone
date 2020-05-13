@@ -21,6 +21,9 @@ function SignUpPage() {
     variables: { username: username, password: password, email: email },
   })
 
+  if (loading) return <MainSpinner />
+  if (error) return <div>error!</div>
+
   const handleSubmit = async event => {
     event.preventDefault()
 

@@ -4,17 +4,14 @@ import {
   CommentCreatedAt,
   CommentBody,
   CommentHeader,
-  UserName
+  UserName,
 } from '../styles'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentFooter } from './styles'
-import DeleteComment from './DeleteComment'
-import CreateCommentForm from '../../../components/CreateComment'
 
 function CommentsPage(props) {
   const { subscribeToNewComments } = props
   const { comments } = props.data.post
-  const { postID, refetch } = props
 
   useEffect(() => {
     const unsubscribe = subscribeToNewComments()

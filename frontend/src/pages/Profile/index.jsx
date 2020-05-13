@@ -1,16 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
-import Spinner from '../../components/shared/FallBackSpinner'
 import {
   ProfileContainer,
   ProfileNavigationHeader,
-  ProfileNavigationLinks,
-  ProfileNavigationLink,
-  ProfileSortingItems,
   ProfileFeedContainer,
 } from './styles'
-import Post from '../../components/Post'
-import ProfileCommentsList from './Comments/ProfileCommentsList'
 import { CURRENT_USER } from '../../components/Header/query'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 import ProfileNavigation from './Navigation'

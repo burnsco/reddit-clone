@@ -11,7 +11,6 @@ import {
 import Categories from '../../components/Categories'
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES } from '../CreatePost/query.js'
-import { ContainerHeader } from '../../components/Categories/styles.js'
 import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
 import { useNavigate } from '@reach/router'
 

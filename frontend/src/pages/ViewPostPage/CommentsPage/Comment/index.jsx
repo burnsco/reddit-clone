@@ -13,10 +13,14 @@ import DeleteComment from '../DeleteComment'
 import { timeDifferenceForDate } from '../../../../utils/timeDifferenceForDate'
 import { UPDATE_COMMENT_MUTATION } from '../EditComment/mutation'
 import { CURRENT_USER } from '../../../../components/Header/query'
+import MainSpinner from '../../../../components/shared/FallBackSpinner'
 
 const CommentComponent = ({ postID, refetch, comment }) => {
   const { data } = useQuery(CURRENT_USER)
   const [editComment, { loading, error }] = useMutation(UPDATE_COMMENT_MUTATION)
+
+  if (loading) return <MainSpinner />
+  if (error) return <div>error!</div>
 
   const [showComment, setShowComment] = useState(true)
 

@@ -1,13 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import {
-  CommentsContainer,
-  CommentCreatedAt,
-  CommentBody,
-  CommentHeader,
-  UserName,
-} from '../styles'
-import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
-import { CommentFooter } from './styles'
+import React, { useEffect } from 'react'
 import CreateCommentForm from '../../../components/CreateComment'
 import CommentComponent from './Comment'
 

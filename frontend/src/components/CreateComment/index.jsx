@@ -10,7 +10,7 @@ import MainSpinner from '../shared/FallBackSpinner'
 import { SUBMIT_COMMENT_MUTATION } from './mutation'
 
 function CreateCommentForm({ postID, refetch }) {
-  const [createComment, { loading, error, data }] = useMutation(
+  const [createComment, { loading, error }] = useMutation(
     SUBMIT_COMMENT_MUTATION
   )
 
@@ -26,7 +26,7 @@ function CreateCommentForm({ postID, refetch }) {
         variables: { body: input.value, postID: postID },
       })
 
-      const { message, code } = result.data.createComment
+      const { message } = result.data.createComment
 
       if (message) {
         alert(message)

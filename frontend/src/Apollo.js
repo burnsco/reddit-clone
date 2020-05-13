@@ -5,6 +5,7 @@ import { getMainDefinition } from '@apollo/client/utilities'
 import jwtDecode from 'jwt-decode'
 import apolloLogger from 'apollo-link-logger'
 import { onError } from '@apollo/link-error'
+import { RetryLink } from 'apollo-link-retry'
 import {
   ApolloClient,
   ApolloLink,
@@ -12,7 +13,6 @@ import {
   InMemoryCache,
   Observable,
   ApolloProvider,
-  RetryLink,
   split,
 } from '@apollo/client'
 import App from './App'

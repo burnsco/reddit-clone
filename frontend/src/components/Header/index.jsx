@@ -17,10 +17,9 @@ import { useContext } from 'react'
 import { AuthContext } from '../../context/auth-context'
 
 const Header = () => {
-  const { client, loading, error, data } = useQuery(CURRENT_USER, {
+  const { loading, error, data } = useQuery(CURRENT_USER, {
     fetchPolicy: 'network-only',
   })
-  const { setData } = useContext(AuthContext)
 
   if (loading) return <MainSpinner />
 
