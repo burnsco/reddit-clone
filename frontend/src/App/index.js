@@ -1,8 +1,7 @@
-import React, { useEffect, Suspense, useContext, lazy } from 'react'
+import React, { useEffect, Suspense, lazy } from 'react'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import { useUser } from '../context/user-context'
-import { setAccessToken } from '../context/access-token'
-import { AuthContext } from '../context/auth-context'
+
 import { useLazyQuery } from '@apollo/client'
 import { CURRENT_USER } from '../components/Header/query'
 
@@ -11,8 +10,7 @@ const AuthenticatedApp = lazy(loadAuthenticatedApp)
 const UnauthenticatedApp = lazy(() => import('./UnAuthenticated'))
 
 function App() {
-  const { setData } = useContext(AuthContext)
-  const [currentUser, { loading, error, data }] = useLazyQuery(CURRENT_USER, {
+  const [currentUser, { data }] = useLazyQuery(CURRENT_USER, {
     fetchPolicy: 'network-only',
   })
 
@@ -24,7 +22,7 @@ function App() {
 
   useEffect(() => {
     currentUser()
-  }, [])
+  }, [currentUser])
 
   if (user === null && data && data.currentUser) {
     return (

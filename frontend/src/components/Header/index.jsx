@@ -13,8 +13,6 @@ import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'
 import { CategoryLink } from '../Categories/styles'
 import { FullLogo, HalfLogo } from '../NoAuthHeader/styles'
-import { useContext } from 'react'
-import { AuthContext } from '../../context/auth-context'
 
 const Header = () => {
   const { loading, error, data } = useQuery(CURRENT_USER, {

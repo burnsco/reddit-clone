@@ -1,12 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
-import { useMutation, gql } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { useNavigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
-import { UserContext } from '../../context/user-context'
-import { useAuth, AuthContext } from '../../context/auth-context'
+import { AuthContext } from '../../context/auth-context'
 import { WarningMessage } from '../Signup/styles'
 import { LOGIN_MUTATION } from './mutation'
 
@@ -15,7 +14,7 @@ function LoginPage() {
   const [result, setResult] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { data, setData } = useContext(AuthContext)
+  const { setData } = useContext(AuthContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },

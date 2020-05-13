@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useLayoutEffect
-} from 'react'
-import { setAccessToken } from './access-token'
+import React, { createContext, useContext, useState } from 'react'
 
 export const AuthContext = createContext()
 

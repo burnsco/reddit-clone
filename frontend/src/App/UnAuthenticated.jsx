@@ -5,7 +5,6 @@ import Home from '../pages/Home/noAuth'
 import Profile from '../pages/Profile'
 import LoginPage from '../pages/Login'
 import SignupPage from '../pages/Signup'
-import CreatePostPage from '../pages/CreatePost'
 import { AppContainer } from './styles'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
@@ -14,7 +13,6 @@ import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWi
 import ProfilePage from '../pages/Profile/index'
 import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/noAuthCommentsPageWithData'
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
-import CreateCategoryPage from '../pages/CreateCategory'
 import NotFound from '../pages/404'
 
 function UnAuthenticatedApp() {
