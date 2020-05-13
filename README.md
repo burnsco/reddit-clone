@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.reddit.com">
-    <img alt="Reddit" src="https://ibb.co/hVQpt94" />
+    <img alt="Reddit" src="https://www.redditinc.com/assets/images/site/reddit-logo.png" />
   </a>
 </p>
 <h1 align="center">
@@ -34,13 +34,13 @@ an entire front and backend with the latest TECH.
 
 ## 🎉 Todo
 
-- Edit and Delete Posts
-- Pagination (ready to go in schema and resolvers)
-- Profile Settings (user info)
-- Friends (Messages, Chat)
-- Comment Votes
-- Media Posts (and links?)
-- Sorting of posts, comments
+- [ ] Edit and Delete Posts
+- [ ] Pagination (ready to go in schema and resolvers)
+- [ ] Profile Settings (user info)
+- [ ] Friends (Messages, Chat)
+- [ ] Comment Votes
+- [ ] Media Posts (and links?)
+- [ ] Sorting of posts, comments
 
 ## 🚀 Getting Started
 
