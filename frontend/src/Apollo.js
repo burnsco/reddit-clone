@@ -12,6 +12,7 @@ import {
   InMemoryCache,
   Observable,
   ApolloProvider,
+  RetryLink,
   split,
 } from '@apollo/client'
 import App from './App'
@@ -30,6 +31,18 @@ const wsLink = new WebSocketLink({
   uri: `wss://reddit-clone-production.herokuapp.com/subscriptions`,
   options: {
     reconnect: true,
+  },
+})
+
+const retryLink = new RetryLink({
+  delay: {
+    initial: 300,
+    max: Infinity,
+    jitter: true,
+  },
+  attempts: {
+    max: 5,
+    retryIf: (error, _operation) => !!error,
   },
 })
 
@@ -127,6 +140,7 @@ const client = new ApolloClient({
     apolloLogger,
     refreshLink,
     requestLink,
+    retryLink,
     splitLink,
   ]),
   cache,
