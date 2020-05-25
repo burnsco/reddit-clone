@@ -1,10 +1,15 @@
 import React from 'react'
-import { ContainerHeader } from './styles'
+import {
+  ContainerHeader,
+  TopControls,
+  TopControlSelect,
+  TopControlButtons,
+  TopControlSelectContainer,
+} from './styles'
 import { useQuery } from '@apollo/client'
-import { CURRENT_USER } from '../Header/query'
 import { CURRENT_USER_QUERY } from '../../graphql/Query/current_user'
 
-const CreationButtons = () => {
+const CreationButtons = ({ options, handleSelect }) => {
   const { loading, error, data } = useQuery(CURRENT_USER_QUERY)
 
   if (data && data.currentUser) {

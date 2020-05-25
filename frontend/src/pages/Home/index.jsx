@@ -37,7 +37,7 @@ const HomePage = ({ children }) => {
   return (
     <HomeContainer>
       <FeedContainer>
-        <CreationButtons />
+        <CreationButtons options={options} handleSelect={handleSelect} />
 
         {children}
       </FeedContainer>
