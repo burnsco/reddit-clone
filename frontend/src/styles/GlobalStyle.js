@@ -3,7 +3,6 @@ import { normalize } from 'styled-normalize'
 
 export const GlobalStyle = createGlobalStyle`
 ${normalize}
-@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;

@@ -13,6 +13,7 @@ import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES } from '../CreatePost/query.js'
 import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
 import { useNavigate } from '@reach/router'
+import CreationButtons from './CreationButtons.js'
 
 const HomePage = ({ children }) => {
   const { loading, error, data } = useQuery(GET_CATEGORIES)
@@ -36,21 +37,7 @@ const HomePage = ({ children }) => {
   return (
     <HomeContainer>
       <FeedContainer>
-        <TopControls>
-          <TopControlSelectContainer>
-            <TopControlSelect
-              name="category"
-              options={options}
-              onChange={handleSelect}
-            />
-          </TopControlSelectContainer>
-          <TopControlButtons isRed to="/submit">
-            Post
-          </TopControlButtons>
-          <TopControlButtons isBlue to="/createCategory">
-            Category
-          </TopControlButtons>
-        </TopControls>
+        <CreationButtons />
 
         {children}
       </FeedContainer>

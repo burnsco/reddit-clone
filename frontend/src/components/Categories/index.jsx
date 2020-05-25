@@ -8,6 +8,7 @@ import {
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES_QUERY } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
+import CreationButtons from './CreationButtons.js'
 
 function Categories() {
   const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)
@@ -20,8 +21,7 @@ function Categories() {
 
   return (
     <CategoriesContainer>
-      <ContainerHeader to="/submit">Post</ContainerHeader>
-      <ContainerHeader to="/createCategory">Category</ContainerHeader>
+      <CreationButtons />
 
       <CategoryLinksContainer>
         <CategoryLink to="/">r/all</CategoryLink>
