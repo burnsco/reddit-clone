@@ -1,21 +1,20 @@
+/* eslint-disable no-console */
 import bcrypt from 'bcryptjs'
 import {
   BadCredentials,
   NoAuthorization,
   CategoryTitleTaken,
-  AlreadyVoted,
   EmailTaken,
   UserDoesNotExist,
   PostDoesNotExist,
   UserNotLoggedIn,
   CommentDoesNotExist
 } from '../constants'
-
 import { createAccessToken, createRefreshToken } from '../utils'
 
 const Mutation = {
   async createVote(root, { data }, { db, user }, info) {
-    const voteExists = await db.exists.Vote(
+    const userVoted = await db.exists.Vote(
       {
         user: { id: user.userID },
         post: { id: data.postID }
@@ -23,23 +22,52 @@ const Mutation = {
       info
     )
 
-    if (voteExists) return AlreadyVoted
-
-    const vote = await db.mutation.createVote({
-      data: {
-        upVote: data.upVote,
-        downVote: data.downVote,
-        user: { connect: { id: user.userID } },
-        post: { connect: { id: data.postID } }
+    if (!userVoted) {
+      const vote = await db.mutation.createVote({
+        data: {
+          upVote: data.upVote,
+          downVote: data.downVote,
+          user: { connect: { id: user.userID } },
+          post: { connect: { id: data.postID } }
+        }
+      })
+      // updatescore
+      const post = await db.exists.Post({ where: { id: data.postID } }, info)
+      const score = await db.mutation.updatePost({})
+      return {
+        code: '200',
+        success: true,
+        message: 'vote submitted',
+        vote,
+        post,
+        score
       }
-    })
-
-    return {
-      code: '200',
-      success: true,
-      message: 'vote submitted',
-      vote
     }
+
+    if (userVoted) {
+      const vote = await db.mutation.updateVote({
+        data: {
+          upVote: data.upVote,
+          downVote: data.downVote,
+          where: {
+            post: { id: data.postID }
+          }
+        }
+      })
+      // updatescore
+      const post = await db.exists.Post({ where: { id: data.postID } }, info)
+      const score = await db.mutation.updatePost({})
+      return {
+        code: '200',
+        success: true,
+        message: 'vote submitted',
+        vote,
+        score,
+        post
+      }
+    }
+
+    return NoAuthorization
   },
 
   async createCategory(root, { data }, { db }) {

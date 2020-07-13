@@ -16,7 +16,7 @@ type Post {
   author: User!
   comments: [Comment!]!
   votes: [Vote!]!
-  score: Int! @default(value: 0)
+  score: Int!
 }
 
 type Comment {
@@ -42,6 +42,8 @@ type User {
 
 type Vote {
   id: ID! @id @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   post: Post!
   user: User!
   upVote: Boolean!

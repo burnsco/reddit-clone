@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 import '@babel/polyfill/noConflict'
 import { ApolloServer, PubSub } from 'apollo-server-express'
 import express from 'express'
@@ -9,12 +11,7 @@ import { makeExecutableSchema } from 'graphql-tools'
 import cookieParser from 'cookie-parser'
 import db from './context/index'
 import resolvers from './resolvers/root'
-import {
-  getUser,
-  createAccessToken,
-  sendRefreshToken,
-  createRefreshToken
-} from './utils'
+import { getUser, createAccessToken, sendRefreshToken, createRefreshToken } from './utils'
 
 const app = express()
 
@@ -55,7 +52,6 @@ app.post('/refresh_token', cors(corsOptions), async (req, res) => {
 })
 
 const typeDefs = importSchema('./src/schema.graphql')
-
 const schema = makeExecutableSchema({
   typeDefs: [typeDefs],
   resolvers,
@@ -65,7 +61,6 @@ const schema = makeExecutableSchema({
 })
 
 const pubsub = new PubSub()
-
 const server = new ApolloServer({
   schema,
   context: async ({ req, res, connection }) => {
@@ -107,12 +102,6 @@ const httpServer = http.createServer(app)
 server.installSubscriptionHandlers(httpServer)
 
 httpServer.listen(PORT, () => {
-  console.log(
-    `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
-  )
-  console.log(
-    `🚀 Subscriptions ready at ws://localhost:${PORT}${
-      server.subscriptionsPath
-    }`
-  )
+  console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`)
+  console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
 })

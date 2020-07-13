@@ -2,12 +2,12 @@ import jwt from 'jsonwebtoken'
 import { AuthenticationError } from 'apollo-server-express'
 
 export const getUser = req => {
-  let authorization = req.headers.authorization
+  const { authorization } = req.headers
 
   if (authorization) {
     try {
-      let token = authorization.split(' ')[1]
-      let user = jwt.verify(token, process.env.JWT_SECRET)
+      const token = authorization.split(' ')[1]
+      const user = jwt.verify(token, process.env.JWT_SECRET)
       return user
     } catch (ex) {
       throw new AuthenticationError(ex)
@@ -16,6 +16,8 @@ export const getUser = req => {
   if (!authorization) {
     return new AuthenticationError('Not authenticated')
   }
+
+  return null
 }
 
 export const createAccessToken = user => {
@@ -29,17 +31,20 @@ export const createRefreshToken = user => {
     expiresIn: '21d'
   })
 }
+
 export const sendRefreshToken = (res, token) => {
   res.cookie('redt', token, {
     httpOnly: true,
     path: '/refresh_token'
   })
 }
+
 export const deleteRefreshToken = user => {
   return jwt.sign({ userID: user.id }, process.env.JWT_REFRESH, {
     expiresIn: '1m'
   })
 }
+
 export const clearRefreshToken = res => {
   res.cookie('redt', '', {
     httpOnly: true,
@@ -48,13 +53,11 @@ export const clearRefreshToken = res => {
 }
 
 export const validateToken = authToken => {
-  let user = jwt.verify(authToken, process.env.JWT_SECRET)
+  const user = jwt.verify(authToken, process.env.JWT_SECRET)
   return user
 }
 
 export const findUser = authToken => {
-  return tokenValidationResult => {
-    let user = jwt.verify(authToken, process.env.JWT_SECRET)
-    return user
-  }
+  const user = jwt.verify(authToken, process.env.JWT_SECRET)
+  return user
 }

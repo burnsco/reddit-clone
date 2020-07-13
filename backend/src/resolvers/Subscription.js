@@ -5,11 +5,8 @@ const Subscription = {
     }
   },
   commentAdded: {
-    subscribe(root, { postID }, { db }, info) {
-      return db.subscription.comment(
-        { where: { mutation_in: ['CREATED'] } },
-        info
-      )
+    subscribe(root, _, { db }, info) {
+      return db.subscription.comment({ where: { mutation_in: ['CREATED'] } }, info)
     }
   }
 }

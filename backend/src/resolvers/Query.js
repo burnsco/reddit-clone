@@ -1,9 +1,5 @@
-import { forwardTo } from 'prisma-binding'
-import { getUser } from '../utils'
-import { AuthenticationError } from 'apollo-server-express'
-
 const Query = {
-  currentUser: async (root, args, { db, user }, info) => {
+  currentUser: async (root, args, { db, user }) => {
     if (!user.userID) {
       throw new Error('no user logged in')
     }
@@ -15,11 +11,11 @@ const Query = {
     return requested
   },
 
-  users(parent, args, { db, user }, info) {
+  users(parent, args, { db }, info) {
     return db.query.users(null, info)
   },
 
-  categories: async (root, args, { db, user }, info) => {
+  categories: async (root, args, { db }, info) => {
     const opArgs = {}
 
     if (args.query) {
@@ -32,7 +28,7 @@ const Query = {
     return results
   },
 
-  category: async (root, args, { db, user }, info) => {
+  category: async (root, args, { db }, info) => {
     const opArgs = {}
 
     if (args.query) {
@@ -45,14 +41,8 @@ const Query = {
     return results
   },
 
-  posts: async (root, args, { db, user }, info) => {
-    console.log(user)
-    const opArgs = {
-      first: args.first,
-      skip: args.skip,
-      after: args.after,
-      orderBy: args.orderBy
-    }
+  posts: async (root, args, { db }, info) => {
+    let opArgs
 
     if (args.query === 'all') {
       return db.query.posts(null, info)
@@ -75,10 +65,11 @@ const Query = {
     }
 
     const results = await db.query.posts(opArgs, info)
+
     return results
   },
 
-  post: async (root, args, { db, user }, info) => {
+  post: async (root, args, { db }, info) => {
     const post = await db.query.post(
       {
         where: {
@@ -91,7 +82,7 @@ const Query = {
     return post
   },
 
-  comment: async (root, args, { db, user }, info) => {
+  comment: async (root, args, { db }, info) => {
     const comment = await db.query.comment(
       {
         where: {
@@ -100,16 +91,12 @@ const Query = {
       },
       info
     )
+
     return comment
   },
 
-  comments: async (root, args, { db, user }, info) => {
-    const opArgs = {
-      first: args.first,
-      skip: args.skip,
-      after: args.after,
-      orderBy: args.orderBy
-    }
+  comments: async (root, args, { db }, info) => {
+    let opArgs
 
     if (args.userID) {
       opArgs.where = {
