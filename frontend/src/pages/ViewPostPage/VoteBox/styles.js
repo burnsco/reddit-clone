@@ -1,11 +1,11 @@
 import styled from '@xstyled/styled-components'
 
 export const Container = styled.div`
-  width: 45rpx;
+  width: 50rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12rpx;
+  padding: 15rpx;
   height: 100%;
 `
 

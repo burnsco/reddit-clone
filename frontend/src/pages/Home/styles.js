@@ -1,4 +1,4 @@
-import styled, { css } from '@xstyled/styled-components'
+import styled from '@xstyled/styled-components'
 import { Link } from '@reach/router'
 import Select from 'react-select'
 
@@ -32,32 +32,10 @@ export const TopControls = styled.div`
 export const TopControlSelectContainer = styled.div`
   flex-grow: 2;
 `
+
 export const TopControlSelect = styled(Select)``
 
-const blueButton = css`
-  color: white;
-  background-color: #3661ed;
-  border: 1px solid white;
-  &:hover {
-    background-color: #8ca2ea;
-  }
-`
-
-const redButton = css`
-  color: white;
-  background-color: #e8171a;
-  border: 1px solid white;
-  &:hover {
-    background-color: #aa191c;
-  }
-`
-// TODO style the buttons to look nicer
-const getButtonStyles = ({ isRed, isBlue }) => {
-  if (isRed) return redButton
-  if (isBlue) return blueButton
-}
-
-export const TopControlButtons = styled(Link)`
+export const TopControlButtonPost = styled(Link)`
   flex-grow: 1;
   border-radius: 5px;
   display: flex;
@@ -65,6 +43,24 @@ export const TopControlButtons = styled(Link)`
   justify-content: center;
   transition-duration: 0.4s;
   cursor: pointer;
-
-  ${getButtonStyles}
+  color: white;
+  background-color: #e8171a;
+  border: 1px solid white;
+  &:hover {
+    background-color: #aa191c;
+  }
+`
+export const TopControlButtonCategory = styled(Link)`
+  flex-grow: 1;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.4s;
+  color: white;
+  background-color: #3661ed;
+  border: 1px solid white;
+  &:hover {
+    background-color: #8ca2ea;
+  }
 `

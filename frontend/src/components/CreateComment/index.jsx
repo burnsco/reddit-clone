@@ -42,28 +42,26 @@ function CreateCommentForm({ postID, refetch }) {
   }
 
   return (
-    <>
-      <Container>
-        <form onSubmit={handleSubmit}>
-          <InputCommentBox
-            ref={node => {
-              input = node
-            }}
-            as="textarea"
-            style={{ background: 'white' }}
-            role="textbox"
-            spellCheck="true"
-            placeholder="What are your thoughts"
-            height="300"
-            width="300"
-          ></InputCommentBox>
+    <Container>
+      <form onSubmit={handleSubmit}>
+        <InputCommentBox
+          ref={node => {
+            input = node
+          }}
+          as="textarea"
+          style={{ background: 'white' }}
+          role="textbox"
+          spellCheck="true"
+          placeholder="What are your thoughts"
+          height="300"
+          width="300"
+        ></InputCommentBox>
 
-          <InputCommentFooter>
-            <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
-          </InputCommentFooter>
-        </form>
-      </Container>
-    </>
+        <InputCommentFooter>
+          <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
+        </InputCommentFooter>
+      </form>
+    </Container>
   )
 }
 

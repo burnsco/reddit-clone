@@ -24,7 +24,7 @@ export const FormsPageContainer = styled.div`
   align-items: center;
 `
 export const SignInContainer = styled.div`
-  width: 380px;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
 `

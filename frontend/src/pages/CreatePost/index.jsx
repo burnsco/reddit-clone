@@ -23,10 +23,10 @@ function CreatePostPage() {
       const { posts } = cache.readQuery({ query: GET_ALL_POSTS_QUERY })
       cache.writeQuery({
         query: GET_ALL_POSTS_QUERY,
-        data: { posts: posts.concat([createPost]) }
+        data: { posts: posts.concat([createPost]) },
       })
     },
-    variables: { title: title, text: text, categoryID: categoryID.value }
+    variables: { title: title, text: text, categoryID: categoryID.value },
   })
 
   if (loading) return <MainSpinner />
@@ -96,22 +96,6 @@ function CreatePostPage() {
             value={text}
             label="Text"
           />
-          {/* 
-          <label>
-            Category
-            <br /> */}
-          {/* <select
-              name="categoryID"
-              value={categoryID}
-              onChange={e => handleChange(e)}
-            >
-              {data.categories.map(category => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </label> */}
 
           <Select
             name="categoryID"

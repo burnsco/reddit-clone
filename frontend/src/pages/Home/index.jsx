@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  FeedContainer,
-  HomeContainer,
-  SidebarContainer,
-  TopControls,
-  TopControlButtons,
-  TopControlSelect,
-  TopControlSelectContainer,
-} from './styles.js'
+import { FeedContainer, HomeContainer, SidebarContainer } from './styles.js'
 import Categories from '../../components/Categories'
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORIES } from '../CreatePost/query.js'

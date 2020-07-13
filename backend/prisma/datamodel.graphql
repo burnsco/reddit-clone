@@ -16,6 +16,7 @@ type Post {
   author: User!
   comments: [Comment!]!
   votes: [Vote!]!
+  score: Int! @default(value: 0)
 }
 
 type Comment {

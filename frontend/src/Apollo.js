@@ -23,12 +23,12 @@ import { GlobalStyle } from './styles/GlobalStyle'
 const cache = new InMemoryCache()
 
 const httpLink = new HttpLink({
-  uri: 'https://reddit-clone-production.herokuapp.com/graphql',
+  uri: 'http://localhost:4000/graphql',
   credentials: 'include',
 })
 
 const wsLink = new WebSocketLink({
-  uri: `wss://reddit-clone-production.herokuapp.com/subscriptions`,
+  uri: `ws://localhost:4000/subscriptions`,
   options: {
     reconnect: true,
   },
@@ -97,13 +97,10 @@ const refreshLink = new TokenRefreshLink({
     }
   },
   fetchAccessToken: () => {
-    return fetch(
-      'https://reddit-clone-production.herokuapp.com/refresh_token',
-      {
-        method: 'POST',
-        credentials: 'include',
-      }
-    )
+    return fetch('http://localhost:4000/refresh_token', {
+      method: 'POST',
+      credentials: 'include',
+    })
   },
   handleFetch: accessToken => {
     setAccessToken(accessToken)

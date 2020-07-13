@@ -1,9 +1,6 @@
 import styled from '@xstyled/styled-components'
 
-export const Container = styled.div`
-  margin-left: 45rpx;
-  margin-right: 45rpx;
-`
+export const Container = styled.div``
 
 export const InputCommentBox = styled.input`
   margin-top: 10rpx;
@@ -16,7 +13,7 @@ export const InputCommentBox = styled.input`
   border: 1px solid #ebedf0;
   background: #ffffff;
   border-radius: 5rpx;
-  min-width: 500rpx;
+  min-width: 315rpx;
   display: block;
   width: 100%;
   min-height: 100rpx;

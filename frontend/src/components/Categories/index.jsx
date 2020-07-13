@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   CategoriesContainer,
-  ContainerHeader,
   CategoryLink,
   CategoryLinksContainer,
 } from './styles.js'
@@ -22,7 +21,6 @@ function Categories() {
   return (
     <CategoriesContainer>
       <CreationButtons />
-
       <CategoryLinksContainer>
         <CategoryLink to="/">r/all</CategoryLink>
         {data.categories.map(category => (

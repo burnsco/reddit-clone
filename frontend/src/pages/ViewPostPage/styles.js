@@ -10,7 +10,10 @@ export const PostContainer = styled.div`
   padding: 5rpx;
   width: 100%;
 `
-export const VoteBoxContainer = styled.div``
+export const VoteBoxContainer = styled.div`
+  display: flex;
+`
+
 export const PostDetailsContainer = styled.div`
   margin-top: 5rpx;
   min-height: 100rpx;

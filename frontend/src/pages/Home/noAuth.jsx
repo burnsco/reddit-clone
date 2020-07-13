@@ -4,9 +4,10 @@ import {
   HomeContainer,
   SidebarContainer,
   TopControls,
-  TopControlButtons,
   TopControlSelect,
   TopControlSelectContainer,
+  TopControlButtonPost,
+  TopControlButtonCategory,
 } from './styles.js'
 import Categories from '../../components/Categories'
 import { useQuery } from '@apollo/client'
@@ -45,22 +46,20 @@ const HomePage = ({ children }) => {
             />
           </TopControlSelectContainer>
           {/* FIXME make these redirect to login */}
-          <TopControlButtons
-            isRed
+          <TopControlButtonPost
             to="/submit"
             disabled
             onClick={() => navigate('signup', { replace: true })}
           >
             Post
-          </TopControlButtons>
-          <TopControlButtons
-            isBlue
+          </TopControlButtonPost>
+          <TopControlButtonCategory
             to="/createCategory"
             disabled
             onClick={() => navigate('signup', { replace: true })}
           >
             Category
-          </TopControlButtons>
+          </TopControlButtonCategory>
         </TopControls>
 
         {children}

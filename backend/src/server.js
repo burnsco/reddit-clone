@@ -6,24 +6,21 @@ import http from 'http'
 import jwt from 'jsonwebtoken'
 import { importSchema } from 'graphql-import'
 import { makeExecutableSchema } from 'graphql-tools'
+import cookieParser from 'cookie-parser'
 import db from './context/index'
 import resolvers from './resolvers/root'
-import subscriptions from './subscriptions/index'
 import {
   getUser,
   createAccessToken,
   sendRefreshToken,
-  createRefreshToken,
-  clearRefreshToken,
-  deleteRefreshToken,
+  createRefreshToken
 } from './utils'
-import cookieParser from 'cookie-parser'
 
 const app = express()
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
-  credentials: true,
+  origin: `http://localhost:3000`,
+  credentials: true
 }
 
 app.use(cookieParser())
@@ -40,14 +37,13 @@ app.post('/refresh_token', cors(corsOptions), async (req, res) => {
   try {
     payload = jwt.verify(token, process.env.JWT_REFRESH)
   } catch (error) {
-    console.log(error)
     return res.send({ ok: false, accessToken: '' })
   }
 
   const user = await db.query.user({
     where: {
-      id: payload.userID,
-    },
+      id: payload.userID
+    }
   })
 
   if (!user) {
@@ -64,8 +60,8 @@ const schema = makeExecutableSchema({
   typeDefs: [typeDefs],
   resolvers,
   resolverValidationOptions: {
-    requireResolversForResolveType: false,
-  },
+    requireResolversForResolveType: false
+  }
 })
 
 const pubsub = new PubSub()
@@ -76,7 +72,7 @@ const server = new ApolloServer({
     if (connection) {
       return {
         ...connection.context,
-        db,
+        db
       }
     }
 
@@ -85,7 +81,7 @@ const server = new ApolloServer({
       ...res,
       pubsub,
       user: await getUser(req),
-      db,
+      db
     }
   },
   subscriptions: {
@@ -97,10 +93,10 @@ const server = new ApolloServer({
     },
     onDisconnect: async (webSocket, context) => {
       console.log(`Subscription client disconnected.`)
-    },
+    }
   },
   introspection: true,
-  playground: true,
+  playground: true
 })
 
 server.applyMiddleware({ app, cors: corsOptions })
@@ -115,6 +111,8 @@ httpServer.listen(PORT, () => {
     `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
   )
   console.log(
-    `🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
+    `🚀 Subscriptions ready at ws://localhost:${PORT}${
+      server.subscriptionsPath
+    }`
   )
 })
