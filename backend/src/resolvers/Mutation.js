@@ -31,15 +31,14 @@ const Mutation = {
           post: { connect: { id: data.postID } }
         }
       })
-      // updatescore
-      const post = await db.exists.Post({ where: { id: data.postID } }, info)
-      const score = await db.mutation.updatePost({})
+      const score = await db.mutation.updatePost({
+        data: { where: { id: data.postID }, score: data.score }
+      })
       return {
         code: '200',
         success: true,
         message: 'vote submitted',
         vote,
-        post,
         score
       }
     }
@@ -54,16 +53,16 @@ const Mutation = {
           }
         }
       })
-      // updatescore
-      const post = await db.exists.Post({ where: { id: data.postID } }, info)
-      const score = await db.mutation.updatePost({})
+
+      const score = await db.mutation.updatePost({
+        data: { where: { id: data.postID }, score: data.score }
+      })
       return {
         code: '200',
         success: true,
         message: 'vote submitted',
         vote,
-        score,
-        post
+        score
       }
     }
 
@@ -172,28 +171,28 @@ const Mutation = {
     }
   },
 
-  async updatePost(root, { data }, { db }) {
-    const postExists = await db.exists.Post({ id: data.postID })
+  // async updatePost(root, { data }, { db }) {
+  //   const postExists = await db.exists.Post({ id: data.postID })
 
-    if (!postExists) {
-      return {
-        code: '401',
-        success: true,
-        message: 'Post does not exist!'
-      }
-    }
+  //   if (!postExists) {
+  //     return {
+  //       code: '401',
+  //       success: true,
+  //       message: 'Post does not exist!'
+  //     }
+  //   }
 
-    const post = await db.mutation.updatePost({
-      data: {
-        title: data.title
-      },
-      where: {
-        id: data.postID
-      }
-    })
+  //   const post = await db.mutation.updatePost({
+  //     data: {
+  //       title: data.title
+  //     },
+  //     where: {
+  //       id: data.postID
+  //     }
+  //   })
 
-    return post
-  },
+  //   return post
+  // },
 
   async createComment(root, { data }, { user, db }) {
     const postExists = db.exists.Post({ id: data.postID })

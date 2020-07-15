@@ -18,8 +18,7 @@ function ProfilePage({ children, userID }) {
   }
 
   let username = data.currentUser.username
-  console.log(`userID == ${userID}`)
-  console.log('profile page')
+
   return (
     <ProfileContainer>
       <ProfileNavigationHeader>

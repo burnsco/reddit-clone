@@ -41,6 +41,8 @@ type User {
 
 type Vote {
   id: ID! @id @unique
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   post: Post!
   user: User!
   upVote: Boolean!

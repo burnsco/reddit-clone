@@ -1,7 +1,2 @@
+endpoint: https://mysterious-citadel-06253.herokuapp.com
 datamodel: datamodel.graphql
-endpoint: 'http://127.0.0.1:4466'
-generate:
-  - generator: javascript-client
-    output: ../src/generated/prisma-client
-  - generator: graphql-schema
-    output: ../src/generated/prisma.graphql
