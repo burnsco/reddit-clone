@@ -1,17 +1,13 @@
 import React from 'react'
-import { ContainerHeader } from './styles'
 import { useQuery } from '@apollo/client'
+import { ContainerHeader } from './styles'
 import { CURRENT_USER } from '../Header/query'
 import MainSpinner from '../shared/FallBackSpinner'
 
 const CreationButtons = () => {
-  const { loading, error, data } = useQuery(CURRENT_USER)
+  const { loading, data } = useQuery(CURRENT_USER)
 
   if (loading) return <MainSpinner />
-
-  if (error) {
-    console.log(error)
-  }
 
   if (data && data.currentUser) {
     return (
@@ -20,9 +16,8 @@ const CreationButtons = () => {
         <ContainerHeader to="/createCategory">Category</ContainerHeader>
       </>
     )
-  } else {
-    return null
   }
+  return null
 }
 
 export default CreationButtons

@@ -1,8 +1,8 @@
 import React, { useEffect, Suspense, lazy } from 'react'
+import { useLazyQuery } from '@apollo/client'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import { useUser } from '../context/user-context'
 
-import { useLazyQuery } from '@apollo/client'
 import { CURRENT_USER } from '../components/Header/query'
 
 const loadAuthenticatedApp = () => import('./Authenticated')
@@ -14,7 +14,7 @@ function App() {
     fetchPolicy: 'network-only',
   })
 
-  let user = useUser()
+  const user = useUser()
 
   useEffect(() => {
     loadAuthenticatedApp()

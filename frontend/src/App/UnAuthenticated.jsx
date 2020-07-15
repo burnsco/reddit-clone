@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../components/Header'
 import { Router } from '@reach/router'
+import Header from '../components/Header'
 import Home from '../pages/Home/noAuth'
 import Profile from '../pages/Profile'
 import LoginPage from '../pages/Login'
@@ -10,7 +10,6 @@ import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import PostAndCommentsPage from '../pages/ViewPostPage/noAuthIndex'
 import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWithData'
-import ProfilePage from '../pages/Profile/index'
 import CommentsPageWithData from '../pages/ViewPostPage/CommentsPage/noAuthCommentsPageWithData'
 import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
 import NotFound from '../pages/404'
@@ -40,7 +39,7 @@ function UnAuthenticatedApp() {
           <Profile path="profile/:userID">
             <AllPostsPageWithData path="profile/:userID/posts" />
             <CommentsPageWithData path="profile/:userID/comments" />
-            <ProfilePage path="/" />
+            <Profile path="/" />
           </Profile>
 
           <Home path="/">

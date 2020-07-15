@@ -1,11 +1,11 @@
 import React from 'react'
 import { TokenRefreshLink } from 'apollo-link-token-refresh'
-import { WebSocketLink } from '@apollo/link-ws'
+import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import jwtDecode from 'jwt-decode'
 import apolloLogger from 'apollo-link-logger'
-import { onError } from '@apollo/link-error'
-import { RetryLink } from 'apollo-link-retry'
+import { onError } from '@apollo/client/link/error'
+import { RetryLink } from '@apollo/client/link/retry'
 import {
   ApolloClient,
   ApolloLink,
@@ -41,7 +41,7 @@ const retryLink = new RetryLink({
     jitter: true,
   },
   attempts: {
-    max: 5,
+    max: 10,
     retryIf: (error, _operation) => !!error,
   },
 })
@@ -114,10 +114,7 @@ const refreshLink = new TokenRefreshLink({
 const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query)
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    )
+    return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
   },
   wsLink,
   httpLink
@@ -128,9 +125,7 @@ const client = new ApolloClient({
     onError(({ graphQLErrors, networkError }) => {
       if (graphQLErrors)
         graphQLErrors.map(({ message, locations, path }) =>
-          console.log(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-          )
+          console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
         )
       if (networkError) console.log(`[Network error]: ${networkError}`)
     }),

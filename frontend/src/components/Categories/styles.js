@@ -1,6 +1,6 @@
 import styled from '@xstyled/styled-components'
-import NavLink from '../shared/NavLink'
 import { Link } from '@reach/router'
+import NavLink from '../shared/NavLink'
 
 export const CategoriesContainer = styled.aside`
   display: flex;

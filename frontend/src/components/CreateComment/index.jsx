@@ -1,18 +1,11 @@
 import React from 'react'
 import { useMutation } from '@apollo/client'
-import {
-  InputCommentBox,
-  InputCommentFooter,
-  Container,
-  SubmitCommentButton,
-} from './styles'
+import { InputCommentBox, InputCommentFooter, Container, SubmitCommentButton } from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
 import { SUBMIT_COMMENT_MUTATION } from './mutation'
 
 function CreateCommentForm({ postID, refetch }) {
-  const [createComment, { loading, error }] = useMutation(
-    SUBMIT_COMMENT_MUTATION
-  )
+  const [createComment, { loading, error }] = useMutation(SUBMIT_COMMENT_MUTATION)
 
   let input
 
@@ -23,7 +16,7 @@ function CreateCommentForm({ postID, refetch }) {
 
     try {
       const result = await createComment({
-        variables: { body: input.value, postID: postID },
+        variables: { body: input.value, postID },
       })
 
       const { message } = result.data.createComment
@@ -55,7 +48,7 @@ function CreateCommentForm({ postID, refetch }) {
           placeholder="What are your thoughts"
           height="300"
           width="300"
-        ></InputCommentBox>
+        />
 
         <InputCommentFooter>
           <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
