@@ -1,12 +1,6 @@
 import React from 'react'
 import { Link } from '@reach/router'
-import {
-  HeaderContainer,
-  HeaderNavWrapper,
-  HeaderLogo,
-  HeaderLinks,
-  HeaderLink
-} from './styles'
+import { HeaderContainer, HeaderNavWrapper, HeaderLogo, HeaderLinks, HeaderLink } from './styles'
 import { FullLogo, HalfLogo } from './styles'
 
 function NoAuthHeader() {

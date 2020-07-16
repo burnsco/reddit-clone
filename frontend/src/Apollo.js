@@ -1,6 +1,7 @@
 import React from 'react'
 import { TokenRefreshLink } from 'apollo-link-token-refresh'
 import { WebSocketLink } from '@apollo/client/link/ws'
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import jwtDecode from 'jwt-decode'
 import apolloLogger from 'apollo-link-logger'
@@ -18,7 +19,6 @@ import {
 import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 import AppProviders from './context'
-import { GlobalStyle } from './styles/GlobalStyle'
 
 const cache = new InMemoryCache()
 
@@ -27,12 +27,11 @@ const httpLink = new HttpLink({
   credentials: 'include',
 })
 
-const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000/subscriptions`,
-  options: {
-    reconnect: true,
-  },
+const GRAPHQL_ENDPOINT = 'ws://localhost:4000/subscriptions'
+const wsClient = new SubscriptionClient(GRAPHQL_ENDPOINT, {
+  reconnect: true,
 })
+const wsLink = new WebSocketLink(wsClient)
 
 const retryLink = new RetryLink({
   delay: {
@@ -42,7 +41,7 @@ const retryLink = new RetryLink({
   },
   attempts: {
     max: 10,
-    retryIf: (error, _operation) => !!error,
+    retryIf: error => !!error,
   },
 })
 
@@ -51,10 +50,10 @@ const requestLink = new ApolloLink(
     new Observable(observer => {
       let handle
       Promise.resolve(operation)
-        .then(operation => {
+        .then(operations => {
           const accessToken = getAccessToken()
           if (accessToken) {
-            operation.setContext({
+            operations.setContext({
               headers: {
                 authorization: `bearer ${accessToken}`,
               },
@@ -89,9 +88,8 @@ const refreshLink = new TokenRefreshLink({
       const { exp } = jwtDecode(token)
       if (Date.now() >= exp * 1000) {
         return false
-      } else {
-        return true
       }
+      return true
     } catch {
       return false
     }
@@ -143,13 +141,12 @@ const client = new ApolloClient({
   },
 })
 
-const RedditApp = () => (
-  <AppProviders>
-    <ApolloProvider client={client}>
-      <GlobalStyle />
-      <App />
-    </ApolloProvider>
-  </AppProviders>
-)
-
-export default RedditApp
+export const RedditApp = () => {
+  return (
+    <AppProviders>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </AppProviders>
+  )
+}

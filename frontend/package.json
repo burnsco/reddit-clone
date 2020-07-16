@@ -26,10 +26,11 @@
     "styled-components": "^5.0.1",
     "styled-icons": "^10.2.1",
     "styled-normalize": "^8.0.7",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.17"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.22.0",
