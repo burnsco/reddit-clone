@@ -6,7 +6,7 @@ import MainSpinner from '../../../components/shared/FallBackSpinner'
 
 function PostPageWithData({ postID }) {
   const { error, loading, data } = useQuery(GET_POST_AND_COMMENTS_QUERY, {
-    variables: { postID: postID }
+    variables: { postID },
   })
   if (loading) return <MainSpinner />
   if (error) return <div>Error</div>

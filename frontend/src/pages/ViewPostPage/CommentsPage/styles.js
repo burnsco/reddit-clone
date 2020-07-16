@@ -1,4 +1,4 @@
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
 
 export const CommentFooter = styled.div`
   margin-top: 10rpx;

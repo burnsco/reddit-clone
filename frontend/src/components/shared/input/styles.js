@@ -1,4 +1,4 @@
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
 
 export const CreatePostContainer = styled.div`
   width: 100%;

@@ -2,22 +2,18 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { Link } from '@reach/router'
 import { HeaderContainer, HeaderNavWrapper, HeaderLogo, HeaderLinks, UserIcon } from './styles'
-import { CURRENT_USER } from './query'
 import MainSpinner from '../../shared/FallBackSpinner'
 import NoAuthHeader from '../../NoAuthHeader'
 import { CategoryLink } from '../Categories/styles'
 import { FullLogo, HalfLogo } from '../../NoAuthHeader/styles'
+import { CURRENT_USER } from '../../Header/query'
 
 const Header = () => {
-  const { client, loading, error, data } = useQuery(CURRENT_USER, {
+  const { client, loading, data } = useQuery(CURRENT_USER, {
     fetchPolicy: 'network-only',
   })
 
   if (loading) return <MainSpinner />
-
-  if (error) {
-    console.log(error)
-  }
 
   if (data && data.currentUser) {
     return (

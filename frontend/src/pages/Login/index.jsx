@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
+import { useMutation } from '@apollo/client'
+import { useNavigate } from '@reach/router'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
-import { useMutation } from '@apollo/client'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
-import { useNavigate } from '@reach/router'
 import { setAccessToken } from '../../context/access-token'
 import { AuthContext } from '../../context/auth-context'
 import { WarningMessage } from '../Signup/styles'
@@ -17,7 +17,7 @@ function LoginPage() {
   const { setData } = useContext(AuthContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
-    variables: { email: email, password: password },
+    variables: { email, password },
   })
 
   const handleSubmit = async event => {
@@ -64,11 +64,7 @@ function LoginPage() {
         <span>Login with your email and password</span>
 
         <form onSubmit={handleSubmit}>
-          <fieldset
-            disabled={loading}
-            aria-busy={loading}
-            style={{ borderStyle: 'none' }}
-          >
+          <fieldset disabled={loading} aria-busy={loading} style={{ borderStyle: 'none' }}>
             <FormInput
               name="email"
               type="email"
@@ -87,7 +83,7 @@ function LoginPage() {
             />
             <WarningMessage>{result}</WarningMessage>
             <ButtonsBarContainer>
-              <CustomButton type="submit" style={{ width: 100 + '%' }}>
+              <CustomButton type="submit" style={{ width: `${100}%` }}>
                 {' '}
                 Sign in with Email
               </CustomButton>

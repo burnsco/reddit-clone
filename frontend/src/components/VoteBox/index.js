@@ -1,18 +1,18 @@
 import React from 'react'
 import { useMutation } from '@apollo/client'
+import styled from '@emotion/styled'
+import { GoArrowUp, GoArrowDown } from 'react-icons/go'
 import { Container, Votes } from './styles'
-import styled from '@xstyled/styled-components'
-import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 import { UPVOTE_POST_MUTATION } from './mutation'
 import { getVotes } from './getVotes'
 
-const UpArrow = styled(UpArrowSquare)`
+const UpArrow = styled(GoArrowUp)`
   &:hover {
     color: red;
   }
 `
 
-const DownArrow = styled(DownArrowSquare)`
+const DownArrow = styled(GoArrowDown)`
   &:hover {
     color: red;
   }
@@ -26,7 +26,7 @@ const VoteBox = ({ votes, postID }) => {
     console.log(error)
   }
 
-  let showVoteNumber = getVotes(votes)
+  const showVoteNumber = getVotes(votes)
 
   return (
     <Container>
@@ -35,7 +35,7 @@ const VoteBox = ({ votes, postID }) => {
           console.log('upvote')
 
           const vote = await createVote({
-            variables: { postID: postID, upVote: true, downVote: false }
+            variables: { postID, upVote: true, downVote: false },
           })
           console.log(vote)
           return vote
@@ -47,7 +47,7 @@ const VoteBox = ({ votes, postID }) => {
           console.log('downvote')
 
           const vote = await createVote({
-            variables: { postID: postID, upVote: false, downVote: true }
+            variables: { postID, upVote: false, downVote: true },
           })
           console.log(vote)
           return vote

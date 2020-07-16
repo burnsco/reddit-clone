@@ -1,4 +1,5 @@
 import React from 'react'
+import { useQuery } from '@apollo/client'
 import {
   TopControls,
   TopControlSelect,
@@ -6,7 +7,6 @@ import {
   TopControlButtonCategory,
   TopControlSelectContainer,
 } from './styles'
-import { useQuery } from '@apollo/client'
 import { CURRENT_USER_QUERY } from '../../graphql/Query/current_user'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 
@@ -19,27 +19,22 @@ const CreationButtons = ({ options, handleSelect }) => {
     console.log(error)
   }
 
+  const newOptions = [...options, { value: '/', label: '/all' }]
+
   if (data && data.currentUser) {
     return (
       <>
         <TopControls>
           <TopControlSelectContainer>
-            <TopControlSelect
-              name="category"
-              options={options}
-              onChange={handleSelect}
-            />
+            <TopControlSelect name="category" options={newOptions} onChange={handleSelect} />
           </TopControlSelectContainer>
           <TopControlButtonPost to="/submit">Post</TopControlButtonPost>
-          <TopControlButtonCategory to="/createCategory">
-            Category
-          </TopControlButtonCategory>
+          <TopControlButtonCategory to="/createCategory">Category</TopControlButtonCategory>
         </TopControls>
       </>
     )
-  } else {
-    return null
   }
+  return null
 }
 
 export default CreationButtons

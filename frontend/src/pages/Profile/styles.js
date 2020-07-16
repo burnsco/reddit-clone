@@ -1,4 +1,4 @@
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
 import NavLink from '../../components/shared/NavLink'
 
 export const ProfileContainer = styled.section`

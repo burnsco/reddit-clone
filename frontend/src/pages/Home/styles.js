@@ -1,4 +1,4 @@
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
 import { Link } from '@reach/router'
 import Select from 'react-select'
 

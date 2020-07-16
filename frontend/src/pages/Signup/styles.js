@@ -1,5 +1,5 @@
 import { Link } from '@reach/router'
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
 import { CustomButton } from '../../components/shared/CustomButton'
 
 export const WelcomePage = styled.div`

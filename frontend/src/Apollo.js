@@ -31,6 +31,7 @@ const GRAPHQL_ENDPOINT = 'ws://localhost:4000/subscriptions'
 const wsClient = new SubscriptionClient(GRAPHQL_ENDPOINT, {
   reconnect: true,
 })
+
 const wsLink = new WebSocketLink(wsClient)
 
 const retryLink = new RetryLink({

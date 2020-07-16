@@ -1,13 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { Link } from '@reach/router'
-import {
-  HeaderContainer,
-  HeaderNavWrapper,
-  HeaderLogo,
-  HeaderLinks,
-  UserIcon,
-} from './styles'
+import { HeaderContainer, HeaderNavWrapper, HeaderLogo, HeaderLinks, UserIcon } from './styles'
 import { CURRENT_USER } from './query'
 import MainSpinner from '../shared/FallBackSpinner'
 import NoAuthHeader from '../NoAuthHeader'

@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
 
 export const CommentsContainer = styled.div`
   border: 1px solid grey;

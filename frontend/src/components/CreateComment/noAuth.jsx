@@ -1,9 +1,9 @@
 import React from 'react'
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
 import { Link } from '@reach/router'
 
 const Container = styled.div`
-  margin-left: 45rpx;
+  margin-left: 45px;
   display: flex;
   border: 1px solid #ebedf0;
 `
@@ -11,10 +11,10 @@ const CommentLinks = styled.div`
   @media (min-width: 768px) {
     display: none;
   }
-  padding: 10rpx;
-  margin: 5rpx;
+  padding: 10px;
+  margin: 5pxx;
   border: 1px solid #33a0ff;
-  border-radius: 5rpx;
+  border-radius: 5px;
   &:hover {
     -webkit-box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
     -moz-box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);

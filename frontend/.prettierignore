@@ -1,5 +1,4 @@
-node_modules
-build
-coverage
+.cache
+package.json
+package-lock.json
 public
-.docz

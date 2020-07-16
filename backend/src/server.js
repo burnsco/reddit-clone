@@ -16,7 +16,7 @@ import { getUser, createAccessToken, sendRefreshToken, createRefreshToken } from
 const app = express()
 
 const corsOptions = {
-  origin: `http://localhost:3000`,
+  origin: `http://localhost:8080`,
   credentials: true
 }
 

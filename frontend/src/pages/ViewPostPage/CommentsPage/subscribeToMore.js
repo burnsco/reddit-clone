@@ -1,13 +1,11 @@
 _subscribeToNewComments = () => {
   this.props.COMMENTS.subscribeToMore({
     variables: {
-      eventId: this.props.eventId
+      eventId: this.props.eventId,
     },
     document: gql`
       subscription newPosts($eventId: ID!) {
-        Post(
-          filter: { mutation_in: [CREATED], node: { event: { id: $eventId } } }
-        ) {
+        Post(filter: { mutation_in: [CREATED], node: { event: { id: $eventId } } }) {
           node {
             id
             body
@@ -23,16 +21,9 @@ _subscribeToNewComments = () => {
       }
     `,
     updateQuery: (previous, { subscriptionData }) => {
-      const {
-        author,
-        body,
-        id,
-        __typename,
-        createdAt,
-        event
-      } = subscriptionData.data.Post.node
+      const { author, body, id, __typename, createdAt, event } = subscriptionData.data.Post.node
 
-      let newPosts = _cloneDeep(previous)
+      const newPosts = _cloneDeep(previous)
 
       // Test to see if item is already in the store
       const idAlreadyExists =
@@ -48,26 +39,23 @@ _subscribeToNewComments = () => {
           id,
           __typename,
           createdAt,
-          event
+          event,
         })
         return newPosts
       }
-    }
+    },
   })
 }
 
 _subscribeToNewReplies = () => {
   this.props.COMMENT_REPLIES.subscribeToMore({
     variables: {
-      eventId: this.props.eventId
+      eventId: this.props.eventId,
     },
     document: gql`
       subscription newPostReplys($eventId: ID!) {
         PostReply(
-          filter: {
-            mutation_in: [CREATED]
-            node: { replyTo: { event: { id: $eventId } } }
-          }
+          filter: { mutation_in: [CREATED], node: { replyTo: { event: { id: $eventId } } } }
         ) {
           node {
             id
@@ -90,10 +78,10 @@ _subscribeToNewReplies = () => {
         id,
         __typename,
         createdAt,
-        replyTo
+        replyTo,
       } = subscriptionData.data.PostReply.node
 
-      let newPostReplies = _cloneDeep(previous)
+      const newPostReplies = _cloneDeep(previous)
 
       // Test to see if item is already in the store
       const idAlreadyExists =
@@ -109,10 +97,10 @@ _subscribeToNewReplies = () => {
           id,
           __typename,
           createdAt,
-          replyTo
+          replyTo,
         })
         return newPostReplies
       }
-    }
+    },
   })
 }

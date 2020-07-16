@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from '@reach/router'
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
+import { FaCommentAlt } from 'react-icons/fa'
 import {
   PostContainer,
   VoteBoxContainer,
@@ -13,16 +14,15 @@ import {
   PostDetailsHeader,
   PostedBy,
   UserName,
-} from './styles.js'
-import VoteBox from '../VoteBox/index.js'
-import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
-import { CommentAlt } from '@styled-icons/fa-solid'
+} from './styles'
+import VoteBox from '../VoteBox/index'
+import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate'
 
-const CommentIcon = styled(CommentAlt)`
+const CommentIcon = styled(FaCommentAlt)`
   color: grey;
-  width: 15rpx;
-  height: 15rpx;
-  margin-right: 10rpx;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
 `
 
 const Post = ({
@@ -65,9 +65,7 @@ const Post = ({
           <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
             <CommentIcon />
             {comments.length}{' '}
-            {comments.length < 10 && comments.length !== 0
-              ? 'comment'
-              : 'comments'}
+            {comments.length < 10 && comments.length !== 0 ? 'comment' : 'comments'}
           </Link>
         </PostComments>
       </PostFooter>

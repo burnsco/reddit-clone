@@ -1,10 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import {
-  ProfileContainer,
-  ProfileNavigationHeader,
-  ProfileFeedContainer,
-} from './styles'
+import { ProfileContainer, ProfileNavigationHeader, ProfileFeedContainer } from './styles'
 import { CURRENT_USER } from '../../components/Header/query'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 import ProfileNavigation from './Navigation'
@@ -17,12 +13,12 @@ function ProfilePage({ children, userID }) {
     console.log(error)
   }
 
-  let username = data.currentUser.username
+  const { username } = data.currentUser
 
   return (
     <ProfileContainer>
       <ProfileNavigationHeader>
-        <h1 style={{ marginTop: 50 + 'rpx' }}>{username}</h1>
+        <h1 style={{ marginTop: `${50}rpx` }}>{username}</h1>
       </ProfileNavigationHeader>
 
       <ProfileNavigation userID={userID} />

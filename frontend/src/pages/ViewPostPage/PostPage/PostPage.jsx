@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from '@reach/router'
-import styled from '@xstyled/styled-components'
+import styled from '@emotion/styled'
+import { FaRegCommentAlt } from 'react-icons/fa'
 import {
   PostContainer,
   VoteBoxContainer,
@@ -12,13 +13,12 @@ import {
   PostCategory,
   PostDetailsHeader,
   PostedBy,
-  UserName
-} from '../styles.js'
+  UserName,
+} from '../styles'
 import VoteBox from '../VoteBox'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
-import { CommentAlt } from '@styled-icons/fa-solid'
 
-const CommentIcon = styled(CommentAlt)`
+const CommentIcon = styled(FaRegCommentAlt)`
   color: grey;
   width: 15rpx;
   height: 15rpx;
@@ -34,8 +34,8 @@ const Post = ({
     category: { name },
     comments,
     createdAt,
-    author: { username }
-  }
+    author: { username },
+  },
 }) => (
   <PostContainer>
     <VoteBoxContainer>
@@ -50,8 +50,7 @@ const Post = ({
           </Link>{' '}
         </PostCategory>
         <PostedBy>
-          Posted by{' '}
-          <UserName to={`/profile/${username}`}>u/{username} </UserName>
+          Posted by <UserName to={`/profile/${username}`}>u/{username} </UserName>
           {timeDifferenceForDate(createdAt)}
         </PostedBy>
       </PostDetailsHeader>
@@ -65,9 +64,7 @@ const Post = ({
           <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
             <CommentIcon />
             {comments.length}{' '}
-            {comments.length < 10 && comments.length !== 0
-              ? 'comment'
-              : 'comments'}
+            {comments.length < 10 && comments.length !== 0 ? 'comment' : 'comments'}
           </Link>
         </PostComments>
       </PostFooter>

@@ -1,13 +1,13 @@
 import React from 'react'
+import { useQuery } from '@apollo/client'
 import {
   CategoriesContainer,
   ContainerHeader,
   CategoryLink,
-  CategoryLinksContainer
-} from './styles.js'
-import { useQuery } from '@apollo/client'
-import { GET_CATEGORIES_QUERY } from './query'
+  CategoryLinksContainer,
+} from './styles'
 import MainSpinner from '../../shared/FallBackSpinner'
+import { GET_CATEGORIES_QUERY } from '../../Categories/query'
 
 function Categories() {
   const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)
@@ -25,10 +25,7 @@ function Categories() {
       <CategoryLinksContainer>
         <CategoryLink to="/">r/all</CategoryLink>
         {data.categories.map(category => (
-          <CategoryLink
-            to={`/r/${category.name}`}
-            key={`sidebar-category-${category.id}`}
-          >
+          <CategoryLink to={`/r/${category.name}`} key={`sidebar-category-${category.id}`}>
             r/{category.name}
           </CategoryLink>
         ))}

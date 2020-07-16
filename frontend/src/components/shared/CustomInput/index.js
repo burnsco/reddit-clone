@@ -1,14 +1,12 @@
 import React from 'react'
 
-import { GroupContainer, FormInput, FormInputLabel } from './styles.js'
+import { GroupContainer, FormInput, FormInputLabel } from './styles'
 
 const CustomInput = ({ label, ...props }) => (
   <GroupContainer>
     <FormInput {...props} />
     {label ? (
-      <FormInputLabel className={props.value.length ? 'shrink' : ''}>
-        {label}
-      </FormInputLabel>
+      <FormInputLabel className={props.value.length ? 'shrink' : ''}>{label}</FormInputLabel>
     ) : null}
   </GroupContainer>
 )

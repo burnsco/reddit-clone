@@ -1,4 +1,6 @@
 import React from 'react'
+import { useQuery } from '@apollo/client'
+import { useNavigate } from '@reach/router'
 import {
   FeedContainer,
   HomeContainer,
@@ -8,26 +10,23 @@ import {
   TopControlSelectContainer,
   TopControlButtonPost,
   TopControlButtonCategory,
-} from './styles.js'
+} from './styles'
 import Categories from '../../components/Categories'
-import { useQuery } from '@apollo/client'
-import { GET_CATEGORIES } from '../CreatePost/query.js'
-import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
-import { useNavigate } from '@reach/router'
+import { GET_CATEGORIES_QUERY } from '../../components/Categories/query'
+import MainSpinner from '../../components/shared/FallBackSpinner'
 
 const HomePage = ({ children }) => {
-  const { loading, error, data } = useQuery(GET_CATEGORIES)
+  const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)
   const navigate = useNavigate()
 
   if (loading) return <MainSpinner />
 
   if (error) {
     console.log(error)
-    return <div>error, please return to where you came</div>
+    return <div>Error! Return to previous page.</div>
   }
 
   const handleSelect = selectedCategory => {
-    console.log(`Option selected: `, selectedCategory)
     navigate(`/r/${selectedCategory.label}`, { replace: true })
   }
 
@@ -39,11 +38,7 @@ const HomePage = ({ children }) => {
       <FeedContainer>
         <TopControls>
           <TopControlSelectContainer>
-            <TopControlSelect
-              name="category"
-              options={options}
-              onChange={handleSelect}
-            />
+            <TopControlSelect name="category" options={options} onChange={handleSelect} />
           </TopControlSelectContainer>
           {/* FIXME make these redirect to login */}
           <TopControlButtonPost

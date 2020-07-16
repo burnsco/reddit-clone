@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
+import { useMutation, useQuery } from '@apollo/client'
+import { navigate } from '@reach/router'
+import Select from 'react-select'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
-import { useMutation } from '@apollo/client'
 import MainSpinner from '../../components/shared/FallBackSpinner'
-import { useQuery } from '@apollo/client'
-import { navigate } from '@reach/router'
-import Select from 'react-select'
+
 import { SUBMIT_POST } from './mutation'
 import { GET_CATEGORIES } from './query'
 import { GET_ALL_POSTS_QUERY } from '../../components/PostList/AllPosts/query'
@@ -26,7 +26,7 @@ function CreatePostPage() {
         data: { posts: posts.concat([createPost]) },
       })
     },
-    variables: { title: title, text: text, categoryID: categoryID.value },
+    variables: { title, text, categoryID: categoryID.value },
   })
 
   if (loading) return <MainSpinner />
@@ -95,15 +95,10 @@ function CreatePostPage() {
             label="Text"
           />
 
-          <Select
-            name="categoryID"
-            value={categoryID}
-            options={options}
-            onChange={handleSelect}
-          />
+          <Select name="categoryID" value={categoryID} options={options} onChange={handleSelect} />
 
           <ButtonsBarContainer>
-            <CustomButton type="submit" style={{ width: 100 + '%' }}>
+            <CustomButton type="submit" style={{ width: `${100}%` }}>
               {' '}
               Submit Post{' '}
             </CustomButton>

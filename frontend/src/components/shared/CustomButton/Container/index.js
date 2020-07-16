@@ -1,4 +1,5 @@
-import styled, { css } from '@xstyled/styled-components'
+import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 
 const buttonStyles = css`
   font-family: 'Raleway', sans-serif;

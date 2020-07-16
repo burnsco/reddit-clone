@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
+import { useMutation } from '@apollo/client'
+import { navigate } from '@reach/router'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
-import {
-  ButtonsBarContainer,
-  SignInContainer,
-  WelcomePage,
-  WarningMessage,
-} from './styles'
-import { useMutation } from '@apollo/client'
+import { ButtonsBarContainer, SignInContainer, WelcomePage, WarningMessage } from './styles'
 import MainSpinner from '../../components/shared/FallBackSpinner'
-import { navigate } from '@reach/router'
 import { SIGN_UP_MUTATION } from './mutation'
 
 function SignUpPage() {
@@ -18,7 +13,7 @@ function SignUpPage() {
   const [password, setPassword] = useState('')
   const [result, setResult] = useState('')
   const [createUser, { loading, error }] = useMutation(SIGN_UP_MUTATION, {
-    variables: { username: username, password: password, email: email },
+    variables: { username, password, email },
   })
 
   if (loading) return <MainSpinner />
@@ -96,7 +91,7 @@ function SignUpPage() {
           <WarningMessage>{result}</WarningMessage>
 
           <ButtonsBarContainer>
-            <CustomButton type="submit" style={{ width: 100 + '%' }}>
+            <CustomButton type="submit" style={{ width: `${100}%` }}>
               {' '}
               Sign Up{' '}
             </CustomButton>

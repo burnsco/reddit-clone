@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
+import { useMutation } from '@apollo/client'
+import { navigate } from '@reach/router'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
-import {
-  ButtonsBarContainer,
-  SignInContainer,
-  WelcomePage,
-  WarningMessage,
-} from './styles'
-import { useMutation } from '@apollo/client'
+import { ButtonsBarContainer, SignInContainer, WelcomePage, WarningMessage } from './styles'
 import MainSpinner from '../../components/shared/FallBackSpinner'
-import { navigate } from '@reach/router'
 import { CREATE_CATEGORY_MUTATION } from './mutation'
 import { GET_CATEGORIES_QUERY } from '../../components/Categories/query'
 
@@ -17,19 +12,16 @@ function CreateCategoryPage() {
   const [name, setName] = useState('')
   const [result, setResult] = useState('')
 
-  const [createCategory, { loading, error }] = useMutation(
-    CREATE_CATEGORY_MUTATION,
-    {
-      update(cache, { data: { createCategory } }) {
-        const { categories } = cache.readQuery({ query: GET_CATEGORIES_QUERY })
-        cache.writeQuery({
-          query: GET_CATEGORIES_QUERY,
-          data: { categories: categories.concat([createCategory]) },
-        })
-      },
-      variables: { name: name },
-    }
-  )
+  const [createCategory, { loading, error }] = useMutation(CREATE_CATEGORY_MUTATION, {
+    update(cache, { data: { createCategory } }) {
+      const { categories } = cache.readQuery({ query: GET_CATEGORIES_QUERY })
+      cache.writeQuery({
+        query: GET_CATEGORIES_QUERY,
+        data: { categories: categories.concat([createCategory]) },
+      })
+    },
+    variables: { name },
+  })
 
   if (loading) return <MainSpinner />
 
@@ -82,7 +74,7 @@ function CreateCategoryPage() {
           <WarningMessage>{result}</WarningMessage>
           {/* TODO make option to create moderators for the new subreddit */}
           <ButtonsBarContainer>
-            <CustomButton type="submit" style={{ width: 100 + '%' }}>
+            <CustomButton type="submit" style={{ width: `${100}%` }}>
               {' '}
               Submit{' '}
             </CustomButton>

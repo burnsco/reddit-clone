@@ -1,20 +1,13 @@
 import React from 'react'
-import { GET_ALL_POSTS_QUERY } from './query'
-import PostsPage from '../PostsPagee'
 import { useQuery } from '@apollo/client'
-import { POSTS_SUBSCRIPTION } from '../subscription'
-import MainSpinner from '../../shared/FallBackSpinner'
+import PostsPage from '../PostsPage'
+import { GET_ALL_POSTS_QUERY } from '../../../PostList/AllPosts/query'
+import { POSTS_SUBSCRIPTION } from '../../../PostList/subscription'
 
 function AllPostsPageWithData() {
-  const { subscribeToMore, data, loading, error } = useQuery(
-    GET_ALL_POSTS_QUERY
-  )
+  const { subscribeToMore, data, loading } = useQuery(GET_ALL_POSTS_QUERY)
 
-  if (loading) return <MainSpinner />
-
-  if (error) {
-    console.log(error)
-  }
+  if (loading) return <div>...loading</div>
 
   return (
     <>
@@ -26,10 +19,8 @@ function AllPostsPageWithData() {
             updateQuery: (prev, { subscriptionData }) => {
               if (!subscriptionData.data) return prev
               const newFeedItem = subscriptionData.data.postAdded.node
-              return Object.assign({}, prev, {
-                posts: [newFeedItem, ...prev.posts]
-              })
-            }
+              return { ...prev, posts: [newFeedItem, ...prev.posts] }
+            },
           })
         }
       />
