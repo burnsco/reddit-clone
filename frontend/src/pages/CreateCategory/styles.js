@@ -1,6 +1,6 @@
-import { Link } from '@reach/router'
-import styled from '@xstyled/styled-components'
-import { CustomButton } from '../../components/shared/CustomButton'
+import {Link} from '@reach/router'
+import styled from 'styled-components'
+import {CustomButton} from '../../components/shared/CustomButton'
 
 export const WelcomePage = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ export const CreateAccountLink = styled(Link)`
 `
 
 export const ButtonsBarContainer = styled.div`
-  margin-top: 20rpx;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
 `

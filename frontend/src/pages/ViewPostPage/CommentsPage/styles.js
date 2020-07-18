@@ -1,6 +1,6 @@
-import styled from '@xstyled/styled-components'
+import styled from 'styled-components'
 
 export const CommentFooter = styled.div`
-  margin-top: 10rpx;
-  font-size: 12rpx;
+  margin-top: 10px;
+  font-size: 12px;
 `

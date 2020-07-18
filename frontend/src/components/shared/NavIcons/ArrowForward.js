@@ -1,9 +1,9 @@
-import styled from '@xstyled/styled-components'
-import { ArrowForwardOutline } from '@styled-icons/typicons'
+import styled from 'styled-components'
+import {ArrowForwardOutline} from '@styled-icons/typicons'
 
 export const ArrowForwardIcon = styled(ArrowForwardOutline)`
-  height: 30rpx;
-  width: 30rpx;
+  height: 30px;
+  width: 30px;
 `
 
 export const ArrowForward = () => {}

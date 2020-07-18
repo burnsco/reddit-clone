@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Router } from '@reach/router'
+import React, {useState, useEffect} from 'react'
+import {Router} from '@reach/router'
 import Header from '../components/Header'
 import Home from '../pages/Home'
 import CreatePostPage from '../pages/CreatePost'
-import { AppContainer } from './styles'
-import { setAccessToken } from '../context/access-token'
+import {AppContainer} from './styles'
+import {setAccessToken} from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import PostAndCommentsPage from '../pages/ViewPostPage/index'
 import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWithData'
@@ -24,7 +24,7 @@ function AuthenticatedApp() {
       method: 'POST',
       credentials: 'include',
     }).then(async x => {
-      const { accessToken } = await x.json()
+      const {accessToken} = await x.json()
       setAccessToken(accessToken)
       setLoading(false)
     })

@@ -1,13 +1,13 @@
 import React from 'react'
-import styled from '@xstyled/styled-components'
+import styled from 'styled-components'
 
 export const CommentsContainer = styled.div`
   border: 1px solid grey;
-  padding: 10rpx;
-  margin-top: 10rpx;
+  padding: 10px;
+  margin-top: 10px;
 `
 
-const ProfileCommentsList = ({ comment }) => {
+const ProfileCommentsList = ({comment}) => {
   return (
     <CommentsContainer>
       <p>{comment.author}</p>

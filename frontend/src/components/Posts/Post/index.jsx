@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from '@reach/router'
-import styled from '@xstyled/styled-components'
+import {Link} from '@reach/router'
+import styled from 'styled-components'
 import {
   PostContainer,
   VoteBoxContainer,
@@ -15,14 +15,14 @@ import {
   UserName,
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
-import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate.js'
-import { CommentAlt } from '@styled-icons/fa-solid'
+import {timeDifferenceForDate} from '../../../utils/timeDifferenceForDate.js'
+import {CommentAlt} from '@styled-icons/fa-solid'
 
 const CommentIcon = styled(CommentAlt)`
   color: grey;
-  width: 15rpx;
-  height: 15rpx;
-  margin-right: 10rpx;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
 `
 
 const Post = ({
@@ -31,11 +31,11 @@ const Post = ({
     title,
     text,
     votes,
-    category: { name },
+    category: {name},
     comments,
     createdAt,
-    author: { username },
-    author: { id: userID },
+    author: {username},
+    author: {id: userID},
   },
 }) => (
   <PostContainer>
@@ -46,7 +46,7 @@ const Post = ({
     <PostDetailsContainer>
       <PostDetailsHeader>
         <PostCategory>
-          <Link style={{ color: 'black' }} to={`/r/${name}`}>
+          <Link style={{color: 'black'}} to={`/r/${name}`}>
             /r/{name}
           </Link>{' '}
         </PostCategory>
@@ -62,7 +62,7 @@ const Post = ({
       <PostFooter>
         <PostComments>
           {' '}
-          <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
+          <Link to={`/r/${name}/${id}/comments`} style={{color: 'grey'}}>
             <CommentIcon />
             {comments.length}{' '}
             {comments.length < 10 && comments.length !== 0

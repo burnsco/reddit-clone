@@ -1,7 +1,7 @@
-import { createGlobalStyle } from '@xstyled/styled-components'
-import { normalize } from 'styled-normalize'
+import {createGlobalStyle} from 'styled-components'
+import {normalize} from 'styled-normalize'
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
 ${normalize}
 * {
   box-sizing: border-box;
@@ -23,10 +23,12 @@ body {
   min-height: 100%;
   height: 100%;
   text-rendering: optimizeSpeed;
-  padding-bottom: 25rpx;
+  padding-bottom: 25px;
   font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 `
+
+export default GlobalStyle

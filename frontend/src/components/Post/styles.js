@@ -1,27 +1,27 @@
-import styled from '@xstyled/styled-components'
-import { Link } from '@reach/router'
+import styled from 'styled-components'
+import {Link} from '@reach/router'
 
 export const PostContainer = styled.div`
   border: 1px solid #ebedf0;
   background: #ffffff;
-  border-radius: 5rpx;
+  border-radius: 5px;
   display: flex;
-  margin-bottom: 20rpx;
-  min-height: 100rpx;
+  margin-bottom: 20px;
+  min-height: 100px;
   width: 100%;
   &:hover {
     border: 1px solid #ced1db;
   }
 `
 export const VoteBoxContainer = styled.div`
-  margin-right: 5rpx;
+  margin-right: 5px;
 `
 
 export const PostDetailsContainer = styled.div`
-  margin-top: 5rpx;
-  min-height: 100rpx;
-  padding-right: 5rpx;
-  padding-left: 5rpx;
+  margin-top: 5px;
+  min-height: 100px;
+  padding-right: 5px;
+  padding-left: 5px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -29,22 +29,22 @@ export const PostDetailsContainer = styled.div`
 `
 
 export const PostDetailsHeader = styled.div`
-  font-size: 12rpx;
+  font-size: 12px;
   display: flex;
   color: #ced1db;
 `
 
 export const PostTitle = styled.h2`
-  margin-top: 10rpx;
+  margin-top: 10px;
   font-weight: 500;
 `
 
 export const PostText = styled.div`
-  margin-top: 15rpx;
+  margin-top: 15px;
 `
 
 export const PostedBy = styled.div`
-  margin-left: 10rpx;
+  margin-left: 10px;
   text-decoration: none;
 `
 
@@ -56,16 +56,16 @@ export const UserName = styled(Link)`
 `
 
 export const PostFooter = styled.div`
-  margin-top: 20rpx;
+  margin-top: 20px;
   display: flex;
   width: 100%;
 `
 
 export const PostComments = styled.div`
-  border-radius: 5rpx;
-  font-size: 14rpx;
-  padding: 5rpx;
-  margin-bottom: 5rpx;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 5px;
+  margin-bottom: 5px;
   color: grey;
   &:hover {
     background: #ebedf0;
@@ -81,9 +81,9 @@ export const PostCategory = styled.div`
 `
 
 export const PostAuthor = styled.div`
-  margin-left: 15rpx;
+  margin-left: 15px;
 `
 
 export const PostDateCreated = styled.div`
-  margin-left: 15rpx;
+  margin-left: 15px;
 `

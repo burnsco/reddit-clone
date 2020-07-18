@@ -1,8 +1,0 @@
-{
-  "appService.zipIgnorePattern": [
-    "node_modules{,/**}",
-    ".vscode{,/**}"
-  ],
-  "appService.defaultWebAppToDeploy": "/subscriptions/3458b115-daf1-4335-b23f-ccb81a1561a9/resourceGroups/Reddit-Clone/providers/Microsoft.Web/sites/reddit-clone-backend",
-  "appService.deploySubpath": "backend"
-}

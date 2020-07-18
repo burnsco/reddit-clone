@@ -1,12 +1,12 @@
-import styled from '@xstyled/styled-components'
+import styled from 'styled-components'
 
 export const Container = styled.div`
-  margin-left: 45rpx;
-  margin-right: 45rpx;
+  margin-left: 45px;
+  margin-right: 45px;
 `
 
 export const InputCommentBox = styled.input`
-  margin-top: 10rpx;
+  margin-top: 10px;
   overflow: hidden;
   padding: 8px 16px;
   outline: none;
@@ -15,11 +15,11 @@ export const InputCommentBox = styled.input`
   overflow-wrap: break-word;
   border: 1px solid #ebedf0;
   background: #ffffff;
-  border-radius: 5rpx;
-  min-width: 500rpx;
+  border-radius: 5px;
+  min-width: 500px;
   display: block;
   width: 100%;
-  min-height: 100rpx;
+  min-height: 100px;
   display: flex;
   vertical-align: baseline;
   word-break: break-word;
@@ -30,22 +30,22 @@ export const InputCommentBox = styled.input`
 
 export const InputCommentFooter = styled.div`
   display: flex;
-  border-radius: 5rpx;
+  border-radius: 5px;
   width: 100%;
   align-self: flex-end;
 `
 
 export const SubmitCommentButton = styled.button`
-  border-radius: 5rpx;
-  padding: 10rpx;
+  border-radius: 5px;
+  padding: 10px;
   display: flex;
   align-items: center;
-  margin-bottom: 5rpx;
+  margin-bottom: 5px;
   justify-content: center;
   background-color: #ffb000;
   color: white;
   border: none;
-  height: 30rpx;
+  height: 30px;
   &:hover {
     background-color: #e8c36e;
   }

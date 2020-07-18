@@ -1,13 +1,13 @@
-import styled from '@xstyled/styled-components'
-import { Link } from '@reach/router'
+import styled from 'styled-components'
+import {Link} from '@reach/router'
 
 export const PostContainer = styled.div`
   background: #ffffff;
   display: flex;
-  margin-bottom: 20rpx;
-  border-radius: 5rpx;
-  min-height: 100rpx;
-  padding: 5rpx;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  min-height: 100px;
+  padding: 5px;
   width: 100%;
 `
 export const VoteBoxContainer = styled.div`
@@ -15,8 +15,8 @@ export const VoteBoxContainer = styled.div`
 `
 
 export const PostDetailsContainer = styled.div`
-  margin-top: 5rpx;
-  min-height: 100rpx;
+  margin-top: 5px;
+  min-height: 100px;
 
   width: 100%;
   display: flex;
@@ -25,7 +25,7 @@ export const PostDetailsContainer = styled.div`
 `
 
 export const PostDetailsHeader = styled.div`
-  font-size: 12rpx;
+  font-size: 12px;
   display: flex;
   color: #ced1db;
 `
@@ -38,7 +38,7 @@ export const PostCategory = styled.div`
 `
 
 export const PostedBy = styled.div`
-  margin-left: 10rpx;
+  margin-left: 10px;
   text-decoration: none;
 `
 export const UserName = styled(Link)`
@@ -49,24 +49,24 @@ export const UserName = styled(Link)`
 `
 
 export const PostTitle = styled.h2`
-  margin-top: 10rpx;
+  margin-top: 10px;
   font-weight: 500;
 `
 
 export const PostText = styled.div`
-  margin-top: 15rpx;
+  margin-top: 15px;
 `
 
 export const PostFooter = styled.div`
-  margin-top: 20rpx;
+  margin-top: 20px;
 
   display: flex;
   width: 100%;
 `
 
 export const PostComments = styled.div`
-  padding: 5rpx;
-  margin-bottom: 5rpx;
+  padding: 5px;
+  margin-bottom: 5px;
   color: grey;
   &:hover {
     background: #ebedf0;
@@ -74,33 +74,33 @@ export const PostComments = styled.div`
 `
 
 export const CommentHeader = styled.div`
-  font-size: 12rpx;
+  font-size: 12px;
   display: flex;
   color: #ced1db;
 `
 
 export const CommentsContainer = styled.div`
-  margin-top: 20rpx;
-  margin-left: 45rpx;
-  margin-right: 45rpx;
-  margin-bottom: 20rpx;
+  margin-top: 20px;
+  margin-left: 45px;
+  margin-right: 45px;
+  margin-bottom: 20px;
 `
 export const CommentAuthor = styled.div`
-  margin-left: 15rpx;
+  margin-left: 15px;
 `
 
 export const CommentCreatedAt = styled.span`
-  margin-left: 10rpx;
+  margin-left: 10px;
 `
 
 export const PostAndCommentsContainer = styled.section`
   width: 100%;
-  border-radius: 5rpx;
+  border-radius: 5px;
   border: 1px solid #ffffff;
 
   background: #ffffff;
 `
 
 export const CommentBody = styled.div`
-  margin-top: 10rpx;
+  margin-top: 10px;
 `

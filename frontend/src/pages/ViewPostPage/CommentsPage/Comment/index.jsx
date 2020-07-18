@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {
   CommentsContainer,
   CommentHeader,
@@ -6,18 +6,18 @@ import {
   CommentCreatedAt,
   CommentBody,
 } from '../../styles'
-import { CommentFooter } from '../styles'
+import {CommentFooter} from '../styles'
 import EditComment from '../EditComment'
-import { useMutation, useQuery } from '@apollo/client'
+import {useMutation, useQuery} from '@apollo/client'
 import DeleteComment from '../DeleteComment'
-import { timeDifferenceForDate } from '../../../../utils/timeDifferenceForDate'
-import { UPDATE_COMMENT_MUTATION } from '../EditComment/mutation'
-import { CURRENT_USER } from '../../../../components/Header/query'
+import {timeDifferenceForDate} from '../../../../utils/timeDifferenceForDate'
+import {UPDATE_COMMENT_MUTATION} from '../EditComment/mutation'
+import {CURRENT_USER} from '../../../../components/Header/query'
 import MainSpinner from '../../../../components/shared/FallBackSpinner'
 
-const CommentComponent = ({ postID, refetch, comment }) => {
-  const { data } = useQuery(CURRENT_USER)
-  const [editComment, { loading, error }] = useMutation(UPDATE_COMMENT_MUTATION)
+const CommentComponent = ({postID, refetch, comment}) => {
+  const {data} = useQuery(CURRENT_USER)
+  const [editComment, {loading, error}] = useMutation(UPDATE_COMMENT_MUTATION)
 
   const [showComment, setShowComment] = useState(true)
 
@@ -60,7 +60,7 @@ const CommentComponent = ({ postID, refetch, comment }) => {
       return (
         <>
           <EditComment
-            onEdit={{ showComment, setShowComment }}
+            onEdit={{showComment, setShowComment}}
             refetch={refetch}
             commentID={comment.id}
             postID={postID}
@@ -109,7 +109,7 @@ const CommentComponent = ({ postID, refetch, comment }) => {
             }}
             type="text"
             defaultValue={comment.body}
-            style={{ marginTop: 10 + 'rpx' }}
+            style={{marginTop: 10 + 'px'}}
           />
         </CommentBody>
       )}

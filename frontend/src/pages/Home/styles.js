@@ -1,5 +1,5 @@
-import styled from '@xstyled/styled-components'
-import { Link } from '@reach/router'
+import styled from 'styled-components'
+import {Link} from '@reach/router'
 import Select from 'react-select'
 
 export const HomeContainer = styled.div`
@@ -13,8 +13,8 @@ export const FeedContainer = styled.section`
 `
 
 export const SidebarContainer = styled.aside`
-  width: 160rpx;
-  margin-left: 10rpx;
+  width: 160px;
+  margin-left: 10px;
   @media (max-width: 768px) {
     display: none;
   }
