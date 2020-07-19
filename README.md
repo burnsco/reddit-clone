@@ -19,37 +19,42 @@ client/server, styled components, refresh tokens and full JWT authentication are
 some of the technologies used to make this project. Made it to learn how to make
 an entire front and backend with the latest TECH.
 
-[**Demo Website**](https://reddit-frontend.now.sh/)
+[**Demo Website**]( site down at the moment --corey)
 
 ## ✨ Features
 
-- Create posts
-- Create subreddits
-- Voting
-- Edit and Delete Comments
-- Authentication with cookies, nothing stored in local storage
-- Profile Page with a user's posts and comments
-- Post and Comment date with links to user's profile on each one
-- Refresh Tokens so you don't lose session
+- Create Posts
+- Subscriptions (Posts and Comments)
+- Create Subreddits 
+- Vote on Posts
+- Create, Edit and Delete Comments
+- Custom authentication with JWT and refresh tokens (nothing saved on HD)
+- Profile Page with a user's posts, comments and votes
+
 
 ## 🎉 Todo
 
 - [ ] Edit and Delete Posts
 - [ ] Pagination (ready to go in schema and resolvers)
 - [ ] Profile Settings (user info)
-- [ ] Friends (Messages, Chat)
-- [ ] Comment Votes
-- [ ] Media Posts (and links?)
-- [ ] Sorting of posts, comments
+- [ ] Voting on Comments
+- [ ] Media Posts (pictures and videos)
+- [ ] Sorting of all types
 
-## 🚀 Getting Started
+## 🚀 Long Term 
+
+- [ ] Chat and Messaging
+- [ ] Friends and User Profile (more info)
+
+
+### 🔥 SETUP
 
 **Create a Postgres DB.**
 
 1. Local Machine
-2. Heroku (Limited Speed)
+2. Heroku 
 3. Google Cloud (Free Year (\$400 Credit))
-4. MS Azure
+4. MS Azure ( ^^ something like the above)
 5. List goes on
 
 **Create a Prisma Server**
@@ -57,27 +62,18 @@ an entire front and backend with the latest TECH.
 1. Local Machine with Docker
 2. Demo Server on Prisma Cloud
 3. On Heroku (it can be slow, server sleeps)
-4. Make a Linux VM on Google Cloud (speed!)
+4. Make a Linux VM and host on ms or google
 
 **Edit the config files to reflect your choices**
 
-1. Frontend ==>
-2. Backend Node ==>
-3. Prisma Server (local or cloud) ==>
-4. Postgres DB
-
 ## 📝 Important Info
 
-### Adding content
+I'm using the old prisma one for this project because it is the only one 
+that supports subscriptions!
 
-#### Adding a new project
+This is purely a project I made to learn the entire stack and
+the newest? tech that is out there.  
+ 
+Have fun! 😉 
 
-#### Adding a new page
 
-## 🤔 Questions or problems?
-
-### Themes
-
-### General
-
-## 🌟 Supporting me
