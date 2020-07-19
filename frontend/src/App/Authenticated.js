@@ -16,6 +16,8 @@ import ProfilePosts from '../pages/Profile/Posts'
 import ProfileComments from '../pages/Profile/Comments'
 import ProfileVotes from '../pages/Profile/Votes'
 
+// TODO fix authentication and refresh (kinda works, but its not perfect)
+
 function AuthenticatedApp() {
   const [loading, setLoading] = useState(true)
 

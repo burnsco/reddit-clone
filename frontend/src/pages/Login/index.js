@@ -7,7 +7,9 @@ import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { setAccessToken } from '../../context/access-token'
 import { AuthContext } from '../../context/auth-context'
 import { WarningMessage } from '../Signup/styles'
-import { LOGIN_MUTATION } from './mutation'
+import { LOGIN_MUTATION } from '../../graphql/Mutation/login'
+
+// TODO Refresh tokens is working, but logging in is not
 
 function LoginPage() {
   const navigate = useNavigate()
