@@ -22,12 +22,10 @@ const HomePage = ({ children }) => {
   if (loading) return <MainSpinner />
 
   if (error) {
-    console.log(error)
-    return <div>error, please return to where you came</div>
+    return <div>error, please contact admin.</div>
   }
 
   const handleSelect = (selectedCategory) => {
-    console.log(`Option selected: `, selectedCategory)
     navigate(`/r/${selectedCategory.label}`, { replace: true })
   }
 
@@ -35,6 +33,7 @@ const HomePage = ({ children }) => {
     value: option.id,
     label: option.name,
   }))
+
   return (
     <HomeContainer>
       <FeedContainer>
@@ -46,7 +45,6 @@ const HomePage = ({ children }) => {
               onChange={handleSelect}
             />
           </TopControlSelectContainer>
-          {/* FIXME make these redirect to login */}
           <TopControlButtonPost to="/signup">Post</TopControlButtonPost>
           <TopControlButtonCategory to="/signup">
             Category

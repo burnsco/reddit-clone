@@ -7,6 +7,7 @@ export const GET_COMMENTS_QUERY = gql`
       title
       text
       createdAt
+      updatedAt
       category {
         id
         name
