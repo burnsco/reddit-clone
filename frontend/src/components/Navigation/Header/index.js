@@ -16,13 +16,11 @@ import { CURRENT_USER_QUERY } from '../../../graphql/Query/current_user'
 import NoAuthHeader from '../NoAuthHeader'
 
 const Header = () => {
-  const { client, loading, error, data } = useQuery(CURRENT_USER_QUERY, {
+  const { client, loading, data } = useQuery(CURRENT_USER_QUERY, {
     fetchPolicy: 'network-only',
   })
 
   if (loading) return <MainSpinner />
-
-  if (error) return <div>Error! Contact site owner</div>
 
   if (data && data.currentUser) {
     return (

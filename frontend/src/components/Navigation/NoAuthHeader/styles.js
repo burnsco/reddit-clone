@@ -12,8 +12,8 @@ export const FullLogo = styled(BigLogo)`
 `
 
 export const HalfLogo = styled(SmallLogo)`
-  height: 35;
-  width: 50;
+  height: 35px;
+  width: 50px;
   @media (min-width: 768px) {
     display: none;
   }
