@@ -1,4 +1,5 @@
 import React from 'react'
+import { useQuery } from '@apollo/client'
 import {
   TopControls,
   TopControlSelect,
@@ -6,7 +7,6 @@ import {
   TopControlButtonCategory,
   TopControlSelectContainer,
 } from './styles'
-import { useQuery } from '@apollo/client'
 import { CURRENT_USER_QUERY } from '../../graphql/Query/current_user'
 import MainSpinner from '../../components/shared/FallBackSpinner'
 
@@ -37,9 +37,8 @@ const CreationButtons = ({ options, handleSelect }) => {
         </TopControls>
       </>
     )
-  } else {
-    return null
   }
+  return null
 }
 
 export default CreationButtons

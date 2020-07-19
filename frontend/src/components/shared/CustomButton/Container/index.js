@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const buttonStyles = css`
   font-family: 'Raleway', sans-serif;
@@ -42,7 +42,7 @@ const googleSignInStyles = css`
     background-color: #357ae8;
   }
 `
-const getButtonStyles = ({isGoogleSignIn, inverted, invertedOrange}) => {
+const getButtonStyles = ({ isGoogleSignIn, inverted, invertedOrange }) => {
   if (isGoogleSignIn) {
     return googleSignInStyles
   }

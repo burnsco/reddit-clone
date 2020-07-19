@@ -1,4 +1,4 @@
-.env*
+.env
 dist
 config
 .web-variables.env

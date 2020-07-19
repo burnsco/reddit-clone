@@ -14,8 +14,8 @@ function CommentsPageWithData({ postID }) {
     networkStatus,
     ...result
   } = useQuery(COMMENTS_QUERY, {
-    variables: { postID: postID },
-    notifyOnNetworkStatusChange: true
+    variables: { postID },
+    notifyOnNetworkStatusChange: true,
   })
   if (networkStatus === 4) return <MainSpinner />
   if (loading) return <MainSpinner />
@@ -29,16 +29,17 @@ function CommentsPageWithData({ postID }) {
       subscribeToNewComments={() =>
         subscribeToMore({
           document: COMMENTS_SUBSCRIPTION,
-          variables: { postID: postID },
+          variables: { postID },
           updateQuery: (prev, { subscriptionData }) => {
             if (!subscriptionData.data) return prev
             const newFeedItem = subscriptionData.data.commentAdded.node
-            return Object.assign({}, prev, {
+            return {
+              ...prev,
               post: {
-                comments: [newFeedItem, ...prev.post.comments]
-              }
-            })
-          }
+                comments: [newFeedItem, ...prev.post.comments],
+              },
+            }
+          },
         })
       }
     />

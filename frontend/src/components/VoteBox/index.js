@@ -1,10 +1,10 @@
 import React from 'react'
-import {useMutation} from '@apollo/client'
-import {Container, Votes} from './styles'
+import { useMutation } from '@apollo/client'
 import styled from 'styled-components'
-import {UpArrowSquare, DownArrowSquare} from '@styled-icons/boxicons-solid'
-import {UPVOTE_POST_MUTATION} from './mutation'
-import {getVotes} from './getVotes'
+import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
+import { Container, Votes } from './styles'
+import { UPVOTE_POST_MUTATION } from './mutation'
+import { getVotes } from './getVotes'
 
 const UpArrow = styled(UpArrowSquare)`
   &:hover {
@@ -18,24 +18,25 @@ const DownArrow = styled(DownArrowSquare)`
   }
 `
 
-const VoteBox = ({votes, postID}) => {
-  const [createVote, {error}] = useMutation(UPVOTE_POST_MUTATION)
+const VoteBox = ({ votes, postID }) => {
+  const [createVote, { error }] = useMutation(UPVOTE_POST_MUTATION)
 
   if (error) {
     console.log('error box')
     console.log(error)
   }
 
-  let showVoteNumber = getVotes(votes)
+  const showVoteNumber = getVotes(votes)
 
   return (
+    // TODO fix voting!
     <Container>
       <UpArrow
         onClick={async () => {
           console.log('upvote')
 
           const vote = await createVote({
-            variables: {postID: postID, upVote: true, downVote: false},
+            variables: { postID, upVote: true, downVote: false },
           })
           console.log(vote)
           return vote
@@ -47,7 +48,7 @@ const VoteBox = ({votes, postID}) => {
           console.log('downvote')
 
           const vote = await createVote({
-            variables: {postID: postID, upVote: false, downVote: true},
+            variables: { postID, upVote: false, downVote: true },
           })
           console.log(vote)
           return vote

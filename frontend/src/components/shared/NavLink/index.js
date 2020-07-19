@@ -1,16 +1,14 @@
 import React from 'react'
 import { Link } from '@reach/router'
 
-const NavLink = props => (
+const NavLink = (props) => (
   <Link
     {...props}
-    getProps={({ isCurrent }) => {
-      return {
-        style: {
-          color: isCurrent ? 'black' : 'grey'
-        }
-      }
-    }}
+    getProps={({ isCurrent }) => ({
+      style: {
+        color: isCurrent ? 'black' : 'grey',
+      },
+    })}
   />
 )
 

@@ -1,3 +1,5 @@
+// stole a basic version of this from someone else, then updated for my uses
+
 function timeDifference(current, previous) {
   const milliSecondsPerMinute = 60 * 1000
   const milliSecondsPerHour = milliSecondsPerMinute * 60
@@ -13,27 +15,28 @@ function timeDifference(current, previous) {
 
   if (elapsed < milliSecondsPerMinute) {
     return 'less than 1 min ago'
-  } else if (elapsed < milliSecondsPerHour) {
-    return Math.round(elapsed / milliSecondsPerMinute) + ' mins ago'
-  } else if (elapsed < milliSecondsPerDay) {
+  }
+  if (elapsed < milliSecondsPerHour) {
+    return `${Math.round(elapsed / milliSecondsPerMinute)} mins ago`
+  }
+  if (elapsed < milliSecondsPerDay) {
     const remaining = Math.round(elapsed / milliSecondsPerHour)
     if (remaining === 1) {
-      return remaining + ' hour ago'
-    } else {
-      return remaining + ' hours ago'
+      return `${remaining} hour ago`
     }
-  } else if (elapsed < milliSecondsPerMonth) {
+    return `${remaining} hours ago`
+  }
+  if (elapsed < milliSecondsPerMonth) {
     const remaining = Math.round(elapsed / milliSecondsPerDay)
     if (remaining === 1) {
-      return remaining + ' day ago'
-    } else {
-      return remaining + ' days ago'
+      return `${remaining} day ago`
     }
-  } else if (elapsed < milliSecondsPerYear) {
-    return Math.round(elapsed / milliSecondsPerMonth) + ' months ago'
-  } else {
-    return Math.round(elapsed / milliSecondsPerYear) + ' years ago'
+    return `${remaining} days ago`
   }
+  if (elapsed < milliSecondsPerYear) {
+    return `${Math.round(elapsed / milliSecondsPerMonth)} months ago`
+  }
+  return `${Math.round(elapsed / milliSecondsPerYear)} years ago`
 }
 
 export function timeDifferenceForDate(date) {

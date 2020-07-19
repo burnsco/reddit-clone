@@ -14,7 +14,7 @@ const ProfileComments = ({ userID }) => {
 
   return (
     <>
-      {data.comments.map(comment => (
+      {data.comments.map((comment) => (
         <CommentComponent comment={comment} key={`userComment-${comment.id}`} />
       ))}
     </>

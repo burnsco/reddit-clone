@@ -1,6 +1,6 @@
-import {Link} from '@reach/router'
+import { Link } from '@reach/router'
 import styled from 'styled-components'
-import {CustomButton} from '../../components/shared/CustomButton'
+import { CustomButton } from '../../components/shared/CustomButton'
 
 export const WelcomePage = styled.div`
   display: flex;

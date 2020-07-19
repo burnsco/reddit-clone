@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import {CustomButton} from '../shared/CustomButton'
-import {ReactComponent as SmallLogo} from '../../assets/reddit-icon.svg'
-import {ReactComponent as BigLogo} from '../../assets/reddit.svg'
+import { ReactComponent as SmallLogo } from '../../../assets/reddit-icon.svg'
+import { ReactComponent as BigLogo } from '../../../assets/reddit.svg'
+import { CustomButton } from '../../shared/CustomButton'
 
 export const FullLogo = styled(BigLogo)`
   height: 35;

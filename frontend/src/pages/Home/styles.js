@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Link} from '@reach/router'
+import { Link } from '@reach/router'
 import Select from 'react-select'
 
 export const HomeContainer = styled.div`

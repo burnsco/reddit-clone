@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {Link} from '@reach/router'
+import { Link } from '@reach/router'
 
 export const PostContainer = styled.div`
   border: 1px solid #ebedf0;

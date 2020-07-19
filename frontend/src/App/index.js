@@ -2,15 +2,14 @@ import React, { useEffect, Suspense, lazy } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import { useUser } from '../context/user-context'
-
-import { CURRENT_USER } from '../components/Header/query'
+import { CURRENT_USER_QUERY } from '../graphql/Query/current_user'
 
 const loadAuthenticatedApp = () => import('./Authenticated')
 const AuthenticatedApp = lazy(loadAuthenticatedApp)
 const UnauthenticatedApp = lazy(() => import('./UnAuthenticated'))
 
 function App() {
-  const [currentUser, { data }] = useLazyQuery(CURRENT_USER, {
+  const [currentUser, { data }] = useLazyQuery(CURRENT_USER_QUERY, {
     fetchPolicy: 'network-only',
   })
 

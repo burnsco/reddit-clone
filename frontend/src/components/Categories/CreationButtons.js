@@ -1,11 +1,11 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { ContainerHeader } from './styles'
-import { CURRENT_USER } from '../Header/query'
 import MainSpinner from '../shared/FallBackSpinner'
+import { CURRENT_USER_QUERY } from '../../graphql/Query/current_user'
 
 const CreationButtons = () => {
-  const { loading, data } = useQuery(CURRENT_USER)
+  const { loading, data } = useQuery(CURRENT_USER_QUERY)
 
   if (loading) return <MainSpinner />
 

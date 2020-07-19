@@ -1,5 +1,23 @@
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
+
 import React from 'react'
 import { render } from 'react-dom'
+
+import { ThemeProvider } from 'styled-components'
+import theme from './styles/theme'
+import GlobalStyle from './styles/GlobalStyle'
 import { RedditApp } from './Apollo'
 
-render(<RedditApp />, document.getElementById('root'))
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <GlobalStyle />
+    <RedditApp />
+  </ThemeProvider>
+)
+
+render(<App />, document.getElementById('root'))
+
+if (module.hot) {
+  module.hot.accept()
+}

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 
-export const POSTS_BY_CATEGORY_QUERY = gql`
+export const GET_POSTS_BY_CATEGORY_QUERY = gql`
   query onGetPostsByCategoryQuery($query: String!) {
     posts(query: $query) {
       id

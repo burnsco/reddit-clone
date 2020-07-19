@@ -1,16 +1,18 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import PostPage from './PostPage'
-import { GET_POST_AND_COMMENTS_QUERY } from '../query'
 import MainSpinner from '../../../components/shared/FallBackSpinner'
+import { GET_POST_AND_COMMENTS_QUERY } from '../../../graphql/Query/post_and_comments'
 
-function PostPageWithData({ postID }) {
+export default function PostPageWithData({ postID }) {
   const { error, loading, data } = useQuery(GET_POST_AND_COMMENTS_QUERY, {
-    variables: { postID: postID }
+    variables: { postID },
   })
   if (loading) return <MainSpinner />
-  if (error) return <div>Error</div>
+  if (error) return <div>Error! Return whence you came</div>
 
-  return <PostPage key={data.post.id} post={data.post} />
+  const { id } = data.post
+  const { post } = data
+
+  return <PostPage key={id} post={post} />
 }
-export default PostPageWithData
