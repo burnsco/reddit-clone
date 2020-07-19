@@ -14,6 +14,7 @@ function CreateCommentForm({ postID, refetch }) {
     SUBMIT_COMMENT_MUTATION
   )
   let input
+
   if (loading) return <MainSpinner />
 
   const handleSubmit = async (e) => {
@@ -25,8 +26,6 @@ function CreateCommentForm({ postID, refetch }) {
       })
 
       const { message, code } = result.data.createComment
-      console.log('result')
-      console.log(result)
 
       if (code === '200') {
         alert(message)

@@ -9,7 +9,7 @@ import MainSpinner from '../../components/shared/FallBackSpinner'
 import ProfileNavigation from './Navigation'
 import { CURRENT_USER_QUERY } from '../../graphql/Query/current_user'
 
-function ProfilePage({ children, userID }) {
+function ProfilePage({ children }) {
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY)
 
   if (loading) return <MainSpinner />
@@ -25,7 +25,7 @@ function ProfilePage({ children, userID }) {
         <h1 style={{ marginTop: `${50}px` }}>{username}</h1>
       </ProfileNavigationHeader>
 
-      <ProfileNavigation userID={userID} />
+      <ProfileNavigation userID={data.currentUser.id} />
 
       <ProfileFeedContainer>{children}</ProfileFeedContainer>
     </ProfileContainer>

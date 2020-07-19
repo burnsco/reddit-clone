@@ -6,7 +6,7 @@ import { DELETE_COMMENT_MUTATION } from './mutation'
 
 function DeleteComment({ commentID, postID, refetch }) {
   const [deleteComment, { error }] = useMutation(DELETE_COMMENT_MUTATION, {
-    variables: { commentID: commentID, postID: postID }
+    variables: { commentID, postID },
   })
 
   const options = {
@@ -18,14 +18,14 @@ function DeleteComment({ commentID, postID, refetch }) {
         onClick: async () => {
           await deleteComment()
           await refetch()
-        }
+        },
       },
       {
         label: 'No',
         onClick: async () => {
           await refetch()
-        }
-      }
+        },
+      },
     ],
 
     closeOnEscape: true,
@@ -33,7 +33,7 @@ function DeleteComment({ commentID, postID, refetch }) {
     willUnmount: () => {},
     afterClose: () => {},
     onClickOutside: () => {},
-    onKeypressEscape: () => {}
+    onKeypressEscape: () => {},
   }
 
   if (error) {

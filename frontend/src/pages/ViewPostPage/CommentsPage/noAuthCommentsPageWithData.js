@@ -1,9 +1,9 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { COMMENTS_QUERY } from '../query'
-import { COMMENTS_SUBSCRIPTION } from '../subscription'
 import CommentsPage from './noAuthCommentsPage'
 import MainSpinner from '../../../components/shared/FallBackSpinner'
+import { GET_COMMENTS_QUERY } from '../../../graphql/Query/comments'
+import { COMMENTS_SUBSCRIPTION } from '../../../graphql/Subscription/comments'
 
 function CommentsPageWithData({ postID }) {
   const {
@@ -13,7 +13,7 @@ function CommentsPageWithData({ postID }) {
     refetch,
     networkStatus,
     ...result
-  } = useQuery(COMMENTS_QUERY, {
+  } = useQuery(GET_COMMENTS_QUERY, {
     variables: { postID },
     notifyOnNetworkStatusChange: true,
   })

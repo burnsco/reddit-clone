@@ -4,13 +4,11 @@ import { GET_USER_COMMENTS_QUERY } from './query'
 import CommentComponent from '../../ViewPostPage/CommentsPage/Comment'
 import MainSpinner from '../../../components/shared/FallBackSpinner'
 
-const ProfileComments = ({ userID }) => {
+const ProfileComments = () => {
   const { data, loading, error } = useQuery(GET_USER_COMMENTS_QUERY)
 
   if (loading) return <MainSpinner />
-  if (error) {
-    console.log(error)
-  }
+  if (error) return <div>Error! Contact Admin!</div>
 
   return (
     <>
