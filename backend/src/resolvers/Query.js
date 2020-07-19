@@ -1,9 +1,7 @@
-import { forwardTo } from 'prisma-binding'
-import { AuthenticationError } from 'apollo-server-express'
-import { getUser } from '../utils'
+
 
 const Query = {
-  currentUser: async (root, args, { db, user }, info) => {
+  currentUser: async (root, args, { db, user }) => {
     if (!user.userID) {
       throw new Error('no user logged in')
     }
@@ -15,11 +13,11 @@ const Query = {
     return requested
   },
 
-  users(parent, args, { db, user }, info) {
+  users(parent, args, { db }, info) {
     return db.query.users(null, info)
   },
 
-  categories: async (root, args, { db, user }, info) => {
+  categories: async (root, args, { db }, info) => {
     const opArgs = {}
 
     if (args.query) {
@@ -32,7 +30,7 @@ const Query = {
     return results
   },
 
-  category: async (root, args, { db, user }, info) => {
+  category: async (root, args, { db }, info) => {
     const opArgs = {}
 
     if (args.query) {
@@ -45,8 +43,7 @@ const Query = {
     return results
   },
 
-  posts: async (root, args, { db, user }, info) => {
-    console.log(user)
+  posts: async (root, args, { db }, info) => {
     const opArgs = {
       first: args.first,
       skip: args.skip,
@@ -78,7 +75,7 @@ const Query = {
     return results
   },
 
-  post: async (root, args, { db, user }, info) => {
+  post: async (root, args, { db }, info) => {
     const post = await db.query.post(
       {
         where: {
@@ -91,7 +88,7 @@ const Query = {
     return post
   },
 
-  comment: async (root, args, { db, user }, info) => {
+  comment: async (root, args, { db }, info) => {
     const comment = await db.query.comment(
       {
         where: {
@@ -103,7 +100,7 @@ const Query = {
     return comment
   },
 
-  comments: async (root, args, { db, user }, info) => {
+  comments: async (root, args, { db }, info) => {
     const opArgs = {
       first: args.first,
       skip: args.skip,
