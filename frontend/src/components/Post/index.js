@@ -17,6 +17,7 @@ import {
 } from './styles.js'
 import VoteBox from '../VoteBox/index.js'
 import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
+import formatCommentText from '../../utils/comments.js'
 
 const CommentIcon = styled(CommentAlt)`
   color: grey;
@@ -65,17 +66,13 @@ const Post = ({
             <span style={{ color: 'grey' }}>
               <CommentIcon />
               {comments.length}
-              {comments.length < 10 && comments.length !== 0
-                ? 'comment'
-                : 'comments'}
+              {formatCommentText(comments.length)}
             </span>
           ) : (
             <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
               <CommentIcon />
               {comments.length}
-              {comments.length < 10 && comments.length !== 0
-                ? 'comment'
-                : 'comments'}
+              {formatCommentText(comments.length)}
             </Link>
           )}
         </PostComments>
