@@ -62,18 +62,15 @@ an entire front and backend with the latest TECH.
 1. Local Machine with Docker
 2. Demo Server on Prisma Cloud
 3. On Heroku (it can be slow, server sleeps)
-4. Make a Linux VM and host on ms or google
+4. Make a Linux VM and host on Microsoft, Amazon or Google
 
 **Edit the config files to reflect your choices**
 
 ## 📝 Important Info
 
-I'm using the old prisma one for this project because it is the only one 
+I'm using the old Prisma one for this project because it is the only one 
 that supports subscriptions!
 
-This is purely a project I made to learn the entire stack and
-the newest? tech that is out there.  
- 
 Have fun! 😉 
 
 
