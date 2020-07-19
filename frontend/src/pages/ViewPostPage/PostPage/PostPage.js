@@ -33,6 +33,7 @@ const Post = ({
     category: { name },
     comments,
     createdAt,
+    updatedAt,
     author: { username },
   },
 }) => (
@@ -50,7 +51,7 @@ const Post = ({
         <PostedBy>
           Posted by{' '}
           <UserName to={`/profile/${username}`}>u/{username} </UserName>
-          {timeDifferenceForDate(createdAt)}
+          {timeDifferenceForDate(createdAt, updatedAt)}
         </PostedBy>
       </PostDetailsHeader>
       <PostTitle>{title}</PostTitle>

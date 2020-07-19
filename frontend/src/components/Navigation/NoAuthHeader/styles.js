@@ -4,8 +4,8 @@ import { ReactComponent as BigLogo } from '../../../assets/reddit.svg'
 import { CustomButton } from '../../shared/CustomButton'
 
 export const FullLogo = styled(BigLogo)`
-  height: 35;
-  width: 100;
+  height: 35px;
+  width: 100px;
   @media (max-width: 768px) {
     display: none;
   }

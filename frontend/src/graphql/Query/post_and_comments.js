@@ -7,7 +7,7 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
       title
       text
       createdAt
-      updateAt
+      updatedAt
 
       category {
         createdAt

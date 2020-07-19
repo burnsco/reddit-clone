@@ -9,14 +9,11 @@ import {
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 import { CommentFooter } from './styles'
 
-function CommentsPage({
-  props: {
-    subscribeToNewComments,
-    data: {
-      post: { comments },
-    },
-  },
-}) {
+function CommentsPage(props) {
+  const { subscribeToNewComments } = props
+  // eslint-disable-next-line react/destructuring-assignment
+  const { comments } = props.data.post
+
   useEffect(() => {
     const unsubscribe = subscribeToNewComments()
     return function cleanUp() {
@@ -45,5 +42,4 @@ function CommentsPage({
     </>
   )
 }
-
 export default CommentsPage
