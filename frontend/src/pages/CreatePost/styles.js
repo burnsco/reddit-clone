@@ -33,6 +33,7 @@ export const CreateAccountLink = styled(Link)`
   color: red;
   font-weight: bold;
   margin-top: 50px;
+
   &:hover {
     text-decoration: underline;
   }

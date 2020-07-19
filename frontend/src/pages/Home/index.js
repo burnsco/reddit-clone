@@ -3,12 +3,12 @@ import { useQuery } from '@apollo/client'
 import { useNavigate } from '@reach/router'
 import { FeedContainer, HomeContainer, SidebarContainer } from './styles.js'
 import Categories from '../../components/Categories'
-import { GET_CATEGORIES } from '../CreatePost/query.js'
 import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
 import CreationButtons from './CreationButtons.js'
+import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories.js'
 
 const HomePage = ({ children }) => {
-  const { loading, error, data } = useQuery(GET_CATEGORIES)
+  const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)
   const navigate = useNavigate()
 
   if (loading) return <MainSpinner />

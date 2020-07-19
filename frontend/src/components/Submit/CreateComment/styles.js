@@ -14,15 +14,15 @@ export const InputCommentBox = styled.input`
   white-space: pre-wrap;
   overflow-wrap: break-word;
   border: 1px solid #ebedf0;
-  background: #ffffff;
+  background: #fff;
   border-radius: 5px;
   min-width: 500px;
   display: block;
   width: 100%;
   min-height: 100px;
-  display: flex;
   vertical-align: baseline;
   word-break: break-word;
+
   &:hover {
     border: 1px solid #6b6969;
   }
@@ -46,6 +46,7 @@ export const SubmitCommentButton = styled.button`
   color: white;
   border: none;
   height: 30px;
+
   &:hover {
     background-color: #e8c36e;
   }

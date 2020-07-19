@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 
 export const GET_USER_PROFILE_DATA = gql`
   query getUserProfileData($userID: String!) {

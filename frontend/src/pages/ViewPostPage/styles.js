@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Link } from '@reach/router'
 
 export const PostContainer = styled.div`
-  background: #ffffff;
+  background: #fff;
   display: flex;
   margin-bottom: 20px;
   border-radius: 5px;
@@ -17,7 +17,6 @@ export const VoteBoxContainer = styled.div`
 export const PostDetailsContainer = styled.div`
   margin-top: 5px;
   min-height: 100px;
-
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -33,6 +32,7 @@ export const PostCategory = styled.div`
   &:hover {
     text-decoration: underline;
   }
+
   font-weight: 700;
   color: black;
 `
@@ -45,6 +45,7 @@ export const UserName = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
+
   color: #85898b;
 `
 
@@ -59,7 +60,6 @@ export const PostText = styled.div`
 
 export const PostFooter = styled.div`
   margin-top: 20px;
-
   display: flex;
   width: 100%;
 `
@@ -68,6 +68,7 @@ export const PostComments = styled.div`
   padding: 5px;
   margin-bottom: 5px;
   color: grey;
+
   &:hover {
     background: #ebedf0;
   }
@@ -96,9 +97,8 @@ export const CommentCreatedAt = styled.span`
 export const PostAndCommentsContainer = styled.section`
   width: 100%;
   border-radius: 5px;
-  border: 1px solid #ffffff;
-
-  background: #ffffff;
+  border: 1px solid #fff;
+  background: #fff;
 `
 
 export const CommentBody = styled.div`

@@ -11,9 +11,9 @@ import { CommentFooter } from '../styles'
 import EditComment from '../EditComment'
 import DeleteComment from '../DeleteComment'
 import { timeDifferenceForDate } from '../../../../utils/timeDifferenceForDate'
-import { UPDATE_COMMENT_MUTATION } from '../EditComment/mutation'
 import MainSpinner from '../../../../components/shared/FallBackSpinner'
 import { CURRENT_USER_QUERY } from '../../../../graphql/Query/current_user'
+import { UPDATE_COMMENT_MUTATION } from '../../../../graphql/Mutation/update_comment'
 
 const CommentComponent = ({ postID, refetch, comment }) => {
   const { data } = useQuery(CURRENT_USER_QUERY)

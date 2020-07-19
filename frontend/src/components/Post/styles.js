@@ -3,12 +3,13 @@ import { Link } from '@reach/router'
 
 export const PostContainer = styled.div`
   border: 1px solid #ebedf0;
-  background: #ffffff;
+  background: #fff;
   border-radius: 5px;
   display: flex;
   margin-bottom: 20px;
   min-height: 100px;
   width: 100%;
+
   &:hover {
     border: 1px solid #ced1db;
   }
@@ -52,6 +53,7 @@ export const UserName = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
+
   color: #85898b;
 `
 
@@ -67,6 +69,7 @@ export const PostComments = styled.div`
   padding: 5px;
   margin-bottom: 5px;
   color: grey;
+
   &:hover {
     background: #ebedf0;
   }
@@ -76,6 +79,7 @@ export const PostCategory = styled.div`
   &:hover {
     text-decoration: underline;
   }
+
   font-weight: 700;
   color: black;
 `

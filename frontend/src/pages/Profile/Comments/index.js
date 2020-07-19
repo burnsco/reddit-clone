@@ -1,8 +1,8 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { GET_USER_COMMENTS_QUERY } from './query'
 import CommentComponent from '../../ViewPostPage/CommentsPage/Comment'
 import MainSpinner from '../../../components/shared/FallBackSpinner'
+import { GET_USER_COMMENTS_QUERY } from '../../../graphql/Query/user_comments'
 
 const ProfileComments = () => {
   const { data, loading, error } = useQuery(GET_USER_COMMENTS_QUERY)

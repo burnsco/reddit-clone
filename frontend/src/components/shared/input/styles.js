@@ -12,4 +12,3 @@ export const CreatePostInput = styled.input`
   border: 1px solid #ebedf0;
   width: 100%;
 `
-export const CreatePostType = styled.div``

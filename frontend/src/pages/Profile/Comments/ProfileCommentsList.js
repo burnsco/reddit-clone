@@ -7,13 +7,11 @@ export const CommentsContainer = styled.div`
   margin-top: 10px;
 `
 
-const ProfileCommentsList = ({comment}) => {
-  return (
-    <CommentsContainer>
-      <p>{comment.author}</p>
-      <p>{comment.body}</p>
-    </CommentsContainer>
-  )
-}
+const ProfileCommentsList = ({ comment }) => (
+  <CommentsContainer>
+    <p>{comment.author}</p>
+    <p>{comment.body}</p>
+  </CommentsContainer>
+)
 
 export default ProfileCommentsList

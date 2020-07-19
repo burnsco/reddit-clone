@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/client'
 import {
   InputCommentBox,
   InputCommentFooter,
-  Container,
   SubmitCommentButton,
 } from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
@@ -42,7 +41,7 @@ function CreateCommentForm({ postID, refetch }) {
   }
 
   return (
-    <Container>
+    <>
       <form onSubmit={handleSubmit}>
         <InputCommentBox
           ref={(node) => {
@@ -61,7 +60,7 @@ function CreateCommentForm({ postID, refetch }) {
           <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
         </InputCommentFooter>
       </form>
-    </Container>
+    </>
   )
 }
 

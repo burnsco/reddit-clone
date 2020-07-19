@@ -1,8 +1,8 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
+import Select from 'react-select'
 import {
   TopControls,
-  TopControlSelect,
   TopControlButtonPost,
   TopControlButtonCategory,
   TopControlSelectContainer,
@@ -24,11 +24,7 @@ const CreationButtons = ({ options, handleSelect }) => {
       <>
         <TopControls>
           <TopControlSelectContainer>
-            <TopControlSelect
-              name="category"
-              options={options}
-              onChange={handleSelect}
-            />
+            <Select name="category" options={options} onChange={handleSelect} />
           </TopControlSelectContainer>
           <TopControlButtonPost to="/submit">Post</TopControlButtonPost>
           <TopControlButtonCategory to="/createCategory">

@@ -8,7 +8,7 @@ export const CategoriesContainer = styled.aside`
   flex-direction: column;
   border-radius: 5px;
   border: 1px solid #ebedf0;
-  background: #ffffff;
+  background: #fff;
 `
 export const CategoryLinksContainer = styled.div`
   padding: 10px;
@@ -24,12 +24,14 @@ export const ContainerHeader = styled(Link)`
   color: white;
   border: none;
   height: 30px;
+
   &:hover {
     background-color: #8ca2ea;
   }
 `
 export const CategoryLink = styled(NavLink)`
   margin-top: 10px;
+
   &:hover {
     background: #ebedf0;
   }

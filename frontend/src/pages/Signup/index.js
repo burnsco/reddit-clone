@@ -10,7 +10,7 @@ import {
   WarningMessage,
 } from './styles'
 import MainSpinner from '../../components/shared/FallBackSpinner'
-import { SIGN_UP_MUTATION } from './mutation'
+import { SIGN_UP_MUTATION } from '../../graphql/Mutation/signup_user'
 
 function SignUpPage() {
   const [email, setEmail] = useState('')
@@ -22,7 +22,7 @@ function SignUpPage() {
   })
 
   if (loading) return <MainSpinner />
-  if (error) return <div>error!</div>
+  if (error) return <div>error! contact site owner</div>
 
   const handleSubmit = async (event) => {
     event.preventDefault()
