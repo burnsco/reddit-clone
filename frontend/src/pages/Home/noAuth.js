@@ -12,11 +12,11 @@ import {
   TopControlButtonCategory,
 } from './styles.js'
 import Categories from '../../components/Categories'
-import { GET_CATEGORIES } from '../CreatePost/query.js'
 import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
+import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories.js'
 
 const HomePage = ({ children }) => {
-  const { loading, error, data } = useQuery(GET_CATEGORIES)
+  const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)
   const navigate = useNavigate()
 
   if (loading) return <MainSpinner />
@@ -47,18 +47,8 @@ const HomePage = ({ children }) => {
             />
           </TopControlSelectContainer>
           {/* FIXME make these redirect to login */}
-          <TopControlButtonPost
-            to="/submit"
-            disabled
-            onClick={() => navigate('signup', { replace: true })}
-          >
-            Post
-          </TopControlButtonPost>
-          <TopControlButtonCategory
-            to="/createCategory"
-            disabled
-            onClick={() => navigate('signup', { replace: true })}
-          >
+          <TopControlButtonPost to="/signup">Post</TopControlButtonPost>
+          <TopControlButtonCategory to="/signup">
             Category
           </TopControlButtonCategory>
         </TopControls>
