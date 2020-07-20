@@ -14,10 +14,8 @@
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
 </p>
 
-A full-stack clone of reddit using React and GraphQL. React hooks, Apollo
-client/server, styled components, refresh tokens and full JWT authentication are
-some of the technologies used to make this project. Made it to learn how to make
-an entire front and backend with the latest TECH.
+A full-stack clone of reddit using the newest tech I could find. 
+React, GraphQL, Apollo client and server, styled components (and system), JWT refresh tokens (security) and real time post and comments.
 
 [**Demo Website**]( site down at the moment --corey)
 

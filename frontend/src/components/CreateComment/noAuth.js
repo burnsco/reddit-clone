@@ -11,12 +11,14 @@ const CommentLinks = styled.div`
   @media (min-width: 768px) {
     display: none;
   }
+
   padding: 10px;
   margin: 5px;
   border: 1px solid #33a0ff;
   border-radius: 5px;
+
   &:hover {
-    box-shadow: 2px 1px 2px 0px rgba(0, 0, 0, 0.37);
+    box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.37);
   }
 `
 
