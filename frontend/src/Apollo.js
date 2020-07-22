@@ -129,6 +129,7 @@ const client = new ApolloClient({
             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
           )
         )
+
       if (networkError) console.log(`[Network error]: ${networkError}`)
     }),
     apolloLogger,

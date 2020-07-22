@@ -1,16 +1,22 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import '@babel/polyfill/noConflict'
-import { ApolloServer, PubSub } from 'apollo-server-express'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
+
+import { ApolloServer, AuthenticationError, PubSub } from 'apollo-server-express'
+
+
 import express from 'express'
 import cors from 'cors'
 import http from 'http'
 import jwt from 'jsonwebtoken'
-import { importSchema } from 'graphql-import'
-import { makeExecutableSchema } from 'graphql-tools'
 import cookieParser from 'cookie-parser'
+
+import { makeExecutableSchema } from '@graphql-tools/schema'
 import db from './context/index'
+import typeDefs from './schema.graphql'
 import resolvers from './resolvers/root'
+
 import { getUser, createAccessToken, sendRefreshToken, createRefreshToken } from './utils'
 
 const app = express()
@@ -51,7 +57,8 @@ app.post('/refresh_token', cors(corsOptions), async (req, res) => {
   return res.send({ ok: true, accessToken: createAccessToken(user) })
 })
 
-const typeDefs = importSchema('./src/schema.graphql')
+
+
 const schema = makeExecutableSchema({
   typeDefs: [typeDefs],
   resolvers,

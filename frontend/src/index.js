@@ -16,12 +16,7 @@ const App = () => (
   </ThemeProvider>
 )
 
-render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+render(<App />, document.getElementById('root'))
 
 if (module.hot) {
   module.hot.accept()

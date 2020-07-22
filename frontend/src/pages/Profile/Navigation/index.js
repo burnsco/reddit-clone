@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProfileNavigationLinks, ProfileNavigationLink } from '../styles'
+import { ProfileNavigationLink, ProfileNavigationLinks } from '../styles'
 
 function ProfileNavigation({ userID }) {
   return (

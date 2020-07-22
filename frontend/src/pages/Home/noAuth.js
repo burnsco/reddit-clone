@@ -10,7 +10,7 @@ import {
   TopControlSelectContainer,
   TopControlButtonPost,
   TopControlButtonCategory,
-} from './styles.js'
+} from './styles'
 import Categories from '../../components/Categories'
 import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
 import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories.js'

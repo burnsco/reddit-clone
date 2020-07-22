@@ -11,9 +11,9 @@ import {
   HalfLogo,
 } from './styles'
 import MainSpinner from '../../shared/FallBackSpinner'
-import { CategoryLink } from '../Categories/styles'
 import { CURRENT_USER_QUERY } from '../../../graphql/Query/current_user'
 import NoAuthHeader from '../NoAuthHeader'
+import { CategoryLink } from '../../Categories/styles'
 
 const Header = () => {
   const { client, loading, data } = useQuery(CURRENT_USER_QUERY, {

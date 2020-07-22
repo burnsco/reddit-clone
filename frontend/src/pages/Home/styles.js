@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import Select from 'react-select'
 
 export const HomeContainer = styled.div`
   display: flex;
@@ -32,6 +33,10 @@ export const TopControls = styled.div`
 
 export const TopControlSelectContainer = styled.div`
   flex-grow: 2;
+`
+
+export const TopControlSelect = styled(Select)`
+  border: '2px solid grey';
 `
 
 export const TopControlButtonPost = styled(Link)`
