@@ -4,7 +4,6 @@ import { WebSocketLink } from '@apollo/client/link/ws'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import jwtDecode from 'jwt-decode'
-import apolloLogger from 'apollo-link-logger'
 import { onError } from '@apollo/client/link/error'
 import { RetryLink } from '@apollo/client/link/retry'
 import {
@@ -132,7 +131,6 @@ const client = new ApolloClient({
 
       if (networkError) console.log(`[Network error]: ${networkError}`)
     }),
-    apolloLogger,
     refreshLink,
     requestLink,
     retryLink,

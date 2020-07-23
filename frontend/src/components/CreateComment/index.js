@@ -1,5 +1,6 @@
 import React from 'react'
 import { useMutation } from '@apollo/client'
+import PropTypes from 'prop-types'
 import {
   InputCommentBox,
   InputCommentFooter,
@@ -62,6 +63,11 @@ function CreateCommentForm({ postID, refetch }) {
       </form>
     </>
   )
+}
+
+CreateCommentForm.propTypes = {
+  postID: PropTypes.string.isRequired,
+  refetch: PropTypes.func,
 }
 
 export default CreateCommentForm

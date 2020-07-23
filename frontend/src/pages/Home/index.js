@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import { useNavigate } from '@reach/router'
+import PropTypes from 'prop-types'
 import { FeedContainer, HomeContainer, SidebarContainer } from './styles.js'
 import Categories from '../../components/Categories'
 import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
@@ -39,4 +40,9 @@ const HomePage = ({ children }) => {
     </HomeContainer>
   )
 }
+
+HomePage.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 export default HomePage
