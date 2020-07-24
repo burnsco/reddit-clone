@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import {
-  CommentsContainer,
   CommentHeader,
   UserName,
   CommentCreatedAt,
@@ -14,11 +13,11 @@ import { timeDifferenceForDate } from '../../../../utils/timeDifferenceForDate'
 import MainSpinner from '../../../../components/shared/FallBackSpinner'
 import { CURRENT_USER_QUERY } from '../../../../graphql/Query/current_user'
 import { UPDATE_COMMENT_MUTATION } from '../../../../graphql/Mutation/update_comment'
+import Box from '../../../../styles/components/Box'
 
 const CommentComponent = ({ postID, refetch, comment }) => {
   const { data } = useQuery(CURRENT_USER_QUERY)
   const [editComment, { loading, error }] = useMutation(UPDATE_COMMENT_MUTATION)
-
   const [showComment, setShowComment] = useState(true)
 
   let input
@@ -84,7 +83,7 @@ const CommentComponent = ({ postID, refetch, comment }) => {
   }
 
   return (
-    <CommentsContainer>
+    <Box mx={[2, 3, 4]} my={[2, 3, 4]}>
       <CommentHeader>
         <UserName to={`/r/profile/${comment.createdBy.username}`}>
           {' '}
@@ -115,7 +114,7 @@ const CommentComponent = ({ postID, refetch, comment }) => {
         {!showComment ? saveCancel() : null}
         {showComment ? editDelete() : null}
       </CommentFooter>
-    </CommentsContainer>
+    </Box>
   )
 }
 

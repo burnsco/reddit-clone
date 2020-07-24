@@ -35,7 +35,7 @@ export const ProfileFeedContainer = styled.div`
 
 export const CommentsContainer = styled.div`
   border: 1px solid grey;
-  padding: 10px;
+  padding: 5px;
   margin-top: 10px;
 `
 

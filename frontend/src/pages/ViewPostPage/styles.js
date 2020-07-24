@@ -80,12 +80,6 @@ export const CommentHeader = styled.div`
   color: #ced1db;
 `
 
-export const CommentsContainer = styled.div`
-  margin-top: 20px;
-  margin-left: 45px;
-  margin-right: 45px;
-  margin-bottom: 20px;
-`
 export const CommentAuthor = styled.div`
   margin-left: 15px;
 `

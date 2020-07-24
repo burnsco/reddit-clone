@@ -16,7 +16,8 @@ import {
   UserName,
 } from '../styles.js'
 import VoteBox from '../VoteBox'
-import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
+import formatCommentText from '../../../utils/comments.js'
+import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate.js'
 
 const CommentIcon = styled(CommentAlt)`
   color: grey;
@@ -61,10 +62,8 @@ const Post = ({
           {' '}
           <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
             <CommentIcon />
-            {comments.length}{' '}
-            {comments.length < 10 && comments.length !== 0
-              ? 'comment'
-              : 'comments'}
+            {comments.length}
+            {formatCommentText(comments.length)}
           </Link>
         </PostComments>
       </PostFooter>
