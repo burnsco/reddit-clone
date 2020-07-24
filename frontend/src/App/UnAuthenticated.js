@@ -18,7 +18,7 @@ export default function UnAuthenticatedApp() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:4000/refresh_token', {
+    fetch(process.env.REACT_APP_REFRESH, {
       method: 'POST',
       credentials: 'include',
     }).then(async (x) => {

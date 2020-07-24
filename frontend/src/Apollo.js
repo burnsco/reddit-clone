@@ -19,15 +19,18 @@ import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 import AppProviders from './context'
 
+const httpUri = process.env.REACT_APP_HTTPLINK
+export const refreshUri = process.env.REACT_APP_REFRESH
+const websocketUri = process.env.REACT_APP_WSLINK
+
 const cache = new InMemoryCache()
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: httpUri,
   credentials: 'include',
 })
 
-const GRAPHQL_ENDPOINT = 'ws://localhost:4000/subscriptions'
-const wsClient = new SubscriptionClient(GRAPHQL_ENDPOINT, {
+const wsClient = new SubscriptionClient(websocketUri, {
   reconnect: true,
 })
 const wsLink = new WebSocketLink(wsClient)
@@ -94,7 +97,7 @@ const refreshLink = new TokenRefreshLink({
     }
   },
   fetchAccessToken: () =>
-    fetch('http://localhost:4000/refresh_token', {
+    fetch(refreshUri, {
       method: 'POST',
       credentials: 'include',
     }),
