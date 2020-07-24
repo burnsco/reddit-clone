@@ -9,6 +9,7 @@ export const SUBMIT_POST_MUTATION = gql`
       post {
         id
         title
+        text
         createdAt
       }
     }

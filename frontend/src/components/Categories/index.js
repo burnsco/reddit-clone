@@ -17,7 +17,7 @@ function Categories() {
   return (
     <CategoriesContainer>
       <CreationButtons />
-      <CategoryLinksContainer>
+      <CategoryLinksContainer p="2">
         <CategoryLink to="/">r/all</CategoryLink>
         {data.categories.map((category) => (
           <CategoryLink to={`/r/${category.name}`} key={category.id}>

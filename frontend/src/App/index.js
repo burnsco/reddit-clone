@@ -1,41 +1,18 @@
-import React, { useEffect, Suspense, lazy } from 'react'
-import { useLazyQuery } from '@apollo/client'
+import React from 'react'
+import { useQuery } from '@apollo/client'
 import MainSpinner from '../components/shared/FallBackSpinner'
-import { useUser } from '../context/user-context'
 import { CURRENT_USER_QUERY } from '../graphql/Query/current_user'
+import AuthenticatedApp from './Authenticated'
+import UnAuthenticatedApp from './UnAuthenticated'
 
-const loadAuthenticatedApp = () => import('./Authenticated')
-const AuthenticatedApp = lazy(loadAuthenticatedApp)
-const UnauthenticatedApp = lazy(() => import('./UnAuthenticated'))
+export default function App() {
+  const { data, loading } = useQuery(CURRENT_USER_QUERY)
 
-function App() {
-  const [currentUser, { data }] = useLazyQuery(CURRENT_USER_QUERY, {
-    fetchPolicy: 'network-only',
-  })
-
-  const user = useUser()
-
-  useEffect(() => {
-    loadAuthenticatedApp()
-  }, [])
-
-  useEffect(() => {
-    currentUser()
-  }, [currentUser])
-
-  if (user === null && data && data.currentUser) {
-    return (
-      <Suspense fallback={<MainSpinner />}>
-        <AuthenticatedApp />
-      </Suspense>
-    )
-  }
+  if (loading) return <MainSpinner />
 
   return (
-    <Suspense fallback={<MainSpinner />}>
-      {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-    </Suspense>
+    <>
+      {data && data.currentUser ? <AuthenticatedApp /> : <UnAuthenticatedApp />}
+    </>
   )
 }
-
-export default App

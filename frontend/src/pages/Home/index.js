@@ -9,7 +9,9 @@ import CreationButtons from './CreationButtons.js'
 import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories.js'
 
 const HomePage = ({ children }) => {
-  const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)
+  const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY, {
+    pollInterval: 500,
+  })
   const navigate = useNavigate()
 
   if (loading) return <MainSpinner />

@@ -8,6 +8,8 @@ export const CREATE_CATEGORY_MUTATION = gql`
       message
       category {
         id
+        createdAt
+        updatedAt
         name
       }
     }

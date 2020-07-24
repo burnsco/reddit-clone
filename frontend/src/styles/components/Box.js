@@ -1,12 +1,14 @@
 import styled from 'styled-components'
-import { typography, space, color, layout } from 'styled-system'
+import { space, layout } from 'styled-system'
 
-const Box = styled.div`
-  box-sizing: border-box;
-  ${layout}
-  ${typography}
-  ${space}
-  ${color}
-`
+const Box = styled('div')(
+  {
+    boxSizing: 'border-box',
+    margin: 0,
+    minWidth: 0,
+  },
+  space,
+  layout
+)
 
 export default Box

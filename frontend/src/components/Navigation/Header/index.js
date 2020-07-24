@@ -16,7 +16,7 @@ import NoAuthHeader from '../NoAuthHeader'
 import { CategoryLink } from '../../Categories/styles'
 
 const Header = () => {
-  const { client, loading, data } = useQuery(CURRENT_USER_QUERY, {
+  const { loading, data } = useQuery(CURRENT_USER_QUERY, {
     fetchPolicy: 'network-only',
   })
 
@@ -35,11 +35,7 @@ const Header = () => {
 
           <HeaderLinks>
             <CategoryLink to="/profile">
-              <UserIcon
-                onClick={() => {
-                  client.resetStore()
-                }}
-              />
+              <UserIcon />
               {data ? data.currentUser.username : 'no user'}
             </CategoryLink>
 

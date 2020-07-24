@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 import NavLink from '../shared/NavLink'
+import Flex from '../../styles/components/Flex'
 
 export const CategoriesContainer = styled.aside`
   display: flex;
@@ -10,9 +11,7 @@ export const CategoriesContainer = styled.aside`
   border: 1px solid #ebedf0;
   background: #fff;
 `
-export const CategoryLinksContainer = styled.div`
-  padding: 10px;
-  display: flex;
+export const CategoryLinksContainer = styled(Flex)`
   flex-direction: column;
 `
 export const ContainerHeader = styled(Link)`

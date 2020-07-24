@@ -6,16 +6,16 @@ import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import MainSpinner from '../../components/shared/FallBackSpinner'
-
 import { GET_ALL_POSTS_QUERY } from '../../graphql/Query/all_posts'
 import { SUBMIT_POST_MUTATION } from '../../graphql/Mutation/submit_post'
+import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories'
 
 function CreatePostPage() {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   const [categoryID, setCategoryID] = useState('')
 
-  const { loading, data } = useQuery(GET_ALL_POSTS_QUERY)
+  const { loading, data } = useQuery(GET_CATEGORIES_QUERY)
 
   const [createPost, { error }] = useMutation(SUBMIT_POST_MUTATION, {
     update(
@@ -52,9 +52,9 @@ function CreatePostPage() {
       console.log(error)
     }
   }
-  const handleSelect = (catID) => {
-    setCategoryID(catID)
-    console.log(`Option selected: ${catID} `)
+  const handleSelect = (categoryid) => {
+    setCategoryID(categoryid)
+    console.log(`Option selected: `, categoryid)
   }
 
   const handleChange = (event) => {

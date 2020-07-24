@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs"
 import {
   BadCredentials,
   NoAuthorization,
@@ -9,8 +9,8 @@ import {
   PostDoesNotExist,
   UserNotLoggedIn,
   CommentDoesNotExist
-} from '../constants'
-import { createAccessToken, createRefreshToken } from '../utils'
+} from "../constants"
+import { createAccessToken, createRefreshToken } from "../utils"
 
 const Mutation = {
   async createVote(root, { data }, { db, user }, info) {
@@ -35,9 +35,9 @@ const Mutation = {
         data: { where: { id: data.postID }, score: data.score }
       })
       return {
-        code: '200',
+        code: "200",
         success: true,
-        message: 'vote submitted',
+        message: "vote submitted",
         vote,
         score
       }
@@ -58,9 +58,9 @@ const Mutation = {
         data: { where: { id: data.postID }, score: data.score }
       })
       return {
-        code: '200',
+        code: "200",
         success: true,
-        message: 'vote submitted',
+        message: "vote submitted",
         vote,
         score
       }
@@ -79,9 +79,11 @@ const Mutation = {
         name: data.name
       }
     })
+    console.log("created category ==>")
+    console.log(category)
 
     return {
-      code: '200',
+      code: "200",
       success: true,
       message: `subreddit Created!`,
       category
@@ -104,12 +106,12 @@ const Mutation = {
 
     const accessToken = await createAccessToken(user)
 
-    res.cookie('redt', createRefreshToken(user), { httpOnly: true })
+    res.cookie("redt", createRefreshToken(user), { httpOnly: true })
 
     return {
-      code: '200',
+      code: "200",
       success: true,
-      message: 'User was Created',
+      message: "User was Created",
       user,
       accessToken
     }
@@ -130,12 +132,12 @@ const Mutation = {
 
     const accessToken = await createAccessToken(user)
 
-    res.cookie('redt', createRefreshToken(user), { httpOnly: true })
+    res.cookie("redt", createRefreshToken(user), { httpOnly: true })
 
     return {
-      code: '200',
+      code: "200",
       success: true,
-      message: 'Login Successful',
+      message: "Login Successful",
       accessToken,
       user
     }
@@ -164,9 +166,9 @@ const Mutation = {
     })
 
     return {
-      code: '200',
+      code: "200",
       success: true,
-      message: 'Post Created Successfully',
+      message: "Post Created Successfully",
       post
     }
   },
@@ -220,9 +222,9 @@ const Mutation = {
     })
 
     return {
-      code: '200',
+      code: "200",
       success: true,
-      message: 'Comment Created Successfully!',
+      message: "Comment Created Successfully!",
       comment
     }
   },
@@ -254,9 +256,9 @@ const Mutation = {
     })
 
     return {
-      code: '200',
+      code: "200",
       success: true,
-      message: 'Comment Updated Successfully!',
+      message: "Comment Updated Successfully!",
       comment
     }
   },
@@ -275,9 +277,9 @@ const Mutation = {
     })
 
     return {
-      code: '200',
+      code: "200",
       success: true,
-      message: 'comment deleted'
+      message: "comment deleted"
     }
   }
 }

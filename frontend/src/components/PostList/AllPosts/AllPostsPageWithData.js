@@ -12,7 +12,11 @@ function AllPostsPageWithData() {
 
   if (loading) return <MainSpinner />
 
-  if (error) return <div>Error! Contact the site owner.</div>
+  if (error) {
+    console.log('all posts page error ==>')
+    console.log(error)
+    return <div>Error, contact admin.</div>
+  }
 
   return (
     <>

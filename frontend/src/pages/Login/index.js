@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 import React, { useState, useContext } from 'react'
 import { useMutation } from '@apollo/client'
 import { useNavigate } from '@reach/router'
@@ -19,7 +20,7 @@ function LoginPage() {
   const { setData } = useContext(AuthContext)
 
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
-    variables: { email, password },
+    variables: { email: email, password: password },
   })
 
   const handleSubmit = async (event) => {
@@ -28,7 +29,7 @@ function LoginPage() {
     try {
       const data = await loginUser()
 
-      const { message, accessToken, code } = result.data.loginUser
+      const { message, accessToken, code } = data.data.loginUser
       setResult(message)
 
       if (code === '200') {
@@ -57,6 +58,7 @@ function LoginPage() {
 
   if (error) {
     console.log(error)
+    return <div>Error! contact admin</div>
   }
 
   return (

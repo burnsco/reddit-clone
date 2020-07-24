@@ -3,7 +3,6 @@ import { Router } from '@reach/router'
 import Home from '../pages/Home'
 import Header from '../components/Navigation/Header'
 import CreatePostPage from '../pages/CreatePost'
-import { AppContainer } from './styles'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
 import PostAndCommentsPage from '../pages/ViewPostPage/index'
@@ -15,8 +14,7 @@ import NotFound from '../pages/404'
 import ProfilePosts from '../pages/Profile/Posts'
 import ProfileComments from '../pages/Profile/Comments'
 import ProfileVotes from '../pages/Profile/Votes'
-
-// TODO fix authentication and refresh (kinda works, but its not perfect)
+import Container from '../styles/components/Container'
 
 function AuthenticatedApp() {
   const [loading, setLoading] = useState(true)
@@ -37,7 +35,7 @@ function AuthenticatedApp() {
   return (
     <>
       <Header />
-      <AppContainer>
+      <Container m={[0, 2, 4]}>
         <Router>
           <NotFound default />
           <ProfilePage path="profile">
@@ -54,7 +52,7 @@ function AuthenticatedApp() {
             <AllPostsPageWithData path="/" />
           </Home>
         </Router>
-      </AppContainer>
+      </Container>
     </>
   )
 }
