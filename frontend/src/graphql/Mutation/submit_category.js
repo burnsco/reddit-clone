@@ -9,7 +9,6 @@ export const CREATE_CATEGORY_MUTATION = gql`
       category {
         id
         createdAt
-        updatedAt
         name
       }
     }
