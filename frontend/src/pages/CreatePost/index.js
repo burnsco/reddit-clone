@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
 import { navigate } from '@reach/router'
@@ -18,18 +19,11 @@ function CreatePostPage() {
   const { loading, data } = useQuery(GET_CATEGORIES_QUERY)
 
   const [createPost, { error }] = useMutation(SUBMIT_POST_MUTATION, {
-    update(
-      cache,
-      {
-        data: {
-          createPost: { createdPost },
-        },
-      }
-    ) {
+    update(cache, { data: { createPost } }) {
       const { posts } = cache.readQuery({ query: GET_ALL_POSTS_QUERY })
       cache.writeQuery({
         query: GET_ALL_POSTS_QUERY,
-        data: { posts: posts.concat([createdPost]) },
+        data: { posts: posts.concat([createPost]) },
       })
     },
     variables: { title, text, categoryID: categoryID.value },
