@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { navigate } from '@reach/router'
@@ -17,18 +18,11 @@ function CreateCategoryPage() {
   const [result, setResult] = useState('')
 
   const [createCategory, { error }] = useMutation(CREATE_CATEGORY_MUTATION, {
-    update(
-      cache,
-      {
-        data: {
-          createCategory: { createdCategory },
-        },
-      }
-    ) {
+    update(cache, { data: { createCategory } }) {
       const { categories } = cache.readQuery({ query: GET_CATEGORIES_QUERY })
       cache.writeQuery({
         query: GET_CATEGORIES_QUERY,
-        data: { categories: categories.concat([createdCategory]) },
+        data: { categories: categories.concat([createCategory]) },
       })
     },
     variables: { name },
@@ -39,6 +33,7 @@ function CreateCategoryPage() {
 
     try {
       const results = await createCategory()
+      console.log('create category ==>')
       console.log(results)
       const { message, code } = results.data.createCategory
 
