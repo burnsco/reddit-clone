@@ -19,20 +19,19 @@ import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 import AppProviders from './context'
 
-const httpUri = process.env.REACT_APP_HTTPLINK
-export const refreshUri = process.env.REACT_APP_REFRESH
-const websocketUri = process.env.REACT_APP_WSLINK
-
 const cache = new InMemoryCache()
 
 const httpLink = new HttpLink({
-  uri: httpUri,
+  uri: 'https://reddit-clone-prod.herokuapp.com/graphql',
   credentials: 'include',
 })
 
-const wsClient = new SubscriptionClient(websocketUri, {
-  reconnect: true,
-})
+const wsClient = new SubscriptionClient(
+  `wss://reddit-clone-prod.herokuapp.com/subscriptions`,
+  {
+    reconnect: true,
+  }
+)
 const wsLink = new WebSocketLink(wsClient)
 
 const retryLink = new RetryLink({
@@ -97,7 +96,7 @@ const refreshLink = new TokenRefreshLink({
     }
   },
   fetchAccessToken: () =>
-    fetch(refreshUri, {
+    fetch('https://reddit-clone-prod.herokuapp.com/refresh_token', {
       method: 'POST',
       credentials: 'include',
     }),
