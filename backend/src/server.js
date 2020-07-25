@@ -30,8 +30,8 @@ import {
 const app = express()
 
 const corsOptions = {
-  origin: "https://reddit-frontend-now.sh",
-  credentials: "omit"
+  origin: process.env.FRONTEND_URL,
+  credentials: true
 }
 
 app.use(cookieParser())
