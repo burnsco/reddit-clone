@@ -31,7 +31,7 @@ const app = express()
 
 const corsOptions = {
   origin: "https://reddit-frontend-now.sh",
-  credentials: true
+  credentials: "omit"
 }
 
 app.use(cookieParser())
