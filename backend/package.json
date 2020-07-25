@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "main": "server.js",
+  "engines": {
+    "node": "12.18.3"
+  },
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon -r dotenv/config src/server.js --ext js,graphql --exec babel-node",
@@ -16,6 +19,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
     "@babel/preset-env": "^7.8.4",
     "@graphql-tools/schema": "^6.0.15",
     "@prisma/cli": "^2.2.0",
