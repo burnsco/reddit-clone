@@ -29,6 +29,7 @@ import {
 
 const app = express()
 
+// had to add all the domains!
 const whitelist = [
   "http://reddit-frontend.coreyburns.now.sh",
   "http://reddit-frontend.now.sh",
