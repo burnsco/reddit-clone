@@ -29,8 +29,25 @@ import {
 
 const app = express()
 
+const whitelist = [
+  "http://reddit-frontend.coreyburns.now.sh",
+  "http://reddit-frontend.now.sh",
+  "http://reddit-frontend.coreyburns.vercel.app",
+  "https://reddit-frontend.coreyburns.now.sh",
+  "https://reddit-frontend.now.sh",
+  "https://reddit-frontend.coreyburns.vercel.app"
+]
+
+function corsWhiteList(origin, callback) {
+  if (whitelist.indexOf(origin) !== -1) {
+    callback(null, true)
+  } else {
+    callback(new Error("Not allowed by CORS"))
+  }
+}
+
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  origin: corsWhiteList,
   credentials: true
 }
 
