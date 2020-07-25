@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "main": "server.js",
-  "engines": {
-    "node": "12.18.3"
-  },
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon -r dotenv/config src/server.js --ext js,graphql --exec babel-node",

@@ -30,7 +30,7 @@ import {
 const app = express()
 
 const corsOptions = {
-  origin: process.env.FRONTEND_URL,
+  origin: "https://reddit-frontend-now.sh",
   credentials: true
 }
 
