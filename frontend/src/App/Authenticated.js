@@ -20,7 +20,7 @@ function AuthenticatedApp() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('https://reddit-clone-prod.herokuapp.com/refresh_token', {
+    fetch(`${process.env.REACT_APP_REFRESH}`, {
       method: 'POST',
       credentials: 'include',
     }).then(async (x) => {

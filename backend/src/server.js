@@ -6,7 +6,7 @@ import "regenerator-runtime/runtime"
 import {
   ApolloServer,
   AuthenticationError,
-  PubSub
+  PubSub,
 } from "apollo-server-express"
 
 import express from "express"
@@ -24,19 +24,20 @@ import {
   getUser,
   createAccessToken,
   sendRefreshToken,
-  createRefreshToken
+  createRefreshToken,
 } from "./utils"
 
 const app = express()
 
 // had to add all the domains!
 const whitelist = [
+  "http://localhost:3000",
   "http://reddit-frontend.coreyburns.now.sh",
   "http://reddit-frontend.now.sh",
   "http://reddit-frontend.coreyburns.vercel.app",
   "https://reddit-frontend.coreyburns.now.sh",
   "https://reddit-frontend.now.sh",
-  "https://reddit-frontend.coreyburns.vercel.app"
+  "https://reddit-frontend.coreyburns.vercel.app",
 ]
 
 function corsWhiteList(origin, callback) {
@@ -49,7 +50,7 @@ function corsWhiteList(origin, callback) {
 
 const corsOptions = {
   origin: corsWhiteList,
-  credentials: true
+  credentials: true,
 }
 
 app.use(cookieParser())
@@ -71,8 +72,8 @@ app.post("/refresh_token", cors(corsOptions), async (req, res) => {
 
   const user = await db.query.user({
     where: {
-      id: payload.userID
-    }
+      id: payload.userID,
+    },
   })
 
   if (!user) {
@@ -87,8 +88,8 @@ const schema = makeExecutableSchema({
   typeDefs: [typeDefs],
   resolvers,
   resolverValidationOptions: {
-    requireResolversForResolveType: false
-  }
+    requireResolversForResolveType: false,
+  },
 })
 
 const pubsub = new PubSub()
@@ -99,7 +100,7 @@ const server = new ApolloServer({
     if (connection) {
       return {
         ...connection.context,
-        db
+        db,
       }
     }
 
@@ -108,7 +109,7 @@ const server = new ApolloServer({
       ...res,
       pubsub,
       user: await getUser(req),
-      db
+      db,
     }
   },
   subscriptions: {
@@ -120,10 +121,10 @@ const server = new ApolloServer({
     },
     onDisconnect: async (webSocket, context) => {
       console.log(`Subscription client disconnected.`)
-    }
+    },
   },
   introspection: true,
-  playground: true
+  playground: true,
 })
 
 server.applyMiddleware({ app, cors: corsOptions })
@@ -138,8 +139,6 @@ httpServer.listen(PORT, () => {
     `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
   )
   console.log(
-    `🚀 Subscriptions ready at ws://localhost:${PORT}${
-      server.subscriptionsPath
-    }`
+    `🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
   )
 })
