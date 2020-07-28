@@ -1,4 +1,4 @@
 {
   "presets": ["@babel/env"],
-  "plugins": ["import-graphql","@babel/plugin-proposal-object-rest-spread"]
+  "plugins": ["import-graphql"]
 }

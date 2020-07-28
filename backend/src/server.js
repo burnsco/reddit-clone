@@ -31,6 +31,8 @@ const app = express()
 
 // had to add all the domains!
 const whitelist = [
+  "http://localhost:3000",
+  "http://reddit-frontend-r93w8ffn7.vercel.app",
   "http://reddit-frontend.coreyburns.now.sh",
   "http://reddit-frontend.now.sh",
   "http://reddit-frontend.coreyburns.vercel.app",
