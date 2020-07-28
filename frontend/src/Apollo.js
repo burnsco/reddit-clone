@@ -22,16 +22,13 @@ import AppProviders from './context'
 const cache = new InMemoryCache()
 
 const httpLink = new HttpLink({
-  uri: 'https://reddit-clone-prod.herokuapp.com/graphql',
+  uri: process.env.REACT_APP_HTTPLINK,
   credentials: 'include',
 })
 
-const wsClient = new SubscriptionClient(
-  `wss://reddit-clone-prod.herokuapp.com/subscriptions`,
-  {
-    reconnect: true,
-  }
-)
+const wsClient = new SubscriptionClient(process.env.REACT_APP_WSLINK, {
+  reconnect: true,
+})
 const wsLink = new WebSocketLink(wsClient)
 
 const retryLink = new RetryLink({
@@ -96,7 +93,7 @@ const refreshLink = new TokenRefreshLink({
     }
   },
   fetchAccessToken: () =>
-    fetch('https://reddit-clone-prod.herokuapp.com/refresh_token', {
+    fetch(`${process.env.REACT_APP_REFRESH}`, {
       method: 'POST',
       credentials: 'include',
     }),
