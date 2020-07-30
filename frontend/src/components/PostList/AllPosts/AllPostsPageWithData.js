@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import PostsPage from './PostsPage'
 import MainSpinner from '../../shared/FallBackSpinner'
+import PostsPage from './PostsPage'
 import { GET_ALL_POSTS_QUERY } from '../../../graphql/Query/all_posts'
 import { POSTS_SUBSCRIPTION } from '../../../graphql/Subscription/posts'
 
@@ -13,9 +13,7 @@ function AllPostsPageWithData() {
   if (loading) return <MainSpinner />
 
   if (error) {
-    console.log('all posts page error ==>')
-    console.log(error)
-    return <div>Error, contact admin.</div>
+    return <div>Error! Contact site admin.</div>
   }
 
   return (

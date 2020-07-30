@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Post from '../../Post'
+import Post from '../Post'
 import { PostListContainer } from './styles'
 
 function PostsPage(data) {
