@@ -1,27 +1,60 @@
-import React, { useEffect } from 'react'
-import { useLazyQuery } from '@apollo/client'
-import { CURRENT_USER_QUERY } from '../graphql/Query/current_user'
-import { useUser } from '../context/user-context'
+import React, { useState, useEffect } from 'react'
+import { Router } from '@reach/router'
+import Home from '../pages/Home'
+import Header from '../components/Navigation/Header'
+import CreatePostPage from '../pages/CreatePost'
+import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
-import AuthenticatedApp from './Authenticated'
-import UnAuthenticatedApp from './UnAuthenticated'
+import PostAndCommentsPage from '../pages/ViewPostPage/index'
+import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWithData'
+import ProfilePage from '../pages/Profile/index'
+import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
+import CreateCategoryPage from '../pages/CreateCategory'
+import NotFound from '../pages/404'
+import ProfilePosts from '../pages/Profile/Posts'
+import ProfileComments from '../pages/Profile/Comments'
+import ProfileVotes from '../pages/Profile/Votes'
+import Container from '../styles/components/Container'
 
-function App() {
-  const [currentUser, { data, loading }] = useLazyQuery(CURRENT_USER_QUERY)
-
-  const user = useUser()
+function AuthenticatedApp() {
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    currentUser()
-  }, [currentUser])
+    fetch(`${process.env.REACT_APP_REFRESH}`, {
+      method: 'POST',
+      credentials: 'include',
+    }).then(async (x) => {
+      const { accessToken } = await x.json()
+      setAccessToken(accessToken)
+      setLoading(false)
+    })
+  }, [])
 
   if (loading) return <MainSpinner />
 
-  if (user === null && data && data.currentUser) {
-    return <AuthenticatedApp />
-  }
-
-  return <>{user ? <AuthenticatedApp /> : <UnAuthenticatedApp />}</>
+  return (
+    <>
+      <Header />
+      <Container m={[0, 2, 4]}>
+        <Router>
+          <NotFound default />
+          <ProfilePage path="profile">
+            <ProfilePosts path="/:userID/posts" />
+            <ProfileComments path="/:userID/comments" />
+            <ProfileVotes path="/:userID/votes" />
+          </ProfilePage>
+          <Home path="/">
+            <NotFound default />
+            <CategoryPostsPageWithData path="r/:category" />
+            <PostAndCommentsPage path="r/:category/:postID/comments" />
+            <CreatePostPage path="submit" />
+            <CreateCategoryPage path="createCategory" />
+            <AllPostsPageWithData path="/" />
+          </Home>
+        </Router>
+      </Container>
+    </>
+  )
 }
 
-export default App
+export default AuthenticatedApp
