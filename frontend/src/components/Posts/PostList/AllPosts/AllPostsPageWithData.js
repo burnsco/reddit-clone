@@ -6,20 +6,20 @@ import { GET_ALL_POSTS_QUERY } from '../../../../graphql/Query/all_posts'
 import { POSTS_SUBSCRIPTION } from '../../../../graphql/Subscription/posts'
 
 function AllPostsPageWithData() {
-  const { subscribeToMore, loading, error, ...result } = useQuery(
+  const { subscribeToMore, data, loading, error } = useQuery(
     GET_ALL_POSTS_QUERY
   )
 
   if (loading) return <MainSpinner />
 
   if (error) {
-    return <div>Error! Return whence you came!</div>
+    return <div>Error! Contact site admin.</div>
   }
 
   return (
     <>
       <PostsPage
-        {...result}
+        {...data}
         subscribeToNewPosts={() =>
           subscribeToMore({
             document: POSTS_SUBSCRIPTION,
