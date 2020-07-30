@@ -16,9 +16,7 @@ import NoAuthHeader from '../NoAuthHeader'
 import { CategoryLink } from '../../Categories/styles'
 
 const Header = () => {
-  const { loading, data } = useQuery(CURRENT_USER_QUERY, {
-    fetchPolicy: 'network-only',
-  })
+  const { loading, data } = useQuery(CURRENT_USER_QUERY)
 
   if (loading) return <MainSpinner />
 
@@ -39,23 +37,9 @@ const Header = () => {
               {data ? data.currentUser.username : 'no user'}
             </CategoryLink>
 
-            {/* TODO Create Logout Function with Cookies */}
-            {/* <HeaderLink
-              onClick={() => LogoutUser()}
-              as="button"
-              style={{ background: 'white' }}
-            >
+            <CategoryLink as="button" style={{ background: 'white' }}>
               <pre>SignOut</pre>
-            </HeaderLink> */}
-            {/* 
-            <HeaderLink
-              as="button"
-              onClick={e => {
-                setColorMode(colorMode === 'light' ? 'dark' : 'light')
-              }}
-            >
-              {colorMode}
-            </HeaderLink> */}
+            </CategoryLink>
           </HeaderLinks>
         </HeaderNavWrapper>
       </HeaderContainer>

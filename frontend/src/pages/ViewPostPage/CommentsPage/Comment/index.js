@@ -20,13 +20,14 @@ const CommentComponent = ({ postID, refetch, comment }) => {
   const [editComment, { loading, error }] = useMutation(UPDATE_COMMENT_MUTATION)
   const [showComment, setShowComment] = useState(true)
 
+  if (loading) return <MainSpinner />
+  if (error) return <div>error!</div>
+
   let input
 
   const commentCreatedBy = comment.createdBy.id
-  const userID = data.currentUser.id
 
-  if (loading) return <MainSpinner />
-  if (error) return <div>error!</div>
+  const userID = data.currentUser.id
 
   const saveCancel = () => {
     if (commentCreatedBy === userID) {

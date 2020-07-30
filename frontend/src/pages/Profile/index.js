@@ -17,7 +17,7 @@ function ProfilePage({ children }) {
     console.log(error)
   }
 
-  const { username } = data.currentUser
+  const { username, id } = data.currentUser
 
   return (
     <ProfileContainer>
@@ -25,7 +25,7 @@ function ProfilePage({ children }) {
         <h1 style={{ marginTop: `${50}px` }}>{username}</h1>
       </ProfileNavigationHeader>
 
-      <ProfileNavigation userID={data.currentUser.id} />
+      <ProfileNavigation userID={id} />
 
       <ProfileFeedContainer>{children}</ProfileFeedContainer>
     </ProfileContainer>

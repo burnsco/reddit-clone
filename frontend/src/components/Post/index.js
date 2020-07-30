@@ -62,19 +62,11 @@ const Post = ({
 
       <PostFooter>
         <PostComments>
-          {comments.length === 0 ? (
-            <span style={{ color: 'grey' }}>
-              <CommentIcon />
-              {comments.length}
-              {formatCommentText(comments.length)}
-            </span>
-          ) : (
-            <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
-              <CommentIcon />
-              {comments.length}
-              {formatCommentText(comments.length)}
-            </Link>
-          )}
+          <Link to={`/r/${name}/${id}/comments`} style={{ color: 'grey' }}>
+            <CommentIcon />
+            {comments.length}
+            {formatCommentText(comments.length)}
+          </Link>
         </PostComments>
       </PostFooter>
     </PostDetailsContainer>

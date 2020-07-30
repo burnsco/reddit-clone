@@ -4,7 +4,6 @@ import CommentsPage from './noAuthCommentsPage'
 import MainSpinner from '../../../components/shared/FallBackSpinner'
 import { GET_COMMENTS_QUERY } from '../../../graphql/Query/comments'
 import { COMMENTS_SUBSCRIPTION } from '../../../graphql/Subscription/comments'
-import ErrorBoundary from '../../../utils/ErrorBoundary'
 
 function CommentsPageWithData({ postID }) {
   const {
@@ -23,29 +22,27 @@ function CommentsPageWithData({ postID }) {
   if (error) return <div>error</div>
 
   return (
-    <ErrorBoundary>
-      <CommentsPage
-        {...result}
-        refetch={refetch}
-        postID={postID}
-        subscribeToNewComments={() =>
-          subscribeToMore({
-            document: COMMENTS_SUBSCRIPTION,
-            variables: { postID },
-            updateQuery: (prev, { subscriptionData }) => {
-              if (!subscriptionData.data) return prev
-              const newFeedItem = subscriptionData.data.commentAdded.node
-              return {
-                ...prev,
-                post: {
-                  comments: [newFeedItem, ...prev.post.comments],
-                },
-              }
-            },
-          })
-        }
-      />
-    </ErrorBoundary>
+    <CommentsPage
+      {...result}
+      refetch={refetch}
+      postID={postID}
+      subscribeToNewComments={() =>
+        subscribeToMore({
+          document: COMMENTS_SUBSCRIPTION,
+          variables: { postID },
+          updateQuery: (prev, { subscriptionData }) => {
+            if (!subscriptionData.data) return prev
+            const newFeedItem = subscriptionData.data.commentAdded.node
+            return {
+              ...prev,
+              post: {
+                comments: [newFeedItem, ...prev.post.comments],
+              },
+            }
+          },
+        })
+      }
+    />
   )
 }
 

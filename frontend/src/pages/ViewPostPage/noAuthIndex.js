@@ -3,7 +3,7 @@ import CommentsPageWithData from './CommentsPage/noAuthCommentsPageWithData'
 import PostPageWithData from './PostPage/PostPageWithData'
 import { PostAndCommentsContainer } from './styles'
 
-function PostAndCommentsPage({ postID }) {
+function NoAuthPostAndCommentsPage({ postID }) {
   return (
     <PostAndCommentsContainer>
       <PostPageWithData postID={postID} />
@@ -13,4 +13,4 @@ function PostAndCommentsPage({ postID }) {
   )
 }
 
-export default PostAndCommentsPage
+export default NoAuthPostAndCommentsPage
