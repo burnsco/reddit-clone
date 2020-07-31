@@ -15,7 +15,7 @@ import Categories from '../../components/Categories'
 import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
 import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories.js'
 
-const HomePage = ({ children }) => {
+const NoAuthHomePage = ({ children }) => {
   const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY)
   const navigate = useNavigate()
 
@@ -59,4 +59,4 @@ const HomePage = ({ children }) => {
     </HomeContainer>
   )
 }
-export default HomePage
+export default NoAuthHomePage
