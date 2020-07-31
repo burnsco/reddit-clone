@@ -106,7 +106,11 @@ const Mutation = {
 
     const accessToken = await createAccessToken(user)
 
-    res.cookie("redt", createRefreshToken(user), { httpOnly: true })
+    res.cookie("redt", createRefreshToken(user), {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true
+    })
 
     return {
       code: "200",

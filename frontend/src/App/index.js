@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Router } from '@reach/router'
 import Home from '../pages/Home'
 import Header from '../components/Navigation/Header'
+import LoginPage from '../pages/Login/index'
+import SignupPage from '../pages/Signup/index'
 import CreatePostPage from '../pages/CreatePost'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
@@ -49,6 +51,8 @@ function AuthenticatedApp() {
             <PostAndCommentsPage path="r/:category/:postID/comments" />
             <CreatePostPage path="submit" />
             <CreateCategoryPage path="createCategory" />
+            <LoginPage path="login" />
+            <SignupPage path="signup" />
             <AllPostsPageWithData path="/" />
           </Home>
         </Router>

@@ -1,24 +1,22 @@
 /* eslint-disable object-shorthand */
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { useNavigate } from '@reach/router'
 import { CustomButton } from '../../components/shared/CustomButton'
 import FormInput from '../../components/shared/FormInput'
 import { ButtonsBarContainer, SignInContainer, WelcomePage } from './styles'
 import { setAccessToken } from '../../context/access-token'
-import { AuthContext } from '../../context/auth-context'
 import { WarningMessage } from '../Signup/styles'
 import { LOGIN_MUTATION } from '../../graphql/Mutation/login'
-
-// TODO Refresh tokens is working, but logging in is not
+import MainSpinner from '../../components/shared/FallBackSpinner'
+import { useUser } from '../../context/user-context'
 
 function LoginPage() {
   const navigate = useNavigate()
   const [result, setResult] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { setData } = useContext(AuthContext)
-
+  const { setUser } = useUser()
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
   })
@@ -27,15 +25,16 @@ function LoginPage() {
     event.preventDefault()
 
     try {
-      const data = await loginUser()
+      const { data } = await loginUser()
 
-      const { message, accessToken, code } = data.data.loginUser
+      const { message, code } = data.loginUser
       setResult(message)
 
       if (code === '200') {
-        const { user } = data.data.loginUser
-        setData({ user })
+        const { user, accessToken } = data.loginUser
+        console.log(user)
         setAccessToken(accessToken)
+        setUser(user.username)
         alert(message)
         navigate('../', { replace: true })
       }
@@ -54,7 +53,7 @@ function LoginPage() {
     }
   }
 
-  if (loading) return <div>Loading</div>
+  if (loading) return <MainSpinner />
 
   if (error) {
     console.log(error)

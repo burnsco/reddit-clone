@@ -144,9 +144,9 @@ const client = new ApolloClient({
 })
 
 export const RedditApp = () => (
-  <AppProviders>
-    <ApolloProvider client={client}>
+  <ApolloProvider client={client}>
+    <AppProviders>
       <App />
-    </ApolloProvider>
-  </AppProviders>
+    </AppProviders>
+  </ApolloProvider>
 )
