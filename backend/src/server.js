@@ -29,32 +29,29 @@ import {
 
 const app = express()
 
-// had to add all the domains!
-// const whitelist = [
-//   "localhost",
-//   "127.0.0.1",
-//   "http://localhost:3000",
-//   "https://localhost:3000",
-//   "http://reddit-frontend-r93w8ffn7.vercel.app",
-//   "http://reddit-frontend.coreyburns.now.sh",
-//   "http://reddit-frontend.now.sh",
-//   "http://reddit-frontend.coreyburns.vercel.app",
-//   "https://reddit-frontend.coreyburns.now.sh",
-//   "https://reddit-frontend.now.sh",
-//   "https://reddit-frontend.coreyburns.vercel.app",
-//   "https://reddit-frontend-r93w8ffn7.vercel.app"
-// ]
+const whitelist = [
+  "http://localhost:3000",
+  "https://localhost:3000",
+  "http://reddit-frontend-r93w8ffn7.vercel.app",
+  "http://reddit-frontend.coreyburns.now.sh",
+  "http://reddit-frontend.now.sh",
+  "http://reddit-frontend.coreyburns.vercel.app",
+  "https://reddit-frontend.coreyburns.now.sh",
+  "https://reddit-frontend.now.sh",
+  "https://reddit-frontend.coreyburns.vercel.app",
+  "https://reddit-frontend-r93w8ffn7.vercel.app"
+]
 
-// function corsWhiteList(origin, callback) {
-//   if (whitelist.indexOf(origin) !== -1) {
-//     callback(null, true)
-//   } else {
-//     callback(new Error("Not allowed by CORS"))
-//   }
-// }
+function corsWhiteList(origin, callback) {
+  if (whitelist.indexOf(origin) !== -1) {
+    callback(null, true)
+  } else {
+    callback(new Error("Not allowed by CORS"))
+  }
+}
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: corsWhiteList,
   credentials: true
 }
 
