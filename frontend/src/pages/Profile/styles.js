@@ -40,5 +40,5 @@ export const CommentsContainer = styled.div`
 `
 
 export const PostListContainer = styled.section`
-  width: 100%;
+  min-width: 100%;
 `

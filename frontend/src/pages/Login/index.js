@@ -28,14 +28,18 @@ function LoginPage() {
       const { data } = await loginUser()
 
       const { message, code } = data.loginUser
+
       setResult(message)
 
       if (code === '200') {
         const { user, accessToken } = data.loginUser
-        console.log(user)
+
         setAccessToken(accessToken)
+
         setUser(user.username)
+
         alert(message)
+
         navigate('../', { replace: true })
       }
       return result

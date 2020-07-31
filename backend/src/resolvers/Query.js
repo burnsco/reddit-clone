@@ -1,9 +1,9 @@
-import { AuthenticationError } from 'apollo-server-express'
+import { AuthenticationError } from "apollo-server-express"
 
 const Query = {
   currentUser: async (root, args, { db, user }) => {
     if (!user.userID) {
-      throw new AuthenticationError('no user logged in')
+      throw new AuthenticationError("no user logged in")
     }
     const requested = await db.query.user({
       where: {
@@ -51,7 +51,7 @@ const Query = {
       orderBy: args.orderBy
     }
 
-    if (args.query === 'all') {
+    if (args.query === "all") {
       return db.query.posts(null, info)
     }
 
@@ -108,9 +108,13 @@ const Query = {
       orderBy: args.orderBy
     }
 
+    if (args.query === "all") {
+      return db.query.comments(null, info)
+    }
+
     if (args.userID) {
       opArgs.where = {
-        author: {
+        createdBy: {
           id: args.userID
         }
       }

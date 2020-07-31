@@ -20,8 +20,6 @@ const Header = () => {
   const { loading, data } = useQuery(CURRENT_USER_QUERY)
 
   const { user } = useAuth()
-  console.log(user)
-
   if (loading) return <MainSpinner />
 
   if ((data && data.currentUser) || user !== null) {

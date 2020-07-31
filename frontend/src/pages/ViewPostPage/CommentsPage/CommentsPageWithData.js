@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import CommentsPage from './CommentsPage'
 import MainSpinner from '../../../components/shared/FallBackSpinner'
 import { GET_COMMENTS_QUERY } from '../../../graphql/Query/comments'
-import { COMMENTS_SUBSCRIPTION } from '../../../graphql/Subscription/comments'
+import { POSTS_SUBSCRIPTION } from '../../../graphql/Subscription/posts'
 
 function CommentsPageWithData({ postID }) {
   const {
@@ -15,7 +15,7 @@ function CommentsPageWithData({ postID }) {
     ...result
   } = useQuery(GET_COMMENTS_QUERY, {
     variables: { postID },
-    notifyOnNetworkStatusChange: true,
+    pollInterval: 500,
   })
   if (networkStatus === 4) return <MainSpinner />
   if (loading) return <MainSpinner />
@@ -28,7 +28,7 @@ function CommentsPageWithData({ postID }) {
       postID={postID}
       subscribeToNewComments={() =>
         subscribeToMore({
-          document: COMMENTS_SUBSCRIPTION,
+          document: POSTS_SUBSCRIPTION,
           variables: { postID },
           updateQuery: (prev, { subscriptionData }) => {
             if (!subscriptionData.data) return prev
