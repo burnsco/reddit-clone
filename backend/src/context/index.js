@@ -2,7 +2,7 @@ import { Prisma } from "prisma-binding"
 
 const db = new Prisma({
   typeDefs: "src/generated/prisma.graphql",
-  endpoint: "http://mysterious-citadel-06253.herokuapp.com"
+  endpoint: "https://prisma-container.herokuapp.com"
 })
 
 export default db
