@@ -1,26 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
-import { Container, Votes } from './styles'
+import { Heart, HeartFill } from '@styled-icons/bootstrap'
+import { Container } from './styles'
 
-const UpArrow = styled(UpArrowSquare)`
+const UnLikedHeart = styled(Heart)`
+  color: 'white';
   &:hover {
     color: red;
   }
 `
 
-const DownArrow = styled(DownArrowSquare)`
+const LikedHeart = styled(HeartFill)`
+  color: 'pink';
   &:hover {
-    color: red;
+    color: white;
   }
 `
 
-const VoteBox = () => (
-  <Container>
-    <UpArrow />
-    <Votes>0</Votes>
-    <DownArrow />
-  </Container>
-)
+const VoteBox = ({ voted }) => {
+  const [vote, setVote] = useState(false)
+  const toggleVote = () => {
+    setVote(!vote)
+  }
 
+  return (
+    <Container onClick={toggleVote}>
+      {voted ? <LikedHeart /> : <UnLikedHeart />}
+    </Container>
+  )
+}
 export default VoteBox

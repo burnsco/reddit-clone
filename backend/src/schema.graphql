@@ -2,6 +2,7 @@ type Query {
   currentUser: User!
   categories(query: String): [Category!]!
   category: [Category!]!
+  post(postID: ID!): Post!
   posts(
     query: String
     first: Int
@@ -10,7 +11,6 @@ type Query {
     after: String
     orderBy: PostOrderByInput
   ): [Post!]!
-  morePosts(query: String, first: Int, skip: Int, after: String): [Post!]!
   comment(commentID: ID!): Comment!
   comments(
     query: String
@@ -21,21 +21,28 @@ type Query {
     orderBy: CommentOrderByInput
   ): [Comment!]!
   users(query: String, first: Int, skip: Int, after: String): [User!]!
-  post(postID: ID!): Post!
   node(id: ID!): Node
 }
 
 type Mutation {
+ 
   logout: String
-  createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
-  loginUser(data: LoginUserInput!): LoginUserMutationResponse!
+
   createVote(data: CreateVoteInput!): CreateVoteMutationResponse!
+
+  createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
+  updateCategory(data: UpdateCategoryInput!): UpdateCategoryMutationResponse!
+  deleteCategory(data: DeleteCategoryInput!): DeleteCategoryMutationResponse!
+
   createUser(data: CreateUserInput!): CreateUserMutationResponse!
   updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
-  deleteUser: DeleteUserMutationResponse!
+  deleteUser(data: DeleteUserInput!): DeleteUserMutationResponse!
+  loginUser(data: LoginUserInput!): LoginUserMutationResponse!
+  
   createPost(data: CreatePostInput!): CreatePostMutationResponse!
   updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
   deletePost(data: DeletePostInput!): DeletePostMutationResponse!
+
   createComment(data: CreateCommentInput!): CreateCommentMutationResponse!
   updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
   deleteComment(data: DeleteCommentInput!): DeleteCommentMutationResponse!
@@ -44,16 +51,11 @@ type Mutation {
 interface Node {
   id: ID!
 }
-type CommentsCountResponse {
-  count: Int!
-}
 
 type Vote implements Node {
   id: ID!
   post: Post!
   user: User!
-  upVote: Boolean!
-  downVote: Boolean!
 }
 
 type Category implements Node {
@@ -97,63 +99,78 @@ type Comment implements Node {
   createdBy: User!
 }
 
+### VOTE ###
 input CreateVoteInput {
-  postID: ID
-  upVote: Boolean
-  downVote: Boolean
+  postID: ID!
+  commentID: ID
 }
 
+# SUBREDDITS
 input CreateCategoryInput {
   name: String!
 }
+input UpdateCategoryInput {
+  name: String!
+  categoryID: ID!
+}
+input DeleteCategoryInput {
+   categoryID: ID!
+}
 
+# POSTS
 input CreatePostInput {
-  categoryID: ID
-  author: ID
+  categoryID: ID!
   title: String!
   text: String
 }
 input UpdatePostInput {
+  postID: ID!
+  text: String
   title: String
-  url: String
 }
 input DeletePostInput {
-  postID: ID
+  postID: ID!
 }
 
+# COMMENTS
 input CreateCommentInput {
   postID: ID!
   body: String!
 }
-
-input LoginUserInput {
-  email: String!
-  password: String!
-}
-
 input UpdateCommentInput {
   postID: ID!
   commentID: ID!
   body: String!
 }
-
 input DeleteCommentInput {
   postID: ID!
   commentID: ID!
 }
 
-input UpdateUserInput {
-  password: String
-  username: String
-  email: String
-}
-
+#  USERS
 input CreateUserInput {
   username: String!
   email: String!
   password: String!
 }
+input UpdateUserInput {
+  userID: ID!
+  password: String
+  username: String
+  email: String
+}
+input DeleteUserInput {
+  userID: ID!
+}
+input LoginUserInput {
+  email: String!
+  password: String!
+}
 
+
+### MUTATION RESPONSES
+
+## USERS
 type CreateUserMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
@@ -171,7 +188,6 @@ type DeleteUserMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  user: User
 }
 type LoginUserMutationResponse implements MutationResponse {
   code: String!
@@ -181,65 +197,81 @@ type LoginUserMutationResponse implements MutationResponse {
   user: User
 }
 
+## SUBREDDITS
 type CreateCategoryMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
   category: Category!
 }
+type UpdateCategoryMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  category: Category
+}
+type DeleteCategoryMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  category: Category
+}
 
+## VOTING
 type CreateVoteMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  vote: Vote
+  vote: Vote!
 }
 
+## POSTS
 type CreatePostMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  post: Post
+  post: Post!
 }
-
 type UpdatePostMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  post: Post
+  post: Post!
 }
 type DeletePostMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  post: Post
 }
 
+## COMMENTS
 type CreateCommentMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  comment: Comment
+  comment: Comment!
 }
 type UpdateCommentMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  comment: Comment
+  comment: Comment!
 }
 type DeleteCommentMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  comment: Comment
+  comment: Comment!
 }
 
+# MUTATION RESPONSE
 interface MutationResponse {
   code: String!
   success: Boolean!
   message: String!
 }
 
+### SUBSCRIPTIONS
 type PostSubscriptionPayload {
   mutation: MutationType
   node: Post
@@ -251,8 +283,8 @@ type CommentSubscriptionPayload {
 }
 
 type Subscription {
-  postAdded(postID: ID, categoryID: ID): PostSubscriptionPayload
-  commentAdded(postID: ID): CommentSubscriptionPayload
+  post(postID: ID, categoryID: ID): PostSubscriptionPayload
+  comment(postID: ID): CommentSubscriptionPayload
 }
 
 enum PostOrderByInput {
@@ -272,6 +304,7 @@ enum CommentOrderByInput {
 enum Role {
   USER
   ADMIN
+  MODERATOR
 }
 
 enum MutationType {

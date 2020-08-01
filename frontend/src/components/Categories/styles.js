@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+
 import NavLink from '../shared/NavLink'
 import Flex from '../../styles/components/Flex'
 
@@ -18,10 +19,9 @@ export const ContainerHeader = styled(Link)`
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-  justify-content: center;
+  padding: 5px;
   background-color: #3661ed;
   color: white;
-  border: none;
   height: 30px;
 
   &:hover {
@@ -30,7 +30,6 @@ export const ContainerHeader = styled(Link)`
 `
 export const CategoryLink = styled(NavLink)`
   margin-top: 10px;
-
   &:hover {
     background: #ebedf0;
   }

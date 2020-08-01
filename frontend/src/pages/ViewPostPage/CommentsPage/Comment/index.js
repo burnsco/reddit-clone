@@ -91,7 +91,6 @@ const CommentComponent = ({ postID, refetch, comment }) => {
           <strong>{comment.createdBy.username}</strong>
         </UserName>
         <CommentCreatedAt>
-          {/* TODO make this calculate if its been updated */}
           {hasBeenEdited(comment.createdAt, comment.updatedAt)}
         </CommentCreatedAt>
       </CommentHeader>

@@ -2,7 +2,7 @@ type Category {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  name: String!
+  name: String! 
   posts: [Post!]!
 }
 
@@ -33,7 +33,7 @@ type User {
   updatedAt: DateTime! @updatedAt
   email: String! @unique
   password: String!
-  username: String!
+  username: String! 
   posts: [Post!]!
   comments: [Comment!]!
   votes: [Vote!]!
@@ -41,8 +41,7 @@ type User {
 
 type Vote {
   id: ID! @id @unique
+  createdAt: DateTime! @createdAt
   post: Post!
   user: User!
-  upVote: Boolean!
-  downVote: Boolean!
 }

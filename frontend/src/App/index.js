@@ -18,7 +18,7 @@ import ProfileComments from '../pages/Profile/Comments'
 import ProfileVotes from '../pages/Profile/Votes'
 import Container from '../styles/components/Container'
 
-function AuthenticatedApp() {
+export default function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -60,5 +60,3 @@ function AuthenticatedApp() {
     </>
   )
 }
-
-export default AuthenticatedApp

@@ -8,12 +8,15 @@ import {
   UserDoesNotExist,
   PostDoesNotExist,
   UserNotLoggedIn,
-  CommentDoesNotExist
+  CategoryDoesNotExist,
+  CommentDoesNotExist,
+  CommentDeleted,
+  PostDeleted,
+  CategoryWasDeleted
 } from "../constants"
 import { createAccessToken, createRefreshToken } from "../utils"
 
 const Mutation = {
-  // TODO Fix voting
   async createVote(root, { data }, { db, user }, info) {
     if (!user) return NoAuthorization
 
@@ -24,52 +27,33 @@ const Mutation = {
       },
       info
     )
-
-    if (!userVoted) {
-      const vote = await db.mutation.createVote({
-        data: {
-          upVote: data.upVote,
-          downVote: data.downVote,
-          user: { connect: { id: user.userID } },
-          post: { connect: { id: data.postID } }
-        }
-      })
-      const score = await db.mutation.updatePost({
-        data: { where: { id: data.postID }, score: data.score }
-      })
-      return {
-        code: "200",
-        success: true,
-        message: "vote submitted",
-        vote,
-        score
-      }
-    }
-
     if (userVoted) {
-      const vote = await db.mutation.updateVote({
+      const vote = await db.mutation.deleteVote({
         data: {
-          upVote: data.upVote,
-          downVote: data.downVote,
           where: {
-            post: { id: data.postID }
+            id: data.voteID
           }
         }
       })
-
-      const score = await db.mutation.updatePost({
-        data: { where: { id: data.postID }, score: data.score }
-      })
       return {
         code: "200",
         success: true,
-        message: "vote submitted",
-        vote,
-        score
+        message: "vote removed",
+        vote
       }
     }
-
-    return NoAuthorization
+    const vote = await db.mutation.createVote({
+      data: {
+        user: { connect: { id: user.userID } },
+        post: { connect: { id: data.postID } }
+      }
+    })
+    return {
+      code: "200",
+      success: true,
+      message: "vote submitted",
+      vote
+    }
   },
 
   async createCategory(root, { data }, { db, user }) {
@@ -91,6 +75,43 @@ const Mutation = {
       category
     }
   },
+  async updateCategory(root, { data }, { db, user }) {
+    if (!user) return NoAuthorization
+
+    const categoryExists = await db.exists.Category({ id: data.categoryID })
+    if (!categoryExists) return CategoryDoesNotExist
+
+    const category = await db.mutation.updateCategory({
+      data: {
+        name: data.name
+      },
+      where: {
+        id: data.categoryID
+      }
+    })
+    return {
+      code: "200",
+      success: true,
+      message: "Category Updated!",
+      category
+    }
+  },
+  async deleteCategory(root, { data }, { db, user }) {
+    if (!user) return NoAuthorization
+
+    const categoryExists = await db.exists.Category({
+      id: data.categoryID
+    })
+
+    if (!categoryExists) return CategoryDoesNotExist
+
+    await db.mutation.deleteCategory({
+      where: {
+        id: data.categoryID
+      }
+    })
+    return CategoryWasDeleted
+  },
 
   async createUser(root, { data }, { db, res }, info) {
     const emailExists = await db.exists.User({ email: data.email }, info)
@@ -105,15 +126,8 @@ const Mutation = {
         password
       }
     })
-
     const accessToken = await createAccessToken(user)
-
-    res.cookie("reddit", createRefreshToken(user), {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true
-    })
-
+    res.cookie("redt", createRefreshToken(user), { httpOnly: true })
     return {
       code: "200",
       success: true,
@@ -122,14 +136,50 @@ const Mutation = {
       accessToken
     }
   },
+  async updateUser(root, { data }, { db, user }, info) {
+    if (!user) return NoAuthorization
+    const editedUser = await db.mutation.updateUser(
+      {
+        where: {
+          id: user.id
+        },
+        data: {
+          ...data
+        }
+      },
+      info
+    )
+    return {
+      code: "200",
+      success: true,
+      message: "user updated",
+      user: editedUser
+    }
+  },
+  async deleteUser(root, { data }, { db, user }, info) {
+    if (!user) return NoAuthorization
 
+    const deletedUser = await db.mutation.deleteUser(
+      {
+        where: {
+          id: data.userID
+        }
+      },
+      info
+    )
+    return {
+      code: "200",
+      success: true,
+      message: "user deleted",
+      user: deletedUser
+    }
+  },
   async loginUser(parent, { data }, { db, res }) {
     const user = await db.query.user({
       where: {
         email: data.email
       }
     })
-
     if (!user) return UserDoesNotExist
 
     const isValidUser = await bcrypt.compare(data.password, user.password)
@@ -156,13 +206,11 @@ const Mutation = {
       data: {
         title: data.title,
         text: data.text,
-
         category: {
           connect: {
             id: data.categoryID
           }
         },
-
         author: {
           connect: {
             id: user.userID
@@ -170,7 +218,6 @@ const Mutation = {
         }
       }
     })
-
     return {
       code: "200",
       success: true,
@@ -178,29 +225,42 @@ const Mutation = {
       post
     }
   },
+  async updatePost(root, { data }, { db }) {
+    const postExists = await db.exists.Post({ id: data.postID })
 
-  // async updatePost(root, { data }, { db }) {
-  //   const postExists = await db.exists.Post({ id: data.postID })
+    if (!postExists) return PostDoesNotExist
 
-  //   if (!postExists) {
-  //     return {
-  //       code: '401',
-  //       success: true,
-  //       message: 'Post does not exist!'
-  //     }
-  //   }
+    const post = await db.mutation.updatePost({
+      data: {
+        title: data.title,
+        text: data.text
+      },
+      where: {
+        id: data.postID
+      }
+    })
+    return {
+      code: "200",
+      success: true,
+      message: "Message Updated.",
+      post
+    }
+  },
+  async deletePost(root, { data }, { db, user }) {
+    if (!user) return NoAuthorization
 
-  //   const post = await db.mutation.updatePost({
-  //     data: {
-  //       title: data.title
-  //     },
-  //     where: {
-  //       id: data.postID
-  //     }
-  //   })
+    const postExists = await db.exists.Post({
+      id: data.postID
+    })
+    if (!postExists) return PostDoesNotExist
 
-  //   return post
-  // },
+    await db.mutation.deletePost({
+      where: {
+        id: data.postID
+      }
+    })
+    return PostDeleted
+  },
 
   async createComment(root, { data }, { user, db }) {
     if (!user) return UserNotLoggedIn
@@ -226,7 +286,6 @@ const Mutation = {
         }
       }
     })
-
     return {
       code: "200",
       success: true,
@@ -234,7 +293,6 @@ const Mutation = {
       comment
     }
   },
-
   async updateComment(root, { data }, { db, user }) {
     if (!user) return NoAuthorization
 
@@ -270,7 +328,6 @@ const Mutation = {
       comment
     }
   },
-
   async deleteComment(root, { data }, { db, user }) {
     if (!user) return NoAuthorization
 
@@ -285,12 +342,7 @@ const Mutation = {
         id: data.commentID
       }
     })
-
-    return {
-      code: "200",
-      success: true,
-      message: "comment deleted"
-    }
+    return CommentDeleted
   }
 }
 

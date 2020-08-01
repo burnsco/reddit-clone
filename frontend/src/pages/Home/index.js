@@ -22,6 +22,9 @@ const HomePage = ({ children }) => {
   }
 
   const handleSelect = (selectedCategory) => {
+    if (selectedCategory.label === 'all') {
+      navigate('../')
+    }
     navigate(`/r/${selectedCategory.label}`, { replace: true })
   }
 
@@ -29,10 +32,11 @@ const HomePage = ({ children }) => {
     value: option.id,
     label: option.name,
   }))
+  const newOptions = [...options, { value: '', label: 'all' }]
   return (
     <HomeContainer>
       <FeedContainer>
-        <CreationButtons options={options} handleSelect={handleSelect} />
+        <CreationButtons options={newOptions} handleSelect={handleSelect} />
         {children}
       </FeedContainer>
       <SidebarContainer>

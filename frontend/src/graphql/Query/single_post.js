@@ -15,8 +15,6 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
 
       votes {
         id
-        upVote
-        downVote
         user {
           id
         }
@@ -26,6 +24,8 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
         username
       }
       comments {
+        createdAt
+        updatedAt
         id
       }
     }
@@ -39,6 +39,7 @@ export const COMMENTS_QUERY = gql`
         id
         body
         createdAt
+        updatedAt
         createdBy {
           id
           username

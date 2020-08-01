@@ -13,7 +13,7 @@ export const FeedContainer = styled.section`
 `
 
 export const SidebarContainer = styled.aside`
-  width: 160px;
+  width: 180px;
   margin-left: 10px;
 
   @media (max-width: 768px) {

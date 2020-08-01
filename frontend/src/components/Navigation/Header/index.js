@@ -23,6 +23,7 @@ const Header = () => {
   if (loading) return <MainSpinner />
 
   if ((data && data.currentUser) || user !== null) {
+    console.log(data)
     return (
       <HeaderContainer>
         <HeaderNavWrapper>
@@ -34,7 +35,9 @@ const Header = () => {
           </HeaderLogo>
 
           <HeaderLinks>
-            <CategoryLink to="/profile">
+            <CategoryLink
+              to={`/profile/${data.currentUser.id}` || `/profile/${user.id}`}
+            >
               <UserIcon />
               {data ? data.currentUser.username : user}
             </CategoryLink>

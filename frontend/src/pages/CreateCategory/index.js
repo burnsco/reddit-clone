@@ -55,13 +55,16 @@ function CreateCategoryPage() {
   }
 
   return (
-    <WelcomePage>
+    <WelcomePage mt="4">
       <SignInContainer>
         <h3>Create Subreddit</h3>
         <form onSubmit={handleSubmit}>
           <FormInput
             name="name"
             type="text"
+            minLength="3"
+            maxLength="12"
+            autoFocus
             handleChange={(e) => handleChange(e)}
             value={name}
             label="name"

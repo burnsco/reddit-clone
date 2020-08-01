@@ -472,7 +472,6 @@ type Mutation {
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   createVote(data: VoteCreateInput!): Vote!
   updateVote(data: VoteUpdateInput!, where: VoteWhereUniqueInput!): Vote
-  updateManyVotes(data: VoteUpdateManyMutationInput!, where: VoteWhereInput): BatchPayload!
   upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
   deleteVote(where: VoteWhereUniqueInput!): Vote
   deleteManyVotes(where: VoteWhereInput): BatchPayload!
@@ -1202,10 +1201,9 @@ input UserWhereUniqueInput {
 
 type Vote {
   id: ID!
+  createdAt: DateTime!
   post: Post!
   user: User!
-  upVote: Boolean!
-  downVote: Boolean!
 }
 
 type VoteConnection {
@@ -1218,8 +1216,6 @@ input VoteCreateInput {
   id: ID
   post: PostCreateOneWithoutVotesInput!
   user: UserCreateOneWithoutVotesInput!
-  upVote: Boolean!
-  downVote: Boolean!
 }
 
 input VoteCreateManyWithoutPostInput {
@@ -1235,15 +1231,11 @@ input VoteCreateManyWithoutUserInput {
 input VoteCreateWithoutPostInput {
   id: ID
   user: UserCreateOneWithoutVotesInput!
-  upVote: Boolean!
-  downVote: Boolean!
 }
 
 input VoteCreateWithoutUserInput {
   id: ID
   post: PostCreateOneWithoutVotesInput!
-  upVote: Boolean!
-  downVote: Boolean!
 }
 
 type VoteEdge {
@@ -1254,16 +1246,13 @@ type VoteEdge {
 enum VoteOrderByInput {
   id_ASC
   id_DESC
-  upVote_ASC
-  upVote_DESC
-  downVote_ASC
-  downVote_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type VotePreviousValues {
   id: ID!
-  upVote: Boolean!
-  downVote: Boolean!
+  createdAt: DateTime!
 }
 
 input VoteScalarWhereInput {
@@ -1281,10 +1270,14 @@ input VoteScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  upVote: Boolean
-  upVote_not: Boolean
-  downVote: Boolean
-  downVote_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   AND: [VoteScalarWhereInput!]
   OR: [VoteScalarWhereInput!]
   NOT: [VoteScalarWhereInput!]
@@ -1311,18 +1304,6 @@ input VoteSubscriptionWhereInput {
 input VoteUpdateInput {
   post: PostUpdateOneRequiredWithoutVotesInput
   user: UserUpdateOneRequiredWithoutVotesInput
-  upVote: Boolean
-  downVote: Boolean
-}
-
-input VoteUpdateManyDataInput {
-  upVote: Boolean
-  downVote: Boolean
-}
-
-input VoteUpdateManyMutationInput {
-  upVote: Boolean
-  downVote: Boolean
 }
 
 input VoteUpdateManyWithoutPostInput {
@@ -1334,7 +1315,6 @@ input VoteUpdateManyWithoutPostInput {
   update: [VoteUpdateWithWhereUniqueWithoutPostInput!]
   upsert: [VoteUpsertWithWhereUniqueWithoutPostInput!]
   deleteMany: [VoteScalarWhereInput!]
-  updateMany: [VoteUpdateManyWithWhereNestedInput!]
 }
 
 input VoteUpdateManyWithoutUserInput {
@@ -1346,24 +1326,14 @@ input VoteUpdateManyWithoutUserInput {
   update: [VoteUpdateWithWhereUniqueWithoutUserInput!]
   upsert: [VoteUpsertWithWhereUniqueWithoutUserInput!]
   deleteMany: [VoteScalarWhereInput!]
-  updateMany: [VoteUpdateManyWithWhereNestedInput!]
-}
-
-input VoteUpdateManyWithWhereNestedInput {
-  where: VoteScalarWhereInput!
-  data: VoteUpdateManyDataInput!
 }
 
 input VoteUpdateWithoutPostDataInput {
   user: UserUpdateOneRequiredWithoutVotesInput
-  upVote: Boolean
-  downVote: Boolean
 }
 
 input VoteUpdateWithoutUserDataInput {
   post: PostUpdateOneRequiredWithoutVotesInput
-  upVote: Boolean
-  downVote: Boolean
 }
 
 input VoteUpdateWithWhereUniqueWithoutPostInput {
@@ -1403,12 +1373,16 @@ input VoteWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   post: PostWhereInput
   user: UserWhereInput
-  upVote: Boolean
-  upVote_not: Boolean
-  downVote: Boolean
-  downVote_not: Boolean
   AND: [VoteWhereInput!]
   OR: [VoteWhereInput!]
   NOT: [VoteWhereInput!]

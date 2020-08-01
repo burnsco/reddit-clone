@@ -10,8 +10,6 @@ export const GET_USER_POSTS_QUERY = gql`
 
       votes {
         id
-        downVote
-        upVote
         user {
           id
         }
@@ -21,6 +19,7 @@ export const GET_USER_POSTS_QUERY = gql`
         id
         body
         createdAt
+        updatedAt
         createdBy {
           id
           username

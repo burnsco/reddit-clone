@@ -25,7 +25,6 @@ const Query = {
         name: args.query
       }
     }
-
     const results = await db.query.categories(opArgs, info)
     return results
   },
@@ -84,7 +83,6 @@ const Query = {
       },
       info
     )
-
     return post
   },
 
@@ -107,11 +105,9 @@ const Query = {
       after: args.after,
       orderBy: args.orderBy
     }
-
     if (args.query === "all") {
       return db.query.comments(null, info)
     }
-
     if (args.userID) {
       opArgs.where = {
         createdBy: {
@@ -119,7 +115,6 @@ const Query = {
         }
       }
     }
-
     const results = await db.query.comments(opArgs, info)
     return results
   }

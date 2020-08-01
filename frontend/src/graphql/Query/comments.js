@@ -14,8 +14,6 @@ export const GET_COMMENTS_QUERY = gql`
       }
       votes {
         id
-        upVote
-        downVote
         user {
           id
         }

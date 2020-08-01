@@ -17,6 +17,7 @@ function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { setUser } = useUser()
+
   const [loginUser, { loading, error }] = useMutation(LOGIN_MUTATION, {
     variables: { email: email, password: password },
   })
@@ -25,14 +26,14 @@ function LoginPage() {
     event.preventDefault()
 
     try {
-      const { data } = await loginUser()
+      const data = await loginUser()
 
-      const { message, code } = data.loginUser
+      const { message, code } = data.data.loginUser
 
       setResult(message)
 
       if (code === '200') {
-        const { user, accessToken } = data.loginUser
+        const { user, accessToken } = data.data.loginUser
 
         setAccessToken(accessToken)
 

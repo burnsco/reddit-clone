@@ -7,11 +7,10 @@ export const GET_POSTS_BY_CATEGORY_QUERY = gql`
       title
       text
       createdAt
+      updatedAt
 
       votes {
         id
-        downVote
-        upVote
         user {
           id
         }
@@ -21,6 +20,7 @@ export const GET_POSTS_BY_CATEGORY_QUERY = gql`
         id
         body
         createdAt
+        updatedAt
         createdBy {
           id
           username

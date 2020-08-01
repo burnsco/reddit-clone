@@ -1,7 +1,7 @@
-import Query from './Query'
-import Mutation from './Mutation'
-import MutationResponse from './MutationResponse'
-import Subscription from './Subscription'
+import Query from "./Query"
+import Mutation from "./Mutation"
+import MutationResponse from "./MutationResponse"
+import Subscription from "./Subscription"
 
 const resolvers = {
   MutationResponse,

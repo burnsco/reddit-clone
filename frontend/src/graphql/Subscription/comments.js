@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const COMMENTS_SUBSCRIPTION = gql`
   subscription onCommentAdded($postID: ID!) {
-    commentAdded(postID: $postID) {
+    comment(postID: $postID) {
       node {
         id
         body

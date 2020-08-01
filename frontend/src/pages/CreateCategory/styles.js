@@ -1,12 +1,12 @@
 import { Link } from '@reach/router'
 import styled from 'styled-components'
 import { CustomButton } from '../../components/shared/CustomButton'
+import Box from '../../styles/components/Box'
 
-export const WelcomePage = styled.div`
+export const WelcomePage = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 80vh;
 `
 
 export const CustomSignInButtonStyles = styled(CustomButton)
@@ -56,4 +56,5 @@ export const SignUpContainer = styled.div`
 
 export const SignUpTitle = styled.h2`
   margin: 10px 0;
+  margin-top: '3em';
 `

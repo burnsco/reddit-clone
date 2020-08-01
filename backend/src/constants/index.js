@@ -1,37 +1,61 @@
 export const PostDoesNotExist = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'Post does not Exist!'
+  message: "Post does not Exist!"
+}
+
+export const CategoryDoesNotExist = {
+  code: "401",
+  success: false,
+  message: "Category does not Exist!"
+}
+
+export const CategoryWasDeleted = {
+  code: "200",
+  success: true,
+  message: "category deleted"
+}
+
+export const CommentDeleted = {
+  code: "200",
+  success: true,
+  message: "Comment Deleted."
+}
+
+export const PostDeleted = {
+  code: "200",
+  success: true,
+  message: "Post Deleted."
 }
 
 export const CommentDoesNotExist = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'Comment does not Exist!'
+  message: "Comment does not Exist!"
 }
 
 export const UserDoesNotExist = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'User does not Exist!'
+  message: "User does not Exist!"
 }
 
 export const BadCredentials = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'Bad Credentials'
+  message: "Bad Credentials"
 }
 
 export const EmailTaken = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'Email is already in use!'
+  message: "Email is already in use!"
 }
 
 export const NoAuthorization = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'Not Authorized',
+  message: "Not Authorized",
   id: null,
   createdAt: null,
   title: null,
@@ -40,25 +64,25 @@ export const NoAuthorization = {
 }
 
 export const AlreadyVoted = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'user has already voted'
+  message: "user has already voted"
 }
 
 export const LoginSuccess = {
-  code: '200',
+  code: "200",
   success: true,
-  message: 'Login was a success'
+  message: "Login was a success"
 }
 
 export const UserNotLoggedIn = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'No User Found'
+  message: "No User Found"
 }
 
 export const CategoryTitleTaken = {
-  code: '401',
+  code: "401",
   success: false,
-  message: 'This subreddit already exists!'
+  message: "This subreddit already exists!"
 }
