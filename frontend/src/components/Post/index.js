@@ -18,6 +18,7 @@ import {
 import VoteBox from '../VoteBox/index.js'
 import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
 import formatCommentText from '../../utils/comments.js'
+import checkForLink from '../../utils/checkForLink.js'
 
 const CommentIcon = styled(CommentAlt)`
   color: grey;
@@ -56,7 +57,8 @@ const Post = ({
           {timeDifferenceForDate(createdAt)}
         </PostedBy>
       </PostDetailsHeader>
-      <PostTitle>{title}</PostTitle>
+
+      <PostTitle>{checkForLink(title)}</PostTitle>
 
       <PostText>{text}</PostText>
 

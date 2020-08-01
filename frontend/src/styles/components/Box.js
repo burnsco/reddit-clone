@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { space, layout } from 'styled-system'
+import { space, layout, typography, color, border } from 'styled-system'
 
 const Box = styled('div')(
   {
@@ -8,6 +8,9 @@ const Box = styled('div')(
     minWidth: 0,
   },
   space,
+  typography,
+  color,
+  border,
   layout
 )
 

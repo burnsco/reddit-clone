@@ -96,7 +96,7 @@ function LoginPage() {
             <ButtonsBarContainer>
               <CustomButton type="submit" style={{ width: `${100}%` }}>
                 {' '}
-                Sign in with Email
+                Login
               </CustomButton>
             </ButtonsBarContainer>
           </fieldset>

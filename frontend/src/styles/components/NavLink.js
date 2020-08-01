@@ -1,11 +1,9 @@
 import styled from 'styled-components'
-import { typography, space, color, layout } from 'styled-system'
+import { color } from 'styled-system'
 
 const NavLink = styled.a`
-  ${layout}
-  ${typography}
-  ${space}
   ${color}
+  color: 'primary';
 `
 
 export default NavLink

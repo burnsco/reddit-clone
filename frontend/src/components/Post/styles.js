@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import Text from '../../styles/components/Text'
 
 export const PostContainer = styled.div`
   border: 1px solid #ebedf0;
@@ -40,7 +41,7 @@ export const PostTitle = styled.h2`
   font-weight: 500;
 `
 
-export const PostText = styled.div`
+export const PostText = styled(Text)`
   margin-top: 15px;
 `
 

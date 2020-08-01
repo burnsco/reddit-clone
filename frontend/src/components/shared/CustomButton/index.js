@@ -3,21 +3,21 @@ import styled, { css } from 'styled-components'
 
 const buttonStyles = css`
   font-family: 'Raleway', sans-serif;
-  background-color: black;
-  color: white;
-  border: none;
-
+  background-color: white;
+  color: black;
+  border: 1px solid grey;
+  transition-duration: 0.4s;
   &:hover {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
+    background-color: black;
+    color: white;
+    border: 1px solid grey;
   }
 `
 const invertedButtonStyles = css`
   background-color: white;
   color: black;
   border: 1px solid black;
-
+  transition-duration: 0.4s;
   &:hover {
     background-color: black;
     color: white;
@@ -28,7 +28,7 @@ const invertedOrangeButtonStyles = css`
   background-color: white;
   color: black;
   border: 1px solid black;
-
+  transition-duration: 0.4s;
   &:hover {
     background-color: #f12711;
     color: white;
