@@ -7,25 +7,14 @@ import Categories from '../../components/Categories'
 import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
 import CreationButtons from './CreationButtons.js'
 import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories.js'
-import { CURRENT_USER_QUERY } from '../../graphql/Query/current_user.js'
-import NoAuthHomePage from './noAuth.js'
-import { useAuth } from '../../context/auth-context.js'
 
 const HomePage = ({ children }) => {
   const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY, {
     pollInterval: 500,
   })
-
-  const {
-    loading: { checkingUser },
-    data: { checkUser },
-  } = useQuery(CURRENT_USER_QUERY)
-
   const navigate = useNavigate()
 
-  const { user } = useAuth()
-
-  if (loading || checkingUser) return <MainSpinner />
+  if (loading) return <MainSpinner />
 
   if (error) {
     console.log(error)
@@ -41,21 +30,19 @@ const HomePage = ({ children }) => {
     value: option.id,
     label: option.name,
   }))
-  if ((checkUser && checkUser.currentUser) || user !== null) {
-    return (
-      <HomeContainer>
-        <FeedContainer>
-          <CreationButtons options={options} handleSelect={handleSelect} />
-          {children}
-        </FeedContainer>
-        <SidebarContainer>
-          <Categories />
-        </SidebarContainer>
-      </HomeContainer>
-    )
-  }
-  return <NoAuthHomePage />
+  return (
+    <HomeContainer>
+      <FeedContainer>
+        <CreationButtons options={options} handleSelect={handleSelect} />
+        {children}
+      </FeedContainer>
+      <SidebarContainer>
+        <Categories />
+      </SidebarContainer>
+    </HomeContainer>
+  )
 }
+
 HomePage.propTypes = {
   children: PropTypes.node.isRequired,
 }
