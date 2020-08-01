@@ -18,7 +18,7 @@ const DownArrow = styled(DownArrowSquare)`
 const VoteBox = () => (
   <Container>
     <UpArrow />
-    <Votes>2</Votes>
+    <Votes>0</Votes>
     <DownArrow />
   </Container>
 )

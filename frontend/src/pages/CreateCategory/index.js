@@ -33,8 +33,6 @@ function CreateCategoryPage() {
 
     try {
       const results = await createCategory()
-      console.log('create category ==>')
-      console.log(results)
       const { message, code } = results.data.createCategory
 
       setResult(message)
@@ -44,7 +42,7 @@ function CreateCategoryPage() {
         navigate('../')
       }
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
   }
 
@@ -53,8 +51,6 @@ function CreateCategoryPage() {
   }
 
   if (error) {
-    console.log('create category page error =>')
-    console.log(error)
     return <div>There was an error! Contact the admin.</div>
   }
 

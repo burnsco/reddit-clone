@@ -22,7 +22,6 @@ const HomePage = ({ children }) => {
   }
 
   const handleSelect = (selectedCategory) => {
-    console.log(`Option selected: `, selectedCategory)
     navigate(`/r/${selectedCategory.label}`, { replace: true })
   }
 

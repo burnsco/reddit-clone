@@ -7,7 +7,6 @@ function NoAuthPostAndCommentsPage({ postID }) {
   return (
     <PostAndCommentsContainer>
       <PostPageWithData postID={postID} />
-
       <CommentsPageWithData postID={postID} />
     </PostAndCommentsContainer>
   )

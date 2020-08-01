@@ -48,7 +48,6 @@ function CreatePostPage() {
   }
   const handleSelect = (categoryid) => {
     setCategoryID(categoryid)
-    console.log(`Option selected: `, categoryid)
   }
 
   const handleChange = (event) => {
@@ -66,7 +65,6 @@ function CreatePostPage() {
   if (loading) return <div>Loading</div>
 
   if (error) {
-    console.log(error.error)
     return <h1>error</h1>
   }
 

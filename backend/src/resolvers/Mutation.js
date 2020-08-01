@@ -13,7 +13,10 @@ import {
 import { createAccessToken, createRefreshToken } from "../utils"
 
 const Mutation = {
+  // TODO Fix voting
   async createVote(root, { data }, { db, user }, info) {
+    if (!user) return NoAuthorization
+
     const userVoted = await db.exists.Vote(
       {
         user: { id: user.userID },
@@ -69,7 +72,9 @@ const Mutation = {
     return NoAuthorization
   },
 
-  async createCategory(root, { data }, { db }) {
+  async createCategory(root, { data }, { db, user }) {
+    if (!user) return NoAuthorization
+
     const categoryExists = await db.exists.Category({ name: data.name })
 
     if (categoryExists) return CategoryTitleTaken
@@ -79,9 +84,6 @@ const Mutation = {
         name: data.name
       }
     })
-    console.log("created category ==>")
-    console.log(category)
-
     return {
       code: "200",
       success: true,
@@ -106,7 +108,7 @@ const Mutation = {
 
     const accessToken = await createAccessToken(user)
 
-    res.cookie("redt", createRefreshToken(user), {
+    res.cookie("reddit", createRefreshToken(user), {
       httpOnly: true,
       sameSite: "none",
       secure: true
@@ -201,11 +203,11 @@ const Mutation = {
   // },
 
   async createComment(root, { data }, { user, db }) {
+    if (!user) return UserNotLoggedIn
+
     const postExists = db.exists.Post({ id: data.postID })
 
     if (!postExists) return PostDoesNotExist
-
-    if (!user) return UserNotLoggedIn
 
     const comment = await db.mutation.createComment({
       data: {
@@ -234,6 +236,8 @@ const Mutation = {
   },
 
   async updateComment(root, { data }, { db, user }) {
+    if (!user) return NoAuthorization
+
     const userExists = await db.exists.User({ id: user.userID })
 
     if (!userExists) return UserDoesNotExist
@@ -267,7 +271,9 @@ const Mutation = {
     }
   },
 
-  async deleteComment(root, { data }, { db }) {
+  async deleteComment(root, { data }, { db, user }) {
+    if (!user) return NoAuthorization
+
     const commentExists = await db.exists.Comment({
       id: data.commentID
     })

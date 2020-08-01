@@ -138,10 +138,10 @@ server.installSubscriptionHandlers(httpServer)
 
 httpServer.listen(PORT, () => {
   console.log(
-    `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+    `🚀 Server ready at https://localhost:${PORT}${server.graphqlPath}`
   )
   console.log(
-    `🚀 Subscriptions ready at ws://localhost:${PORT}${
+    `🚀 Subscriptions ready at wss://localhost:${PORT}${
       server.subscriptionsPath
     }`
   )

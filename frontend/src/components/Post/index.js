@@ -52,7 +52,7 @@ const Post = ({
           </Link>{' '}
         </PostCategory>
         <PostedBy>
-          Posted by <UserName to={`/profile/${userID}`}>u/{username} </UserName>
+          Posted by <UserName to={`/profile/${userID}`}>{username} </UserName>
           {timeDifferenceForDate(createdAt)}
         </PostedBy>
       </PostDetailsHeader>

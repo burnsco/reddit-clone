@@ -36,6 +36,7 @@ const Post = ({
     createdAt,
     updatedAt,
     author: { username },
+    author: { id: userID },
   },
 }) => (
   <PostContainer>
@@ -50,8 +51,7 @@ const Post = ({
           </Link>{' '}
         </PostCategory>
         <PostedBy>
-          Posted by{' '}
-          <UserName to={`/profile/${username}`}>u/{username} </UserName>
+          Posted by <UserName to={`/profile/${userID}`}>u/{username} </UserName>
           {timeDifferenceForDate(createdAt, updatedAt)}
         </PostedBy>
       </PostDetailsHeader>

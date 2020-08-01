@@ -1,13 +1,13 @@
 import React from 'react'
 
-function EditComment({ commentID, onEdit, comment }) {
+// TODO fix this in the cache
+
+function EditComment({ onEdit }) {
   return (
     <>
       <button
         onClick={() => {
           onEdit.setShowComment(!onEdit.showComment)
-          console.log(`ID =  ${commentID}`)
-          console.log(`BODY = ${comment}`)
         }}
       >
         Edit

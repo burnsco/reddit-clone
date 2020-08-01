@@ -8,7 +8,7 @@ import {
 import MainSpinner from '../shared/FallBackSpinner'
 import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories'
 
-function Categories() {
+export default function NoAuthCategories() {
   const { loading, data } = useQuery(GET_CATEGORIES_QUERY)
 
   if (loading) return <MainSpinner />
@@ -26,5 +26,3 @@ function Categories() {
     </CategoriesContainer>
   )
 }
-
-export default Categories

@@ -40,10 +40,10 @@ function AuthenticatedApp() {
       <Container m={[0, 2, 4]}>
         <Router>
           <NotFound default />
-          <ProfilePage path="profile">
-            <ProfilePosts path="/:userID/posts" />
-            <ProfileComments path="/:userID/comments" />
-            <ProfileVotes path="/:userID/votes" />
+          <ProfilePage path="profile/:userID">
+            <ProfilePosts path="posts" />
+            <ProfileComments path="comments" />
+            <ProfileVotes path="votes" />
           </ProfilePage>
           <Home path="/">
             <NotFound default />
