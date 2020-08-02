@@ -12,11 +12,9 @@ const Query = {
     })
     return requested
   },
-
   users(parent, args, { db }, info) {
     return db.query.users(null, info)
   },
-
   categories: async (root, args, { db }, info) => {
     const opArgs = {}
 

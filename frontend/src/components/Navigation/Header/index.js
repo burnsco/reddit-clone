@@ -22,7 +22,7 @@ const Header = () => {
   const { user } = useAuth()
   if (loading) return <MainSpinner />
 
-  if ((data && data.currentUser) || user !== null) {
+  if (data && data.currentUser) {
     console.log(data)
     return (
       <HeaderContainer>
@@ -35,16 +35,31 @@ const Header = () => {
           </HeaderLogo>
 
           <HeaderLinks>
-            {data && data.currentUser ? (
-              <CategoryLink to={`/profile/${data.currentUser.id}`}>
-                <UserIcon />
-                {data ? data.currentUser.username : user}
-              </CategoryLink>
-            ) : (
-              <CategoryLink to={`/profile/${user.id}`}>
-                <UserIcon />
-              </CategoryLink>
-            )}
+            <CategoryLink to={`/profile/${data.currentUser.id}`}>
+              <UserIcon />
+              {data.currentUser.username}
+            </CategoryLink>
+          </HeaderLinks>
+        </HeaderNavWrapper>
+      </HeaderContainer>
+    )
+  }
+  if (user !== null) {
+    return (
+      <HeaderContainer>
+        <HeaderNavWrapper>
+          <HeaderLogo>
+            <Link to="/">
+              <FullLogo />
+              <HalfLogo />
+            </Link>
+          </HeaderLogo>
+
+          <HeaderLinks>
+            <CategoryLink to={`/profile/${user}`}>
+              <UserIcon />
+              {user}
+            </CategoryLink>
           </HeaderLinks>
         </HeaderNavWrapper>
       </HeaderContainer>

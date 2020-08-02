@@ -32,7 +32,10 @@ const Mutation = {
     console.log("post before")
     console.log(post)
 
+    
+
     if (!data.voteID) {
+      console.log("user did not provide a voteID")
       const vote = await db.mutation.createVote({
         data: {
           type: data.type,

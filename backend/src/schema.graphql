@@ -21,7 +21,6 @@ type Query {
     orderBy: CommentOrderByInput
   ): [Comment!]!
   users(query: String, first: Int, skip: Int, after: String): [User!]!
-  votes(query: String, first: Int, skip: Int, after: String): [Vote!]!
   node(id: ID!): Node
 }
 
