@@ -17,42 +17,248 @@ import {
 import { createAccessToken, createRefreshToken } from "../utils"
 
 const Mutation = {
-  async createVote(root, { data }, { db, user }, info) {
+  async createVote(root, { data }, { db, user }) {
     if (!user) return NoAuthorization
 
-    const userVoted = await db.exists.Vote(
-      {
-        user: { id: user.userID },
-        post: { id: data.postID }
-      },
-      info
-    )
-    if (userVoted) {
-      const vote = await db.mutation.deleteVote({
+    const postExists = db.exists.Post({ id: data.postID })
+    if (!postExists) return PostDoesNotExist
+
+    let post = await db.query.post({
+      where: {
+        id: data.postID
+      }
+    })
+
+    console.log("post before")
+    console.log(post)
+
+    if (!data.voteID) {
+      const vote = await db.mutation.createVote({
         data: {
-          where: {
-            id: data.voteID
+          type: data.type,
+
+          post: {
+            connect: {
+              id: data.postID
+            }
+          },
+
+          user: {
+            connect: {
+              id: user.userID
+            }
           }
         }
       })
+      // data.type = type of vote (+1/-1)
+      const newScore = data.type + post.score
+      console.log("in the new vote section")
+      await db.mutation.updatePost({
+        where: {
+          id: data.postID
+        },
+        data: {
+          score: newScore
+        }
+      })
+      post = await db.query.post({
+        where: {
+          id: data.postID
+        }
+      })
+      console.log("post after (new vote)")
+      console.log(post)
       return {
         code: "200",
         success: true,
-        message: "vote removed",
-        vote
+        message: "vote submitted",
+        vote,
+        post
       }
     }
-    const vote = await db.mutation.createVote({
-      data: {
-        user: { connect: { id: user.userID } },
-        post: { connect: { id: data.postID } }
+
+    if (data.voteID) {
+      console.log("beginnign of already voted section")
+      // The user already voted, so update vote type and post score
+      let vote = await db.query.vote({
+        where: {
+          id: data.voteID
+        }
+      })
+      console.log("vote ? ")
+      console.log(vote)
+      const storedVoteType = vote.type
+
+      // USER CLICKS UPVOTE \\
+      if (data.type === 1) {
+        // if the previous vote was an upvote
+        if (storedVoteType === 1) {
+          // cancelling out the upvote so subtract 1
+          const updatedScore = post.score - 1
+          await db.mutation.updatePost({
+            where: {
+              id: data.postID
+            },
+            data: {
+              score: updatedScore
+            }
+          })
+          // at square one, so just delete the vote
+          await db.mutation.deleteVote({
+            where: {
+              id: data.voteID
+            }
+          })
+          post = await db.query.post({
+            where: {
+              id: data.postID
+            }
+          })
+          vote = await db.query.vote({
+            where: {
+              id: data.voteID
+            }
+          })
+          console.log("post after")
+          console.log(post)
+          return {
+            code: "200",
+            success: true,
+            message: "score adjusted and vote reset",
+            post,
+            vote
+          }
+        }
+
+        // previous vote is downvote (-1)
+        if (storedVoteType === -1) {
+          const newScore = post.score + 2
+
+          await db.mutation.updatePost({
+            where: {
+              id: data.postID
+            },
+            data: {
+              score: newScore
+            }
+          })
+          await db.mutation.updateVote({
+            where: {
+              id: data.voteID
+            },
+            data: {
+              type: data.type
+            }
+          })
+          post = await db.query.post({
+            where: {
+              id: data.postID
+            }
+          })
+          vote = await db.query.vote({
+            where: {
+              id: data.voteID
+            }
+          })
+          console.log("post after")
+          console.log(post)
+          return {
+            code: "200",
+            success: true,
+            message: "score adjusted and vote submitted",
+            vote,
+            post
+          }
+        }
+      }
+
+      // USER CLICKS DONWVOTE  \\
+      if (data.type === -1) {
+        // if the previous vote was an downvote
+        if (storedVoteType === -1) {
+          // cancelling out the downvote so add 1
+          const updatedScore = post.score + 1
+          await db.mutation.updatePost({
+            where: {
+              id: data.postID
+            },
+            data: {
+              score: updatedScore
+            }
+          })
+          // back to even so delete the vote
+          await db.mutation.deleteVote({
+            where: {
+              id: data.voteID
+            }
+          })
+          post = await db.query.post({
+            where: {
+              id: data.postID
+            }
+          })
+          console.log("post after")
+          console.log(post)
+          return {
+            code: "200",
+            success: true,
+            message: "score adjusted and vote reset",
+            post
+          }
+        }
+
+        // previous vote is upvote (+1)
+        if (storedVoteType === 1) {
+          const newScore = post.score - 2
+
+          await db.mutation.updatePost({
+            where: {
+              id: data.postID
+            },
+            data: {
+              score: newScore
+            }
+          })
+          await db.mutation.updateVote({
+            where: {
+              id: data.voteID
+            },
+            data: {
+              type: data.type
+            }
+          })
+          post = await db.query.post({
+            where: {
+              id: data.postID
+            }
+          })
+          vote = await db.query.vote({
+            where: {
+              id: data.voteID
+            }
+          })
+          console.log("post after")
+          console.log(post)
+          return {
+            code: "200",
+            success: true,
+            message: "score adjusted and vote reset",
+            vote,
+            post
+          }
+        }
+      }
+    }
+    post = await db.query.post({
+      where: {
+        id: data.postID
       }
     })
     return {
-      code: "200",
-      success: true,
-      message: "vote submitted",
-      vote
+      code: "401",
+      success: false,
+      message: "end of object error",
+      post
     }
   },
 

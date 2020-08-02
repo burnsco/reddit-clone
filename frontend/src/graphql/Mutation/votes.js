@@ -1,13 +1,15 @@
 import { gql } from '@apollo/client'
 
-export const UPVOTE_POST_MUTATION = gql`
-  mutation onUpVotePost($postID: ID!, $downVote: Boolean!, $upVote: Boolean!) {
-    createVote(
-      data: { postID: $postID, downVote: $downVote, upVote: $upVote }
-    ) {
-      code
+export const VOTE_ON_POST_MUTATION = gql`
+  mutation onUpVotePost($postID: ID!, $voteID: ID, $type: Int!) {
+    createVote(data: { postID: $postID, voteID: $voteID, type: $type }) {
       success
       message
+      code
+      vote {
+        id
+        type
+      }
     }
   }
 `

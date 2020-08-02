@@ -35,12 +35,16 @@ const Header = () => {
           </HeaderLogo>
 
           <HeaderLinks>
-            <CategoryLink
-              to={`/profile/${data.currentUser.id}` || `/profile/${user.id}`}
-            >
-              <UserIcon />
-              {data ? data.currentUser.username : user}
-            </CategoryLink>
+            {data && data.currentUser ? (
+              <CategoryLink to={`/profile/${data.currentUser.id}`}>
+                <UserIcon />
+                {data ? data.currentUser.username : user}
+              </CategoryLink>
+            ) : (
+              <CategoryLink to={`/profile/${user.id}`}>
+                <UserIcon />
+              </CategoryLink>
+            )}
           </HeaderLinks>
         </HeaderNavWrapper>
       </HeaderContainer>

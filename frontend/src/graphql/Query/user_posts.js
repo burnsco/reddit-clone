@@ -4,12 +4,15 @@ export const GET_USER_POSTS_QUERY = gql`
   query onGetUserPosts($userID: ID) {
     posts(userID: $userID) {
       id
+      createdAt
+      updatedAt
+      score
       title
       text
-      createdAt
 
       votes {
         id
+        type
         user {
           id
         }

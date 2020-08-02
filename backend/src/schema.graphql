@@ -21,6 +21,7 @@ type Query {
     orderBy: CommentOrderByInput
   ): [Comment!]!
   users(query: String, first: Int, skip: Int, after: String): [User!]!
+  votes(query: String, first: Int, skip: Int, after: String): [Vote!]!
   node(id: ID!): Node
 }
 
@@ -52,36 +53,42 @@ interface Node {
   id: ID!
 }
 
-type Vote implements Node {
-  id: ID!
-  post: Post!
-  user: User!
-}
 
 type Category implements Node {
-  updatedAt: String!
-  createdAt: String!
   id: ID!
+  createdAt: String!
+  updatedAt: String!
   name: String!
   posts: [Post!]!
 }
 
 type Post implements Node {
-  updatedAt: String!
-  createdAt: String!
   id: ID!
-  category: Category!
+  createdAt: String!
+  updatedAt: String!
   title: String!
+  category: Category!
   text: String
+  score: Int!
   author: User!
   comments: [Comment!]!
   votes: [Vote!]!
 }
 
+type Comment implements Node {
+  id: ID!
+  createdAt: String!
+  updatedAt: String!
+  createdBy: User!
+  body: String!
+  post: Post!
+}
+
 type User implements Node {
   id: ID!
-  updatedAt: String!
+  role: Role!
   createdAt: String!
+  updatedAt: String!
   email: String!
   username: String!
   password: String!
@@ -90,19 +97,21 @@ type User implements Node {
   votes: [Vote!]!
 }
 
-type Comment implements Node {
+type Vote implements Node {
   id: ID!
-  updatedAt: String!
   createdAt: String!
-  body: String!
+  updatedAt: String!
+  user: User!
+  type: Int
   post: Post!
-  createdBy: User!
 }
+
 
 ### VOTE ###
 input CreateVoteInput {
   postID: ID!
-  commentID: ID
+  voteID: ID
+  type: Int
 }
 
 # SUBREDDITS
@@ -222,7 +231,8 @@ type CreateVoteMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
-  vote: Vote!
+  vote: Vote
+  post: Post
 }
 
 ## POSTS

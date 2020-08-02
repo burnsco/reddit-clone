@@ -1,31 +1,56 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Heart, HeartFill } from '@styled-icons/bootstrap'
-import { Container } from './styles'
+import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
+import { useMutation } from '@apollo/client'
+import { Container, Votes } from './styles'
+import { VOTE_ON_POST_MUTATION } from '../../../graphql/Mutation/votes'
 
-const UnLikedHeart = styled(Heart)`
-  color: 'white';
+const UpArrow = styled(UpArrowSquare)`
   &:hover {
     color: red;
   }
 `
 
-const LikedHeart = styled(HeartFill)`
-  color: 'pink';
+const DownArrow = styled(DownArrowSquare)`
   &:hover {
-    color: white;
+    color: red;
   }
 `
 
-const VoteBox = ({ voted }) => {
-  const [vote, setVote] = useState(false)
-  const toggleVote = () => {
-    setVote(!vote)
-  }
+const VoteBox = ({ votes, score, postID }) => {
+  const [userVotes] = useState(votes)
+  console.log('VOTE BOX INFO')
+  const [createVote, { error }] = useMutation(VOTE_ON_POST_MUTATION)
 
+  if (error) {
+    console.log(error)
+  }
+  console.log('user votes passed into votebox')
+  console.log(userVotes)
+  // JUST WORKING FOR NEW VOTING
+  // HAVE TO CHECK { userVotes } in order to show what user
+  //  has voted previously
   return (
-    <Container onClick={toggleVote}>
-      {voted ? <LikedHeart /> : <UnLikedHeart />}
+    <Container>
+      <UpArrow
+        onClick={async () => {
+          console.log(`upvote`)
+
+          await createVote({
+            variables: { postID, type: 1 },
+          })
+        }}
+      />
+      <Votes>{score}</Votes>
+      <DownArrow
+        onClick={async () => {
+          console.log('downvote')
+
+          await createVote({
+            variables: { postID, type: -1 },
+          })
+        }}
+      />
     </Container>
   )
 }

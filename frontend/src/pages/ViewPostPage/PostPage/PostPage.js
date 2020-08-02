@@ -32,6 +32,7 @@ const Post = ({
     title,
     text,
     votes,
+    score,
     category: { name },
     comments,
     createdAt,
@@ -42,7 +43,7 @@ const Post = ({
 }) => (
   <PostContainer>
     <VoteBoxContainer>
-      <VoteBox votes={votes} postID={id} />
+      <VoteBox votes={votes} score={score} postID={id} />
     </VoteBoxContainer>
     <PostDetailsContainer>
       <PostDetailsHeader>

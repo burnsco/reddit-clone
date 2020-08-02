@@ -4,10 +4,11 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
   query onPostAndComments($postID: ID!) {
     post(postID: $postID) {
       id
-      title
-      text
       createdAt
       updatedAt
+      score
+      title
+      text
 
       category {
         createdAt
@@ -18,6 +19,7 @@ export const GET_POST_AND_COMMENTS_QUERY = gql`
 
       votes {
         id
+        type
         user {
           id
         }

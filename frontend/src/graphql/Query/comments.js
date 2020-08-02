@@ -14,6 +14,7 @@ export const GET_COMMENTS_QUERY = gql`
       }
       votes {
         id
+        type
         user {
           id
         }
@@ -24,9 +25,9 @@ export const GET_COMMENTS_QUERY = gql`
       }
       comments {
         id
-        body
         createdAt
         updatedAt
+        body
         createdBy {
           id
           username

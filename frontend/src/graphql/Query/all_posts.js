@@ -4,13 +4,15 @@ export const GET_ALL_POSTS_QUERY = gql`
   query onGetAllPostsQuery {
     posts {
       id
-      title
-      text
       createdAt
       updatedAt
+      score
+      title
+      text
 
       votes {
         id
+        type
         user {
           id
         }

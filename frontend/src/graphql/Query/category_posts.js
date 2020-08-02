@@ -4,13 +4,15 @@ export const GET_POSTS_BY_CATEGORY_QUERY = gql`
   query onGetPostsByCategoryQuery($query: String!) {
     posts(query: $query) {
       id
-      title
-      text
       createdAt
       updatedAt
+      score
+      title
+      text
 
       votes {
         id
+        type
         user {
           id
         }
@@ -18,9 +20,9 @@ export const GET_POSTS_BY_CATEGORY_QUERY = gql`
 
       comments {
         id
-        body
         createdAt
         updatedAt
+        body
         createdBy {
           id
           username

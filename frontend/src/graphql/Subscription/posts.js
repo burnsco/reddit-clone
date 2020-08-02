@@ -5,9 +5,10 @@ export const POSTS_SUBSCRIPTION = gql`
     post {
       node {
         id
+        createdAt
+        score
         title
         text
-        createdAt
 
         comments {
           id
@@ -27,6 +28,14 @@ export const POSTS_SUBSCRIPTION = gql`
         category {
           id
           name
+        }
+
+        votes {
+          id
+          type
+          user {
+            id
+          }
         }
       }
     }

@@ -13,6 +13,7 @@ type Post {
   title: String!
   category: Category!
   text: String
+  score: Int! @default(value: 0)
   author: User!
   comments: [Comment!]!
   votes: [Vote!]!
@@ -29,11 +30,12 @@ type Comment {
 
 type User {
   id: ID! @id @unique
+  role: Role! @default(value: USER)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   email: String! @unique
-  password: String!
   username: String! 
+  password: String!
   posts: [Post!]!
   comments: [Comment!]!
   votes: [Vote!]!
@@ -42,6 +44,14 @@ type User {
 type Vote {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt
-  post: Post!
+  updatedAt: DateTime! @updatedAt
   user: User!
+  type: Int
+  post: Post!
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
 }

@@ -8,6 +8,8 @@ export const GET_USER_PROFILE_DATA = gql`
       username
       comments {
         id
+        createdAt
+        updatedAt
         body
         createdBy {
           username
@@ -15,7 +17,11 @@ export const GET_USER_PROFILE_DATA = gql`
       }
       posts {
         id
+        createdAt
+        updatedAt
+        score
         title
+        text
         url
         category {
           id
