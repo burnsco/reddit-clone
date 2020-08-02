@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
@@ -19,8 +20,9 @@ const DownArrow = styled(DownArrowSquare)`
 
 const VoteBox = ({ votes, score, postID }) => {
   const [userVotes] = useState(votes)
-  console.log('VOTE BOX INFO')
-  const [createVote, { error }] = useMutation(VOTE_ON_POST_MUTATION)
+  console.log(userVotes)
+
+  const [createVote, { data, error }] = useMutation(VOTE_ON_POST_MUTATION)
 
   if (error) {
     console.log(error)
@@ -32,22 +34,24 @@ const VoteBox = ({ votes, score, postID }) => {
   return (
     <Container>
       <UpArrow
-        onClick={async () => {
+        onClick={() => {
           console.log(`upvote`)
 
-          await createVote({
+          createVote({
             variables: { postID, type: 1 },
           })
+          console.log(data)
         }}
       />
       <Votes>{score}</Votes>
       <DownArrow
-        onClick={async () => {
+        onClick={() => {
           console.log('downvote')
 
-          await createVote({
+          createVote({
             variables: { postID, type: -1 },
           })
+          console.log(data)
         }}
       />
     </Container>
