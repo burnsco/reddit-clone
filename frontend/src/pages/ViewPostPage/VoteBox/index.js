@@ -19,7 +19,6 @@ const DownArrow = styled(DownArrowSquare)`
 
 const VoteBox = ({ votes, score, postID }) => {
   const [userVotes] = useState(votes)
-  console.log('VOTE BOX INFO')
   const [createVote, { error }] = useMutation(VOTE_ON_POST_MUTATION)
 
   if (error) {

@@ -29,11 +29,6 @@ const Mutation = {
       }
     })
 
-    console.log("post before")
-    console.log(post)
-
-    
-
     if (!data.voteID) {
       console.log("user did not provide a voteID")
       const vote = await db.mutation.createVote({
@@ -55,7 +50,7 @@ const Mutation = {
       })
       // data.type = type of vote (+1/-1)
       const newScore = data.type + post.score
-      console.log("in the new vote section")
+
       await db.mutation.updatePost({
         where: {
           id: data.postID
@@ -69,8 +64,7 @@ const Mutation = {
           id: data.postID
         }
       })
-      console.log("post after (new vote)")
-      console.log(post)
+
       return {
         code: "200",
         success: true,
@@ -81,7 +75,6 @@ const Mutation = {
     }
 
     if (data.voteID) {
-      console.log("beginnign of already voted section")
       // The user already voted, so update vote type and post score
       let vote = await db.query.vote({
         where: {
@@ -122,8 +115,7 @@ const Mutation = {
               id: data.voteID
             }
           })
-          console.log("post after")
-          console.log(post)
+
           return {
             code: "200",
             success: true,
@@ -163,8 +155,7 @@ const Mutation = {
               id: data.voteID
             }
           })
-          console.log("post after")
-          console.log(post)
+
           return {
             code: "200",
             success: true,
@@ -200,8 +191,7 @@ const Mutation = {
               id: data.postID
             }
           })
-          console.log("post after")
-          console.log(post)
+
           return {
             code: "200",
             success: true,
@@ -240,12 +230,14 @@ const Mutation = {
               id: data.voteID
             }
           })
-          console.log("post after")
-          console.log(post)
+          const userinfo = await db.query.user({
+            id: user.userID
+          })
           return {
             code: "200",
             success: true,
             message: "score adjusted and vote reset",
+            user: userinfo,
             vote,
             post
           }

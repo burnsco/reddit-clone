@@ -7,12 +7,16 @@ export const VOTE_ON_POST_MUTATION = gql`
       message
       code
       post {
+        author {
+          id
+        }
         id
-        title
-      }
-      vote {
-        id
-        type
+        votes {
+          id
+          user {
+            id
+          }
+        }
       }
     }
   }

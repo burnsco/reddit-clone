@@ -100,9 +100,9 @@ type Vote implements Node {
   id: ID!
   createdAt: String!
   updatedAt: String!
-  user: User!
+  user: User
   type: Int
-  post: Post!
+  post: Post
 }
 
 
