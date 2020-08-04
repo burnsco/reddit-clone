@@ -5,8 +5,6 @@
   "main": "server.js",
   "scripts": {
     "start": "node dist/server.js",
-    "generate": "graphql-codegen --config codegen.js",
-    "generate:watch": "yarn generate --watch",
     "dev": "nodemon -r dotenv/config src/server.js --ext js,graphql --exec babel-node",
     "heroku-postbuild": "babel src --out-dir dist --copy-files --copy-files",
     "clear": "rimraf ./node_modules/.cache/babel-loader",

@@ -4,7 +4,7 @@ type Category {
   updatedAt: DateTime! @updatedAt
   name: String! 
   posts: [Post!]!
-  chatRoom: [ChatRoom!]
+  chatRoom: [ChatRoom!]!
 }
 type ChatRoom {
   id: ID! @id @unique
@@ -15,9 +15,11 @@ type ChatRoom {
 type ChatMessage {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt
+  chat: ChatRoom!
   sentBy: User!
   text: String!
 }
+
 type User {
   id: ID! @id @unique
   role: Role! @default(value: USER)
@@ -31,6 +33,7 @@ type User {
   comments: [Comment!]!
   votes: [Vote!]!
 }
+
 type Post {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt

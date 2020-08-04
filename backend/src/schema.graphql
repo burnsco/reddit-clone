@@ -28,7 +28,8 @@ type Mutation {
  
   logout: String
 
-  createMessage(data: CreateMessageInput!): CreateMessageMutationResponse!
+  createChatRoom(data: CreateChatRoomInput): CreateChatRoomMutationResponse!
+  createChatMessage(data: CreateChatMessageInput!): CreateChatMessageMutationResponse!
 
   createVote(data: CreateVoteInput!): CreateVoteMutationResponse!
 
@@ -61,11 +62,12 @@ type Category implements Node {
   updatedAt: String!
   name: String!
   posts: [Post!]!
-  chatRoom: [ChatRoom!]
+  chatRoom: [ChatRoom!]!
 }
 
 type ChatRoom implements Node {
   id: ID!
+  category: Category!
   createdAt: String!
   messages: [ChatMessage!]!
 }
@@ -73,6 +75,7 @@ type ChatRoom implements Node {
 type ChatMessage implements Node {
   id: ID! 
   createdAt: String!
+  chat: Chat!
   sentBy: User!
   text: String!
 }
@@ -130,9 +133,14 @@ input CreateVoteInput {
   type: Int
 }
 
-input CreateMessageInput {
+## CHAT ###
+input CreateChatRoomInput {
+  categoryID: ID!
+}
+input CreateChatMessageInput {
   text: String!
   chatID: ID!
+  categoryID: ID!
 }
 
 # SUBREDDITS
@@ -294,11 +302,18 @@ type DeleteCommentMutationResponse implements MutationResponse {
   comment: Comment!
 }
 
-type CreateMessageMutationResponse implements MutationResponse {
+#  CHAT 
+type CreateChatRoomMutationResposne implements MutaitonResponse {
   code: String!
-  success: String!
+  success: Boolean!
   message: String!
-  chatMessage: ChatMessage!
+  chatroom: ChatRoom!
+}
+type CreateChatMessageMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  chatmessage: ChatMessage!
 }
 
 # MUTATION RESPONSE

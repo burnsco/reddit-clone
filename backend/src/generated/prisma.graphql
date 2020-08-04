@@ -222,6 +222,7 @@ input CategoryWhereUniqueInput {
 type ChatMessage {
   id: ID!
   createdAt: DateTime!
+  chat: ChatRoom!
   sentBy: User!
   text: String!
 }
@@ -234,12 +235,13 @@ type ChatMessageConnection {
 
 input ChatMessageCreateInput {
   id: ID
+  chat: ChatRoomCreateOneWithoutMessagesInput!
   sentBy: UserCreateOneWithoutChatMessagesInput!
   text: String!
 }
 
-input ChatMessageCreateManyInput {
-  create: [ChatMessageCreateInput!]
+input ChatMessageCreateManyWithoutChatInput {
+  create: [ChatMessageCreateWithoutChatInput!]
   connect: [ChatMessageWhereUniqueInput!]
 }
 
@@ -248,8 +250,15 @@ input ChatMessageCreateManyWithoutSentByInput {
   connect: [ChatMessageWhereUniqueInput!]
 }
 
+input ChatMessageCreateWithoutChatInput {
+  id: ID
+  sentBy: UserCreateOneWithoutChatMessagesInput!
+  text: String!
+}
+
 input ChatMessageCreateWithoutSentByInput {
   id: ID
+  chat: ChatRoomCreateOneWithoutMessagesInput!
   text: String!
 }
 
@@ -333,12 +342,8 @@ input ChatMessageSubscriptionWhereInput {
   NOT: [ChatMessageSubscriptionWhereInput!]
 }
 
-input ChatMessageUpdateDataInput {
-  sentBy: UserUpdateOneRequiredWithoutChatMessagesInput
-  text: String
-}
-
 input ChatMessageUpdateInput {
+  chat: ChatRoomUpdateOneRequiredWithoutMessagesInput
   sentBy: UserUpdateOneRequiredWithoutChatMessagesInput
   text: String
 }
@@ -347,20 +352,20 @@ input ChatMessageUpdateManyDataInput {
   text: String
 }
 
-input ChatMessageUpdateManyInput {
-  create: [ChatMessageCreateInput!]
-  update: [ChatMessageUpdateWithWhereUniqueNestedInput!]
-  upsert: [ChatMessageUpsertWithWhereUniqueNestedInput!]
+input ChatMessageUpdateManyMutationInput {
+  text: String
+}
+
+input ChatMessageUpdateManyWithoutChatInput {
+  create: [ChatMessageCreateWithoutChatInput!]
   delete: [ChatMessageWhereUniqueInput!]
   connect: [ChatMessageWhereUniqueInput!]
   set: [ChatMessageWhereUniqueInput!]
   disconnect: [ChatMessageWhereUniqueInput!]
+  update: [ChatMessageUpdateWithWhereUniqueWithoutChatInput!]
+  upsert: [ChatMessageUpsertWithWhereUniqueWithoutChatInput!]
   deleteMany: [ChatMessageScalarWhereInput!]
   updateMany: [ChatMessageUpdateManyWithWhereNestedInput!]
-}
-
-input ChatMessageUpdateManyMutationInput {
-  text: String
 }
 
 input ChatMessageUpdateManyWithoutSentByInput {
@@ -380,13 +385,19 @@ input ChatMessageUpdateManyWithWhereNestedInput {
   data: ChatMessageUpdateManyDataInput!
 }
 
-input ChatMessageUpdateWithoutSentByDataInput {
+input ChatMessageUpdateWithoutChatDataInput {
+  sentBy: UserUpdateOneRequiredWithoutChatMessagesInput
   text: String
 }
 
-input ChatMessageUpdateWithWhereUniqueNestedInput {
+input ChatMessageUpdateWithoutSentByDataInput {
+  chat: ChatRoomUpdateOneRequiredWithoutMessagesInput
+  text: String
+}
+
+input ChatMessageUpdateWithWhereUniqueWithoutChatInput {
   where: ChatMessageWhereUniqueInput!
-  data: ChatMessageUpdateDataInput!
+  data: ChatMessageUpdateWithoutChatDataInput!
 }
 
 input ChatMessageUpdateWithWhereUniqueWithoutSentByInput {
@@ -394,10 +405,10 @@ input ChatMessageUpdateWithWhereUniqueWithoutSentByInput {
   data: ChatMessageUpdateWithoutSentByDataInput!
 }
 
-input ChatMessageUpsertWithWhereUniqueNestedInput {
+input ChatMessageUpsertWithWhereUniqueWithoutChatInput {
   where: ChatMessageWhereUniqueInput!
-  update: ChatMessageUpdateDataInput!
-  create: ChatMessageCreateInput!
+  update: ChatMessageUpdateWithoutChatDataInput!
+  create: ChatMessageCreateWithoutChatInput!
 }
 
 input ChatMessageUpsertWithWhereUniqueWithoutSentByInput {
@@ -429,6 +440,7 @@ input ChatMessageWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  chat: ChatRoomWhereInput
   sentBy: UserWhereInput
   text: String
   text_not: String
@@ -469,7 +481,7 @@ type ChatRoomConnection {
 input ChatRoomCreateInput {
   id: ID
   category: CategoryCreateOneWithoutChatRoomInput!
-  messages: ChatMessageCreateManyInput
+  messages: ChatMessageCreateManyWithoutChatInput
 }
 
 input ChatRoomCreateManyWithoutCategoryInput {
@@ -477,9 +489,19 @@ input ChatRoomCreateManyWithoutCategoryInput {
   connect: [ChatRoomWhereUniqueInput!]
 }
 
+input ChatRoomCreateOneWithoutMessagesInput {
+  create: ChatRoomCreateWithoutMessagesInput
+  connect: ChatRoomWhereUniqueInput
+}
+
 input ChatRoomCreateWithoutCategoryInput {
   id: ID
-  messages: ChatMessageCreateManyInput
+  messages: ChatMessageCreateManyWithoutChatInput
+}
+
+input ChatRoomCreateWithoutMessagesInput {
+  id: ID
+  category: CategoryCreateOneWithoutChatRoomInput!
 }
 
 type ChatRoomEdge {
@@ -547,7 +569,7 @@ input ChatRoomSubscriptionWhereInput {
 
 input ChatRoomUpdateInput {
   category: CategoryUpdateOneRequiredWithoutChatRoomInput
-  messages: ChatMessageUpdateManyInput
+  messages: ChatMessageUpdateManyWithoutChatInput
 }
 
 input ChatRoomUpdateManyWithoutCategoryInput {
@@ -561,13 +583,29 @@ input ChatRoomUpdateManyWithoutCategoryInput {
   deleteMany: [ChatRoomScalarWhereInput!]
 }
 
+input ChatRoomUpdateOneRequiredWithoutMessagesInput {
+  create: ChatRoomCreateWithoutMessagesInput
+  update: ChatRoomUpdateWithoutMessagesDataInput
+  upsert: ChatRoomUpsertWithoutMessagesInput
+  connect: ChatRoomWhereUniqueInput
+}
+
 input ChatRoomUpdateWithoutCategoryDataInput {
-  messages: ChatMessageUpdateManyInput
+  messages: ChatMessageUpdateManyWithoutChatInput
+}
+
+input ChatRoomUpdateWithoutMessagesDataInput {
+  category: CategoryUpdateOneRequiredWithoutChatRoomInput
 }
 
 input ChatRoomUpdateWithWhereUniqueWithoutCategoryInput {
   where: ChatRoomWhereUniqueInput!
   data: ChatRoomUpdateWithoutCategoryDataInput!
+}
+
+input ChatRoomUpsertWithoutMessagesInput {
+  update: ChatRoomUpdateWithoutMessagesDataInput!
+  create: ChatRoomCreateWithoutMessagesInput!
 }
 
 input ChatRoomUpsertWithWhereUniqueWithoutCategoryInput {
