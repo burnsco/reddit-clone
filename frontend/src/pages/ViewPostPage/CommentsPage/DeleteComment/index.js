@@ -3,6 +3,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import { useMutation } from '@apollo/client'
 import { DELETE_COMMENT_MUTATION } from '../../../../graphql/Mutation/delete_comment'
+import Box from '../../../../styles/components/Box'
 
 function DeleteComment({ commentID, postID, refetch }) {
   const [deleteComment, { error }] = useMutation(DELETE_COMMENT_MUTATION, {
@@ -42,13 +43,15 @@ function DeleteComment({ commentID, postID, refetch }) {
 
   return (
     <>
-      <button
+      <Box
+        ml="2"
+        as="button"
         onClick={() => {
           confirmAlert(options)
         }}
       >
         Delete
-      </button>
+      </Box>
     </>
   )
 }

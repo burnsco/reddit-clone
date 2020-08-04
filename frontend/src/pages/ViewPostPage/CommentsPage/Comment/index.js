@@ -6,7 +6,6 @@ import {
   CommentCreatedAt,
   CommentBody,
 } from '../../styles'
-import { CommentFooter } from '../styles'
 import EditComment from '../EditComment'
 import DeleteComment from '../DeleteComment'
 import { timeDifferenceForDate } from '../../../../utils/timeDifferenceForDate'
@@ -33,7 +32,9 @@ const CommentComponent = ({ postID, refetch, comment }) => {
     if (commentCreatedBy === userID) {
       return (
         <>
-          <button
+          <Box
+            ml="2"
+            as="button"
             onClick={() => {
               editComment({
                 variables: {
@@ -46,8 +47,10 @@ const CommentComponent = ({ postID, refetch, comment }) => {
             }}
           >
             Save
-          </button>
-          <button onClick={() => setShowComment(!showComment)}>Cancel</button>
+          </Box>
+          <Box ml="2" as="button" onClick={() => setShowComment(!showComment)}>
+            Cancel
+          </Box>
         </>
       )
     }
@@ -92,6 +95,9 @@ const CommentComponent = ({ postID, refetch, comment }) => {
         </UserName>
         <CommentCreatedAt>
           {hasBeenEdited(comment.createdAt, comment.updatedAt)}
+
+          {!showComment ? saveCancel() : null}
+          {showComment ? editDelete() : null}
         </CommentCreatedAt>
       </CommentHeader>
 
@@ -109,11 +115,6 @@ const CommentComponent = ({ postID, refetch, comment }) => {
           />
         </CommentBody>
       )}
-
-      <CommentFooter>
-        {!showComment ? saveCancel() : null}
-        {showComment ? editDelete() : null}
-      </CommentFooter>
     </Box>
   )
 }

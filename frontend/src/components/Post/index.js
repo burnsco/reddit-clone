@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from '@reach/router'
-import styled from 'styled-components'
-import { CommentAlt } from '@styled-icons/fa-solid'
+
 import {
   PostContainer,
   VoteBoxContainer,
@@ -10,22 +9,16 @@ import {
   PostText,
   PostFooter,
   PostComments,
+  CommentIcon,
   PostCategory,
   PostDetailsHeader,
   PostedBy,
   UserName,
-} from './styles.js'
+} from './styles'
 import VoteBox from '../VoteBox/index.js'
 import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
 import formatCommentText from '../../utils/comments.js'
 import checkForLink from '../../utils/checkForLink.js'
-
-const CommentIcon = styled(CommentAlt)`
-  color: grey;
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-`
 
 const Post = ({
   post: {

@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import { CommentAlt } from '@styled-icons/fa-solid'
 import Text from '../../styles/components/Text'
+import Box from '../../styles/components/Box'
 
-export const PostContainer = styled.div`
+export const PostContainer = styled(Box)`
   border: 1px solid #ebedf0;
   background: #fff;
   border-radius: 5px;
@@ -17,6 +19,13 @@ export const PostContainer = styled.div`
 `
 export const VoteBoxContainer = styled.div`
   margin-right: 5px;
+`
+
+export const CommentIcon = styled(CommentAlt)`
+  color: grey;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
 `
 
 export const PostDetailsContainer = styled.div`

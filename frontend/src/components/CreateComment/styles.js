@@ -25,6 +25,7 @@ export const InputCommentBox = styled.input`
 
 export const InputCommentFooter = styled.div`
   display: flex;
+  margin-top: 5px;
   border-radius: 5px;
   width: 100%;
   align-self: flex-end;

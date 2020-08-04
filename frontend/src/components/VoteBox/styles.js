@@ -1,8 +1,8 @@
 import styled from 'styled-components'
+import Flex from '../../styles/components/Flex'
 
-export const Container = styled.div`
+export const Container = styled(Flex)`
   width: 45px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   padding: 12px;

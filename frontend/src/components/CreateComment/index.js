@@ -8,6 +8,7 @@ import {
 } from './styles'
 import MainSpinner from '../shared/FallBackSpinner'
 import { SUBMIT_COMMENT_MUTATION } from '../../graphql/Mutation/submit_comment'
+import Box from '../../styles/components/Box'
 
 function CreateCommentForm({ postID, refetch }) {
   const [createComment, { loading, error }] = useMutation(
@@ -41,7 +42,7 @@ function CreateCommentForm({ postID, refetch }) {
   }
 
   return (
-    <>
+    <Box mx={[2, 3]}>
       <form onSubmit={handleSubmit}>
         <InputCommentBox
           ref={(node) => {
@@ -60,7 +61,7 @@ function CreateCommentForm({ postID, refetch }) {
           <SubmitCommentButton type="submit">Submit</SubmitCommentButton>
         </InputCommentFooter>
       </form>
-    </>
+    </Box>
   )
 }
 
