@@ -29,7 +29,6 @@ function CreateCommentForm({ postID, refetch }) {
       const { message } = result.data.createComment
 
       if (message) {
-        alert(message)
         refetch()
       }
     } catch (ex) {

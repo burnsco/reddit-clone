@@ -7,7 +7,10 @@ import { POSTS_SUBSCRIPTION } from '../../../graphql/Subscription/posts'
 
 function AllPostsPageWithData() {
   const { subscribeToMore, data, loading, error } = useQuery(
-    GET_ALL_POSTS_QUERY
+    GET_ALL_POSTS_QUERY,
+    {
+      pollInterval: 900,
+    }
   )
 
   if (loading) return <MainSpinner />

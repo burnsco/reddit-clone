@@ -1,5 +1,4 @@
-/* eslint-disable no-shadow */
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 import { useMutation } from '@apollo/client'
@@ -18,40 +17,32 @@ const DownArrow = styled(DownArrowSquare)`
   }
 `
 
-const VoteBox = ({ votes, score, postID }) => {
-  const [userVotes] = useState(votes)
-  console.log(userVotes)
-
-  const [createVote, { data, error }] = useMutation(VOTE_ON_POST_MUTATION)
+const VoteBox = ({ score, postID }) => {
+  const [createVote, { error }] = useMutation(VOTE_ON_POST_MUTATION)
 
   if (error) {
     console.log(error)
   }
-  console.log(userVotes)
-  // JUST WORKING FOR NEW VOTING
-  // HAVE TO CHECK { userVotes } in order to show what user
-  //  has voted previously
+
   return (
     <Container>
       <UpArrow
-        onClick={() => {
+        onClick={async () => {
           console.log(`upvote`)
 
-          createVote({
+          await createVote({
             variables: { postID, type: 1 },
           })
-          console.log(data)
         }}
       />
       <Votes>{score}</Votes>
       <DownArrow
-        onClick={() => {
+        onClick={async () => {
           console.log('downvote')
 
-          createVote({
+          await createVote({
             variables: { postID, type: -1 },
           })
-          console.log(data)
         }}
       />
     </Container>

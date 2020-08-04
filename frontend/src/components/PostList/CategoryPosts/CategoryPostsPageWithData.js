@@ -10,6 +10,7 @@ function CategoryPostsPageWithData({ category }) {
     GET_POSTS_BY_CATEGORY_QUERY,
     {
       variables: { query: category },
+      pollInterval: 900,
     }
   )
 

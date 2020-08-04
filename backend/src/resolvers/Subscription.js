@@ -1,18 +1,20 @@
 const Subscription = {
-  post: {
+  postAdded: {
     subscribe(root, args, { db }, info) {
-      return db.subscription.post(
-        { where: { mutation_in: ["CREATED", "UPDATED", "DELETED"] } },
+      return db.subscription.post({ where: { mutation_in: ["CREATED"] } }, info)
+    }
+  },
+  commentAdded: {
+    subscribe(root, _, { db }, info) {
+      return db.subscription.comment(
+        { where: { mutation_in: ["CREATED"] } },
         info
       )
     }
   },
-  comment: {
+  voteAdded: {
     subscribe(root, _, { db }, info) {
-      return db.subscription.comment(
-        { where: { mutation_in: ["CREATED", "UPDATED", "DELETED"] } },
-        info
-      )
+      return db.subscription.vote({ where: { mutation_in: ["CREATED"] } }, info)
     }
   }
 }

@@ -7,6 +7,7 @@ import { GET_POST_AND_COMMENTS_QUERY } from '../../../graphql/Query/post_and_com
 export default function PostPageWithData({ postID }) {
   const { error, loading, data } = useQuery(GET_POST_AND_COMMENTS_QUERY, {
     variables: { postID },
+    pollInterval: 900,
   })
   if (loading) return <MainSpinner />
   if (error) return <div>Error! Return whence you came</div>

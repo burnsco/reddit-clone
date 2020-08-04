@@ -231,7 +231,6 @@ type CreateVoteMutationResponse implements MutationResponse {
   success: Boolean!
   message: String!
   vote: Vote
-  post: Post
 }
 
 ## POSTS
@@ -291,9 +290,15 @@ type CommentSubscriptionPayload {
   node: Comment
 }
 
+type VoteSubscriptionPayload {
+  mutation: MutationType
+  node: Vote
+}
+
 type Subscription {
-  post(postID: ID, categoryID: ID): PostSubscriptionPayload
-  comment(postID: ID): CommentSubscriptionPayload
+  postAdded(postID: ID, categoryID: ID): PostSubscriptionPayload
+  commentAdded(postID: ID): CommentSubscriptionPayload
+  voteAdded(postID: ID): VoteSubscriptionPayload
 }
 
 enum PostOrderByInput {

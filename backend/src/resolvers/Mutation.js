@@ -23,7 +23,7 @@ const Mutation = {
     const postExists = db.exists.Post({ id: data.postID })
     if (!postExists) return PostDoesNotExist
 
-    let post = await db.query.post({
+    const post = await db.query.post({
       where: {
         id: data.postID
       }
@@ -59,18 +59,12 @@ const Mutation = {
           score: newScore
         }
       })
-      post = await db.query.post({
-        where: {
-          id: data.postID
-        }
-      })
 
       return {
         code: "200",
         success: true,
         message: "vote submitted",
-        vote,
-        post
+        vote
       }
     }
 
@@ -81,8 +75,7 @@ const Mutation = {
           id: data.voteID
         }
       })
-      console.log("vote ? ")
-      console.log(vote)
+
       const storedVoteType = vote.type
 
       // USER CLICKS UPVOTE \\
@@ -105,11 +98,7 @@ const Mutation = {
               id: data.voteID
             }
           })
-          post = await db.query.post({
-            where: {
-              id: data.postID
-            }
-          })
+
           vote = await db.query.vote({
             where: {
               id: data.voteID
@@ -120,7 +109,6 @@ const Mutation = {
             code: "200",
             success: true,
             message: "score adjusted and vote reset",
-            post,
             vote
           }
         }
@@ -145,11 +133,6 @@ const Mutation = {
               type: data.type
             }
           })
-          post = await db.query.post({
-            where: {
-              id: data.postID
-            }
-          })
           vote = await db.query.vote({
             where: {
               id: data.voteID
@@ -160,8 +143,7 @@ const Mutation = {
             code: "200",
             success: true,
             message: "score adjusted and vote submitted",
-            vote,
-            post
+            vote
           }
         }
       }
@@ -186,17 +168,11 @@ const Mutation = {
               id: data.voteID
             }
           })
-          post = await db.query.post({
-            where: {
-              id: data.postID
-            }
-          })
 
           return {
             code: "200",
             success: true,
-            message: "score adjusted and vote reset",
-            post
+            message: "score adjusted and vote reset"
           }
         }
 
@@ -220,40 +196,25 @@ const Mutation = {
               type: data.type
             }
           })
-          post = await db.query.post({
-            where: {
-              id: data.postID
-            }
-          })
           vote = await db.query.vote({
             where: {
               id: data.voteID
             }
           })
-          const userinfo = await db.query.user({
-            id: user.userID
-          })
           return {
             code: "200",
             success: true,
             message: "score adjusted and vote reset",
-            user: userinfo,
-            vote,
-            post
+            vote
           }
         }
       }
     }
-    post = await db.query.post({
-      where: {
-        id: data.postID
-      }
-    })
+
     return {
       code: "401",
       success: false,
-      message: "end of object error",
-      post
+      message: "end of object error"
     }
   },
 

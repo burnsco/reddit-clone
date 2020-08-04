@@ -86,7 +86,7 @@ const CommentComponent = ({ postID, refetch, comment }) => {
   return (
     <Box mx={[2, 3, 4]} my={[2, 3, 4]}>
       <CommentHeader>
-        <UserName to={`profile/${commentCreatedBy}`}>
+        <UserName to={`../../profile/${commentCreatedBy}`}>
           {' '}
           <strong>{comment.createdBy.username}</strong>
         </UserName>
