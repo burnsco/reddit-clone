@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 import { useMutation } from '@apollo/client'
@@ -17,7 +17,9 @@ const DownArrow = styled(DownArrowSquare)`
   }
 `
 
-const VoteBox = ({ score, postID }) => {
+const VoteBox = ({ votes, score, postID }) => {
+  const [userVotes] = useState(votes)
+  console.log(userVotes)
   const [createVote, { error }] = useMutation(VOTE_ON_POST_MUTATION)
 
   if (error) {

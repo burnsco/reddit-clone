@@ -4,8 +4,33 @@ type Category {
   updatedAt: DateTime! @updatedAt
   name: String! 
   posts: [Post!]!
+  chatRoom: [ChatRoom!]
 }
-
+type ChatRoom {
+  id: ID! @id @unique
+  category: Category!
+  createdAt: DateTime! @createdAt
+  messages: [ChatMessage!]!
+}
+type ChatMessage {
+  id: ID! @id @unique
+  createdAt: DateTime! @createdAt
+  sentBy: User!
+  text: String!
+}
+type User {
+  id: ID! @id @unique
+  role: Role! @default(value: USER)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  email: String! @unique
+  username: String! 
+  password: String!
+  chatMessages: [ChatMessage!]!
+  posts: [Post!]!
+  comments: [Comment!]!
+  votes: [Vote!]!
+}
 type Post {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt
@@ -18,7 +43,6 @@ type Post {
   comments: [Comment!]!
   votes: [Vote!]!
 }
-
 type Comment {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt
@@ -27,20 +51,6 @@ type Comment {
   body: String!
   post: Post!
 }
-
-type User {
-  id: ID! @id @unique
-  role: Role! @default(value: USER)
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  email: String! @unique
-  username: String! 
-  password: String!
-  posts: [Post!]!
-  comments: [Comment!]!
-  votes: [Vote!]!
-}
-
 type Vote {
   id: ID! @id @unique
   createdAt: DateTime! @createdAt

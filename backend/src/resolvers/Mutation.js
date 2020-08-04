@@ -29,8 +29,13 @@ const Mutation = {
       }
     })
 
-    if (!data.voteID) {
-      console.log("user did not provide a voteID")
+    // check if user voted already
+    const userVoted = await db.exists.Vote({
+      post: { id: data.postID },
+      user: { id: user.userID }
+    })
+
+    if (!userVoted) {
       const vote = await db.mutation.createVote({
         data: {
           type: data.type,
@@ -68,11 +73,11 @@ const Mutation = {
       }
     }
 
-    if (data.voteID) {
+    if (userVoted) {
       // The user already voted, so update vote type and post score
       let vote = await db.query.vote({
-        where: {
-          id: data.voteID
+        user: {
+          id: user.userID
         }
       })
 
@@ -275,8 +280,8 @@ const Mutation = {
     return CategoryWasDeleted
   },
 
-  async createUser(root, { data }, { db, res }, info) {
-    const emailExists = await db.exists.User({ email: data.email }, info)
+  async createUser(root, { data }, { db, res }) {
+    const emailExists = await db.exists.User({ email: data.email })
 
     if (emailExists) return EmailTaken
 
@@ -422,6 +427,36 @@ const Mutation = {
       }
     })
     return PostDeleted
+  },
+  async createChatMessage(root, { data }, { user, db }) {
+    if (!user) return UserNotLoggedIn
+
+    const categoryExists = await db.exists.Category({ id: data.categoryID })
+    if (!categoryExists) return CategoryDoesNotExist
+
+    const chatMessage = await db.mutation.createMessage({
+      data: {
+        text: data.text,
+
+        chatRoom: {
+          connect: {
+            id: data.chatID
+          }
+        },
+
+        sentBy: {
+          connect: {
+            id: user.userID
+          }
+        }
+      }
+    })
+    return {
+      code: "200",
+      success: true,
+      message: "Comment Created Successfully!",
+      chatMessage
+    }
   },
 
   async createComment(root, { data }, { user, db }) {

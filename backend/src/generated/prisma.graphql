@@ -2,6 +2,14 @@ type AggregateCategory {
   count: Int!
 }
 
+type AggregateChatMessage {
+  count: Int!
+}
+
+type AggregateChatRoom {
+  count: Int!
+}
+
 type AggregateComment {
   count: Int!
 }
@@ -28,6 +36,7 @@ type Category {
   updatedAt: DateTime!
   name: String!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  chatRoom(where: ChatRoomWhereInput, orderBy: ChatRoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ChatRoom!]
 }
 
 type CategoryConnection {
@@ -40,6 +49,12 @@ input CategoryCreateInput {
   id: ID
   name: String!
   posts: PostCreateManyWithoutCategoryInput
+  chatRoom: ChatRoomCreateManyWithoutCategoryInput
+}
+
+input CategoryCreateOneWithoutChatRoomInput {
+  create: CategoryCreateWithoutChatRoomInput
+  connect: CategoryWhereUniqueInput
 }
 
 input CategoryCreateOneWithoutPostsInput {
@@ -47,9 +62,16 @@ input CategoryCreateOneWithoutPostsInput {
   connect: CategoryWhereUniqueInput
 }
 
+input CategoryCreateWithoutChatRoomInput {
+  id: ID
+  name: String!
+  posts: PostCreateManyWithoutCategoryInput
+}
+
 input CategoryCreateWithoutPostsInput {
   id: ID
   name: String!
+  chatRoom: ChatRoomCreateManyWithoutCategoryInput
 }
 
 type CategoryEdge {
@@ -96,10 +118,18 @@ input CategorySubscriptionWhereInput {
 input CategoryUpdateInput {
   name: String
   posts: PostUpdateManyWithoutCategoryInput
+  chatRoom: ChatRoomUpdateManyWithoutCategoryInput
 }
 
 input CategoryUpdateManyMutationInput {
   name: String
+}
+
+input CategoryUpdateOneRequiredWithoutChatRoomInput {
+  create: CategoryCreateWithoutChatRoomInput
+  update: CategoryUpdateWithoutChatRoomDataInput
+  upsert: CategoryUpsertWithoutChatRoomInput
+  connect: CategoryWhereUniqueInput
 }
 
 input CategoryUpdateOneRequiredWithoutPostsInput {
@@ -109,8 +139,19 @@ input CategoryUpdateOneRequiredWithoutPostsInput {
   connect: CategoryWhereUniqueInput
 }
 
+input CategoryUpdateWithoutChatRoomDataInput {
+  name: String
+  posts: PostUpdateManyWithoutCategoryInput
+}
+
 input CategoryUpdateWithoutPostsDataInput {
   name: String
+  chatRoom: ChatRoomUpdateManyWithoutCategoryInput
+}
+
+input CategoryUpsertWithoutChatRoomInput {
+  update: CategoryUpdateWithoutChatRoomDataInput!
+  create: CategoryCreateWithoutChatRoomInput!
 }
 
 input CategoryUpsertWithoutPostsInput {
@@ -166,12 +207,408 @@ input CategoryWhereInput {
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput
+  chatRoom_every: ChatRoomWhereInput
+  chatRoom_some: ChatRoomWhereInput
+  chatRoom_none: ChatRoomWhereInput
   AND: [CategoryWhereInput!]
   OR: [CategoryWhereInput!]
   NOT: [CategoryWhereInput!]
 }
 
 input CategoryWhereUniqueInput {
+  id: ID
+}
+
+type ChatMessage {
+  id: ID!
+  createdAt: DateTime!
+  sentBy: User!
+  text: String!
+}
+
+type ChatMessageConnection {
+  pageInfo: PageInfo!
+  edges: [ChatMessageEdge]!
+  aggregate: AggregateChatMessage!
+}
+
+input ChatMessageCreateInput {
+  id: ID
+  sentBy: UserCreateOneWithoutChatMessagesInput!
+  text: String!
+}
+
+input ChatMessageCreateManyInput {
+  create: [ChatMessageCreateInput!]
+  connect: [ChatMessageWhereUniqueInput!]
+}
+
+input ChatMessageCreateManyWithoutSentByInput {
+  create: [ChatMessageCreateWithoutSentByInput!]
+  connect: [ChatMessageWhereUniqueInput!]
+}
+
+input ChatMessageCreateWithoutSentByInput {
+  id: ID
+  text: String!
+}
+
+type ChatMessageEdge {
+  node: ChatMessage!
+  cursor: String!
+}
+
+enum ChatMessageOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  text_ASC
+  text_DESC
+}
+
+type ChatMessagePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  text: String!
+}
+
+input ChatMessageScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  AND: [ChatMessageScalarWhereInput!]
+  OR: [ChatMessageScalarWhereInput!]
+  NOT: [ChatMessageScalarWhereInput!]
+}
+
+type ChatMessageSubscriptionPayload {
+  mutation: MutationType!
+  node: ChatMessage
+  updatedFields: [String!]
+  previousValues: ChatMessagePreviousValues
+}
+
+input ChatMessageSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ChatMessageWhereInput
+  AND: [ChatMessageSubscriptionWhereInput!]
+  OR: [ChatMessageSubscriptionWhereInput!]
+  NOT: [ChatMessageSubscriptionWhereInput!]
+}
+
+input ChatMessageUpdateDataInput {
+  sentBy: UserUpdateOneRequiredWithoutChatMessagesInput
+  text: String
+}
+
+input ChatMessageUpdateInput {
+  sentBy: UserUpdateOneRequiredWithoutChatMessagesInput
+  text: String
+}
+
+input ChatMessageUpdateManyDataInput {
+  text: String
+}
+
+input ChatMessageUpdateManyInput {
+  create: [ChatMessageCreateInput!]
+  update: [ChatMessageUpdateWithWhereUniqueNestedInput!]
+  upsert: [ChatMessageUpsertWithWhereUniqueNestedInput!]
+  delete: [ChatMessageWhereUniqueInput!]
+  connect: [ChatMessageWhereUniqueInput!]
+  set: [ChatMessageWhereUniqueInput!]
+  disconnect: [ChatMessageWhereUniqueInput!]
+  deleteMany: [ChatMessageScalarWhereInput!]
+  updateMany: [ChatMessageUpdateManyWithWhereNestedInput!]
+}
+
+input ChatMessageUpdateManyMutationInput {
+  text: String
+}
+
+input ChatMessageUpdateManyWithoutSentByInput {
+  create: [ChatMessageCreateWithoutSentByInput!]
+  delete: [ChatMessageWhereUniqueInput!]
+  connect: [ChatMessageWhereUniqueInput!]
+  set: [ChatMessageWhereUniqueInput!]
+  disconnect: [ChatMessageWhereUniqueInput!]
+  update: [ChatMessageUpdateWithWhereUniqueWithoutSentByInput!]
+  upsert: [ChatMessageUpsertWithWhereUniqueWithoutSentByInput!]
+  deleteMany: [ChatMessageScalarWhereInput!]
+  updateMany: [ChatMessageUpdateManyWithWhereNestedInput!]
+}
+
+input ChatMessageUpdateManyWithWhereNestedInput {
+  where: ChatMessageScalarWhereInput!
+  data: ChatMessageUpdateManyDataInput!
+}
+
+input ChatMessageUpdateWithoutSentByDataInput {
+  text: String
+}
+
+input ChatMessageUpdateWithWhereUniqueNestedInput {
+  where: ChatMessageWhereUniqueInput!
+  data: ChatMessageUpdateDataInput!
+}
+
+input ChatMessageUpdateWithWhereUniqueWithoutSentByInput {
+  where: ChatMessageWhereUniqueInput!
+  data: ChatMessageUpdateWithoutSentByDataInput!
+}
+
+input ChatMessageUpsertWithWhereUniqueNestedInput {
+  where: ChatMessageWhereUniqueInput!
+  update: ChatMessageUpdateDataInput!
+  create: ChatMessageCreateInput!
+}
+
+input ChatMessageUpsertWithWhereUniqueWithoutSentByInput {
+  where: ChatMessageWhereUniqueInput!
+  update: ChatMessageUpdateWithoutSentByDataInput!
+  create: ChatMessageCreateWithoutSentByInput!
+}
+
+input ChatMessageWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  sentBy: UserWhereInput
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  AND: [ChatMessageWhereInput!]
+  OR: [ChatMessageWhereInput!]
+  NOT: [ChatMessageWhereInput!]
+}
+
+input ChatMessageWhereUniqueInput {
+  id: ID
+}
+
+type ChatRoom {
+  id: ID!
+  category: Category!
+  createdAt: DateTime!
+  messages(where: ChatMessageWhereInput, orderBy: ChatMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ChatMessage!]
+}
+
+type ChatRoomConnection {
+  pageInfo: PageInfo!
+  edges: [ChatRoomEdge]!
+  aggregate: AggregateChatRoom!
+}
+
+input ChatRoomCreateInput {
+  id: ID
+  category: CategoryCreateOneWithoutChatRoomInput!
+  messages: ChatMessageCreateManyInput
+}
+
+input ChatRoomCreateManyWithoutCategoryInput {
+  create: [ChatRoomCreateWithoutCategoryInput!]
+  connect: [ChatRoomWhereUniqueInput!]
+}
+
+input ChatRoomCreateWithoutCategoryInput {
+  id: ID
+  messages: ChatMessageCreateManyInput
+}
+
+type ChatRoomEdge {
+  node: ChatRoom!
+  cursor: String!
+}
+
+enum ChatRoomOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ChatRoomPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+}
+
+input ChatRoomScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ChatRoomScalarWhereInput!]
+  OR: [ChatRoomScalarWhereInput!]
+  NOT: [ChatRoomScalarWhereInput!]
+}
+
+type ChatRoomSubscriptionPayload {
+  mutation: MutationType!
+  node: ChatRoom
+  updatedFields: [String!]
+  previousValues: ChatRoomPreviousValues
+}
+
+input ChatRoomSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ChatRoomWhereInput
+  AND: [ChatRoomSubscriptionWhereInput!]
+  OR: [ChatRoomSubscriptionWhereInput!]
+  NOT: [ChatRoomSubscriptionWhereInput!]
+}
+
+input ChatRoomUpdateInput {
+  category: CategoryUpdateOneRequiredWithoutChatRoomInput
+  messages: ChatMessageUpdateManyInput
+}
+
+input ChatRoomUpdateManyWithoutCategoryInput {
+  create: [ChatRoomCreateWithoutCategoryInput!]
+  delete: [ChatRoomWhereUniqueInput!]
+  connect: [ChatRoomWhereUniqueInput!]
+  set: [ChatRoomWhereUniqueInput!]
+  disconnect: [ChatRoomWhereUniqueInput!]
+  update: [ChatRoomUpdateWithWhereUniqueWithoutCategoryInput!]
+  upsert: [ChatRoomUpsertWithWhereUniqueWithoutCategoryInput!]
+  deleteMany: [ChatRoomScalarWhereInput!]
+}
+
+input ChatRoomUpdateWithoutCategoryDataInput {
+  messages: ChatMessageUpdateManyInput
+}
+
+input ChatRoomUpdateWithWhereUniqueWithoutCategoryInput {
+  where: ChatRoomWhereUniqueInput!
+  data: ChatRoomUpdateWithoutCategoryDataInput!
+}
+
+input ChatRoomUpsertWithWhereUniqueWithoutCategoryInput {
+  where: ChatRoomWhereUniqueInput!
+  update: ChatRoomUpdateWithoutCategoryDataInput!
+  create: ChatRoomCreateWithoutCategoryInput!
+}
+
+input ChatRoomWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  category: CategoryWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  messages_every: ChatMessageWhereInput
+  messages_some: ChatMessageWhereInput
+  messages_none: ChatMessageWhereInput
+  AND: [ChatRoomWhereInput!]
+  OR: [ChatRoomWhereInput!]
+  NOT: [ChatRoomWhereInput!]
+}
+
+input ChatRoomWhereUniqueInput {
   id: ID
 }
 
@@ -452,6 +889,17 @@ type Mutation {
   upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
   deleteCategory(where: CategoryWhereUniqueInput!): Category
   deleteManyCategories(where: CategoryWhereInput): BatchPayload!
+  createChatMessage(data: ChatMessageCreateInput!): ChatMessage!
+  updateChatMessage(data: ChatMessageUpdateInput!, where: ChatMessageWhereUniqueInput!): ChatMessage
+  updateManyChatMessages(data: ChatMessageUpdateManyMutationInput!, where: ChatMessageWhereInput): BatchPayload!
+  upsertChatMessage(where: ChatMessageWhereUniqueInput!, create: ChatMessageCreateInput!, update: ChatMessageUpdateInput!): ChatMessage!
+  deleteChatMessage(where: ChatMessageWhereUniqueInput!): ChatMessage
+  deleteManyChatMessages(where: ChatMessageWhereInput): BatchPayload!
+  createChatRoom(data: ChatRoomCreateInput!): ChatRoom!
+  updateChatRoom(data: ChatRoomUpdateInput!, where: ChatRoomWhereUniqueInput!): ChatRoom
+  upsertChatRoom(where: ChatRoomWhereUniqueInput!, create: ChatRoomCreateInput!, update: ChatRoomUpdateInput!): ChatRoom!
+  deleteChatRoom(where: ChatRoomWhereUniqueInput!): ChatRoom
+  deleteManyChatRooms(where: ChatRoomWhereInput): BatchPayload!
   createComment(data: CommentCreateInput!): Comment!
   updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
   updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
@@ -925,6 +1373,12 @@ type Query {
   category(where: CategoryWhereUniqueInput!): Category
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
   categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
+  chatMessage(where: ChatMessageWhereUniqueInput!): ChatMessage
+  chatMessages(where: ChatMessageWhereInput, orderBy: ChatMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ChatMessage]!
+  chatMessagesConnection(where: ChatMessageWhereInput, orderBy: ChatMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChatMessageConnection!
+  chatRoom(where: ChatRoomWhereUniqueInput!): ChatRoom
+  chatRooms(where: ChatRoomWhereInput, orderBy: ChatRoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ChatRoom]!
+  chatRoomsConnection(where: ChatRoomWhereInput, orderBy: ChatRoomOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChatRoomConnection!
   comment(where: CommentWhereUniqueInput!): Comment
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
@@ -948,6 +1402,8 @@ enum Role {
 
 type Subscription {
   category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
+  chatMessage(where: ChatMessageSubscriptionWhereInput): ChatMessageSubscriptionPayload
+  chatRoom(where: ChatRoomSubscriptionWhereInput): ChatRoomSubscriptionPayload
   comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -962,6 +1418,7 @@ type User {
   email: String!
   username: String!
   password: String!
+  chatMessages(where: ChatMessageWhereInput, orderBy: ChatMessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ChatMessage!]
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
@@ -979,9 +1436,15 @@ input UserCreateInput {
   email: String!
   username: String!
   password: String!
+  chatMessages: ChatMessageCreateManyWithoutSentByInput
   posts: PostCreateManyWithoutAuthorInput
   comments: CommentCreateManyWithoutCreatedByInput
   votes: VoteCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutChatMessagesInput {
+  create: UserCreateWithoutChatMessagesInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutCommentsInput {
@@ -999,12 +1462,24 @@ input UserCreateOneWithoutVotesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateWithoutChatMessagesInput {
+  id: ID
+  role: Role
+  email: String!
+  username: String!
+  password: String!
+  posts: PostCreateManyWithoutAuthorInput
+  comments: CommentCreateManyWithoutCreatedByInput
+  votes: VoteCreateManyWithoutUserInput
+}
+
 input UserCreateWithoutCommentsInput {
   id: ID
   role: Role
   email: String!
   username: String!
   password: String!
+  chatMessages: ChatMessageCreateManyWithoutSentByInput
   posts: PostCreateManyWithoutAuthorInput
   votes: VoteCreateManyWithoutUserInput
 }
@@ -1015,6 +1490,7 @@ input UserCreateWithoutPostsInput {
   email: String!
   username: String!
   password: String!
+  chatMessages: ChatMessageCreateManyWithoutSentByInput
   comments: CommentCreateManyWithoutCreatedByInput
   votes: VoteCreateManyWithoutUserInput
 }
@@ -1025,6 +1501,7 @@ input UserCreateWithoutVotesInput {
   email: String!
   username: String!
   password: String!
+  chatMessages: ChatMessageCreateManyWithoutSentByInput
   posts: PostCreateManyWithoutAuthorInput
   comments: CommentCreateManyWithoutCreatedByInput
 }
@@ -1084,6 +1561,7 @@ input UserUpdateInput {
   email: String
   username: String
   password: String
+  chatMessages: ChatMessageUpdateManyWithoutSentByInput
   posts: PostUpdateManyWithoutAuthorInput
   comments: CommentUpdateManyWithoutCreatedByInput
   votes: VoteUpdateManyWithoutUserInput
@@ -1094,6 +1572,13 @@ input UserUpdateManyMutationInput {
   email: String
   username: String
   password: String
+}
+
+input UserUpdateOneRequiredWithoutChatMessagesInput {
+  create: UserCreateWithoutChatMessagesInput
+  update: UserUpdateWithoutChatMessagesDataInput
+  upsert: UserUpsertWithoutChatMessagesInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutCommentsInput {
@@ -1117,11 +1602,22 @@ input UserUpdateOneRequiredWithoutVotesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateWithoutChatMessagesDataInput {
+  role: Role
+  email: String
+  username: String
+  password: String
+  posts: PostUpdateManyWithoutAuthorInput
+  comments: CommentUpdateManyWithoutCreatedByInput
+  votes: VoteUpdateManyWithoutUserInput
+}
+
 input UserUpdateWithoutCommentsDataInput {
   role: Role
   email: String
   username: String
   password: String
+  chatMessages: ChatMessageUpdateManyWithoutSentByInput
   posts: PostUpdateManyWithoutAuthorInput
   votes: VoteUpdateManyWithoutUserInput
 }
@@ -1131,6 +1627,7 @@ input UserUpdateWithoutPostsDataInput {
   email: String
   username: String
   password: String
+  chatMessages: ChatMessageUpdateManyWithoutSentByInput
   comments: CommentUpdateManyWithoutCreatedByInput
   votes: VoteUpdateManyWithoutUserInput
 }
@@ -1140,8 +1637,14 @@ input UserUpdateWithoutVotesDataInput {
   email: String
   username: String
   password: String
+  chatMessages: ChatMessageUpdateManyWithoutSentByInput
   posts: PostUpdateManyWithoutAuthorInput
   comments: CommentUpdateManyWithoutCreatedByInput
+}
+
+input UserUpsertWithoutChatMessagesInput {
+  update: UserUpdateWithoutChatMessagesDataInput!
+  create: UserCreateWithoutChatMessagesInput!
 }
 
 input UserUpsertWithoutCommentsInput {
@@ -1236,6 +1739,9 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  chatMessages_every: ChatMessageWhereInput
+  chatMessages_some: ChatMessageWhereInput
+  chatMessages_none: ChatMessageWhereInput
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput

@@ -17,6 +17,7 @@ import ProfilePosts from '../pages/Profile/Posts'
 import ProfileComments from '../pages/Profile/Comments'
 import ProfileVotes from '../pages/Profile/Votes'
 import Container from '../styles/components/Container'
+import ChatPage from '../pages/Chat'
 
 export default function App() {
   const [loading, setLoading] = useState(true)
@@ -49,6 +50,7 @@ export default function App() {
             <NotFound default />
             <CategoryPostsPageWithData path="r/:category" />
             <PostAndCommentsPage path="r/:category/:postID/comments" />
+            <ChatPage path="/chat" />
             <CreatePostPage path="submit" />
             <CreateCategoryPage path="createCategory" />
             <LoginPage path="login" />
