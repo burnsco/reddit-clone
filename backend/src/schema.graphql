@@ -26,9 +26,7 @@ type Query {
 
 type Mutation {
  
-  logout: String
-
-  createChatRoom(data: CreateChatRoomInput): CreateChatRoomMutationResponse!
+  createChatRoom(data: CreateChatRoomInput!): CreateChatRoomMutationResponse!
   createChatMessage(data: CreateChatMessageInput!): CreateChatMessageMutationResponse!
 
   createVote(data: CreateVoteInput!): CreateVoteMutationResponse!
@@ -75,7 +73,7 @@ type ChatRoom implements Node {
 type ChatMessage implements Node {
   id: ID! 
   createdAt: String!
-  chat: Chat!
+  chat: ChatRoom!
   sentBy: User!
   text: String!
 }
@@ -303,7 +301,7 @@ type DeleteCommentMutationResponse implements MutationResponse {
 }
 
 #  CHAT 
-type CreateChatRoomMutationResposne implements MutaitonResponse {
+type CreateChatRoomMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!
   message: String!
