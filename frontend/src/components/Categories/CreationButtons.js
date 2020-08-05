@@ -1,21 +1,25 @@
 import React from 'react'
-import { Create } from '@styled-icons/ionicons-outline'
-import { CreateNewFolder } from '@styled-icons/material-outlined'
-
-import { ContainerHeader } from './styles'
-import Box from '../../styles/components/Box'
+import { useQuery } from '@apollo/client'
+import { CURRENT_USER_QUERY } from '../../graphql/Query/current_user'
+import { StyledSpinner } from '../../styles/components/Spinner'
+import { useAuth } from '../../context/auth-context'
+import PostAndCategoryButtons from './Buttons'
 
 export default function CreationButtons() {
-  return (
-    <>
-      <ContainerHeader to="/submit">
-        <Create size="1.3em" color="#f49342" />
-        <Box ml="2">Post</Box>
-      </ContainerHeader>
-      <ContainerHeader to="/createCategory">
-        <CreateNewFolder size="1.3em" color="#f49342" />
-        <Box ml="2">Subreddit</Box>
-      </ContainerHeader>
-    </>
-  )
+  const { loading, data } = useQuery(CURRENT_USER_QUERY)
+  const { user } = useAuth()
+
+  if (loading) return <StyledSpinner />
+
+  if (data && data.currentUser) {
+    return (
+      <PostAndCategoryButtons postLink="submit" categoryLink="createCategory" />
+    )
+  }
+  if (user !== null) {
+    return (
+      <PostAndCategoryButtons postLink="submit" categoryLink="createCategory" />
+    )
+  }
+  return <PostAndCategoryButtons postLink="signup" categoryLink="signup" />
 }

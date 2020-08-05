@@ -23,7 +23,6 @@ const Header = () => {
   if (loading) return <MainSpinner />
 
   if (data && data.currentUser) {
-    console.log(data)
     return (
       <HeaderContainer>
         <HeaderNavWrapper>

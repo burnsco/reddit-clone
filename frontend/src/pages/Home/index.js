@@ -2,11 +2,11 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { useNavigate } from '@reach/router'
 import PropTypes from 'prop-types'
-import { FeedContainer, HomeContainer, SidebarContainer } from './styles.js'
+import { FeedContainer, HomeContainer, SidebarContainer } from './styles'
 import Categories from '../../components/Categories'
-import MainSpinner from '../../components/shared/FallBackSpinner/index.js'
-import CreationButtons from './CreationButtons.js'
-import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories.js'
+import MainSpinner from '../../components/shared/FallBackSpinner/index'
+import CreationButtons from './CreationButtons'
+import { GET_CATEGORIES_QUERY } from '../../graphql/Query/categories'
 
 const HomePage = ({ children }) => {
   const { loading, error, data } = useQuery(GET_CATEGORIES_QUERY, {

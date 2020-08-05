@@ -6,16 +6,10 @@ import MainSpinner from '../../../components/shared/FallBackSpinner'
 
 const GET_CHATS_QUERY = gql`
   query onGetChatMessages($chatID: ID!) {
-    query
-    messages(chatID: $chatID) {
-      message
-      success
-      code
-      messages {
-        id
-        createdAt
-        username
-      }
+    chatMessage(chatID: $chatID) {
+      id
+      createdAt
+      username
     }
   }
 `
