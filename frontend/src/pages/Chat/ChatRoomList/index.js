@@ -11,8 +11,8 @@ const chatRooms = ['not-ready-yet']
 const ListOfChatRooms = () => (
   <ChatRoomsListContainer>
     <ListOfChatRoomsContainer>
-      {chatRooms.map((category) => (
-        <ChatRoomLink key={`category-${category.id}`} to={`${category.name}`}>
+      {chatRooms.map((category, i) => (
+        <ChatRoomLink key={`chat-${category.id}-${i}`} to={`/${category.name}`}>
           {category.name}
         </ChatRoomLink>
       ))}

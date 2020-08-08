@@ -46,6 +46,7 @@ export default function App() {
             <ProfileComments path="comments" />
             <ProfileVotes path="votes" />
           </ProfilePage>
+
           <Home path="/">
             <NotFound default />
             <CategoryPostsPageWithData path="r/:category" />

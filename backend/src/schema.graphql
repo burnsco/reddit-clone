@@ -1,9 +1,12 @@
 type Query {
   currentUser: User!
-  categories(query: String): [Category!]!
+  users: [User!]!
+
   category: [Category!]!
+  categories(query: String): [Category!]!
+
   post(postID: ID!): Post!
-  posts(
+   posts(
     query: String
     first: Int
     userID: ID
@@ -11,6 +14,11 @@ type Query {
     after: String
     orderBy: PostOrderByInput
   ): [Post!]!
+
+  chatroom:(chatID: ID!) ChatRoom!
+  chatrooms:[ChatRoom!]!
+  chatmessages:(chatID: ID!): [ChatMessages!]!
+ 
   comment(commentID: ID!): Comment!
   comments(
     query: String
@@ -20,7 +28,7 @@ type Query {
     after: String
     orderBy: CommentOrderByInput
   ): [Comment!]!
-  users(query: String, first: Int, skip: Int, after: String): [User!]!
+
   node(id: ID!): Node
 }
 
@@ -204,7 +212,7 @@ input LoginUserInput {
 }
 
 
-### MUTATION RESPONSES
+### MUTATION RESPONSES ###
 
 ## USERS
 type CreateUserMutationResponse implements MutationResponse {
@@ -326,21 +334,23 @@ type PostSubscriptionPayload {
   mutation: MutationType
   node: Post
 }
-
 type CommentSubscriptionPayload {
   mutation: MutationType
   node: Comment
 }
-
 type VoteSubscriptionPayload {
   mutation: MutationType
   node: Vote
 }
-
+type ChatSubscriptionPayload {
+  mutation: MutationType
+  node: Chat
+}
 type Subscription {
   postAdded(postID: ID, categoryID: ID): PostSubscriptionPayload
   commentAdded(postID: ID): CommentSubscriptionPayload
   voteAdded(postID: ID): VoteSubscriptionPayload
+  chatMessageAdded(chatID: ID, categoryID: ID): ChatSubscriptionPayload
 }
 
 enum PostOrderByInput {
@@ -349,20 +359,17 @@ enum PostOrderByInput {
   createdAt_ASC
   createdAt_DESC
 }
-
 enum CommentOrderByInput {
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
-
 enum Role {
   USER
   ADMIN
   MODERATOR
 }
-
 enum MutationType {
   CREATED
   UPDATED

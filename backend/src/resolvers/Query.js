@@ -1,30 +1,14 @@
 import { AuthenticationError } from "apollo-server-express"
 
 const Query = {
-  currentUser: async (root, args, { db, user }) => {
-    if (!user.userID) {
-      throw new AuthenticationError("no user logged in")
-    }
-    const requested = await db.query.user({
-      where: {
-        id: user.userID
-      }
-    })
-    return requested
-  },
   users(parent, args, { db }, info) {
     return db.query.users(null, info)
   },
+  chatrooms: async (root, args, { db }, info) => {
+    return db.query.chatrooms(null, info)
+  },
   categories: async (root, args, { db }, info) => {
-    const opArgs = {}
-
-    if (args.query) {
-      opArgs.where = {
-        name: args.query
-      }
-    }
-    const results = await db.query.categories(opArgs, info)
-    return results
+    return db.query.categories(null, info)
   },
 
   category: async (root, args, { db }, info) => {
@@ -38,6 +22,17 @@ const Query = {
 
     const results = await db.query.category(opArgs, info)
     return results
+  },
+  currentUser: async (root, args, { db, user }) => {
+    if (!user.userID) {
+      throw new AuthenticationError("no user logged in")
+    }
+    const requested = await db.query.user({
+      where: {
+        id: user.userID
+      }
+    })
+    return requested
   },
 
   posts: async (root, args, { db }, info) => {
@@ -71,7 +66,6 @@ const Query = {
     const results = await db.query.posts(opArgs, info)
     return results
   },
-
   post: async (root, args, { db }, info) => {
     const post = await db.query.post(
       {

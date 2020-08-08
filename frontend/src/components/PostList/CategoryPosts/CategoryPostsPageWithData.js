@@ -5,7 +5,7 @@ import { GET_POSTS_BY_CATEGORY_QUERY } from '../../../graphql/Query/category_pos
 import MainSpinner from '../../shared/FallBackSpinner'
 import { POSTS_SUBSCRIPTION } from '../../../graphql/Subscription/posts'
 
-function CategoryPostsPageWithData({ category }) {
+export default function CategoryPostsPageWithData({ category }) {
   const { subscribeToMore, data, loading, error } = useQuery(
     GET_POSTS_BY_CATEGORY_QUERY,
     {
@@ -36,5 +36,3 @@ function CategoryPostsPageWithData({ category }) {
     />
   )
 }
-
-export default CategoryPostsPageWithData

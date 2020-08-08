@@ -13,13 +13,27 @@ export default function CreationButtons() {
 
   if (data && data.currentUser) {
     return (
-      <PostAndCategoryButtons postLink="submit" categoryLink="createCategory" />
+      <PostAndCategoryButtons
+        postLink="submit"
+        categoryLink="createCategory"
+        chatLink="chat"
+      />
     )
   }
   if (user !== null) {
     return (
-      <PostAndCategoryButtons postLink="submit" categoryLink="createCategory" />
+      <PostAndCategoryButtons
+        postLink="submit"
+        categoryLink="createCategory"
+        chatLink="chat"
+      />
     )
   }
-  return <PostAndCategoryButtons postLink="signup" categoryLink="signup" />
+  return (
+    <PostAndCategoryButtons
+      postLink="signup"
+      categoryLink="signup"
+      chatLink="signup"
+    />
+  )
 }
