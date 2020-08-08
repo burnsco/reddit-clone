@@ -16,6 +16,14 @@ const Subscription = {
     subscribe(root, _, { db }, info) {
       return db.subscription.vote({ where: { mutation_in: ["CREATED"] } }, info)
     }
+  },
+  chatMessageAdded: {
+    subscribe(root, _, { db }, info) {
+      return db.subscription.chatMessage(
+        { where: { mutation_in: ["CREATED"] } },
+        info
+      )
+    }
   }
 }
 

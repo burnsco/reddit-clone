@@ -1,7 +1,10 @@
 type Query {
   currentUser: User!
-  categories(query: String): [Category!]!
-  category: [Category!]!
+  user(userID: ID!): User!
+  users(query: String, first: Int, skip: Int, after: String): [User!]!
+
+  categories: [Category!]!
+
   post(postID: ID!): Post!
   posts(
     query: String
@@ -11,7 +14,9 @@ type Query {
     after: String
     orderBy: PostOrderByInput
   ): [Post!]!
-  comment(commentID: ID!): Comment!
+
+  chatRooms:[ChatRoom!]!
+  chatMessages(chatID: ID):[ChatMessage!]!
   comments(
     query: String
     first: Int
@@ -20,7 +25,8 @@ type Query {
     after: String
     orderBy: CommentOrderByInput
   ): [Comment!]!
-  users(query: String, first: Int, skip: Int, after: String): [User!]!
+
+
   node(id: ID!): Node
 }
 
@@ -337,10 +343,16 @@ type VoteSubscriptionPayload {
   node: Vote
 }
 
+type ChatSubscriptionPayload {
+  mutation: MutationType
+  node: ChatMessage
+}
+
 type Subscription {
   postAdded(postID: ID, categoryID: ID): PostSubscriptionPayload
   commentAdded(postID: ID): CommentSubscriptionPayload
   voteAdded(postID: ID): VoteSubscriptionPayload
+  chatMessageAdded(chatID: ID): ChatSubscriptionPayload
 }
 
 enum PostOrderByInput {

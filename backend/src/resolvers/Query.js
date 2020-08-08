@@ -12,31 +12,43 @@ const Query = {
     })
     return requested
   },
-  users(parent, args, { db }, info) {
-    return db.query.users(null, info)
-  },
-  categories: async (root, args, { db }, info) => {
-    const opArgs = {}
 
-    if (args.query) {
-      opArgs.where = {
-        name: args.query
-      }
-    }
-    const results = await db.query.categories(opArgs, info)
+  user: async (root, args, { db }, info) => {
+    const result = await db.query.user(
+      {
+        where: {
+          id: args.userID
+        }
+      },
+      info
+    )
+    return result
+  },
+  users: async (parent, args, { db }, info) => {
+    const results = await db.query.users(null, info)
     return results
   },
 
-  category: async (root, args, { db }, info) => {
-    const opArgs = {}
+  chatRooms: async (parent, args, { db }, info) => {
+    const results = await db.query.chatRooms(null, info)
+    return results
+  },
+  chatMessages: async (parent, args, { db }, info) => {
+    const results = await db.query.chatMessages(
+      {
+        where: {
+          chat: {
+            id: args.chatID
+          }
+        }
+      },
+      info
+    )
+    return results
+  },
 
-    if (args.query) {
-      opArgs.where = {
-        name: args.query
-      }
-    }
-
-    const results = await db.query.category(opArgs, info)
+  categories: async (root, args, { db }, info) => {
+    const results = await db.query.categories(null, info)
     return results
   },
 
@@ -47,11 +59,10 @@ const Query = {
       after: args.after,
       orderBy: args.orderBy
     }
-
     if (args.query === "all") {
-      return db.query.posts(null, info)
+      const results = await db.query.posts(null, info)
+      return results
     }
-
     if (args.query) {
       opArgs.where = {
         category: {
@@ -59,7 +70,6 @@ const Query = {
         }
       }
     }
-
     if (args.userID) {
       opArgs.where = {
         author: {
@@ -67,13 +77,12 @@ const Query = {
         }
       }
     }
-
     const results = await db.query.posts(opArgs, info)
     return results
   },
 
   post: async (root, args, { db }, info) => {
-    const post = await db.query.post(
+    const result = await db.query.post(
       {
         where: {
           id: args.postID
@@ -81,19 +90,7 @@ const Query = {
       },
       info
     )
-    return post
-  },
-
-  comment: async (root, args, { db }, info) => {
-    const comment = await db.query.comment(
-      {
-        where: {
-          id: args.commentID
-        }
-      },
-      info
-    )
-    return comment
+    return result
   },
 
   comments: async (root, args, { db }, info) => {
@@ -104,7 +101,8 @@ const Query = {
       orderBy: args.orderBy
     }
     if (args.query === "all") {
-      return db.query.comments(null, info)
+      const results = db.query.comments(null, info)
+      return results
     }
     if (args.userID) {
       opArgs.where = {
