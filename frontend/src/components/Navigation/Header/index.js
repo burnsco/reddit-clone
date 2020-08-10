@@ -24,7 +24,7 @@ const Header = () => {
 
   if (data && data.currentUser) {
     return (
-      <HeaderContainer>
+      <HeaderContainer as="header">
         <HeaderNavWrapper>
           <HeaderLogo>
             <Link to="/">

@@ -8,7 +8,6 @@ export const CategoriesContainer = styled.aside`
   display: flex;
   margin-left: 20px;
   flex-direction: column;
-  border-radius: 5px;
   border: 1px solid #ebedf0;
   background: #fff;
 `

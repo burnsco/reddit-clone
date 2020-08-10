@@ -55,12 +55,7 @@ export const EmailTaken = {
 export const NoAuthorization = {
   code: "401",
   success: false,
-  message: "Not Authorized",
-  id: null,
-  createdAt: null,
-  title: null,
-  text: null,
-  author: null
+  message: "Not Authorized"
 }
 
 export const AlreadyVoted = {

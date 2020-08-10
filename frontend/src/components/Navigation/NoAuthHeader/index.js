@@ -15,7 +15,7 @@ export default function NoAuthHeader() {
     <HeaderContainer>
       <HeaderNavWrapper>
         <HeaderLogo>
-          <Link to="/" style={{ display: 'flex' }}>
+          <Link to="/r/all" style={{ display: 'flex' }}>
             <HalfLogo alt="logo" />
             <FullLogo alt="logo" />
           </Link>

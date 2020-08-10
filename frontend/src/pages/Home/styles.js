@@ -36,28 +36,26 @@ export const TopControlSelectContainer = styled.div`
 `
 
 export const TopControlSelect = styled(Select)`
-  border: '2px solid grey';
+  border: '1px solid grey';
 `
 
 export const TopControlButtonPost = styled(Link)`
   flex-grow: 1;
-  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition-duration: 0.4s;
   cursor: pointer;
   color: white;
-  background-color: #e8171a;
+  background-color: #3661ed;
   border: 1px solid white;
 
   &:hover {
-    background-color: #aa191c;
+    background-color: #8ca2ea;
   }
 `
 export const TopControlButtonCategory = styled(Link)`
   flex-grow: 1;
-  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;

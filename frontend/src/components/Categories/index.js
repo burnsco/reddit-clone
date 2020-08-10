@@ -16,7 +16,6 @@ export default function Categories() {
 
   if (error) {
     console.log(error)
-    return <div>Error!</div>
   }
 
   return (

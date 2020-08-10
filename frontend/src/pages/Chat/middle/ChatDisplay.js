@@ -1,26 +1,22 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
-import {
-  ChatDisplayContainer,
-  ChatInputBox,
-  ChatBoxInputContainer,
-  UserChats,
-} from './styles'
+import PropTypes from 'prop-types'
+import { ChatDisplayContainer, UserChats } from './styles'
 import UserChat from './UserChat'
 import { GET_CHAT_MESSAGES_QUERY } from '../../../graphql/Query/chat_room_messages'
 import { StyledSpinner } from '../../../styles/components/Spinner'
+import CreateChatMessageForm from './CreateMessage'
 
 const ChatDisplay = ({ chatID }) => {
   const { loading, error, data } = useQuery(GET_CHAT_MESSAGES_QUERY, {
     variables: { chatID },
   })
-  const inputRef = useRef(null)
 
   if (loading) return <StyledSpinner />
+
   if (error) {
     console.log(error)
   }
-  console.log(data)
   return (
     <ChatDisplayContainer>
       <UserChats>
@@ -32,17 +28,13 @@ const ChatDisplay = ({ chatID }) => {
         ))}
       </UserChats>
 
-      <ChatBoxInputContainer>
-        <ChatInputBox
-          ref={inputRef}
-          placeholder="chat here"
-          onMouseEnter={() => {
-            inputRef.current.focus()
-          }}
-        />
-      </ChatBoxInputContainer>
+      <CreateChatMessageForm chatID={chatID} />
     </ChatDisplayContainer>
   )
+}
+
+ChatDisplay.propTypes = {
+  chatID: PropTypes.string.isRequired,
 }
 
 export default ChatDisplay

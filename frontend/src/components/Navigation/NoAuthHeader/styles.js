@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { ReactComponent as SmallLogo } from '../../../assets/reddit-icon.svg'
 import { ReactComponent as BigLogo } from '../../../assets/reddit.svg'
+import Box from '../../../styles/components/Box'
 
 export const FullLogo = styled(BigLogo)`
   height: 35px;
@@ -20,13 +21,12 @@ export const HalfLogo = styled(SmallLogo)`
   }
 `
 
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled(Box)`
   position: sticky;
   z-index: 10;
   top: 0;
   padding: 15px;
   align-items: center;
-  margin-bottom: 40px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid #ebedf0;
   height: 48px;

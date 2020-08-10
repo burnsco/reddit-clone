@@ -18,6 +18,7 @@ import ProfileComments from '../pages/Profile/Comments'
 import ProfileVotes from '../pages/Profile/Votes'
 import Container from '../styles/components/Container'
 import ChatPage from '../pages/Chat'
+import PrivateRoute from '../components/PrivateRoute'
 
 export default function App() {
   const [loading, setLoading] = useState(true)
@@ -51,10 +52,12 @@ export default function App() {
             <NotFound default />
             <CategoryPostsPageWithData path="r/:category" />
             <PostAndCommentsPage path="r/:category/:postID/comments" />
-            <ChatPage path="chat" />
-            <ChatPage path="chat/:chatID" />
-            <CreatePostPage path="submit" />
-            <CreateCategoryPage path="createCategory" />
+            <PrivateRoute component={ChatPage} path="chat/:chatID" />
+            <PrivateRoute component={CreatePostPage} path="submit" />
+            <PrivateRoute
+              component={CreateCategoryPage}
+              path="createCategory"
+            />
             <LoginPage path="login" />
             <SignupPage path="signup" />
             <AllPostsPageWithData path="/" />
