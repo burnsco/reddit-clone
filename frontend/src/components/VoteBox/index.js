@@ -29,20 +29,20 @@ const VoteBox = ({ votes, score, postID }) => {
   return (
     <Container>
       <UpArrow
-        onClick={async () => {
+        onClick={() => {
           console.log(`upvote`)
 
-          await createVote({
+          createVote({
             variables: { postID, type: 1 },
           })
         }}
       />
       <Votes>{score}</Votes>
       <DownArrow
-        onClick={async () => {
+        onClick={() => {
           console.log('downvote')
 
-          await createVote({
+          createVote({
             variables: { postID, type: -1 },
           })
         }}

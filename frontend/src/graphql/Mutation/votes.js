@@ -6,19 +6,6 @@ export const VOTE_ON_POST_MUTATION = gql`
       success
       message
       code
-      post {
-        author {
-          id
-          username
-        }
-        id
-        votes {
-          id
-          user {
-            id
-          }
-        }
-      }
     }
   }
 `
