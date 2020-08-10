@@ -1,42 +1,41 @@
 import styled from 'styled-components'
+import Flex from '../../../styles/components/Flex'
 
-export const ChatDisplayContainer = styled.div`
-  display: flex;
+export const ChatDisplayContainer = styled(Flex)`
   flex-direction: column;
+  width: 100%;
 `
+
 export const UserChats = styled.div`
   overflow: auto;
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    &:hover {
-      background: #444;
-    }
-  }
   height: 92%;
   padding: 15px;
 `
-export const ChatBoxInputContainer = styled.div`
+export const ChatBoxInputContainer = styled(Flex)`
+  border-width: 3px;
+  border-style: solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    to right,
+    rgb(250, 112, 154) 0%,
+    rgb(254, 225, 64) 100%
+  );
+  color: white;
+  outline: none;
   margin-top: 10px;
-  display: flex;
   height: 8%;
   font-size: 16px;
-  min-width: 100%;
+  width: 100%;
 `
 export const ChatInputBox = styled.input`
   font-size: 17px;
   width: 100%;
+  padding: 5px;
+  outline: none;
+  border: none;
   text-rendering: auto;
   letter-spacing: normal;
   word-spacing: normal;
-  border: 1px solid black;
 `
 export const ChatButton = styled.button`
   /* Adapt the colors based on primary prop */

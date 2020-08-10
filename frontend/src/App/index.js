@@ -51,7 +51,8 @@ export default function App() {
             <NotFound default />
             <CategoryPostsPageWithData path="r/:category" />
             <PostAndCommentsPage path="r/:category/:postID/comments" />
-            <ChatPage path="/chat" />
+            <ChatPage path="chat" />
+            <ChatPage path="chat/:chatID" />
             <CreatePostPage path="submit" />
             <CreateCategoryPage path="createCategory" />
             <LoginPage path="login" />

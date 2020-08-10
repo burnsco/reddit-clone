@@ -1,27 +1,13 @@
 import styled from 'styled-components'
+import Box from '../../../styles/components/Box'
 
-export const ChatDisplayContainer = styled.div`
+export const ChatDisplayContainer = styled(Box)`
   display: flex;
   flex-direction: column;
 `
 export const UserChats = styled.div`
   overflow: auto;
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    &:hover {
-      background: #444;
-    }
-  }
   height: 92%;
-  padding: 15px;
 `
 export const ChatBoxInputContainer = styled.div`
   margin-top: 10px;

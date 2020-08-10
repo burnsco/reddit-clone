@@ -15,6 +15,7 @@ import {
   ApolloProvider,
   split,
 } from '@apollo/client'
+import Box from './styles/components/Box'
 import App from './App'
 import { getAccessToken, setAccessToken } from './context/access-token'
 import AppProviders from './context'
@@ -146,7 +147,9 @@ const client = new ApolloClient({
 export const RedditApp = () => (
   <ApolloProvider client={client}>
     <AppProviders>
-      <App />
+      <Box fontSize={[0]}>
+        <App />
+      </Box>
     </AppProviders>
   </ApolloProvider>
 )

@@ -26,12 +26,6 @@ export const radii = {
   lg: '0.3rem',
   pill: '50rem',
 }
-export const shadows = {
-  default: '0 .5rem 1rem rgba(0, 0, 0, .15)',
-  sm: '0 .125rem .25rem rgba(0, 0, 0, .075)',
-  lg: '0 1rem 3rem rgba(0, 0, 0, .175)',
-}
-
 const commonButtonStyles = {
   py: 2,
   px: 3,
@@ -198,7 +192,7 @@ export const baseLineHeights = {
   loose: '2',
 }
 
-export const shadowz = {
+export const shadows = {
   default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
   md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
   lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
@@ -268,6 +262,8 @@ const theme = {
     secondary: '#006fbb',
     highlight: '#47c1bf',
     muted: '#e6e6e6',
+    info: '#63b3ed',
+    warning: '#faf089',
     accent: '#f49342',
     darken: '#00044c',
     white: '#fff',
@@ -284,6 +280,8 @@ const theme = {
       '#343a40',
       '#212529',
     ],
+    hotgradient:
+      'background-image: linear-gradient(to right, rgb(250, 112, 154) 0%, rgb(254, 225, 64) 100%)',
     blue: '#007bff',
     indigo: '#6610f2',
     purple: '#6f42c1',
@@ -303,6 +301,34 @@ const theme = {
         highlight: '#b7ecec',
         muted: '#e6e6e6',
       },
+    },
+  },
+  forms: {
+    label: {
+      fontSize: 1,
+      color: 'muted',
+    },
+    input: {
+      borderWidth: '3px',
+      borderStyle: 'solid',
+      borderImageSlice: '1',
+      borderImageSource: (themes) =>
+        `linear-gradient(to left, ${themes.colors.info}, ${themes.colors.warning})`,
+      color: 'white',
+      outline: 'none',
+      bg: 'secondary',
+      mb: 3,
+    },
+    textarea: {
+      borderWidth: '3px',
+      borderStyle: 'solid',
+      borderImageSlice: '1',
+      borderImageSource: (themes) =>
+        `linear-gradient(to left, ${themes.colors.info}, ${themes.colors.warning})`,
+      color: 'white',
+      outline: 'none',
+      bg: 'secondary',
+      mb: 3,
     },
   },
 }

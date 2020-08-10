@@ -1,7 +1,7 @@
 type Query {
   currentUser: User!
   user(userID: ID!): User!
-  users(query: String, first: Int, skip: Int, after: String): [User!]!
+  users: [User!]!
 
   categories: [Category!]!
 
@@ -17,6 +17,7 @@ type Query {
 
   chatRooms:[ChatRoom!]!
   chatMessages(chatID: ID):[ChatMessage!]!
+
   comments(
     query: String
     first: Int
@@ -31,7 +32,6 @@ type Query {
 }
 
 type Mutation {
- 
   createChatRoom(data: CreateChatRoomInput!): CreateChatRoomMutationResponse!
   createChatMessage(data: CreateChatMessageInput!): CreateChatMessageMutationResponse!
 

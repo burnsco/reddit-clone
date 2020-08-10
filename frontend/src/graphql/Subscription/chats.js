@@ -1,19 +1,14 @@
 import { gql } from '@apollo/client'
 
 export const CHATS_SUBSCRIPTION = gql`
-  subscription onPostAddedSubscription {
-    chatAdded {
+  subscription onChatMessageAdded {
+    chatMessageAdded {
       node {
         id
-        createdAt
-        messages {
-          id
-          text
-          sentBy {
-            id
-            createdAt
-            username
-          }
+        text
+        sentBy {
+          createdAt
+          username
         }
       }
     }

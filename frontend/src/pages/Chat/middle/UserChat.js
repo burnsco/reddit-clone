@@ -6,18 +6,17 @@ import {
   UserChatBody,
   UserChatHeader,
 } from './styles'
+import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 
-const UserChat = () => (
+const UserChat = ({ chatMessage }) => (
   <UserChatBox>
     <UserChatHeader>
-      <UserChatUserName>StarTTrist</UserChatUserName>
-      <UserChatTimeStamp>Today at 3:16 AM</UserChatTimeStamp>
+      <UserChatUserName>{chatMessage.sentBy.username}</UserChatUserName>
+      <UserChatTimeStamp>
+        {timeDifferenceForDate(chatMessage.sentBy.createdAt)}
+      </UserChatTimeStamp>
     </UserChatHeader>
-    <UserChatBody>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni inventore
-      nam quasi itaque vero asperiores dicta sapiente laboriosam distinctio
-      nobis.
-    </UserChatBody>
+    <UserChatBody>{chatMessage.text}</UserChatBody>
   </UserChatBox>
 )
 

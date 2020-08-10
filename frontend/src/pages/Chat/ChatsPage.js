@@ -2,16 +2,22 @@ import React, { useEffect } from 'react'
 
 const CategoryChats = () => <div>stuff</div>
 
-export default function ChatsPage(props) {
-  const { subscribeToNewComments, data } = props
-  const { chatID } = props
+export default function ChatsPage(data) {
+  const { subscribeToNewMessages } = data
+  const { chatID } = data
 
   useEffect(() => {
-    const unsubscribe = subscribeToNewComments()
+    const unsubscribe = subscribeToNewMessages()
     return function cleanUp() {
       unsubscribe()
     }
-  }, [subscribeToNewComments])
+  }, [subscribeToNewMessages])
 
-  return <CategoryChats {...data} chatID={chatID} />
+  return (
+    <>
+      {data.chats.map((chat) => (
+        <CategoryChats chat={chat} chatID={chatID} />
+      ))}
+    </>
+  )
 }

@@ -3,16 +3,13 @@ import { Container } from './styles'
 
 import ListOfChatRooms from './left/ListOfChatRooms'
 import ChatDisplay from './middle/ChatDisplay'
-import ChatUserList from './right/ChatUserList'
 
-export default function ChatPage() {
+export default function ChatPage({ chatID }) {
   return (
     <Container>
       <ListOfChatRooms />
 
-      <ChatDisplay />
-
-      <ChatUserList />
+      <ChatDisplay chatID={chatID} />
     </Container>
   )
 }

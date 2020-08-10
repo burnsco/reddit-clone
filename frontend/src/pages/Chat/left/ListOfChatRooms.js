@@ -7,10 +7,10 @@ import {
   ChatRoomNav,
 } from './styles'
 import { StyledSpinner } from '../../../styles/components/Spinner'
-import { GET_CATEGORIES_QUERY } from '../../../graphql/Query/categories'
+import { GET_CHAT_ROOMS_QUERY } from '../../../graphql/Query/chat_rooms'
 
 export default function ListOfChatRooms() {
-  const { loading, data, error } = useQuery(GET_CATEGORIES_QUERY)
+  const { loading, data, error } = useQuery(GET_CHAT_ROOMS_QUERY)
 
   if (loading) return <StyledSpinner />
 
@@ -18,12 +18,16 @@ export default function ListOfChatRooms() {
     console.log(error)
     return <div>Error!</div>
   }
+
   return (
     <ChatRoomsListContainer>
       <ListOfChatRoomsContainer>
-        {data.categories.map((category, i) => (
-          <ChatRoomLink key={`chat-room-${category.name}-${i}`} to="/">
-            {category.name}
+        {data.chatRooms.map((room, i) => (
+          <ChatRoomLink
+            key={`chat-room-${room.category.name}-${i}`}
+            to={`/chat/${room.id}`}
+          >
+            {room.category.name}
           </ChatRoomLink>
         ))}
 
