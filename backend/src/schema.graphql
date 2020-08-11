@@ -144,7 +144,6 @@ input CreateChatRoomInput {
 input CreateChatMessageInput {
   text: String!
   chatID: ID!
-  categoryID: ID!
 }
 
 # SUBREDDITS

@@ -494,9 +494,6 @@ const Mutation = {
   async createChatMessage(root, { data }, { user, db }) {
     if (!user) return UserNotLoggedIn
 
-    const categoryExists = await db.exists.Category({ id: data.categoryID })
-    if (!categoryExists) return CategoryDoesNotExist
-
     const chatmessage = await db.mutation.createChatMessage({
       data: {
         text: data.text,

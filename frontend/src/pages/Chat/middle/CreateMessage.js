@@ -1,28 +1,54 @@
 import React from 'react'
-
-import { ChatBoxInputContainer, ChatInputBox } from './styles'
+import { useMutation } from '@apollo/client'
+import { ChatBoxInputContainer, ChatInputBox, ChatButton } from './styles'
+import { SUBMIT_CHAT_MESSAGE } from '../../../graphql/Mutation/submit_chat_message'
+import MainSpinner from '../../../components/shared/FallBackSpinner'
 
 function CreateChatMessageForm({ chatID }) {
-  console.log(chatID)
+  console.log(`chat message form ${chatID}`)
+
+  const [createChatMessage, { loading, error }] = useMutation(
+    SUBMIT_CHAT_MESSAGE
+  )
+
   let input
 
-  const handleSubmit = (e) => {
-    if (e.charCode === 13) {
-      console.log('submitted')
-      console.log(input.value)
+  if (loading) return <MainSpinner />
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      const result = await createChatMessage({
+        variables: { text: input.value, chatID },
+      })
+
+      const { code } = result.data.createComment
+
+      if (code === '200') {
+        return result
+      }
+    } catch (ex) {
+      console.log(ex)
     }
+  }
+
+  if (error) {
+    console.log(error)
   }
 
   return (
     <ChatBoxInputContainer>
-      <ChatInputBox
-        ref={(node) => {
-          input = node
-        }}
-        onKeyUp={(e) => handleSubmit(e)}
-        style={{ background: 'white' }}
-        spellCheck="true"
-      />
+      <form onSubmit={handleSubmit}>
+        <ChatInputBox
+          ref={(node) => {
+            input = node
+          }}
+          style={{ background: 'white' }}
+          spellCheck="true"
+        />
+        <ChatButton type="submit">Submit</ChatButton>
+      </form>
     </ChatBoxInputContainer>
   )
 }
