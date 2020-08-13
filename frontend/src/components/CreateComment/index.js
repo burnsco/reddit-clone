@@ -19,7 +19,7 @@ function CreateCommentForm({ postID, refetch }) {
 
   if (loading) return <MainSpinner />
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
     try {
@@ -45,7 +45,7 @@ function CreateCommentForm({ postID, refetch }) {
     <Box mx={[2, 3]}>
       <form onSubmit={handleSubmit}>
         <InputCommentBox
-          ref={(node) => {
+          ref={node => {
             input = node
           }}
           as="textarea"

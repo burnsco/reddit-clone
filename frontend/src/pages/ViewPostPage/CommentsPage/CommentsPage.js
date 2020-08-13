@@ -18,7 +18,7 @@ function CommentsPage(props) {
     <>
       <CreateCommentForm refetch={refetch} postID={postID} />
 
-      {comments.map((comment) => (
+      {comments.map(comment => (
         <CommentComponent
           postID={postID}
           refetch={refetch}

@@ -22,7 +22,7 @@ function LoginPage() {
     variables: { email: email, password: password },
   })
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault()
 
     try {
@@ -49,7 +49,7 @@ function LoginPage() {
     }
   }
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { value, name } = event.target
     if (name === 'email') {
       setEmail(value)

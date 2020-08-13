@@ -7,8 +7,7 @@ import {
 } from './styles'
 import ProfileNavigation from './Navigation'
 
-function ProfilePage(props) {
-  const { userID } = props
+export default function ProfilePage({ userID, children }) {
   return (
     <ProfileContainer>
       <ProfileNavigationHeader>
@@ -17,9 +16,7 @@ function ProfilePage(props) {
 
       <ProfileNavigation userID={userID} />
 
-      <ProfileFeedContainer>{props.children}</ProfileFeedContainer>
+      <ProfileFeedContainer>{children}</ProfileFeedContainer>
     </ProfileContainer>
   )
 }
-
-export default ProfilePage

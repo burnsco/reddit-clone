@@ -24,7 +24,7 @@ function CommentsPage(props) {
 
   return (
     <Container mx={[2, 3, 4]} my={[2, 3, 4]}>
-      {comments.map((comment) => (
+      {comments.map(comment => (
         <Box key={`comment-${comment.id}-${comment.body}`}>
           <CommentHeader>
             <UserName to={`/r/profile/${comment.createdBy.username}`}>

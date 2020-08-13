@@ -21,14 +21,14 @@ const HomePage = ({ children }) => {
     return <div>error, please return to where you came</div>
   }
 
-  const handleSelect = (selectedCategory) => {
+  const handleSelect = selectedCategory => {
     if (selectedCategory.label === 'all') {
       navigate('../')
     }
     navigate(`/r/${selectedCategory.label}`, { replace: true })
   }
 
-  const options = data.categories.map((option) => ({
+  const options = data.categories.map(option => ({
     value: option.id,
     label: option.name,
   }))

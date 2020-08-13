@@ -106,7 +106,7 @@ const CommentComponent = ({ postID, refetch, comment }) => {
       ) : (
         <CommentBody>
           <input
-            ref={(node) => {
+            ref={node => {
               input = node
             }}
             type="text"

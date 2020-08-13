@@ -1,30 +1,29 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import { StyledSpinner } from '../../styles/components/Spinner'
+import { GET_CHAT_MESSAGES_QUERY } from '../../graphql/Query/chat_room_messages'
 import ChatsPage from './ChatsPage'
 import { CHATS_SUBSCRIPTION } from '../../graphql/Subscription/chats'
-import { GET_CHAT_MESSAGES } from '../../graphql/Query/chat_room_messages'
 
-export default function ChatsPageWithData({ chatID }) {
-  const { subscribeToMore, data, loading, error } = useQuery(
-    GET_CHAT_MESSAGES,
+function ChatsPageWithData({ chatID }) {
+  const { subscribeToMore, loading, error, ...result } = useQuery(
+    GET_CHAT_MESSAGES_QUERY,
     {
       variables: { chatID },
+      fetchPolicy: 'network-only',
     }
   )
 
-  if (loading) return <StyledSpinner />
-
-  if (error) {
-    return <div>Error, please return to main page</div>
-  }
+  if (loading) return <div>...loading</div>
+  if (error) return <div>error</div>
 
   return (
     <ChatsPage
-      {...data}
-      subscribeToNewPosts={() =>
+      {...result}
+      chatID={chatID}
+      subscribeToNewChatMessages={() =>
         subscribeToMore({
           document: CHATS_SUBSCRIPTION,
+          variables: { chatID },
           updateQuery: (prev, { subscriptionData }) => {
             if (!subscriptionData.data) return prev
             const newFeedItem = subscriptionData.data.chatMessageAdded.node
@@ -38,3 +37,5 @@ export default function ChatsPageWithData({ chatID }) {
     />
   )
 }
+
+export default ChatsPageWithData

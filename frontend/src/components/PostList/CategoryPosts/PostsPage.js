@@ -14,7 +14,7 @@ function PostsPage(data) {
 
   return (
     <PostListContainer>
-      {data.posts.map((post) => (
+      {data.posts.map(post => (
         <Post key={post.id} post={post} />
       ))}
     </PostListContainer>

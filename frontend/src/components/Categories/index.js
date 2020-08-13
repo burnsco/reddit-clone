@@ -23,7 +23,7 @@ export default function Categories() {
       <CreationButtons />
       <CategoryLinksContainer p="2">
         <CategoryLink to="/">r/all</CategoryLink>
-        {data.categories.map((category) => (
+        {data.categories.map(category => (
           <CategoryLink
             to={`/r/${category.name}`}
             key={`category-${category.id}`}

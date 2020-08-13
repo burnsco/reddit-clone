@@ -3,7 +3,6 @@ import { Router } from '@reach/router'
 import Home from '../pages/Home'
 import Header from '../components/Navigation/Header'
 import LoginPage from '../pages/Login/index'
-import SignupPage from '../pages/Signup/index'
 import CreatePostPage from '../pages/CreatePost'
 import { setAccessToken } from '../context/access-token'
 import MainSpinner from '../components/shared/FallBackSpinner'
@@ -19,6 +18,8 @@ import ProfileVotes from '../pages/Profile/Votes'
 import Container from '../styles/components/Container'
 import ChatPage from '../pages/Chat'
 import PrivateRoute from '../components/PrivateRoute'
+import SignUpPage from '../pages/Signup/index'
+import NoAuthPostAndCommentsPage from '../pages/ViewPostPage/noAuthIndex'
 
 export default function App() {
   const [loading, setLoading] = useState(true)
@@ -27,7 +28,7 @@ export default function App() {
     fetch(`${process.env.REACT_APP_REFRESH}`, {
       method: 'POST',
       credentials: 'include',
-    }).then(async (x) => {
+    }).then(async x => {
       const { accessToken } = await x.json()
       setAccessToken(accessToken)
       setLoading(false)
@@ -42,6 +43,7 @@ export default function App() {
       <Container m={[0, 2, 4]}>
         <Router>
           <NotFound default />
+
           <ProfilePage path="profile/:userID">
             <ProfilePosts path="posts" />
             <ProfileComments path="comments" />
@@ -50,16 +52,36 @@ export default function App() {
 
           <Home path="/">
             <NotFound default />
+
             <CategoryPostsPageWithData path="r/:category" />
-            <PostAndCommentsPage path="r/:category/:postID/comments" />
-            <PrivateRoute component={ChatPage} path="chat/:chatID" />
-            <PrivateRoute component={CreatePostPage} path="submit" />
+
+            <PrivateRoute
+              componentOne={PostAndCommentsPage}
+              componentTwo={NoAuthPostAndCommentsPage}
+              path="r/:category/:postID/comments"
+            />
+
+            <PrivateRoute
+              componentOne={ChatPage}
+              componentTwo={SignUpPage}
+              path="chat/:chatID"
+            />
+
+            <PrivateRoute
+              componentOne={CreatePostPage}
+              componentTwo={SignUpPage}
+              path="submit"
+            />
+
             <PrivateRoute
               component={CreateCategoryPage}
               path="createCategory"
             />
+
             <LoginPage path="login" />
-            <SignupPage path="signup" />
+
+            <SignUpPage path="signup" />
+
             <AllPostsPageWithData path="/" />
           </Home>
         </Router>

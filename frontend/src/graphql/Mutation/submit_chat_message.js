@@ -6,13 +6,10 @@ export const SUBMIT_CHAT_MESSAGE = gql`
       code
       success
       message
-      chatMessage {
+      chatmessage {
         id
         createdAt
         text
-        sentBy {
-          username
-        }
       }
     }
   }

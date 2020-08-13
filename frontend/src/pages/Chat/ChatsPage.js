@@ -1,23 +1,33 @@
 import React, { useEffect } from 'react'
-
-const CategoryChats = () => <div>stuff</div>
+import { ChatDisplayContainer, UserChats } from './middle/styles'
+import UserChat from './middle/UserChat'
+import CreateChatMessageForm from './middle/CreateMessage'
 
 export default function ChatsPage(data) {
-  const { subscribeToNewMessages } = data
+  const { subscribeToNewChatMessages } = data
   const { chatID } = data
 
   useEffect(() => {
-    const unsubscribe = subscribeToNewMessages()
+    const unsubscribe = subscribeToNewChatMessages()
     return function cleanUp() {
       unsubscribe()
     }
-  }, [subscribeToNewMessages])
+  }, [subscribeToNewChatMessages])
 
   return (
     <>
-      {data.chats.map((chat) => (
-        <CategoryChats chat={chat} chatID={chatID} />
-      ))}
+      <ChatDisplayContainer>
+        <UserChats>
+          {data.chatMessages.map(chatMessage => (
+            <UserChat
+              key={`chat-${chatID}-${chatMessage.id}`}
+              chatMessage={chatMessage}
+            />
+          ))}
+        </UserChats>
+
+        <CreateChatMessageForm chatID={chatID} />
+      </ChatDisplayContainer>
     </>
   )
 }

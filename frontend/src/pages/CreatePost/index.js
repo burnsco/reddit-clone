@@ -31,7 +31,7 @@ function CreatePostPage() {
 
   if (loading) return <MainSpinner />
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault()
 
     try {
@@ -46,11 +46,11 @@ function CreatePostPage() {
       console.log(error)
     }
   }
-  const handleSelect = (categoryid) => {
+  const handleSelect = categoryid => {
     setCategoryID(categoryid)
   }
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { value, name } = event.target
 
     if (name === 'title') {
@@ -68,7 +68,7 @@ function CreatePostPage() {
     return <h1>error</h1>
   }
 
-  const options = data.categories.map((option) => ({
+  const options = data.categories.map(option => ({
     value: option.id,
     label: option.name,
   }))
@@ -83,7 +83,7 @@ function CreatePostPage() {
             type="text"
             minLength="3"
             maxLength="30"
-            handleChange={(e) => handleChange(e)}
+            handleChange={e => handleChange(e)}
             value={title}
             label="Title"
             required
@@ -93,7 +93,7 @@ function CreatePostPage() {
             minLength="3"
             maxLength="300"
             type="text"
-            handleChange={(e) => handleChange(e)}
+            handleChange={e => handleChange(e)}
             value={text}
             label="Text"
           />

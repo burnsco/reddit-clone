@@ -24,7 +24,7 @@ const CreationButtons = ({ options, handleSelect }) => (
       <CreateNewFolder size="1.3em" color="#f49342" />
       <Box ml="2">Subreddit</Box>
     </TopControlButtonCategory>
-    <TopControlButtonCategory to="/chat">
+    <TopControlButtonCategory to="/chat/ckdlysxvp009g071103kfhjjc">
       <ChatText size="1.2em" color="#f49342" />
       <Box ml="2">Chat</Box>
     </TopControlButtonCategory>

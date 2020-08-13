@@ -46,7 +46,7 @@ const fakeOrder = () => ({
   user: fakeUser(),
 })
 
-const fakeCartItem = (overrides) => ({
+const fakeCartItem = overrides => ({
   __typename: 'CartItem',
   id: 'omg123',
   quantity: 3,

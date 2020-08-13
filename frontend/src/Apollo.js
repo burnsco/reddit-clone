@@ -40,16 +40,16 @@ const retryLink = new RetryLink({
   },
   attempts: {
     max: 10,
-    retryIf: (error) => !!error,
+    retryIf: error => !!error,
   },
 })
 
 const requestLink = new ApolloLink(
   (operation, forward) =>
-    new Observable((observer) => {
+    new Observable(observer => {
       let handle
       Promise.resolve(operation)
-        .then((operations) => {
+        .then(operations => {
           const accessToken = getAccessToken()
           if (accessToken) {
             operations.setContext({
@@ -98,10 +98,10 @@ const refreshLink = new TokenRefreshLink({
       method: 'POST',
       credentials: 'include',
     }),
-  handleFetch: (accessToken) => {
+  handleFetch: accessToken => {
     setAccessToken(accessToken)
   },
-  handleError: (err) => {
+  handleError: err => {
     console.warn('Your refresh token is invalid. Try to relogin')
     console.error(err)
   },

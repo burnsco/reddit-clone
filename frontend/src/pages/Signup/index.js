@@ -24,7 +24,7 @@ function SignUpPage() {
   if (loading) return <MainSpinner />
   if (error) return <div>error! contact site owner</div>
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault()
 
     try {
@@ -48,7 +48,7 @@ function SignUpPage() {
     setPassword('')
   }
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { value, name } = event.target
 
     if (name === 'email') {

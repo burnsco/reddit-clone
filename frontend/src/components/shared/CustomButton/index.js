@@ -71,7 +71,7 @@ export const CustomButtonContainer = styled.button`
   ${getButtonStyles}
 `
 
-export const CustomButton = (props) => {
+export const CustomButton = props => {
   const { children } = props
   return <CustomButtonContainer {...props}>{children}</CustomButtonContainer>
 }

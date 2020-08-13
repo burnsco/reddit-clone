@@ -5,9 +5,9 @@ export const CHATS_SUBSCRIPTION = gql`
     chatMessageAdded {
       node {
         id
+        createdAt
         text
         sentBy {
-          createdAt
           username
         }
       }

@@ -30,7 +30,7 @@ function CreateCategoryPage() {
   })
   const [createChatRoom] = useMutation(CREATE_CHAT_ROOM)
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault()
 
     try {
@@ -61,7 +61,7 @@ function CreateCategoryPage() {
     }
   }
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setName(event.target.value)
   }
 
@@ -80,7 +80,7 @@ function CreateCategoryPage() {
             minLength="3"
             maxLength="12"
             autoFocus
-            handleChange={(e) => handleChange(e)}
+            handleChange={e => handleChange(e)}
             value={name}
             label="name"
             required

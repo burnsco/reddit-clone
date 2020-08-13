@@ -23,11 +23,7 @@ function CreateChatMessageForm({ chatID }) {
         variables: { text: input.value, chatID },
       })
 
-      const { code } = result.data.createComment
-
-      if (code === '200') {
-        return result
-      }
+      return result
     } catch (ex) {
       console.log(ex)
     }
