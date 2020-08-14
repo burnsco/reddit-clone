@@ -74,7 +74,8 @@ export default function App() {
             />
 
             <PrivateRoute
-              component={CreateCategoryPage}
+              componentOne={CreateCategoryPage}
+              componentTwo={SignUpPage}
               path="createCategory"
             />
 
