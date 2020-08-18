@@ -13,7 +13,7 @@ export default function ChatsPage(data) {
       unsubscribe()
     }
   }, [subscribeToNewChatMessages])
-
+  console.log(data)
   return (
     <>
       <ChatDisplayContainer>

@@ -17,10 +17,11 @@ const ChatDisplay = ({ chatID }) => {
   if (error) {
     console.log(error)
   }
+
   return (
     <ChatDisplayContainer>
       <UserChats>
-        {data.chatMessages.map((chatMessage) => (
+        {data.chatMessages.map(chatMessage => (
           <UserChat
             key={`chat-${chatID}-${chatMessage.id}`}
             chatMessage={chatMessage}

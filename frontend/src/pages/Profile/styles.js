@@ -29,7 +29,6 @@ export const ProfileNavigationLink = styled(NavLink)`
 `
 
 export const ProfileFeedContainer = styled.div`
-  display: flex;
   padding: 15px;
 `
 

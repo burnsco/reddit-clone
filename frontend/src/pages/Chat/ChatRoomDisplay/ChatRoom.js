@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { ChatDisplayContainer, UserChats } from './styles'
-import UserChat from './UserChat'
 import MainSpinner from '../../../components/shared/FallBackSpinner'
 
 const GET_CHATS_QUERY = gql`
@@ -14,6 +13,12 @@ const GET_CHATS_QUERY = gql`
   }
 `
 
+const UserChat = () => (
+  <>
+    <h1>test</h1>
+  </>
+)
+
 const ChatRoom = () => {
   const { loading, error, data } = useQuery(GET_CHATS_QUERY)
 
@@ -23,7 +28,7 @@ const ChatRoom = () => {
   return (
     <ChatDisplayContainer>
       <UserChats>
-        {data.messages.map((message) => (
+        {data.messages.map(message => (
           <UserChat key={message.id} message={data.message} />
         ))}
       </UserChats>

@@ -15,7 +15,7 @@ function CreateChatMessageForm({ chatID }) {
 
   if (loading) return <MainSpinner />
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
     try {
@@ -37,7 +37,7 @@ function CreateChatMessageForm({ chatID }) {
     <ChatBoxInputContainer>
       <form onSubmit={handleSubmit}>
         <ChatInputBox
-          ref={(node) => {
+          ref={node => {
             input = node
           }}
           style={{ background: 'white' }}

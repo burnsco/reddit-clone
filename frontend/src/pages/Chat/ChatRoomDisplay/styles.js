@@ -26,8 +26,8 @@ export const ChatInputBox = styled.input`
 `
 export const ChatButton = styled.button`
   /* Adapt the colors based on primary prop */
-  background: ${(props) => (props.primary ? 'palevioletred' : 'white')};
-  color: ${(props) => (props.primary ? 'white' : 'palevioletred')};
+  background: ${props => (props.primary ? 'palevioletred' : 'white')};
+  color: ${props => (props.primary ? 'white' : 'palevioletred')};
 
   font-size: 1em;
   margin: 1em;

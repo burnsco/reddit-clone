@@ -22,6 +22,7 @@ function SignUpPage() {
   })
 
   if (loading) return <MainSpinner />
+
   if (error) return <div>error! contact site owner</div>
 
   const handleSubmit = async event => {
@@ -35,7 +36,6 @@ function SignUpPage() {
       setResult(message)
 
       if (success) {
-        alert(message)
         navigate('/login')
       }
 

@@ -7,7 +7,7 @@ process.env.NODE_ENV = 'production'
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
-process.on('unhandledRejection', (err) => {
+process.on('unhandledRejection', err => {
   throw err
 })
 
@@ -47,7 +47,7 @@ const useYarn = fs.existsSync(paths.yarnLockFile)
 function copyPublicFolder() {
   fs.copySync(paths.appPublic, paths.appBuild, {
     dereference: true,
-    filter: (file) => file !== paths.appHtml,
+    filter: file => file !== paths.appHtml,
   })
 }
 
@@ -135,7 +135,7 @@ checkBrowsers(paths.appPath, isInteractive)
     // This lets us display how much they changed later.
     measureFileSizesBeforeBuild(paths.appBuild)
   )
-  .then((previousFileSizes) => {
+  .then(previousFileSizes => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
     fs.emptyDirSync(paths.appBuild)
@@ -186,7 +186,7 @@ checkBrowsers(paths.appPath, isInteractive)
         useYarn
       )
     },
-    (err) => {
+    err => {
       const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true'
       if (tscCompileOnError) {
         console.log(
@@ -202,7 +202,7 @@ checkBrowsers(paths.appPath, isInteractive)
       }
     }
   )
-  .catch((err) => {
+  .catch(err => {
     if (err && err.message) {
       console.log(err.message)
     }

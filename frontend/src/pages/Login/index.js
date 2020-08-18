@@ -39,8 +39,6 @@ function LoginPage() {
 
         setUser(user.username)
 
-        alert(message)
-
         navigate('../', { replace: true })
       }
       return result
@@ -51,6 +49,7 @@ function LoginPage() {
 
   const handleChange = event => {
     const { value, name } = event.target
+
     if (name === 'email') {
       setEmail(value)
     } else {

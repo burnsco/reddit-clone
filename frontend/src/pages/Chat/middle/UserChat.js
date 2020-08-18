@@ -8,16 +8,22 @@ import {
 } from './styles'
 import { timeDifferenceForDate } from '../../../utils/timeDifferenceForDate'
 
-const UserChat = ({ chatMessage }) => (
-  <UserChatBox>
-    <UserChatHeader>
-      <UserChatUserName>{chatMessage.sentBy.username}</UserChatUserName>
-      <UserChatTimeStamp>
-        {timeDifferenceForDate(chatMessage.sentBy.createdAt)}
-      </UserChatTimeStamp>
-    </UserChatHeader>
-    <UserChatBody>{chatMessage.text}</UserChatBody>
-  </UserChatBox>
-)
-
+const UserChat = ({ data }) => {
+  console.log(data)
+  return (
+    <>
+      {data.chatMessages.map(message => (
+        <UserChatBox key={`chatmessage-${message.id}`}>
+          <UserChatHeader>
+            <UserChatUserName>{message.sentBy.username}</UserChatUserName>
+            <UserChatTimeStamp>
+              {timeDifferenceForDate(message.sentBy.createdAt)}
+            </UserChatTimeStamp>
+          </UserChatHeader>
+          <UserChatBody>{message.text}</UserChatBody>
+        </UserChatBox>
+      ))}
+    </>
+  )
+}
 export default UserChat

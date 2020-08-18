@@ -15,7 +15,7 @@ const ChatUserList = () => {
   }
   return (
     <ChatUserListContainer>
-      {data.users.map((user) => (
+      {data.users.map(user => (
         <ChatRoomLink key={`user-chat-${user.username}`} to="/">
           {user.username}
         </ChatRoomLink>

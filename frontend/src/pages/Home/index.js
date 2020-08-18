@@ -32,7 +32,9 @@ const HomePage = ({ children }) => {
     value: option.id,
     label: option.name,
   }))
+
   const newOptions = [...options, { value: '', label: 'all' }]
+
   return (
     <HomeContainer>
       <FeedContainer>
