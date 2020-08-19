@@ -5,7 +5,6 @@ import Header from '../components/Navigation/Header'
 import LoginPage from '../pages/Login/index'
 import CreatePostPage from '../pages/CreatePost'
 import { setAccessToken } from '../context/access-token'
-import MainSpinner from '../components/shared/FallBackSpinner'
 import PostAndCommentsPage from '../pages/ViewPostPage/index'
 import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWithData'
 import ProfilePage from '../pages/Profile/index'
@@ -35,7 +34,7 @@ export default function App() {
     })
   }, [])
 
-  if (loading) return <MainSpinner />
+  if (loading) return null
 
   return (
     <>

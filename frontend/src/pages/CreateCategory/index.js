@@ -36,7 +36,7 @@ function CreateCategoryPage() {
     try {
       const results = await createCategory()
       const { message, code, category } = results.data.createCategory
-      console.log(results)
+
       setResult(message)
 
       if (code === '200') {
@@ -46,13 +46,9 @@ function CreateCategoryPage() {
           variables: { categoryID: id },
         })
 
-        const {
-          code: statuscode,
-          message: chatroommessage,
-        } = chatroom.data.createChatRoom
+        const { code: statuscode } = chatroom.data.createChatRoom
 
         if (statuscode === '200') {
-          alert(`${message}\n${chatroommessage}`)
           navigate('../')
         }
       }

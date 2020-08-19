@@ -24,20 +24,23 @@ const VoteBox = ({ score, postID }) => {
     console.log(error)
   }
 
-  // check if user voted
-  // if (user) voted then
-  // send voteid
-  // if not, just sent as a new vote
+  // votes.map(vote => {
+  //   if (vote.user.id === data.currentUser.id) {
+  //     console.log('user id match')
+  //     console.log(vote)
 
-  // TODO fix voting at some point
-  // voting is unlimited right now
+  //     return null
+  //   }
+  //   console.log('user id does not match')
+  //   return null
+  // })
+
+  // // set the arrow red if user voted
 
   return (
     <Container>
       <UpArrow
         onClick={() => {
-          console.log(`upvote`)
-
           createVote({
             variables: { postID, type: 1 },
           })
@@ -46,8 +49,6 @@ const VoteBox = ({ score, postID }) => {
       <Votes>{score}</Votes>
       <DownArrow
         onClick={() => {
-          console.log('downvote')
-
           createVote({
             variables: { postID, type: -1 },
           })

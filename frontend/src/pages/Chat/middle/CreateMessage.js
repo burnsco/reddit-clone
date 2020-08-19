@@ -2,18 +2,15 @@ import React from 'react'
 import { useMutation } from '@apollo/client'
 import { ChatBoxInputContainer, ChatInputBox, ChatButton } from './styles'
 import { SUBMIT_CHAT_MESSAGE } from '../../../graphql/Mutation/submit_chat_message'
-import MainSpinner from '../../../components/shared/FallBackSpinner'
 
 function CreateChatMessageForm({ chatID }) {
-  console.log(`chat message form ${chatID}`)
-
   const [createChatMessage, { loading, error }] = useMutation(
     SUBMIT_CHAT_MESSAGE
   )
 
   let input
 
-  if (loading) return <MainSpinner />
+  if (loading) return null
 
   const handleSubmit = async e => {
     e.preventDefault()

@@ -7,8 +7,8 @@ export const ChatDisplayContainer = styled(Flex)`
 `
 
 export const UserChats = styled.div`
-  overflow: auto;
   height: 92%;
+  overflow-y: scroll;
   padding: 15px;
 `
 export const ChatBoxInputContainer = styled(Flex)`

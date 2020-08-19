@@ -28,8 +28,6 @@ const VoteBox = ({ score, postID }) => {
     <Container>
       <UpArrow
         onClick={() => {
-          console.log(`upvote`)
-
           createVote({
             variables: { postID, type: 1 },
           })
@@ -38,8 +36,6 @@ const VoteBox = ({ score, postID }) => {
       <Votes>{score}</Votes>
       <DownArrow
         onClick={() => {
-          console.log('downvote')
-
           createVote({
             variables: { postID, type: -1 },
           })
