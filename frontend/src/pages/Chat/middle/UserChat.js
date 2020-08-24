@@ -15,7 +15,7 @@ const UserChat = ({ chatMessages }) => (
         <UserChatHeader>
           <UserChatUserName>{message.sentBy.username}</UserChatUserName>
           <UserChatTimeStamp>
-            {timeDifferenceForDate(message.sentBy.createdAt)}
+            {timeDifferenceForDate(message.createdAt)}
           </UserChatTimeStamp>
         </UserChatHeader>
         <UserChatBody>{message.text}</UserChatBody>

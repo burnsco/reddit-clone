@@ -5,8 +5,8 @@ export const GET_CHAT_MESSAGES_QUERY = gql`
     chatMessages(chatID: $chatID) {
       id
       text
+      createdAt
       sentBy {
-        createdAt
         username
       }
     }

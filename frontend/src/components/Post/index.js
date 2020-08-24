@@ -16,9 +16,9 @@ import {
   UserName,
 } from './styles'
 import VoteBox from '../VoteBox/index.js'
-import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate.js'
-import formatCommentText from '../../utils/comments.js'
-import checkForLink from '../../utils/checkForLink.js'
+import { timeDifferenceForDate } from '../../utils/timeDifferenceForDate'
+import formatCommentText from '../../utils/comments'
+import checkForLink from '../../utils/checkForLink'
 
 const Post = ({
   post: {
