@@ -1,0 +1,12 @@
+mutation CreateChatMessage($text: String!, $chatID: ID!) {
+  createChatMessage(data: { text: $text, chatID: $chatID }) {
+    code
+    success
+    message
+    chatmessage {
+      id
+      createdAt
+      text
+    }
+  }
+}

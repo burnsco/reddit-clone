@@ -1,0 +1,28 @@
+query UserPosts($userID: ID) {
+  posts(userID: $userID) {
+    ...PostDetails
+
+    votes {
+      ...VoteDetails
+      
+      user {
+        ...UserDetails
+      }
+    }
+
+    comments {
+      ...CommentDetails
+
+      createdBy {
+        ...UserDetails
+      }
+    }
+
+    author {
+      ...UserDetails
+    }
+
+    category {
+      ...CategoryDetails
+  }
+}

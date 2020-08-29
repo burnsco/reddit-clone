@@ -1,0 +1,12 @@
+subscription NewChatMessageSubscription {
+  chatMessageAdded {
+    node {
+      id
+      createdAt
+      text
+      sentBy {
+        username
+      }
+    }
+  }
+}

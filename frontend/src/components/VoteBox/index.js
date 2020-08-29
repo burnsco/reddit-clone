@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { UpArrowSquare, DownArrowSquare } from '@styled-icons/boxicons-solid'
 import { useMutation } from '@apollo/client'
 import { Container, Votes } from './styles'
@@ -17,7 +17,7 @@ const DownArrow = styled(DownArrowSquare)`
   }
 `
 
-const VoteBox = ({ score, postID }) => {
+const VoteBox:React.FC<VoteProps> = ({ score, postID }) => {
   const [createVote, { error }] = useMutation(VOTE_ON_POST_MUTATION)
 
   if (error) {

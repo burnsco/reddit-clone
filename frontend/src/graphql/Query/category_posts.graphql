@@ -1,0 +1,28 @@
+query PostsByCategory($query: String!) {
+  posts(query: $query) {
+    ...PostDetails
+
+    votes {
+      ...VoteDetails
+      user {
+        ...UserDetails
+      }
+    }
+
+    comments {
+      ...CommentDetails
+
+      createdBy {
+        ...UserDetails
+      }
+    }
+
+    author {
+      ...UserDetails
+    }
+
+    category {
+      ...CategoryDetails
+    }
+  }
+}

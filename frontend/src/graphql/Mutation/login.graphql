@@ -1,0 +1,11 @@
+mutation Login($email: String!, $password: String!) {
+  loginUser(data: { email: $email, password: $password }) {
+    success
+    message
+    code
+    accessToken
+    user {
+      ...UserDetails
+    }
+  }
+}

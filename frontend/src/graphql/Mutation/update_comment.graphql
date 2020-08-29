@@ -1,0 +1,13 @@
+mutation UpdateComment($postID: ID!, $commentID: ID!, $body: String!) {
+  updateComment(data: { postID: $postID, commentID: $commentID, body: $body }) {
+    code
+    message
+    success
+    code
+    message
+    success
+    comment {
+      ...CommentDetails
+    }
+  }
+}

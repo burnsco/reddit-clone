@@ -1,0 +1,10 @@
+query ChatRoomMessages($chatID: ID) {
+  chatMessages(chatID: $chatID) {
+    id
+    text
+    createdAt
+    sentBy {
+      username
+    }
+  }
+}

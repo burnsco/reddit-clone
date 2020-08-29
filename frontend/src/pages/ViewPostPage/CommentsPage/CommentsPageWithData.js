@@ -1,7 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
 import CommentsPage from './CommentsPage'
-import MainSpinner from '../../../components/shared/FallBackSpinner'
 import { GET_COMMENTS_QUERY } from '../../../graphql/Query/comments'
 import { POSTS_SUBSCRIPTION } from '../../../graphql/Subscription/posts'
 
@@ -17,9 +16,9 @@ function CommentsPageWithData({ postID }) {
     variables: { postID },
     pollInterval: 500,
   })
-  if (networkStatus === 4) return <MainSpinner />
-  if (loading) return <MainSpinner />
-  if (error) return <div>error</div>
+  if (networkStatus === 4) return <div>...loading comments</div>
+  if (loading) return null
+  if (error) return <div>error loading comments</div>
 
   return (
     <CommentsPage

@@ -1,0 +1,29 @@
+query PostAndComments($postID: ID!) {
+  post(postID: $postID) {
+    ...PostDetails
+
+    votes {
+      ...VoteDetails
+
+      user {
+        ...UserDetails
+      }
+    }
+
+    comments {
+      ...CommentDetails
+
+      createdBy {
+        ...UserDetails
+      }
+    }
+
+    author {
+      ...UserDetails
+    }
+
+    category {
+      ...CategoryDetails
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client'
 import { DELETE_COMMENT_MUTATION } from '../../../../graphql/Mutation/delete_comment'
 import Box from '../../../../styles/components/Box'
 
-function DeleteComment({ commentID, postID, refetch }) {
+function DeleteComment({ commentID, postID }) {
   const [deleteComment, { error }] = useMutation(DELETE_COMMENT_MUTATION, {
     variables: { commentID, postID },
   })
@@ -18,13 +18,13 @@ function DeleteComment({ commentID, postID, refetch }) {
         label: 'Yes',
         onClick: () => {
           deleteComment()
-          refetch()
+       
         },
       },
       {
         label: 'No',
         onClick: () => {
-          refetch()
+         
         },
       },
     ],

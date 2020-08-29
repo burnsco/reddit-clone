@@ -1,0 +1,36 @@
+fragment PostDetails on Post {
+  id
+  createdAt
+  updatedAt
+  score
+  title
+  text
+}
+
+fragment PostSnippet on Post {
+  ...PostDetails
+
+  votes {
+    ...VoteDetails
+
+    user {
+      ...UserDetails
+    }
+  }
+
+  comments {
+    ...CommentDetails
+
+    createdBy {
+      ...UserDetails
+    }
+  }
+
+  author {
+    ...UserDetails
+  }
+
+  category {
+    ...CategoryDetails
+  }
+}

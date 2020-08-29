@@ -1,0 +1,10 @@
+mutation CreateComment($body: String!, $postID: ID!) {
+  createComment(data: { body: $body, postID: $postID }) {
+    code
+    success
+    message
+    comment {
+      ...CommentDetails
+    }
+  }
+}

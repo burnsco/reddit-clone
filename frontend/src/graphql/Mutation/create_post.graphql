@@ -1,0 +1,10 @@
+mutation CreatePost($title: String!, $text: String!, $categoryID: ID!) {
+  createPost(data: { title: $title, text: $text, categoryID: $categoryID }) {
+    code
+    success
+    message
+    post {
+      ...PostDetails
+    }
+  }
+}

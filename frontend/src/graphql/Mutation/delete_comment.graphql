@@ -1,0 +1,7 @@
+mutation DeleteComment($postID: ID!, $commentID: ID!) {
+  deleteComment(data: { postID: $postID, commentID: $commentID }) {
+    code
+    message
+    success
+  }
+}

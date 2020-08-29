@@ -1,0 +1,29 @@
+query AllPosts {
+  posts {
+    ...PostDetails
+
+    votes {
+      ...VoteDetails
+
+      user {
+        ...UserDetails
+      }
+    }
+
+    comments {
+      ...CommentDetails
+
+      createdBy {
+        ...UserDetails
+      }
+    }
+
+    author {
+      ...UserDetails
+    }
+
+    category {
+      ...CategoryDetails
+    }
+  }
+}

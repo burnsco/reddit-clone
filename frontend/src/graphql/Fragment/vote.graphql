@@ -1,0 +1,4 @@
+fragment VoteDetails on Vote {
+  id
+  type
+}

@@ -1,0 +1,8 @@
+query ChatRooms {
+  chatRooms {
+    id
+    category {
+      name
+    }
+  }
+}

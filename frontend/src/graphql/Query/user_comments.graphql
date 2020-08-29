@@ -1,0 +1,8 @@
+query UserComments($userID: ID) {
+  comments(userID: $userID) {
+    ...CommentDetails
+    createdBy {
+      ...UserDetails
+    }
+  }
+}

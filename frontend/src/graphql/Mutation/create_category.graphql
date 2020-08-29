@@ -1,0 +1,10 @@
+mutation CreateCategory($name: String!) {
+  createCategory(data: { name: $name }) {
+    code
+    success
+    message
+    category {
+      ...CategoryDetails
+    }
+  }
+}
