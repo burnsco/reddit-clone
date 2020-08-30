@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from '@apollo/client'
-import Post from '../../../components/Post'
+import Post from '../../../components/Post/Post'
 import MainSpinner from '../../../components/shared/FallBackSpinner'
 import { GET_USER_POSTS_QUERY } from '../../../graphql/Query/user_posts'
 

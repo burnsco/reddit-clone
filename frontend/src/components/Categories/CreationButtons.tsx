@@ -1,7 +1,7 @@
-import React from 'react'
-import PostAndCategoryButtons from './Buttons'
+import React from "react"
+import PostAndCategoryButtons from "./Buttons"
 
-export default function CreationButtons() {
+const CreationButtons: React.FC<{}> = () => {
   return (
     <PostAndCategoryButtons
       postLink="submit"
@@ -10,3 +10,5 @@ export default function CreationButtons() {
     />
   )
 }
+
+export default CreationButtons

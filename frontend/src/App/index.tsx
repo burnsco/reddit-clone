@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from 'react'
-import { Router } from '@reach/router'
-import Home from '../pages/Home'
-import Header from '../components/Navigation/Header'
-import LoginPage from '../pages/Login/index'
-import CreatePostPage from '../pages/CreatePost'
-import { setAccessToken } from '../context/access-token'
-import PostAndCommentsPage from '../pages/ViewPostPage/index'
-import AllPostsPageWithData from '../components/PostList/AllPosts/AllPostsPageWithData'
-import ProfilePage from '../pages/Profile/index'
-import CategoryPostsPageWithData from '../components/PostList/CategoryPosts/CategoryPostsPageWithData'
-import CreateCategoryPage from '../pages/CreateCategory'
-import NotFound from '../pages/404'
-import ProfilePosts from '../pages/Profile/Posts'
-import ProfileComments from '../pages/Profile/Comments'
-import ProfileVotes from '../pages/Profile/Votes'
-import ChatPage from '../pages/Chat'
-import PrivateRoute from '../components/PrivateRoute'
-import SignUpPage from '../pages/Signup/index'
-import NoAuthPostAndCommentsPage from '../pages/ViewPostPage/noAuthIndex'
-import { Box } from '@chakra-ui/core'
+import React, { useState, useEffect } from "react"
+import { Router } from "@reach/router"
+import Home from "../pages/Home"
+import Header from "../components/Navigation/Header"
+import LoginPage from "../pages/Login/index"
+import CreatePostPage from "../pages/CreatePost"
+import { setAccessToken } from "../context/access-token"
+import PostAndCommentsPage from "../pages/ViewPostPage/index"
+import AllPostsPageWithData from "../components/PostList/AllPosts/AllPostsPageWithData"
+import ProfilePage from "../pages/Profile/index"
+import CategoryPostsPageWithData from "../components/PostList/CategoryPosts/CategoryPostsPageWithData"
+import CreateCategoryPage from "../pages/CreateCategory"
+import NotFound from "../pages/404"
+import ProfilePosts from "../pages/Profile/Posts"
+import ProfileComments from "../pages/Profile/Comments"
+import ProfileVotes from "../pages/Profile/Votes"
+import ChatPage from "../pages/Chat"
+import PrivateRoute from "../components/PrivateRoute"
+import SignUpPage from "../pages/Signup/Signup"
+import NoAuthPostAndCommentsPage from "../pages/ViewPostPage/noAuthIndex"
+import { Box } from "@chakra-ui/core"
 
 export default function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_REFRESH}`, {
-      method: 'POST',
-      credentials: 'include'
+      method: "POST",
+      credentials: "include"
     }).then(async x => {
       const { accessToken } = await x.json()
       setAccessToken(accessToken)

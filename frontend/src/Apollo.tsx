@@ -1,11 +1,11 @@
-import React from 'react'
-import { TokenRefreshLink } from 'apollo-link-token-refresh'
-import { WebSocketLink } from '@apollo/client/link/ws'
-import { SubscriptionClient } from 'subscriptions-transport-ws'
-import { getMainDefinition } from '@apollo/client/utilities'
-import jwtDecode from 'jwt-decode'
-import { onError } from '@apollo/client/link/error'
-import { RetryLink } from '@apollo/client/link/retry'
+import React from "react"
+import { TokenRefreshLink } from "apollo-link-token-refresh"
+import { WebSocketLink } from "@apollo/client/link/ws"
+import { SubscriptionClient } from "subscriptions-transport-ws"
+import { getMainDefinition } from "@apollo/client/utilities"
+import jwtDecode from "jwt-decode"
+import { onError } from "@apollo/client/link/error"
+import { RetryLink } from "@apollo/client/link/retry"
 import {
   ApolloClient,
   ApolloLink,
@@ -14,16 +14,16 @@ import {
   Observable,
   ApolloProvider,
   split
-} from '@apollo/client'
-import App from './App'
-import { getAccessToken, setAccessToken } from './context/access-token'
-import AppProviders from './context'
+} from "@apollo/client"
+import App from "./App"
+import { getAccessToken, setAccessToken } from "./context/access-token"
+import AppProviders from "./context"
 
 const cache = new InMemoryCache()
 
 const httpLink = new HttpLink({
   uri: process.env.REACT_APP_HTTPLINK,
-  credentials: 'include'
+  credentials: "include"
 })
 
 const wsClient = new SubscriptionClient(`${process.env.REACT_APP_WSLINK}`, {
@@ -74,7 +74,7 @@ const requestLink = new ApolloLink(
 )
 
 const refreshLink = new TokenRefreshLink({
-  accessTokenField: 'accessToken',
+  accessTokenField: "accessToken",
   isTokenValidOrUndefined: () => {
     const token = getAccessToken()
 
@@ -94,14 +94,14 @@ const refreshLink = new TokenRefreshLink({
   },
   fetchAccessToken: () =>
     fetch(`${process.env.REACT_APP_REFRESH}`, {
-      method: 'POST',
-      credentials: 'include'
+      method: "POST",
+      credentials: "include"
     }),
   handleFetch: accessToken => {
     setAccessToken(accessToken)
   },
   handleError: err => {
-    console.warn('Your refresh token is invalid. Try to relogin')
+    console.warn("Your refresh token is invalid. Try to relogin")
     console.error(err)
   }
 })
@@ -110,8 +110,8 @@ const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query)
     return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
     )
   },
   wsLink,
@@ -137,9 +137,9 @@ const client = new ApolloClient({
   ]),
   cache,
   defaultOptions: {
-    watchQuery: { errorPolicy: 'all' },
-    query: { errorPolicy: 'all' },
-    mutate: { errorPolicy: 'all' }
+    watchQuery: { errorPolicy: "all" },
+    query: { errorPolicy: "all" },
+    mutate: { errorPolicy: "all" }
   }
 })
 

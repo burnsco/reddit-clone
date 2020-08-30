@@ -7,30 +7,3 @@ fragment PostDetails on Post {
   text
 }
 
-fragment PostSnippet on Post {
-  ...PostDetails
-
-  votes {
-    ...VoteDetails
-
-    user {
-      ...UserDetails
-    }
-  }
-
-  comments {
-    ...CommentDetails
-
-    createdBy {
-      ...UserDetails
-    }
-  }
-
-  author {
-    ...UserDetails
-  }
-
-  category {
-    ...CategoryDetails
-  }
-}

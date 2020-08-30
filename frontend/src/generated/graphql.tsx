@@ -569,32 +569,6 @@ export type PostDetailsFragment = (
   & Pick<Post, 'id' | 'createdAt' | 'updatedAt' | 'score' | 'title' | 'text'>
 );
 
-export type PostSnippetFragment = (
-  { __typename?: 'Post' }
-  & { votes: Array<(
-    { __typename?: 'Vote' }
-    & { user?: Maybe<(
-      { __typename?: 'User' }
-      & UserDetailsFragment
-    )> }
-    & VoteDetailsFragment
-  )>, comments: Array<(
-    { __typename?: 'Comment' }
-    & { createdBy: (
-      { __typename?: 'User' }
-      & UserDetailsFragment
-    ) }
-    & CommentDetailsFragment
-  )>, author: (
-    { __typename?: 'User' }
-    & UserDetailsFragment
-  ), category: (
-    { __typename?: 'Category' }
-    & CategoryDetailsFragment
-  ) }
-  & PostDetailsFragment
-);
-
 export type UserDetailsFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'username'>
@@ -999,26 +973,10 @@ export type NewChatMessageSubscriptionSubscription = (
   )> }
 );
 
-export const PostDetailsFragmentDoc = gql`
-    fragment PostDetails on Post {
+export const CategoryDetailsFragmentDoc = gql`
+    fragment CategoryDetails on Category {
   id
-  createdAt
-  updatedAt
-  score
-  title
-  text
-}
-    `;
-export const VoteDetailsFragmentDoc = gql`
-    fragment VoteDetails on Vote {
-  id
-  type
-}
-    `;
-export const UserDetailsFragmentDoc = gql`
-    fragment UserDetails on User {
-  id
-  username
+  name
 }
     `;
 export const CommentDetailsFragmentDoc = gql`
@@ -1029,39 +987,28 @@ export const CommentDetailsFragmentDoc = gql`
   updatedAt
 }
     `;
-export const CategoryDetailsFragmentDoc = gql`
-    fragment CategoryDetails on Category {
+export const PostDetailsFragmentDoc = gql`
+    fragment PostDetails on Post {
   id
-  name
+  createdAt
+  updatedAt
+  score
+  title
+  text
 }
     `;
-export const PostSnippetFragmentDoc = gql`
-    fragment PostSnippet on Post {
-  ...PostDetails
-  votes {
-    ...VoteDetails
-    user {
-      ...UserDetails
-    }
-  }
-  comments {
-    ...CommentDetails
-    createdBy {
-      ...UserDetails
-    }
-  }
-  author {
-    ...UserDetails
-  }
-  category {
-    ...CategoryDetails
-  }
+export const UserDetailsFragmentDoc = gql`
+    fragment UserDetails on User {
+  id
+  username
 }
-    ${PostDetailsFragmentDoc}
-${VoteDetailsFragmentDoc}
-${UserDetailsFragmentDoc}
-${CommentDetailsFragmentDoc}
-${CategoryDetailsFragmentDoc}`;
+    `;
+export const VoteDetailsFragmentDoc = gql`
+    fragment VoteDetails on Vote {
+  id
+  type
+}
+    `;
 export const CastVoteDocument = gql`
     mutation CastVote($postID: ID!, $voteID: ID, $type: Int) {
   createVote(data: {postID: $postID, voteID: $voteID, type: $type}) {

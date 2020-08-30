@@ -11,14 +11,11 @@ import { timeDifferenceForDate } from '../../../../utils/timeDifferenceForDate'
 import { Box } from '@chakra-ui/core'
 import {
   useCurrentUserQuery,
-  UserCommentsQuery,
   useUpdateCommentMutation
 } from '../../../../generated/graphql'
-import { ApolloQueryResult } from '@apollo/client'
 
 type CommentProps = {
   postID: string
-  refetch: () => Promise<ApolloQueryResult<UserCommentsQuery>>
   comment: {
     id: string
     body: string
@@ -31,7 +28,7 @@ type CommentProps = {
   }
 }
 
-const CommentComponent = ({ postID, refetch, comment }: CommentProps) => {
+const CommentComponent = ({ postID, comment }: CommentProps) => {
   const { data } = useCurrentUserQuery()
   const [editComment, { loading, error }] = useUpdateCommentMutation()
   const [showComment, setShowComment] = useState(true)
@@ -45,6 +42,8 @@ const CommentComponent = ({ postID, refetch, comment }: CommentProps) => {
 
   const userID = data?.currentUser.id
 
+
+  // TODO Fix with writeQuery
   const saveCancel = () => {
     if (commentCreatedBy === userID) {
       return (
@@ -60,7 +59,6 @@ const CommentComponent = ({ postID, refetch, comment }: CommentProps) => {
                   commentID: comment.id
                 }
               })
-              refetch()
             }}
           >
             Save
