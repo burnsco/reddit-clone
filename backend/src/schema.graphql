@@ -1,10 +1,8 @@
 type Query {
-  currentUser: User!
-  user(userID: ID!): User!
+  currentUser: User
+  user(userID: ID!): User
   users: [User!]!
-
   categories: [Category!]!
-
   post(postID: ID!): Post!
   posts(
     query: String
@@ -14,10 +12,8 @@ type Query {
     after: String
     orderBy: PostOrderByInput
   ): [Post!]!
-
-  chatRooms:[ChatRoom!]!
-  chatMessages(chatID: ID):[ChatMessage!]!
-
+  chatRooms: [ChatRoom!]!
+  chatMessages(chatID: ID): [ChatMessage!]!
   comments(
     query: String
     first: Int
@@ -26,30 +22,25 @@ type Query {
     after: String
     orderBy: CommentOrderByInput
   ): [Comment!]!
-
-
   node(id: ID!): Node
 }
 
 type Mutation {
   createChatRoom(data: CreateChatRoomInput!): CreateChatRoomMutationResponse!
-  createChatMessage(data: CreateChatMessageInput!): CreateChatMessageMutationResponse!
-
+  createChatMessage(
+    data: CreateChatMessageInput!
+  ): CreateChatMessageMutationResponse!
   createVote(data: CreateVoteInput!): CreateVoteMutationResponse!
-
   createCategory(data: CreateCategoryInput!): CreateCategoryMutationResponse!
   updateCategory(data: UpdateCategoryInput!): UpdateCategoryMutationResponse!
   deleteCategory(data: DeleteCategoryInput!): DeleteCategoryMutationResponse!
-
   createUser(data: CreateUserInput!): CreateUserMutationResponse!
   updateUser(data: UpdateUserInput!): UpdateUserMutationResponse!
   deleteUser(data: DeleteUserInput!): DeleteUserMutationResponse!
   loginUser(data: LoginUserInput!): LoginUserMutationResponse!
-  
   createPost(data: CreatePostInput!): CreatePostMutationResponse!
   updatePost(data: UpdatePostInput!): UpdatePostMutationResponse!
   deletePost(data: DeletePostInput!): DeletePostMutationResponse!
-
   createComment(data: CreateCommentInput!): CreateCommentMutationResponse!
   updateComment(data: UpdateCommentInput!): UpdateCommentMutationResponse!
   deleteComment(data: DeleteCommentInput!): DeleteCommentMutationResponse!
@@ -58,7 +49,6 @@ type Mutation {
 interface Node {
   id: ID!
 }
-
 
 type Category implements Node {
   id: ID!
@@ -77,7 +67,7 @@ type ChatRoom implements Node {
 }
 
 type ChatMessage implements Node {
-  id: ID! 
+  id: ID!
   createdAt: String!
   chat: ChatRoom!
   sentBy: User!
@@ -129,7 +119,6 @@ type Vote implements Node {
   post: Post
 }
 
-
 ### VOTE ###
 input CreateVoteInput {
   postID: ID!
@@ -155,7 +144,7 @@ input UpdateCategoryInput {
   categoryID: ID!
 }
 input DeleteCategoryInput {
-   categoryID: ID!
+  categoryID: ID!
 }
 
 # POSTS
@@ -207,7 +196,6 @@ input LoginUserInput {
   email: String!
   password: String!
 }
-
 
 ### MUTATION RESPONSES
 
@@ -305,7 +293,7 @@ type DeleteCommentMutationResponse implements MutationResponse {
   comment: Comment!
 }
 
-#  CHAT 
+#  CHAT
 type CreateChatRoomMutationResponse implements MutationResponse {
   code: String!
   success: Boolean!

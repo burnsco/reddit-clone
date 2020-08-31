@@ -1,9 +1,8 @@
-import { AuthenticationError } from "apollo-server-express"
 
 const Query = {
   currentUser: async (root, args, { db, user }) => {
     if (!user.userID) {
-      throw new AuthenticationError("no user logged in")
+      throw new Error('User Not Authenticated.')
     }
     const requested = await db.query.user({
       where: {
